@@ -1033,13 +1033,13 @@
     "source": "SIHRE_Wiki/05_Meta_Orchestrator/Deep_Research_Meta_Orchestrator_Signal_13.md",
     "type": "fact",
     "tags": [
-      "public-after-review",
+      "private-sensitive",
       "meta-orchestrator",
       "sihre",
       "p0-ingest"
     ],
     "metadata": {
-      "classification": "public-after-review",
+      "classification": "private-sensitive",
       "artifact_type": "meta-orchestrator",
       "original_path": "05_Meta_Orchestrator/Deep_Research_Meta_Orchestrator_Signal_13.md"
     },
@@ -1125,13 +1125,13 @@
     "source": "SIHRE_Wiki/07_Research_and_Prior_Art/Deep_Research_Ensemble_Architecture_State_of_Art.md",
     "type": "fact",
     "tags": [
-      "public-after-review",
+      "private-sensitive",
       "research",
       "sihre",
       "p0-ingest"
     ],
     "metadata": {
-      "classification": "public-after-review",
+      "classification": "private-sensitive",
       "artifact_type": "research",
       "original_path": "07_Research_and_Prior_Art/Deep_Research_Ensemble_Architecture_State_of_Art.md"
     },
@@ -1171,13 +1171,13 @@
     "source": "SIHRE_Wiki/07_Research_and_Prior_Art/Deep_Research_Gemini_Ensemble_Architecture.md",
     "type": "fact",
     "tags": [
-      "public-after-review",
+      "private-sensitive",
       "research",
       "sihre",
       "p0-ingest"
     ],
     "metadata": {
-      "classification": "public-after-review",
+      "classification": "private-sensitive",
       "artifact_type": "research",
       "original_path": "07_Research_and_Prior_Art/Deep_Research_Gemini_Ensemble_Architecture.md"
     },
