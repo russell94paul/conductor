@@ -14,7 +14,7 @@
     .pl-header-left { display: flex; align-items: center; gap: 14px; }
     .pl-title {
         font-size: 1.1rem; font-weight: 800; letter-spacing: 0.12em;
-        background: linear-gradient(90deg, #38bdf8, #a78bfa, #4ade80);
+        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet), var(--accent-green));
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
     }
@@ -22,6 +22,15 @@
         font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase;
         letter-spacing: 0.14em; font-weight: 600;
     }
+
+    .pl-filter-select {
+        font-size: 0.68rem; font-weight: 600; padding: 5px 12px; border-radius: 8px;
+        border: 1px solid var(--border-medium); background: rgba(255,255,255,0.03);
+        color: var(--text-secondary); cursor: pointer; font-family: var(--font-family);
+    }
+    .pl-filter-select:focus { outline: none; border-color: var(--accent-cyan); }
+    .pl-filter-select option { background: #0a0f1a; color: var(--text-primary); }
+    .pl-progress-strip { padding: 0 24px 8px; }
 
     .pl-kpi-strip {
         display: flex; align-items: center; gap: 10px;
@@ -657,6 +666,7 @@
         function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 
         function refresh() {
+            if (!document.getElementById('pl-kpis')) return;
             Promise.all([
                 fetchJSON(API + '/pipelines'),
                 fetchJSON(API + '/templates')

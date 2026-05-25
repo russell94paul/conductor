@@ -3,296 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conductor</title>
+    <title>Conductor Cortex</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/base.css">
     <style>
-        body { display: flex; flex-direction: column; }
+        body { display: flex; flex-direction: column; overflow: hidden; height: 100vh; }
+        .app-shell { display: flex; flex: 1; overflow: hidden; }
 
-        /* Top nav shell */
-        .topnav {
-            display: flex; align-items: center; gap: 4px; padding: 0 20px;
-            background: linear-gradient(180deg, #0d161f 0%, #0a1219 100%);
-            border-bottom: 1px solid var(--border-light);
-            height: 56px; position: sticky; top: 0; z-index: 100;
-        }
-        .topnav-brand {
+        /* --- Top Bar --- */
+        .topbar {
             display: flex; align-items: center; gap: 10px;
-            margin-right: 24px; white-space: nowrap; cursor: pointer;
+            padding: 0 20px; height: 48px;
+            background: rgba(5, 8, 18, 0.88);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky; top: 0; z-index: 100; flex-shrink: 0;
         }
-        .topnav-mark {
-            width: 30px; height: 30px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        .topbar-brand {
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; white-space: nowrap; flex-shrink: 0;
+        }
+        .topbar-mark {
+            width: 28px; height: 28px; border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
             display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: 800; color: #fff;
-            box-shadow: 0 0 16px rgba(56,189,248,0.3);
+            font-size: 12px; font-weight: 800; color: #fff;
+            box-shadow: 0 0 20px rgba(94,231,255,0.20);
         }
-        .topnav-brand-text { display: flex; flex-direction: column; line-height: 1.15; }
-        .topnav-brand-name {
-            font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.3px;
+        .topbar-name {
+            font-size: 0.78rem; font-weight: 800; color: #fff;
+            letter-spacing: 0.18em; font-family: var(--font-display);
         }
-        .topnav-brand-sub {
-            font-size: 9.5px; color: var(--text-dim);
-            text-transform: uppercase; letter-spacing: 0.14em;
+        .topbar-sub {
+            font-size: 0.52rem; color: var(--text-dim); letter-spacing: 0.12em;
+            text-transform: uppercase; font-weight: 600;
+        }
+        .topbar-sep { width: 1px; height: 20px; background: var(--border-light); margin: 0 4px; flex-shrink: 0; }
+
+        /* Search */
+        .topbar-search { flex: 1; max-width: 360px; position: relative; }
+        .topbar-search input {
+            width: 100%; padding: 6px 12px 6px 30px; border-radius: 8px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle);
+            color: var(--text-secondary); font-size: 0.72rem; font-family: var(--font-family);
+            transition: border-color var(--transition-fast), background var(--transition-fast);
+        }
+        .topbar-search input:focus { outline: none; border-color: rgba(94,231,255,0.25); background: rgba(94,231,255,0.03); }
+        .topbar-search input::placeholder { color: var(--text-faint); }
+        .topbar-search-icon { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--text-faint); pointer-events: none; }
+        .topbar-search-kbd {
+            position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+            font-size: 0.55rem; color: var(--text-faint); background: rgba(255,255,255,0.04);
+            padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border-subtle); font-family: var(--font-mono);
         }
 
-        .topnav-links {
-            display: flex; align-items: center; gap: 2px; flex: 1; height: 100%;
-        }
-        .topnav-link {
-            display: flex; align-items: center; gap: 6px;
-            padding: 0 14px; height: 100%;
-            font-size: 0.78rem; font-weight: 600;
-            color: var(--text-secondary); text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: color 0.2s, border-color 0.2s, background 0.2s;
-            cursor: pointer; white-space: nowrap;
-        }
-        .topnav-link svg {
-            width: 14px; height: 14px;
-            stroke: currentColor; fill: none;
-            stroke-width: 1.8;
-            stroke-linecap: round; stroke-linejoin: round;
-        }
-        .topnav-link:hover { color: #fff; background: rgba(255,255,255,0.03); }
-        .topnav-link.active {
-            color: var(--accent-blue);
-            border-bottom-color: var(--accent-blue);
+        /* Right side */
+        .topbar-right { display: flex; align-items: center; gap: 14px; margin-left: auto; flex-shrink: 0; }
+        .topbar-status { display: flex; align-items: center; gap: 5px; font-size: 0.65rem; color: var(--text-dim); }
+        .topbar-stat { font-family: var(--font-mono); font-weight: 700; color: var(--text-secondary); font-size: 0.68rem; }
+        .conn-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+        .conn-dot.connected { background: var(--accent-green); box-shadow: 0 0 6px rgba(82,255,184,0.4); animation: connPulse 2.2s ease-out infinite; }
+        @keyframes connPulse { 0% { box-shadow: 0 0 0 0 rgba(82,255,184,0.5); } 70% { box-shadow: 0 0 0 8px rgba(82,255,184,0); } 100% { box-shadow: 0 0 0 0 rgba(82,255,184,0); } }
+        .topbar-avatar {
+            width: 28px; height: 28px; border-radius: 8px;
+            background: linear-gradient(135deg, var(--bg-surface-3), var(--bg-surface-4));
+            border: 1px solid var(--border-light);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.62rem; font-weight: 700; color: var(--text-muted); cursor: pointer;
         }
 
-        /* Status bar */
-        .statusbar {
-            display: flex; align-items: center; gap: 14px;
-            margin-left: auto; font-size: 0.72rem; flex-shrink: 0;
+        /* --- Nav Rail --- */
+        .nav-rail {
+            width: 54px; flex-shrink: 0;
+            background: rgba(5, 8, 18, 0.92);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-right: 1px solid var(--border-light);
+            display: flex; flex-direction: column; overflow: hidden; z-index: 90;
+            transition: width 0.28s var(--ease-out-expo);
         }
-        .statusbar-item {
-            display: flex; align-items: center; gap: 5px;
-            color: var(--text-dim); white-space: nowrap;
+        .nav-rail.expanded { width: 210px; }
+        .nav-rail.expanded .nav-label { opacity: 1; }
+        .nav-rail.expanded .nav-group-title { opacity: 1; max-height: 28px; }
+        .nav-toggle {
+            display: flex; align-items: center; justify-content: center;
+            height: 36px; margin: 6px 8px; border-radius: 8px; cursor: pointer;
+            background: none; border: none; color: var(--text-dim); transition: all var(--transition-fast);
         }
-        .statusbar-val {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            color: var(--text-secondary);
+        .nav-toggle:hover { color: var(--text-secondary); background: rgba(255,255,255,0.04); }
+        .nav-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .nav-items { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 4px 8px; display: flex; flex-direction: column; gap: 1px; }
+        .nav-group-title {
+            font-size: 0.52rem; font-weight: 700; color: var(--text-faint); text-transform: uppercase;
+            letter-spacing: 0.1em; padding: 10px 12px 3px; white-space: nowrap;
+            opacity: 0; max-height: 0; overflow: hidden; transition: opacity 0.2s, max-height 0.2s;
         }
-        .conn-dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            display: inline-block;
+        .nav-link {
+            display: flex; align-items: center; gap: 12px; padding: 7px 12px; border-radius: 8px;
+            color: var(--text-muted); text-decoration: none; cursor: pointer; white-space: nowrap;
+            position: relative; transition: all var(--transition-fast); min-height: 36px;
         }
-        .conn-dot.connected {
-            background: var(--accent-green);
-            box-shadow: 0 0 0 0 rgba(74,222,128,0.6);
-            animation: connPulse 2.2s ease-out infinite;
+        .nav-link:hover { color: var(--text-secondary); background: rgba(255,255,255,0.03); }
+        .nav-link.active { color: var(--accent-cyan); background: rgba(94,231,255,0.05); }
+        .nav-link.active::before {
+            content: ''; position: absolute; left: -8px; top: 6px; bottom: 6px;
+            width: 3px; border-radius: 0 3px 3px 0; background: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(94,231,255,0.4);
         }
-        .conn-dot.disconnected {
-            background: var(--accent-red);
-            animation: none;
-        }
-        @keyframes connPulse {
-            0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
-            70%  { box-shadow: 0 0 0 8px rgba(74,222,128,0); }
-            100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
-        }
+        .nav-icon { width: 17px; height: 17px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .nav-label { font-size: 0.72rem; font-weight: 600; opacity: 0; transition: opacity 0.15s; overflow: hidden; }
+        .nav-divider { height: 1px; background: var(--border-subtle); margin: 4px 12px; }
 
-        /* Breadcrumbs */
+        /* --- Main Content --- */
+        .main-wrap { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
         .breadcrumb-bar {
-            display: flex; align-items: center; gap: 6px;
-            padding: 6px 24px; background: rgba(255,255,255,0.015);
-            border-bottom: 1px solid var(--border-subtle);
-            font-size: 0.72rem; color: var(--text-dim); min-height: 28px;
+            display: flex; align-items: center; gap: 6px; padding: 5px 24px;
+            background: rgba(255,255,255,0.008); border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.65rem; color: var(--text-dim); min-height: 26px; flex-shrink: 0;
         }
-        .breadcrumb-bar a { color: var(--accent-blue); text-decoration: none; cursor: pointer; }
+        .breadcrumb-bar a { color: var(--accent-cyan); text-decoration: none; cursor: pointer; }
         .breadcrumb-bar a:hover { text-decoration: underline; }
         .breadcrumb-sep { margin: 0 2px; }
+        .content-area { flex: 1; overflow-y: auto; position: relative; }
 
-        /* Content area */
-        .content-area {
-            flex: 1; overflow-y: auto; position: relative;
-            min-height: calc(100vh - 84px);
-        }
-
-        /* Loading indicator */
+        /* Loading */
         .loading-bar {
             position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
-            transform: scaleX(0); transform-origin: left;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue), var(--accent-green));
+            background-size: 200% 100%; transform: scaleX(0); transform-origin: left;
             transition: transform 0.3s; z-index: 10;
         }
-        .loading-bar.active { transform: scaleX(0.7); transition: transform 0.8s; }
-        .loading-bar.done   { transform: scaleX(1); transition: transform 0.15s; }
+        .loading-bar.active { transform: scaleX(0.7); transition: transform 0.8s; animation: loadShimmer 1.5s linear infinite; }
+        .loading-bar.done { transform: scaleX(1); transition: transform 0.15s; }
+        @keyframes loadShimmer { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
+
+        #page-content { animation: pageEnter 0.35s var(--ease-out-expo); }
+        @keyframes pageEnter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Mobile --- */
+        .nav-mobile-toggle { display: none; }
+        .nav-overlay { display: none; }
+
+        /* --- Conductor Control Dropdown --- */
+        .topbar-ctrl-btn {
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border-medium);
+            border-radius: 8px; padding: 5px 8px; cursor: pointer; color: var(--text-muted);
+            transition: all var(--transition-fast);
+        }
+        .topbar-ctrl-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(94,231,255,0.05); }
+        .ctrl-dropdown {
+            display: none; position: absolute; right: 0; top: calc(100% + 8px);
+            width: 280px; max-height: 70vh; overflow-y: auto;
+            background: rgba(10,16,32,0.96); border: 1px solid var(--border-medium);
+            border-radius: var(--radius-md); padding: 8px;
+            box-shadow: var(--shadow-panel); z-index: 300;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        }
+        .ctrl-dropdown.open { display: block; animation: fadeIn 0.2s ease; }
+        .ctrl-section-label {
+            font-size: 0.5rem; font-weight: 700; color: var(--text-faint);
+            text-transform: uppercase; letter-spacing: 0.1em; padding: 8px 10px 3px;
+        }
+        .ctrl-option {
+            display: flex; align-items: center; gap: 8px; padding: 6px 10px;
+            border-radius: 6px; font-size: 0.68rem; color: var(--text-muted);
+            cursor: pointer; transition: all 0.12s;
+        }
+        .ctrl-option:hover { background: rgba(255,255,255,0.04); color: var(--text-secondary); }
+        .ctrl-option.active { color: var(--accent-cyan); background: rgba(94,231,255,0.06); }
+        .ctrl-option-dot {
+            width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+            border: 1px solid var(--text-faint);
+        }
+        .ctrl-option.active .ctrl-option-dot { background: var(--accent-cyan); border-color: var(--accent-cyan); box-shadow: 0 0 6px rgba(94,231,255,0.4); }
+        .ctrl-divider { height: 1px; background: var(--border-subtle); margin: 4px 6px; }
+
+        /* --- AI Insight Dock --- */
+        .ai-dock {
+            width: 0; overflow: hidden; flex-shrink: 0;
+            background: rgba(5,8,18,0.92); border-left: 1px solid var(--border-light);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            transition: width 0.35s var(--ease-out-expo);
+            display: flex; flex-direction: column;
+        }
+        .ai-dock.open { width: 280px; }
+        .ai-dock-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 14px; border-bottom: 1px solid var(--border-subtle); flex-shrink: 0;
+        }
+        .ai-dock-title {
+            font-size: 0.62rem; font-weight: 700; color: var(--accent-violet);
+            text-transform: uppercase; letter-spacing: 0.1em;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .ai-dock-close {
+            background: none; border: none; color: var(--text-faint); cursor: pointer;
+            padding: 2px; display: flex; align-items: center;
+        }
+        .ai-dock-close:hover { color: var(--text-secondary); }
+        .ai-dock-body { flex: 1; overflow-y: auto; padding: 10px 14px; }
+        .ai-insight-card {
+            padding: 10px 12px; margin-bottom: 8px; border-radius: 8px;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+            font-size: 0.68rem; color: var(--text-body); line-height: 1.6;
+        }
+        .ai-insight-card-label {
+            font-size: 0.5rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; margin-bottom: 4px;
+        }
+        .ai-insight-card-label.summary { color: var(--accent-violet); }
+        .ai-insight-card-label.anomaly { color: var(--accent-red); }
+        .ai-insight-card-label.action { color: var(--accent-green); }
+        .ai-insight-card-label.cost { color: var(--accent-gold); }
+        .ai-insight-card-label.compare { color: var(--accent-cyan); }
+
+        /* --- KPI Detail Drawer --- */
+        .kpi-drawer-overlay {
+            position: fixed; inset: 0; background: rgba(3,5,10,0.6);
+            backdrop-filter: blur(4px); z-index: 400; display: none; opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .kpi-drawer-overlay.open { display: block; opacity: 1; }
+        .kpi-drawer {
+            position: fixed; right: -400px; top: 0; bottom: 0; width: 380px;
+            background: rgba(10,16,32,0.97); border-left: 1px solid var(--border-medium);
+            z-index: 401; padding: 20px; overflow-y: auto;
+            transition: right 0.3s var(--ease-out-expo);
+            box-shadow: -8px 0 40px rgba(0,0,0,0.4);
+        }
+        .kpi-drawer.open { right: 0; }
+        .kpi-drawer-close {
+            position: absolute; top: 12px; right: 12px;
+            background: none; border: none; color: var(--text-faint); cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .kpi-drawer-close:hover { color: var(--text-secondary); }
+        @media (max-width: 768px) {
+            .nav-rail { position: fixed; left: -240px; top: 48px; bottom: 0; width: 240px; z-index: 200; transition: left 0.3s var(--ease-out-expo); }
+            .nav-rail.mobile-open { left: 0; }
+            .nav-rail.mobile-open .nav-label { opacity: 1; }
+            .nav-rail.mobile-open .nav-group-title { opacity: 1; max-height: 28px; }
+            .nav-overlay { position: fixed; inset: 0; top: 48px; background: rgba(3,5,9,0.6); z-index: 199; }
+            .nav-overlay.show { display: block; }
+            .nav-mobile-toggle { display: flex; align-items: center; justify-content: center; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px; margin-right: 4px; }
+            .nav-mobile-toggle svg { width: 20px; height: 20px; }
+            .nav-toggle { display: none; }
+            .topbar-search { display: none; }
+        }
     </style>
 </head>
 <body>
-    <div class="topnav">
-        <div class="topnav-brand" onclick="window.navigateTo('sessions')">
-            <div class="topnav-mark">C</div>
-            <div class="topnav-brand-text">
-                <span class="topnav-brand-name">Conductor</span>
-                <span class="topnav-brand-sub">Product Orchestrator</span>
+    <div class="topbar">
+        <button class="nav-mobile-toggle" onclick="toggleMobileNav()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="topbar-brand" onclick="window.navigateTo('overview')">
+            <div class="topbar-mark">C</div>
+            <div style="display:flex;flex-direction:column;line-height:1.1;">
+                <span class="topbar-name">CONDUCTOR</span>
+                <span class="topbar-sub">Cortex Operations</span>
             </div>
         </div>
-
-        <div class="topnav-links" id="topnav-links">
-            <a class="topnav-link" data-route="labs">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                Labs Institute
-            </a>
-            <a class="topnav-link" data-route="groovenet">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"/><path d="M9 9a3 3 0 106 0"/><path d="M15 15a3 3 0 10-6 0"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
-                GrooveNet
-            </a>
-            <a class="topnav-link" data-route="build-studio">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
-                Build Studio
-            </a>
-            <a class="topnav-link" data-route="onboarding">
-                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-                Onboarding
-            </a>
-            <a class="topnav-link" data-route="conductor">
-                <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2" fill="currentColor" opacity="0.6"/><circle cx="12" cy="5" r="2" fill="currentColor" opacity="0.6"/><circle cx="19" cy="12" r="2" fill="currentColor" opacity="0.6"/><circle cx="12" cy="19" r="2" fill="currentColor" opacity="0.6"/><line x1="5" y1="12" x2="12" y2="5" opacity="0.4"/><line x1="12" y1="5" x2="19" y2="12" opacity="0.4"/><line x1="19" y1="12" x2="12" y2="19" opacity="0.4"/><line x1="12" y1="19" x2="5" y2="12" opacity="0.4"/></svg>
-                Conductor
-            </a>
-            <a class="topnav-link" data-route="sessions">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="14" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-                Sessions
-            </a>
-            <a class="topnav-link" data-route="pipelines">
-                <svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>
-                Pipelines
-            </a>
-            <a class="topnav-link" data-route="phases">
-                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                Phases
-            </a>
-            <a class="topnav-link" data-route="projects">
-                <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M3 14h7v7H3z"/><path d="M14 14h7v7h-7z"/></svg>
-                Projects
-            </a>
-            <a class="topnav-link" data-route="requirements">
-                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                Requirements
-            </a>
-            <a class="topnav-link" data-route="bootstrap">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                Bootstrap
-            </a>
+        <div class="topbar-sep"></div>
+        <div class="topbar-search">
+            <svg class="topbar-search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" placeholder="Search sessions, pipelines, projects..." id="global-search">
+            <span class="topbar-search-kbd">⌘K</span>
         </div>
-
-        <div class="statusbar">
-            <div class="statusbar-item">
-                <span class="conn-dot connected" id="conn-dot"></span>
-                <span id="conn-label">Connected</span>
+        <div class="topbar-right">
+            <div class="topbar-status"><span class="conn-dot connected" id="conn-dot"></span><span id="conn-label">Live</span></div>
+            <div class="topbar-status">Sessions <span class="topbar-stat" id="stat-sessions">0</span></div>
+            <div class="topbar-status">Cost <span class="topbar-stat" id="stat-cost">$0.00</span></div>
+            <!-- Conductor Control -->
+            <div style="position:relative;">
+                <button class="topbar-ctrl-btn" id="ctrl-toggle" onclick="toggleConductorCtrl()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+                <div class="ctrl-dropdown" id="ctrl-dropdown"></div>
             </div>
-            <div class="statusbar-item">
-                Sessions: <span class="statusbar-val" id="stat-sessions">0</span>
-            </div>
-            <div class="statusbar-item">
-                Cost: <span class="statusbar-val" id="stat-cost">$0.00</span>
-            </div>
+            <div class="topbar-avatar">PR</div>
         </div>
     </div>
 
-    <div class="breadcrumb-bar" id="breadcrumbs">
-        <span>Conductor</span>
+    <div class="app-shell">
+        <nav class="nav-rail" id="nav-rail">
+            <button class="nav-toggle" onclick="toggleNav()" title="Toggle sidebar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="15" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <div class="nav-items">
+                <div class="nav-group-title">Command</div>
+                <a class="nav-link" data-route="overview"><svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg><span class="nav-label">Overview</span></a>
+                <a class="nav-link" data-route="conductor"><svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path></svg><span class="nav-label">Conductor</span></a>
+                <a class="nav-link" data-route="sessions"><svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="14" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg><span class="nav-label">Sessions</span></a>
+                <a class="nav-link" data-route="pipelines"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M6 3v12"></path><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg><span class="nav-label">Pipelines</span></a>
+                <a class="nav-link" data-route="phases"><svg class="nav-icon" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg><span class="nav-label">Phases</span></a>
+                <a class="nav-link" data-route="projects"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg><span class="nav-label">Projects</span></a>
+
+                <div class="nav-divider"></div>
+                <div class="nav-group-title">Products</div>
+                <a class="nav-link" data-route="labs"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg><span class="nav-label">Labs Institute</span></a>
+                <a class="nav-link" data-route="groovenet"><svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none"></circle><path d="M9 9a3 3 0 106 0"></path><path d="M15 15a3 3 0 10-6 0"></path><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"></circle></svg><span class="nav-label">GrooveNet</span></a>
+
+                <div class="nav-divider"></div>
+                <div class="nav-group-title">Build</div>
+                <a class="nav-link" data-route="build-studio"><svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="9" x2="9" y2="21"></line></svg><span class="nav-label">Build Studio</span></a>
+                <a class="nav-link" data-route="onboarding"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg><span class="nav-label">Onboarding</span></a>
+                <a class="nav-link" data-route="bootstrap"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg><span class="nav-label">Bootstrap</span></a>
+                <a class="nav-link" data-route="requirements"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg><span class="nav-label">Requirements</span></a>
+
+                <div class="nav-divider"></div>
+                <div class="nav-group-title">System</div>
+                <a class="nav-link" data-route="design-system"><svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg><span class="nav-label">Design System</span></a>
+            </div>
+        </nav>
+
+        <div class="nav-overlay" id="nav-overlay" onclick="closeMobileNav()"></div>
+
+        <div class="main-wrap">
+            <div class="breadcrumb-bar" id="breadcrumbs"><span>Conductor</span></div>
+            <div class="content-area" id="content-area">
+                <div class="loading-bar" id="loading-bar"></div>
+                <div id="page-content"></div>
+            </div>
+        </div>
+
+        <!-- AI Insight Dock -->
+        <div class="ai-dock" id="ai-dock">
+            <div class="ai-dock-header">
+                <div class="ai-dock-title">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 10 10"></path><path d="M12 12l4-4"></path><circle cx="12" cy="12" r="2"></circle></svg>
+                    AI Insights
+                </div>
+                <button class="ai-dock-close" onclick="toggleAIDock()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="ai-dock-body" id="ai-dock-body"></div>
+        </div>
     </div>
 
-    <div class="content-area" id="content-area">
-        <div class="loading-bar" id="loading-bar"></div>
-        <div id="page-content"></div>
+    <!-- KPI Detail Drawer -->
+    <div class="kpi-drawer-overlay" id="kpi-drawer-overlay" onclick="closeKPIDrawer()"></div>
+    <div class="kpi-drawer" id="kpi-drawer">
+        <button class="kpi-drawer-close" onclick="closeKPIDrawer()">✕</button>
+        <div id="kpi-drawer-content"></div>
     </div>
 
     <style id="page-styles"></style>
 
-    <!-- Data preloader -->
+    <!-- Scripts -->
+    <script src="scripts/cockpit-data.js"></script>
+    <script src="scripts/cockpit-ui.js"></script>
+    <script src="scripts/cockpit-bg.js"></script>
+    <script src="scripts/cockpit-v3.js"></script>
+
     <script>
-    window.ConductorData = { sessions: null, pipelines: null, projects: null };
+    // Background init
+    CortexBG.injectLayers();
+    CortexBG.init();
+
+    // Data load
+    CortexData.load();
+    </script>
+
+    <!-- Nav Rail Toggle -->
+    <script>
     (function() {
-        function tryFetch(url) {
-            return fetch(url).then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; });
-        }
-        Promise.all([
-            tryFetch('data/sessions.json'),
-            tryFetch('data/pipelines.json'),
-            tryFetch('data/projects.json')
-        ]).then(function(results) {
-            window.ConductorData.sessions = results[0];
-            window.ConductorData.pipelines = results[1];
-            window.ConductorData.projects = results[2];
-            window.dispatchEvent(new CustomEvent('conductor-data-ready'));
-        });
+        var rail = document.getElementById('nav-rail');
+        var isExpanded = localStorage.getItem('nav-expanded') === 'true';
+        if (isExpanded) rail.classList.add('expanded');
+        window.toggleNav = function() { rail.classList.toggle('expanded'); localStorage.setItem('nav-expanded', rail.classList.contains('expanded')); };
+        window.toggleMobileNav = function() { rail.classList.toggle('mobile-open'); document.getElementById('nav-overlay').classList.toggle('show'); };
+        window.closeMobileNav = function() { rail.classList.remove('mobile-open'); document.getElementById('nav-overlay').classList.remove('show'); };
     })();
     </script>
 
-    <!-- SPA router -->
+    <!-- SPA Router -->
     <script>
     (function() {
         var routes = {
-            'labs':            { path: 'pages/labs.html',            label: 'Labs Institute' },
+            'overview':     { path: 'pages/overview.html',          label: 'Overview' },
+            'labs':         { path: 'pages/labs.html',              label: 'Labs Institute' },
             'labs-onboarding': { path: 'pages/labs-onboarding.html', label: 'Labs Onboarding' },
-            'groovenet':    { path: 'pages/groovenet.html',    label: 'GrooveNet' },
-            'build-studio': { path: 'pages/build-studio.html', label: 'Build Studio' },
+            'groovenet':    { path: 'pages/groovenet.html',         label: 'GrooveNet' },
+            'build-studio': { path: 'pages/build-studio.html',     label: 'Build Studio' },
             'onboarding':   { path: 'pages/onboarding-studio.html', label: 'Product Onboarding Studio' },
-            'conductor':    { path: 'pages/conductor.html',    label: 'Conductor Console' },
-            'sessions':     { path: 'pages/sessions.html',     label: 'Sessions' },
-            'pipelines':    { path: 'pages/pipelines.html',    label: 'Pipelines' },
-            'phases':       { path: 'pages/phases.html',       label: 'Phases' },
-            'projects':     { path: 'pages/projects.html',     label: 'Projects' },
-            'requirements': { path: 'pages/requirements.html', label: 'Requirements' },
-            'bootstrap':    { path: 'pages/bootstrap.html',    label: 'Bootstrap Console' }
+            'conductor':    { path: 'pages/conductor.html',         label: 'Conductor Console' },
+            'sessions':     { path: 'pages/sessions.html',          label: 'Sessions' },
+            'pipelines':    { path: 'pages/pipelines.html',         label: 'Pipelines' },
+            'phases':       { path: 'pages/phases.html',            label: 'Phases' },
+            'projects':     { path: 'pages/projects.html',          label: 'Projects' },
+            'design-system': { path: 'pages/design-system.html',   label: 'Design System' },
+            'requirements': { path: 'pages/requirements.html',      label: 'Requirements' },
+            'bootstrap':    { path: 'pages/bootstrap.html',         label: 'Bootstrap Console' }
         };
-
         var currentRoute = null;
 
         function updateBreadcrumbs(route) {
             var bc = document.getElementById('breadcrumbs');
-            var info = routes[route];
-            if (!info) return;
-            var parts = ['<a onclick="window.navigateTo(\'sessions\')">Conductor</a>'];
-            if (route !== 'sessions') {
-                parts.push('<span class="breadcrumb-sep">&#8250;</span>');
+            var info = routes[route]; if (!info) return;
+            var parts = ['<a onclick="window.navigateTo(\'overview\')">Conductor</a>'];
+            if (route !== 'overview') {
+                parts.push('<span class="breadcrumb-sep">›</span>');
                 parts.push('<span style="color:var(--text-secondary);">' + info.label + '</span>');
             } else {
-                parts.push('<span class="breadcrumb-sep">&#8250;</span>');
-                parts.push('<span style="color:var(--text-secondary);">Session Board</span>');
+                parts.push('<span class="breadcrumb-sep">›</span><span style="color:var(--text-secondary);">Overview</span>');
             }
             bc.innerHTML = parts.join('');
         }
 
         function updateActiveLink(route) {
-            document.querySelectorAll('.topnav-link[data-route]').forEach(function(l) {
-                l.classList.toggle('active', l.dataset.route === route);
-            });
+            document.querySelectorAll('.nav-link[data-route]').forEach(function(l) { l.classList.toggle('active', l.dataset.route === route); });
         }
 
         function extractContent(html) {
-            var styles = '';
-            var bodyContent = '';
-
+            var styles = '', bodyContent = '';
             var styleMatches = html.match(/<style[^>]*>([\s\S]*?)<\/style>/gi);
-            if (styleMatches) {
-                for (var i = 0; i < styleMatches.length; i++) {
-                    var inner = styleMatches[i].replace(/<\/?style[^>]*>/gi, '');
-                    styles += inner + '\n';
-                }
-            }
-
+            if (styleMatches) { for (var i = 0; i < styleMatches.length; i++) styles += styleMatches[i].replace(/<\/?style[^>]*>/gi, '') + '\n'; }
             var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-            if (bodyMatch) {
-                bodyContent = bodyMatch[1];
-            }
-
-            var scripts = [];
-            var scriptRe = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
-            var sm;
+            if (bodyMatch) bodyContent = bodyMatch[1];
+            var scripts = [], scriptRe = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi, sm;
             while ((sm = scriptRe.exec(html)) !== null) {
-                var attrs = sm[1] || '';
-                var inline = sm[2] || '';
+                var attrs = sm[1] || '', inline = sm[2] || '';
                 var srcMatch = attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
-                if (srcMatch) {
-                    scripts.push({ src: srcMatch[1] });
-                } else if (inline.trim()) {
-                    scripts.push({ code: inline });
-                }
+                if (srcMatch) scripts.push({ src: srcMatch[1] }); else if (inline.trim()) scripts.push({ code: inline });
             }
             return { styles: styles, body: bodyContent, scripts: scripts };
         }
@@ -301,82 +436,55 @@
             if (!routes[route]) return;
             if (route === currentRoute) return;
             currentRoute = route;
-
             window.location.hash = route;
             updateActiveLink(route);
             updateBreadcrumbs(route);
+            window.closeMobileNav && window.closeMobileNav();
 
             var fullscreen = (route === 'labs');
-            document.querySelector('.topnav').style.display = fullscreen ? 'none' : '';
+            document.querySelector('.topbar').style.display = fullscreen ? 'none' : '';
+            document.getElementById('nav-rail').style.display = fullscreen ? 'none' : '';
             document.querySelector('.breadcrumb-bar').style.display = fullscreen ? 'none' : '';
-            document.querySelector('.content-area').style.minHeight = fullscreen ? '100vh' : '';
 
             var pagePath = routes[route].path;
             var loadBar = document.getElementById('loading-bar');
             var content = document.getElementById('page-content');
             var pageStyles = document.getElementById('page-styles');
-
             loadBar.className = 'loading-bar active';
 
-            fetch(pagePath)
-                .then(function(r) {
-                    if (!r.ok) throw new Error('Page not found');
-                    return r.text();
-                })
-                .then(function(html) {
-                    var parsed = extractContent(html);
-                    pageStyles.textContent = parsed.styles;
-
-                    // Strip script tags from body content before injecting
-                    var cleanBody = parsed.body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
-                    content.innerHTML = cleanBody;
-
-                    // Remove old page scripts before adding new ones
-                    document.querySelectorAll('script[data-page-script]').forEach(function(old) {
-                        old.remove();
-                    });
-
-                    // Execute scripts in order
-                    parsed.scripts.forEach(function(s) {
-                        var el = document.createElement('script');
-                        el.setAttribute('data-page-script', route);
-                        if (s.src) {
-                            el.src = s.src;
-                        } else {
-                            el.textContent = s.code;
-                        }
-                        document.body.appendChild(el);
-                    });
-
-                    loadBar.className = 'loading-bar done';
-                    setTimeout(function() { loadBar.className = 'loading-bar'; }, 300);
-                })
-                .catch(function(err) {
-                    content.innerHTML = '<div style="padding:60px 20px;text-align:center;color:var(--text-muted);">' +
-                        '<h2 style="margin-bottom:8px;">Page not found</h2>' +
-                        '<p style="font-size:0.85rem;">' + route + ' is not yet available.</p></div>';
-                    loadBar.className = 'loading-bar';
+            fetch(pagePath).then(function(r) {
+                if (!r.ok) throw new Error('Not found');
+                return r.text();
+            }).then(function(html) {
+                var parsed = extractContent(html);
+                pageStyles.textContent = parsed.styles;
+                var cleanBody = parsed.body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+                content.innerHTML = cleanBody;
+                document.querySelectorAll('script[data-page-script]').forEach(function(old) { old.remove(); });
+                parsed.scripts.forEach(function(s) {
+                    var el = document.createElement('script');
+                    el.setAttribute('data-page-script', route);
+                    if (s.src) el.src = s.src; else el.textContent = s.code;
+                    document.body.appendChild(el);
                 });
+                loadBar.className = 'loading-bar done';
+                setTimeout(function() { loadBar.className = 'loading-bar'; }, 300);
+                content.style.animation = 'none'; content.offsetHeight; content.style.animation = '';
+            }).catch(function() {
+                content.innerHTML = '<div style="padding:80px 24px;text-align:center;"><div style="font-size:2rem;margin-bottom:12px;color:var(--text-faint);">404</div><h2 style="margin-bottom:8px;font-size:1rem;">Page not found</h2><p style="font-size:0.78rem;color:var(--text-dim);">' + route + ' is not available yet.</p></div>';
+                loadBar.className = 'loading-bar';
+            });
         };
 
-        // Nav link click handlers
-        document.querySelectorAll('.topnav-link[data-route]').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.navigateTo(this.dataset.route);
-            });
+        document.querySelectorAll('.nav-link[data-route]').forEach(function(link) {
+            link.addEventListener('click', function(e) { e.preventDefault(); window.navigateTo(this.dataset.route); });
         });
 
-        // Boot: route from hash or default to conductor
         var hash = window.location.hash.replace('#', '').split('&')[0];
-        window.navigateTo(hash && routes[hash] ? hash : 'labs');
-
-        // Handle back/forward
+        window.navigateTo(hash && routes[hash] ? hash : 'overview');
         window.addEventListener('hashchange', function() {
             var h = window.location.hash.replace('#', '').split('&')[0];
-            if (h && routes[h] && h !== currentRoute) {
-                window.navigateTo(h);
-            }
+            if (h && routes[h] && h !== currentRoute) window.navigateTo(h);
         });
     })();
     </script>
@@ -385,21 +493,272 @@
     <script>
     (function() {
         function updateStats() {
-            var sessions = window.ConductorData.sessions;
-            if (!sessions || !Array.isArray(sessions)) return;
-
+            var data = window.ConductorData ? window.ConductorData.sessions : null;
+            var sessions = (data && data.sessions) ? data.sessions : Array.isArray(data) ? data : [];
             var running = sessions.filter(function(s) { return s.status === 'running'; }).length;
             var total = sessions.length;
             var cost = sessions.reduce(function(sum, s) { return sum + (s.cost_usd || 0); }, 0);
-
             var statEl = document.getElementById('stat-sessions');
             var costEl = document.getElementById('stat-cost');
             if (statEl) statEl.textContent = running + '/' + total;
             if (costEl) costEl.textContent = '$' + cost.toFixed(2);
         }
-
         window.addEventListener('conductor-data-ready', updateStats);
         window.addEventListener('conductor-sessions-updated', updateStats);
+    })();
+    </script>
+
+    <!-- Conductor Control Dropdown -->
+    <script>
+    (function() {
+        var ctrlState = JSON.parse(localStorage.getItem('cortex-ctrl') || '{}');
+        ctrlState.theme = ctrlState.theme || 'cortex-dark';
+        ctrlState.density = ctrlState.density || 'comfortable';
+        ctrlState.bgfx = ctrlState.bgfx || 'balanced';
+        ctrlState.aiDock = ctrlState.aiDock || 'collapsed';
+
+        function saveCtrl() { localStorage.setItem('cortex-ctrl', JSON.stringify(ctrlState)); }
+
+        window.toggleConductorCtrl = function() {
+            var dd = document.getElementById('ctrl-dropdown');
+            var isOpen = dd.classList.contains('open');
+            if (isOpen) { dd.classList.remove('open'); return; }
+            renderCtrlDropdown();
+            dd.classList.add('open');
+            setTimeout(function() {
+                document.addEventListener('click', closeCtrlOnClick, { once: true });
+            }, 10);
+        };
+
+        function closeCtrlOnClick(e) {
+            var dd = document.getElementById('ctrl-dropdown');
+            var btn = document.getElementById('ctrl-toggle');
+            if (!dd.contains(e.target) && !btn.contains(e.target)) {
+                dd.classList.remove('open');
+            } else if (dd.classList.contains('open')) {
+                setTimeout(function() { document.addEventListener('click', closeCtrlOnClick, { once: true }); }, 10);
+            }
+        }
+
+        function renderCtrlDropdown() {
+            var dd = document.getElementById('ctrl-dropdown');
+            var html = '';
+
+            // Theme
+            html += '<div class="ctrl-section-label">Theme</div>';
+            ['cortex-dark','aurora-ops','neon-exec','graphite','labs-spectrum'].forEach(function(t) {
+                var name = t.replace(/-/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});
+                html += '<div class="ctrl-option' + (ctrlState.theme===t?' active':'') + '" onclick="setCtrl(\'theme\',\'' + t + '\')">';
+                html += '<span class="ctrl-option-dot"></span>' + name + '</div>';
+            });
+
+            html += '<div class="ctrl-divider"></div>';
+
+            // Density
+            html += '<div class="ctrl-section-label">Density</div>';
+            ['spacious','comfortable','compact'].forEach(function(d) {
+                html += '<div class="ctrl-option' + (ctrlState.density===d?' active':'') + '" onclick="setCtrl(\'density\',\'' + d + '\')">';
+                html += '<span class="ctrl-option-dot"></span>' + d.charAt(0).toUpperCase()+d.slice(1) + '</div>';
+            });
+
+            html += '<div class="ctrl-divider"></div>';
+
+            // Background FX
+            html += '<div class="ctrl-section-label">Background FX</div>';
+            ['full','balanced','minimal','off'].forEach(function(b) {
+                html += '<div class="ctrl-option' + (ctrlState.bgfx===b?' active':'') + '" onclick="setCtrl(\'bgfx\',\'' + b + '\')">';
+                html += '<span class="ctrl-option-dot"></span>' + b.charAt(0).toUpperCase()+b.slice(1) + '</div>';
+            });
+
+            html += '<div class="ctrl-divider"></div>';
+
+            // AI Dock
+            html += '<div class="ctrl-section-label">AI Insight Dock</div>';
+            ['open','collapsed'].forEach(function(a) {
+                html += '<div class="ctrl-option' + (ctrlState.aiDock===a?' active':'') + '" onclick="setCtrl(\'aiDock\',\'' + a + '\')">';
+                html += '<span class="ctrl-option-dot"></span>' + a.charAt(0).toUpperCase()+a.slice(1) + '</div>';
+            });
+
+            html += '<div class="ctrl-divider"></div>';
+            html += '<div class="ctrl-option" onclick="window.navigateTo(\'design-system\')" style="color:var(--accent-violet);"><span class="ctrl-option-dot" style="border-color:var(--accent-violet);background:var(--accent-violet);"></span>Open Dashboard Builder</div>';
+
+            dd.innerHTML = html;
+        }
+
+        window.setCtrl = function(key, val) {
+            ctrlState[key] = val;
+            saveCtrl();
+
+            if (key === 'bgfx') {
+                var bg = document.querySelector('.cortex-bg');
+                if (bg) {
+                    var opMap = { off:'0', minimal:'0.25', balanced:'0.6', full:'1' };
+                    bg.style.transition = 'opacity 0.5s'; bg.style.opacity = opMap[val] || '0.6';
+                }
+            }
+            if (key === 'aiDock') {
+                var dock = document.getElementById('ai-dock');
+                if (dock) { dock.classList.toggle('open', val === 'open'); }
+                if (val === 'open') renderAIInsights();
+            }
+            if (key === 'theme') {
+                // Apply theme via Dashboard Builder config
+                var themes = {
+                    'cortex-dark': { '--bg-void':'#03050a','--bg-primary':'#0a0f1a','--accent-cyan':'#5ee7ff','--accent-blue':'#4f8cff','--accent-violet':'#9b5cff','--accent-green':'#52ffb8','--accent-red':'#ff5c8a','--accent-amber':'#ffd166' },
+                    'aurora-ops': { '--bg-void':'#050818','--bg-primary':'#0c1228','--accent-cyan':'#38bdf8','--accent-blue':'#60a5fa','--accent-violet':'#a78bfa','--accent-green':'#4ade80','--accent-red':'#f87171','--accent-amber':'#fbbf24' },
+                    'neon-exec': { '--bg-void':'#0a0a0a','--bg-primary':'#121212','--accent-cyan':'#00f0ff','--accent-blue':'#5ee7ff','--accent-violet':'#ff4fd8','--accent-green':'#00ff88','--accent-red':'#ff2d6b','--accent-amber':'#ffd166' },
+                    'graphite': { '--bg-void':'#111418','--bg-primary':'#1a1e24','--accent-cyan':'#94a3b8','--accent-blue':'#7c93b0','--accent-violet':'#8b8fa8','--accent-green':'#7cc9a0','--accent-red':'#d4747e','--accent-amber':'#c9a96a' },
+                    'labs-spectrum': { '--bg-void':'#080412','--bg-primary':'#0e0a1e','--accent-cyan':'#4fc3f7','--accent-blue':'#4f8cff','--accent-violet':'#ce93d8','--accent-green':'#52ffb8','--accent-red':'#ff5c8a','--accent-amber':'#ffcc02' }
+                };
+                var vars = themes[val];
+                if (vars) Object.keys(vars).forEach(function(k) { document.documentElement.style.setProperty(k, vars[k]); });
+            }
+            renderCtrlDropdown();
+        };
+
+        // Apply saved state on load
+        if (ctrlState.bgfx !== 'balanced') window.setCtrl('bgfx', ctrlState.bgfx);
+        if (ctrlState.theme !== 'cortex-dark') window.setCtrl('theme', ctrlState.theme);
+        if (ctrlState.aiDock === 'open') {
+            setTimeout(function() {
+                var dock = document.getElementById('ai-dock');
+                if (dock) dock.classList.add('open');
+                renderAIInsights();
+            }, 500);
+        }
+    })();
+    </script>
+
+    <!-- AI Insight Dock -->
+    <script>
+    (function() {
+        window.toggleAIDock = function() {
+            var dock = document.getElementById('ai-dock');
+            var isOpen = dock.classList.contains('open');
+            dock.classList.toggle('open');
+            var ctrl = JSON.parse(localStorage.getItem('cortex-ctrl') || '{}');
+            ctrl.aiDock = isOpen ? 'collapsed' : 'open';
+            localStorage.setItem('cortex-ctrl', JSON.stringify(ctrl));
+            if (!isOpen) renderAIInsights();
+        };
+
+        window.renderAIInsights = function() {
+            var body = document.getElementById('ai-dock-body');
+            if (!body || typeof CortexData === 'undefined') return;
+            var m = CortexData.computeMetrics();
+            var summary = CortexData.generateSummary();
+
+            var html = '';
+            // Executive summary
+            html += '<div class="ai-insight-card"><div class="ai-insight-card-label summary">Executive Summary</div>' + summary + '</div>';
+
+            // Anomaly detection
+            if (m.failureRate > 20) {
+                html += '<div class="ai-insight-card"><div class="ai-insight-card-label anomaly">Anomaly Detected</div>';
+                html += 'Failure rate at ' + m.failureRate + '% — above 20% threshold. Investigate recent failed sessions for patterns.</div>';
+            }
+
+            // Cost insight
+            html += '<div class="ai-insight-card"><div class="ai-insight-card-label cost">Cost Analysis</div>';
+            html += 'Total spend: $' + m.totalCost.toFixed(2) + '. Avg per session: $' + m.avgCost.toFixed(3) + '. ';
+            html += 'Cost per success: $' + m.costPerSuccess.toFixed(3) + '.</div>';
+
+            // Token ratio
+            html += '<div class="ai-insight-card"><div class="ai-insight-card-label compare">Token Efficiency</div>';
+            html += 'Output/Input ratio: ' + m.tokenRatio.toFixed(2) + '. ';
+            html += (m.tokenRatio > 1.5 ? 'High output generation — check for verbose completions.' : 'Token ratio within normal range.') + '</div>';
+
+            // Recommended action
+            html += '<div class="ai-insight-card"><div class="ai-insight-card-label action">Recommended Action</div>';
+            if (m.failedSessions > 0 && m.runningPipelines > 0) {
+                html += 'Review ' + m.failedSessions + ' failed sessions before advancing ' + m.runningPipelines + ' running pipelines.';
+            } else if (m.pipelineCompletion < 50) {
+                html += 'Pipeline completion at ' + m.pipelineCompletion + '%. Focus on unblocking pending stages.';
+            } else {
+                html += 'Operations nominal. Consider archiving completed sessions to improve load times.';
+            }
+            html += '</div>';
+
+            // Project comparison
+            var projects = CortexData.getProjectList();
+            if (projects.length > 1) {
+                html += '<div class="ai-insight-card"><div class="ai-insight-card-label compare">Project Comparison</div>';
+                projects.forEach(function(p) {
+                    var pm = CortexData.computeMetrics(p.slug);
+                    html += '<div style="display:flex;justify-content:space-between;font-size:0.62rem;padding:2px 0;border-bottom:1px solid var(--border-subtle);">';
+                    html += '<span style="text-transform:capitalize;">' + p.name + '</span>';
+                    html += '<span style="font-family:var(--font-mono);color:' + (pm.healthScore >= 70 ? 'var(--accent-green)' : pm.healthScore >= 40 ? 'var(--accent-amber)' : 'var(--accent-red)') + ';">' + pm.healthScore + '%</span>';
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+
+            body.innerHTML = html;
+        };
+
+        window.addEventListener('conductor-data-ready', function() {
+            var ctrl = JSON.parse(localStorage.getItem('cortex-ctrl') || '{}');
+            if (ctrl.aiDock === 'open') renderAIInsights();
+        });
+    })();
+    </script>
+
+    <!-- KPI Detail Drawer -->
+    <script>
+    (function() {
+        window.openKPIDrawer = function(label, value, fmt, color, metric) {
+            if (typeof CortexData === 'undefined') return;
+            var m = CortexData.computeMetrics();
+            var content = document.getElementById('kpi-drawer-content');
+
+            var fmtVal = fmt === 'usd' ? '$' + parseFloat(value).toFixed(2)
+                : fmt === 'pct' ? parseFloat(value).toFixed(1) + '%'
+                : fmt === 'ratio' ? parseFloat(value).toFixed(2)
+                : parseInt(value).toLocaleString();
+
+            var html = '<div style="margin-bottom:20px;">';
+            html += '<div style="font-size:0.62rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">' + label + '</div>';
+            html += '<div style="font-size:2.4rem;font-weight:800;font-family:var(--font-mono);color:' + color + ';line-height:1;">' + fmtVal + '</div>';
+            html += '</div>';
+
+            // Sparkline
+            html += '<div style="margin-bottom:20px;"><div style="font-size:0.58rem;color:var(--text-dim);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">Trend</div>';
+            html += '<div id="kpi-drawer-spark"></div></div>';
+
+            // Per-project breakdown
+            var projects = CortexData.getProjectList();
+            html += '<div style="font-size:0.58rem;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">By Project</div>';
+            html += '<div style="display:flex;flex-direction:column;gap:4px;">';
+            projects.forEach(function(p) {
+                var pm = CortexData.computeMetrics(p.slug);
+                var pVal = metric === 'cost' ? pm.totalCost : metric === 'tokens' ? (pm.totalTokensIn + pm.totalTokensOut) : metric === 'success' ? pm.successRate : pm.totalSessions;
+                var pFmt = metric === 'cost' ? '$' + pVal.toFixed(2) : metric === 'success' ? pVal.toFixed(1) + '%' : pVal.toLocaleString();
+                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;background:rgba(255,255,255,0.02);border-radius:6px;">';
+                html += '<span style="font-size:0.7rem;color:var(--text-secondary);text-transform:capitalize;">' + p.name + '</span>';
+                html += '<span style="font-size:0.7rem;font-family:var(--font-mono);font-weight:700;color:' + color + ';">' + pFmt + '</span>';
+                html += '</div>';
+            });
+            html += '</div>';
+
+            content.innerHTML = html;
+
+            // Render sparkline
+            setTimeout(function() {
+                var sparkEl = document.getElementById('kpi-drawer-spark');
+                if (sparkEl && typeof CortexUI !== 'undefined') {
+                    var points = CortexData.computeSparkline(null, metric || 'sessions', 16);
+                    CortexUI.renderSparkline(sparkEl, points, { width: 320, height: 50, color: color });
+                }
+            }, 50);
+
+            document.getElementById('kpi-drawer-overlay').classList.add('open');
+            document.getElementById('kpi-drawer').classList.add('open');
+        };
+
+        window.closeKPIDrawer = function() {
+            document.getElementById('kpi-drawer-overlay').classList.remove('open');
+            document.getElementById('kpi-drawer').classList.remove('open');
+        };
     })();
     </script>
 </body>

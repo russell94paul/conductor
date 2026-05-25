@@ -2,115 +2,171 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Projects</title>
+    <title>Projects — Conductor Cortex</title>
     <link rel="stylesheet" href="../styles/base.css">
     <style>
-    .pj-shell { padding: 20px 24px; }
+    .pj { padding: 24px 28px; }
     .pj-header {
         display: flex; align-items: center; justify-content: space-between;
-        margin-bottom: 20px;
+        margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
     }
     .pj-title {
-        font-size: 1.1rem; font-weight: 800; letter-spacing: 0.12em;
-        background: linear-gradient(90deg, #38bdf8, #a78bfa, #4ade80);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size: 1.1rem; font-weight: 800; letter-spacing: 0.14em;
+        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet), var(--accent-green));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
+    .pj-subtitle { font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; }
+    .pj-kpi-strip {
+        display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .pj-kpi {
+        display: flex; align-items: center; gap: 6px; font-size: 0.68rem; color: var(--text-dim);
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        border-radius: 8px; padding: 6px 14px;
+    }
+    .pj-kpi-val { font-family: var(--font-mono); font-weight: 700; color: var(--text-secondary); }
+
     .pj-grid {
-        display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 16px;
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px;
     }
     .pj-card {
-        background: var(--card-gradient); border-radius: var(--card-radius);
-        border: 1px solid var(--border-light); padding: 20px;
-        cursor: pointer; transition: border-color 0.15s, transform 0.1s;
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md); padding: 20px;
+        cursor: pointer; transition: all var(--transition-fast);
+        position: relative; overflow: hidden;
     }
-    .pj-card:hover { border-color: var(--accent-blue); transform: translateY(-1px); }
-    .pj-card-name { font-size: 0.92rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-    .pj-card-desc {
-        font-size: 0.72rem; color: var(--text-dim); line-height: 1.5;
-        margin-bottom: 12px;
-        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    .pj-card:hover {
+        border-color: var(--panel-border-hot); transform: translateY(-2px);
+        box-shadow: var(--shadow-glow-cyan);
     }
-    .pj-card-meta {
-        display: flex; align-items: center; gap: 10px;
-        font-size: 0.65rem; color: var(--text-dim);
+    .pj-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+    .pj-card-name { font-size: 0.92rem; font-weight: 800; color: #fff; text-transform: capitalize; }
+    .pj-card-gauge { flex-shrink: 0; }
+    .pj-card-progress { margin: 10px 0; }
+    .pj-card-stats {
+        display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.62rem; color: var(--text-dim);
     }
-    .pj-card-stat {
-        display: flex; align-items: center; gap: 4px;
-        padding: 3px 8px; border-radius: 6px;
-        background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle);
+    .pj-card-stat { display: flex; align-items: center; gap: 4px; }
+    .pj-card-stat-val { font-family: var(--font-mono); font-weight: 700; color: var(--text-secondary); }
+    .pj-card-spark { margin-top: 10px; }
+    .pj-card-activity {
+        font-size: 0.58rem; color: var(--text-faint); font-family: var(--font-mono);
+        margin-top: 8px;
     }
-    .pj-card-stat-val {
-        font-family: var(--font-mono); font-weight: 700;
-        color: var(--text-secondary);
-    }
-    .pj-status {
-        font-size: 0.58rem; font-weight: 700; padding: 2px 8px;
-        border-radius: 6px; text-transform: uppercase;
-    }
-    .pj-status-active { background: rgba(74,222,128,0.15); color: var(--accent-green); }
-    .pj-status-parked { background: rgba(255,255,255,0.05); color: var(--text-dim); }
-    .pj-status-planned { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
     .pj-empty {
-        text-align: center; padding: 60px 20px;
-        color: var(--text-dim); font-size: 0.82rem;
+        text-align: center; padding: 60px 20px; color: var(--text-dim);
     }
+    .pj-empty h3 { font-size: 0.9rem; margin-bottom: 6px; color: var(--text-secondary); }
     </style>
 </head>
 <body>
-    <div class="pj-shell">
+    <div class="pj">
         <div class="pj-header">
-            <div class="pj-title">PROJECTS</div>
+            <div>
+                <div class="pj-title">PROJECTS</div>
+                <div class="pj-subtitle">Product Portfolio Health</div>
+            </div>
             <button class="btn btn-primary btn-sm" onclick="window.navigateTo && window.navigateTo('onboarding')">+ New Project</button>
         </div>
-        <div class="pj-grid" id="project-grid"></div>
+        <div class="pj-kpi-strip" id="pj-kpis"></div>
+        <div class="pj-grid" id="pj-grid"></div>
     </div>
 
     <script>
     (function() {
-        fetch('/api/projects')
-            .then(function(r) { return r.json(); })
-            .then(function(projects) {
-                var el = document.getElementById('project-grid');
-                if (!projects.length) {
-                    el.innerHTML = '<div class="pj-empty"><h3>No projects yet</h3><p>Create one from the Onboarding tab.</p></div>';
-                    return;
-                }
-                var html = '';
-                projects.forEach(function(p) {
-                    var phaseCount = (p.phases || []).length;
-                    var completedCount = (p.phases || []).filter(function(ph) { return ph.status === 'complete' || ph.status === 'completed'; }).length;
-                    var statusClass = p.status === 'active' ? 'active' : p.status === 'parked' ? 'parked' : 'planned';
+    'use strict';
 
-                    html += '<div class="pj-card" onclick="goToProject(\'' + esc(p.slug) + '\')">';
-                    html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">';
-                    html += '<div class="pj-card-name">' + esc(p.name) + '</div>';
-                    html += '<span class="pj-status pj-status-' + statusClass + '">' + (p.status || 'active') + '</span>';
-                    html += '</div>';
-                    html += '<div class="pj-card-desc">' + esc(p.description || '') + '</div>';
-                    html += '<div class="pj-card-meta">';
-                    html += '<div class="pj-card-stat">Phases <span class="pj-card-stat-val">' + phaseCount + '</span></div>';
-                    html += '<div class="pj-card-stat">Done <span class="pj-card-stat-val">' + completedCount + '</span></div>';
-                    if (p.platform) html += '<div class="pj-card-stat">' + esc(p.platform) + '</div>';
-                    if (p.build_order) html += '<div class="pj-card-stat">Build #<span class="pj-card-stat-val">' + p.build_order + '</span></div>';
-                    html += '</div>';
-                    html += '</div>';
-                });
-                el.innerHTML = html;
-            })
-            .catch(function(err) {
-                document.getElementById('project-grid').innerHTML = '<div class="pj-empty"><p>Failed to load projects.</p></div>';
-            });
+    function render() {
+        if (typeof CortexData === 'undefined') return;
+        var cards = CortexData.computeProjectCards();
 
-        function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+        // KPI strip
+        var totalSessions = 0, totalPipelines = 0, totalCost = 0;
+        cards.forEach(function(c) {
+            totalSessions += c.metrics.totalSessions;
+            totalPipelines += c.metrics.totalPipelines;
+            totalCost += c.metrics.totalCost;
+        });
+        document.getElementById('pj-kpis').innerHTML =
+            '<div class="pj-kpi">Projects <span class="pj-kpi-val">' + cards.length + '</span></div>' +
+            '<div class="pj-kpi">Sessions <span class="pj-kpi-val">' + totalSessions + '</span></div>' +
+            '<div class="pj-kpi">Pipelines <span class="pj-kpi-val">' + totalPipelines + '</span></div>' +
+            '<div class="pj-kpi">Cost <span class="pj-kpi-val" style="color:var(--accent-gold);">$' + totalCost.toFixed(2) + '</span></div>';
 
-        window.goToProject = function(slug) {
-            if (window.navigateTo) {
-                window.location.hash = 'phases&project=' + slug;
-                window.navigateTo('phases');
+        if (!cards.length) {
+            document.getElementById('pj-grid').innerHTML = '<div class="pj-empty"><h3>No projects</h3><p style="font-size:0.75rem;">Create one from the Onboarding tab.</p></div>';
+            return;
+        }
+
+        // Render cards
+        var html = '';
+        cards.forEach(function(c, idx) {
+            var m = c.metrics;
+            html += '<div class="pj-card" onclick="goToProject(\'' + c.slug + '\')" style="animation:fadeInStagger 0.3s ' + (idx * 60) + 'ms var(--ease-out-expo) both;">';
+
+            // Top: name + mini gauge
+            html += '<div class="pj-card-top">';
+            html += '<div class="pj-card-name">' + c.name + '</div>';
+            html += '<div class="pj-card-gauge" id="pj-gauge-' + c.slug + '"></div>';
+            html += '</div>';
+
+            // Progress bar
+            html += '<div class="pj-card-progress" id="pj-bar-' + c.slug + '"></div>';
+
+            // Stats row
+            html += '<div class="pj-card-stats">';
+            html += '<div class="pj-card-stat">Sessions <span class="pj-card-stat-val">' + m.totalSessions + '</span></div>';
+            html += '<div class="pj-card-stat">Pipelines <span class="pj-card-stat-val">' + m.totalPipelines + '</span></div>';
+            html += '<div class="pj-card-stat">Success <span class="pj-card-stat-val" style="color:var(--accent-green);">' + m.successRate + '%</span></div>';
+            html += '<div class="pj-card-stat">Cost <span class="pj-card-stat-val" style="color:var(--accent-gold);">$' + m.totalCost.toFixed(2) + '</span></div>';
+            html += '<div class="pj-card-stat">Tokens <span class="pj-card-stat-val">' + ((m.totalTokensIn + m.totalTokensOut) / 1000).toFixed(0) + 'k</span></div>';
+            html += '</div>';
+
+            // Sparkline
+            html += '<div class="pj-card-spark" id="pj-spark-' + c.slug + '"></div>';
+
+            // Latest activity
+            if (c.latestActivity) {
+                html += '<div class="pj-card-activity">Latest: ' + c.latestActivity.substring(0, 16).replace('T', ' ') + '</div>';
             }
-        };
+
+            html += '</div>';
+        });
+        document.getElementById('pj-grid').innerHTML = html;
+
+        // Render gauges, progress bars, sparklines
+        cards.forEach(function(c) {
+            var gaugeEl = document.getElementById('pj-gauge-' + c.slug);
+            if (gaugeEl && typeof CortexUI !== 'undefined') {
+                CortexUI.renderGauge(gaugeEl, c.metrics.healthScore, { size: 52, stroke: 4, label: '' });
+            }
+            var barEl = document.getElementById('pj-bar-' + c.slug);
+            if (barEl && typeof CortexUI !== 'undefined') {
+                CortexUI.renderSegmentedProgress(barEl, CortexData.computeProgressSegments(c.slug, 'session'), { height: 6 });
+            }
+            var sparkEl = document.getElementById('pj-spark-' + c.slug);
+            if (sparkEl && typeof CortexUI !== 'undefined') {
+                var points = CortexData.computeSparkline(c.slug, 'sessions', 10);
+                CortexUI.renderSparkline(sparkEl, points, { width: 200, height: 28, color: 'var(--accent-cyan)' });
+            }
+        });
+    }
+
+    window.goToProject = function(slug) {
+        if (window.navigateTo) {
+            // Set as overview filter too
+            window.location.hash = 'overview';
+            window.navigateTo('overview');
+            setTimeout(function() {
+                var sel = document.getElementById('ov-project-select');
+                if (sel) { sel.value = slug; if (window.ovRefresh) window.ovRefresh(); }
+            }, 200);
+        }
+    };
+
+    // Init
+    if (window.ConductorData && window.ConductorData.sessions) render();
+    window.addEventListener('conductor-data-ready', render);
     })();
     </script>
 </body>

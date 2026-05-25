@@ -10,11 +10,13 @@
     .ph-header {
         display: flex; align-items: center; justify-content: space-between;
         padding: 20px 24px 12px; flex-wrap: wrap; gap: 12px;
+        background: linear-gradient(135deg, rgba(94,231,255,0.02), rgba(155,92,255,0.01));
+        border-bottom: 1px solid var(--border-light);
     }
     .ph-header-left { display: flex; align-items: center; gap: 14px; }
     .ph-title {
         font-size: 1.1rem; font-weight: 800; letter-spacing: 0.12em;
-        background: linear-gradient(90deg, #38bdf8, #a78bfa, #4ade80);
+        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet), var(--accent-green));
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
     }
@@ -49,6 +51,7 @@
         color: var(--text-secondary); font-size: 0.78rem;
     }
     .ph-kpi-val.green { color: var(--accent-green); }
+    .ph-kpi-val.cyan { color: var(--accent-cyan); }
     .ph-kpi-val.blue { color: var(--accent-blue); }
     .ph-kpi-val.amber { color: var(--accent-amber); }
     .ph-kpi-val.purple { color: var(--accent-purple); }
@@ -67,7 +70,7 @@
     }
     .ph-phase-row:hover {
         background: rgba(255,255,255,0.02);
-        border-color: var(--border-medium);
+        border-color: var(--panel-border-hover);
     }
 
     .ph-phase-id {
@@ -95,7 +98,7 @@
         text-align: center; white-space: nowrap;
     }
     .ph-status-completed { background: rgba(74,222,128,0.15); color: var(--accent-green); }
-    .ph-status-running, .ph-status-in-progress { background: rgba(56,189,248,0.15); color: var(--accent-blue); }
+    .ph-status-running, .ph-status-in-progress { background: rgba(94,231,255,0.12); color: var(--accent-cyan); }
     .ph-status-planned { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
     .ph-status-not_started { background: rgba(255,255,255,0.05); color: var(--text-dim); }
     .ph-status-blocked { background: rgba(248,113,113,0.15); color: var(--accent-red); }
@@ -289,7 +292,7 @@
             <div class="ph-header-left">
                 <div>
                     <div class="ph-title">PHASE ORCHESTRATION</div>
-                    <div class="ph-subtitle">NeuroSpect Roadmap Execution</div>
+                    <div class="ph-subtitle">Phase Intelligence &amp; Orchestration</div>
                 </div>
             </div>
             <div class="ph-header-right">
