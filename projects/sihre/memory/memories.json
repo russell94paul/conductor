@@ -82,5 +82,2374 @@
     ],
     "status": "active",
     "created": "2026-05-25T05:06:34.468558+00:00"
+  },
+  {
+    "id": "mem_2de95c654e7b",
+    "project": "sihre",
+    "content": "DUPLICATES_REPORT.md: # Duplicates Report\n\n## Exact Duplicates Found (skipped during ingest)\n\n| File A | File B | Action |\n|---|---|---|\n| `raw_ingest/SIHRE_Monetization_Model.md` | `raw_ingest/SIHRE_Monetization_Artifacts/SIHRE_Monetization_Model.md` | Ingested file A only |\n| `raw_ingest/SIHRE_Monetization_Deep_Research_Prompt.md` | `raw_ingest/SIHRE_Monetization_Artifacts/SIHRE_Monetization_Deep_Research_Prompt.md` | Ingested file A only |\n| `raw_ingest/SIHRE_Pitch_Deck_Outline.md` | `raw_ingest/SIHRE_Monetization",
+    "source": "SIHRE_Wiki/DUPLICATES_REPORT.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "other",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "other",
+      "original_path": "DUPLICATES_REPORT.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.178976+00:00",
+    "updated_at": "2026-05-25T05:37:42.178999+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_9eafde546ae4",
+    "project": "sihre",
+    "content": "MASTER_INDEX.md: # SIHRE Wiki \u2014 Master Index\n\n94 content files organized across 14 sections.\n\n---\n\n## 00_Start_Here (6 files)\n\n- [[Glossary]] \u2014 SIHRE term definitions and vocabulary\n- [[Naming_and_Positioning]] \u2014 SIHRE naming conventions, brand positioning, taglines\n- [[README_Index]] \u2014 Content pack navigation and recommended flow\n- [[SIHRE_Knowledge_Map]] \u2014 Visual map of SIHRE knowledge areas and relationships\n- [[SIHRE_Vault_Index]] \u2014 Legacy vault navigation index with wikilinks\n- [[SIHRE_Wiki_Content_Pack_Ind",
+    "source": "SIHRE_Wiki/MASTER_INDEX.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "other",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "other",
+      "original_path": "MASTER_INDEX.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.214943+00:00",
+    "updated_at": "2026-05-25T05:37:42.214968+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_e07f6a2d3302",
+    "project": "sihre",
+    "content": "MIGRATION_MAP.md: # Migration Map\n\nRecords where each file originated and where it was placed in SIHRE_Wiki/.\n\n## Existing Vault Files (16 files)\n\n| # | Original Path | New Path | New Filename | Reason |\n|---|---|---|---|---|\n| 1 | `INDEX.md` | `00_Start_Here/` | `SIHRE_Vault_Index.md` | Master vault index \u2014 navigation doc |\n| 2 | `SIHRE Framework/Whitepapers/SIHRE_Standalone_Whitepaper_Public_Draft.md` | `03_Whitepaper_and_Publication/` | `SIHRE_Whitepaper_Public_Draft.md` | Public whitepaper draft |\n| 3 | `SIHR",
+    "source": "SIHRE_Wiki/MIGRATION_MAP.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "other",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "other",
+      "original_path": "MIGRATION_MAP.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.246638+00:00",
+    "updated_at": "2026-05-25T05:37:42.246676+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_e71f396ae346",
+    "project": "sihre",
+    "content": "MISSING_DOCS.md: # Missing Docs\n\nGaps in the wiki based on the current 94-file inventory.\n\n## Priority 1 \u2014 Critical for Publication\n\n| Doc | Folder | Why | Status |\n|---|---|---|---|\n| SIHRE_Framework_Overview.md | 01_Public_Framework/ | Core public-safe definition of SIHRE | **MISSING** \u2014 highest priority |\n| Verified_Reference_Bibliography.md | 03_Whitepaper_and_Publication/ | Clean, verified bibliography from deep research | **MISSING** \u2014 blocks publication |\n| Citation verification pass | 03_Whitepaper_and_P",
+    "source": "SIHRE_Wiki/MISSING_DOCS.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "other",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "other",
+      "original_path": "MISSING_DOCS.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.282063+00:00",
+    "updated_at": "2026-05-25T05:37:42.282080+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_4cf1f6d301fb",
+    "project": "sihre",
+    "content": "PUBLIC_PRIVATE_MAP.md: # Public / Private Classification Map\n\n94 content files classified by sensitivity level.\n\n## Classification Key\n\n| Level | Meaning |\n|---|---|\n| **Public-safe** | Ready for website, whitepaper, or external sharing |\n| **Public-after-review** | Has citations, novelty claims, or benchmarks needing verification |\n| **Internal-only** | Monetization, pricing, product strategy, publication planning, workflow |\n| **Private-sensitive** | IP strategy, patents, trademarks, proprietary logic, implementatio",
+    "source": "SIHRE_Wiki/PUBLIC_PRIVATE_MAP.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "other",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "other",
+      "original_path": "PUBLIC_PRIVATE_MAP.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.313413+00:00",
+    "updated_at": "2026-05-25T05:37:42.313425+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_6d97d057898a",
+    "project": "sihre",
+    "content": "README.md: # SIHRE Wiki\n\n**Self-Improving Heterogeneous Reasoning Ensemble (SIHRE)**\n\nOrganized knowledge base for the SIHRE framework \u2014 94 content files across 14 sections.\n\n## Structure\n\n| Folder | Files | Purpose |\n|---|---|---|\n| `00_Start_Here/` | 6 | Overview, indexes, glossary, knowledge map, navigation |\n| `01_Public_Framework/` | 3 | Public-safe framework explanations, non-goals, boundary rules |\n| `02_Public_Website/` | 11 | Website content: homepage, about, FAQ, blog, press kit, newsletter |\n| `",
+    "source": "SIHRE_Wiki/README.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "other",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "other",
+      "original_path": "README.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.344421+00:00",
+    "updated_at": "2026-05-25T05:37:42.344441+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_eadb11fdcc87",
+    "project": "sihre",
+    "content": "Glossary.md: \ufeff---\ntags: [sihre, glossary, definitions]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/00_START_HERE/Glossary.md\n---\n# SIHRE Glossary\n\n| Term | Meaning |\n|---|---|\n| SIHRE | Self-Improving Heterogeneous Reasoning Ensemble |\n| Meta-orchestrator | The governance layer that routes, weights, challenges, escalates, suppresses, or promotes reasoning experts |\n| Reasoning modality | A type of reasoni",
+    "source": "SIHRE_Wiki/00_Start_Here/Glossary.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/Glossary.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.381368+00:00",
+    "updated_at": "2026-05-25T05:37:42.381380+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_13a1d96f6c84",
+    "project": "sihre",
+    "content": "Naming_and_Positioning.md: \ufeff---\ntags: [sihre, naming, positioning, brand]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/00_START_HERE/Naming_and_Positioning.md\n---\n# SIHRE Naming and Positioning\n\n## Canonical name\n\n**SIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble**\n\n## Recommended title\n\n**SIHRE: Meta-Orchestrated Heterogeneous Reasoning for Adaptive Intelligence Under Non-Stationarity**\n\n## One-line descripti",
+    "source": "SIHRE_Wiki/00_Start_Here/Naming_and_Positioning.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/Naming_and_Positioning.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.411801+00:00",
+    "updated_at": "2026-05-25T05:37:42.411819+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_410522f13a71",
+    "project": "sihre",
+    "content": "README_Index.md: \ufeff---\ntags: [sihre, index, navigation]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/00_START_HERE/README_Index.md\n---\n# SIHRE Wiki Content Pack \u2014 Start Here\n\nThis pack is designed to help you populate and organize a SIHRE wiki, public website, research backlog, publication workflow, and monetization roadmap.\n\n## Recommended folder flow\n\n1. `00_START_HERE` \u2014 master map, naming, publication, an",
+    "source": "SIHRE_Wiki/00_Start_Here/README_Index.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/README_Index.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.447420+00:00",
+    "updated_at": "2026-05-25T05:37:42.447436+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_369dda18a210",
+    "project": "sihre",
+    "content": "SIHRE_Canonical_Language.md: ---\ntags: [sihre, canonical, naming, positioning]\ncreated: 2026-05-24\nupdated: 2026-05-24\n---\n\n# SIHRE Canonical Language\n\nThis is the authoritative reference for SIHRE naming, positioning, and key definitions. All public-facing content must use this language consistently.\n\n## Project Name\n\n**SIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble**\n\n## One-Line Description\n\nSIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-sta",
+    "source": "SIHRE_Wiki/00_Start_Here/SIHRE_Canonical_Language.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/SIHRE_Canonical_Language.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.471561+00:00",
+    "updated_at": "2026-05-25T05:37:42.471588+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_379dba583b31",
+    "project": "sihre",
+    "content": "SIHRE_Knowledge_Map.md: \ufeff---\ntags: [sihre, knowledge-map, navigation]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/00_START_HERE/SIHRE_Knowledge_Map.md\n---\n# SIHRE Knowledge Map\n\n## Central concept\n\nSIHRE is best understood as a **reasoning-governance architecture**, not a single model.\n\n## Knowledge domains\n\n| Area | Purpose | Public-safe? |\n|---|---|---|\n| Framework definition | Defines SIHRE and its scope | Yes",
+    "source": "SIHRE_Wiki/00_Start_Here/SIHRE_Knowledge_Map.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/SIHRE_Knowledge_Map.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.503287+00:00",
+    "updated_at": "2026-05-25T05:37:42.503308+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_828ebc441a20",
+    "project": "sihre",
+    "content": "SIHRE_Naming_Update_Report.md: ---\ntags: [sihre, naming, update-report]\ncreated: 2026-05-24\nupdated: 2026-05-24\n---\n\n# SIHRE Naming Update Report\n\n**Date:** 2026-05-24\n**Scope:** All Markdown files in `C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework\\` (excluding `raw_ingest/`)\n**Backup:** `C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework\\backup_before_sihre_naming_update\\`\n\n## Summary\n\n- **Files scanned:** ~90 (all .md files outside raw_ingest/)\n- **Files edited:** 30\n- **Files already consistent:** 43\n- **Files skipped (templat",
+    "source": "SIHRE_Wiki/00_Start_Here/SIHRE_Naming_Update_Report.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/SIHRE_Naming_Update_Report.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.537575+00:00",
+    "updated_at": "2026-05-25T05:37:42.537593+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_3f821cf5c466",
+    "project": "sihre",
+    "content": "SIHRE_Public_Safety_Flags.md: ---\ntags: [sihre, public-safety, audit]\ncreated: 2026-05-24\nupdated: 2026-05-24\n---\n\n# SIHRE Public Safety Flags\n\n**Date:** 2026-05-24\n**Purpose:** Identify files that contain content that must not appear in public-facing materials.\n\n## Classification Errors Fixed\n\n| File | Old Classification | New Classification | Reason |\n|---|---|---|---|\n| `SIHRE_Wiki/05_Meta_Orchestrator/Deep_Research_Meta_Orchestrator_Signal_13.md` | `public-after-review` | `private-sensitive` | Contains extensive NeuroFus",
+    "source": "SIHRE_Wiki/00_Start_Here/SIHRE_Public_Safety_Flags.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/SIHRE_Public_Safety_Flags.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.568666+00:00",
+    "updated_at": "2026-05-25T05:37:42.568676+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_69dcf3a80da2",
+    "project": "sihre",
+    "content": "SIHRE_Vault_Index.md: ---\ntags: [sihre, index, navigation]\nstatus: draft\nsource: original\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: INDEX.md\n---\n\n# SIHRE Framework \u2014 Vault Index\n\n**Self-Improving Heterogeneous Reasoning Ensemble (SIHRE)**\n\nSIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity.\n\n---\n\n## SIHRE Framework (Core)\n\nThe framework definition \u2014 what SIHRE is, how it works, why it's novel.",
+    "source": "SIHRE_Wiki/00_Start_Here/SIHRE_Vault_Index.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/SIHRE_Vault_Index.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.600201+00:00",
+    "updated_at": "2026-05-25T05:37:42.600212+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_e063fa9b1250",
+    "project": "sihre",
+    "content": "SIHRE_Wiki_Content_Pack_Index.md: \ufeff---\ntags: [sihre, index, content-pack, navigation]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack_Index.md\n---\n# SIHRE Wiki Content Pack \u2014 Start Here\n\nThis pack is designed to help you populate and organize a SIHRE wiki, public website, research backlog, publication workflow, and monetization roadmap.\n\n## Recommended folder flow\n\n1. `00_START_HERE` \u2014 master map, naming, publication, and publi",
+    "source": "SIHRE_Wiki/00_Start_Here/SIHRE_Wiki_Content_Pack_Index.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "admin",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "admin",
+      "original_path": "00_Start_Here/SIHRE_Wiki_Content_Pack_Index.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.631956+00:00",
+    "updated_at": "2026-05-25T05:37:42.631989+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_fe1112255cf2",
+    "project": "sihre",
+    "content": "Non_Goals.md: \ufeff---\ntags: [sihre, framework, non-goals]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Non_Goals.md\n---\n# SIHRE Non-Goals\n\nSIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity.\n\nSIHRE is not:\n\n- a universal intelligence engine\n- a guarantee of correctness or universal reliability\n- a rep",
+    "source": "SIHRE_Wiki/01_Public_Framework/Non_Goals.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "framework",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "framework",
+      "original_path": "01_Public_Framework/Non_Goals.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.663217+00:00",
+    "updated_at": "2026-05-25T05:37:42.663241+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_e6584f4e5956",
+    "project": "sihre",
+    "content": "Public_Private_Boundary.md: \ufeff---\ntags: [sihre, public-private, boundary, governance]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/00_START_HERE/Public_Private_Boundary.md\n---\n# SIHRE Public / Private Boundary\n\n> **Canonical one-liner:** SIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity.\n\n## Public-safe\n\n- SIHRE name and expansion\n- Genera",
+    "source": "SIHRE_Wiki/01_Public_Framework/Public_Private_Boundary.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "framework",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "framework",
+      "original_path": "01_Public_Framework/Public_Private_Boundary.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.698135+00:00",
+    "updated_at": "2026-05-25T05:37:42.698150+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_709b4902b375",
+    "project": "sihre",
+    "content": "Public_Safe_Examples.md: \ufeff---\ntags: [sihre, framework, examples, public]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Public_Safe_Examples.md\n---\n# Public-Safe SIHRE Examples\n\n## Industrial monitoring\n\nA SIHRE-style system combines sensor readings, maintenance history, anomaly detectors, causal diagnostics, uncertainty wrappers, and simulation of fault conditions.\n\n## Robotics\n\nA robot op",
+    "source": "SIHRE_Wiki/01_Public_Framework/Public_Safe_Examples.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "framework",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "framework",
+      "original_path": "01_Public_Framework/Public_Safe_Examples.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.730439+00:00",
+    "updated_at": "2026-05-25T05:37:42.730450+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_42b6518d2c03",
+    "project": "sihre",
+    "content": "About_SIHRE.md: \ufeff---\ntags: [sihre, website, about]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/About_SIHRE.md\n---\n# About SIHRE\n\nSIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble \u2014 is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity.\n\nSIHRE is a framework for coordinating multiple reasoning modalities th",
+    "source": "SIHRE_Wiki/02_Public_Website/About_SIHRE.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/About_SIHRE.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.761048+00:00",
+    "updated_at": "2026-05-25T05:37:42.761061+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_9d298e46ad4f",
+    "project": "sihre",
+    "content": "Applications_Page.md: \ufeff---\ntags: [sihre, website, applications, domains]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Applications_Page.md\n---\n# SIHRE Applications Page\n\nSIHRE is domain-general. It can be discussed using public-safe domains such as:\n\n## Robotics\n\nA robot must reason under changing terrain, imperfect sensors, and competing planner outputs.\n\n## Industrial monitoring\n\nA monit",
+    "source": "SIHRE_Wiki/02_Public_Website/Applications_Page.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Applications_Page.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.780553+00:00",
+    "updated_at": "2026-05-25T05:37:42.780567+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_db21274db2a2",
+    "project": "sihre",
+    "content": "Architecture_Page.md: \ufeff---\ntags: [sihre, website, architecture]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Architecture_Page.md\n---\n# SIHRE Architecture Page\n\n## Overview\n\nSIHRE is organized as a layered reasoning architecture:\n\n1. Evidence layer\n2. Memory and retrieval layer\n3. Heterogeneous reasoning layer\n4. Verification layer\n5. Simulation layer\n6. Meta-orchestration layer\n7.",
+    "source": "SIHRE_Wiki/02_Public_Website/Architecture_Page.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Architecture_Page.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.811886+00:00",
+    "updated_at": "2026-05-25T05:37:42.811916+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_c4c9c281a559",
+    "project": "sihre",
+    "content": "Blog_Post_Announcement.md: \ufeff---\ntags: [sihre, website, blog, announcement]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Blog_Post_Announcement.md\n---\n# Blog Post Announcement Draft\n\n## Introducing SIHRE\n\nToday I am introducing **SIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble**.\n\nSIHRE is a public research framework for adaptive reasoning systems that need to operate under uncer",
+    "source": "SIHRE_Wiki/02_Public_Website/Blog_Post_Announcement.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Blog_Post_Announcement.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.831735+00:00",
+    "updated_at": "2026-05-25T05:37:42.831760+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_965ae1dbc509",
+    "project": "sihre",
+    "content": "Executive_One_Pager.md: \ufeff---\ntags: [sihre, website, executive, one-pager]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Executive_One_Pager.md\n---\n# SIHRE Executive One-Pager\n\n## SIHRE\n\n**Self-Improving Heterogeneous Reasoning Ensemble**\n\n## What it is\n\nSIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity.",
+    "source": "SIHRE_Wiki/02_Public_Website/Executive_One_Pager.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Executive_One_Pager.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.862116+00:00",
+    "updated_at": "2026-05-25T05:37:42.862133+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_4f80e693009e",
+    "project": "sihre",
+    "content": "FAQ.md: \ufeff---\ntags: [sihre, website, faq]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/FAQ.md\n---\n# SIHRE FAQ\n\n## Is SIHRE a model?\n\nNo. SIHRE is a framework for coordinating multiple reasoning modalities.\n\n## Is SIHRE an ensemble?\n\nYes, but not only in the conventional sense. SIHRE is a heterogeneous reasoning ensemble governed by a meta-orchestrator.\n\n## What makes SIHRE dif",
+    "source": "SIHRE_Wiki/02_Public_Website/FAQ.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/FAQ.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.892460+00:00",
+    "updated_at": "2026-05-25T05:37:42.892474+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_d41d0ba54f31",
+    "project": "sihre",
+    "content": "Homepage_Draft.md: \ufeff---\ntags: [sihre, website, homepage]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Homepage_Draft.md\n---\n# SIHRE Website Homepage Draft\n\n## Hero\n\n### SIHRE\n**Self-Improving Heterogeneous Reasoning Ensemble**\n\nSIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity.\n\n## Short description\n\nSIHRE",
+    "source": "SIHRE_Wiki/02_Public_Website/Homepage_Draft.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Homepage_Draft.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.922994+00:00",
+    "updated_at": "2026-05-25T05:37:42.923016+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_ea463d5499aa",
+    "project": "sihre",
+    "content": "Landing_Page_Copy.md: \ufeff---\ntags: [sihre, website, landing-page]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Landing_Page_Copy.md\n---\n# SIHRE Landing Page Copy\n\n## Hero\n\n**SIHRE**  \nSIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity.\n\n## Subhero\n\nSIHRE is a framework for coordinating multiple reasoning modalit",
+    "source": "SIHRE_Wiki/02_Public_Website/Landing_Page_Copy.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Landing_Page_Copy.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.957052+00:00",
+    "updated_at": "2026-05-25T05:37:42.957061+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_3e639aac087f",
+    "project": "sihre",
+    "content": "Meta_Orchestrator_Page.md: \ufeff---\ntags: [sihre, website, meta-orchestrator]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Meta_Orchestrator_Page.md\n---\n# SIHRE Meta-Orchestrator Page\n\n## Definition\n\nThe SIHRE meta-orchestrator is a reasoning-governance layer that selects, sequences, weights, challenges, suppresses, or promotes heterogeneous reasoning modalities based on task context, uncer",
+    "source": "SIHRE_Wiki/02_Public_Website/Meta_Orchestrator_Page.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Meta_Orchestrator_Page.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:42.987736+00:00",
+    "updated_at": "2026-05-25T05:37:42.987751+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_abc671efa1e5",
+    "project": "sihre",
+    "content": "Newsletter_Issue_1.md: \ufeff---\ntags: [sihre, website, newsletter]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Newsletter_Issue_1.md\n---\n# Newsletter Issue 1 \u2014 SIHRE Launch\n\nSubject: Introducing SIHRE\n\nI\u2019m sharing the first public version of SIHRE: Self-Improving Heterogeneous Reasoning Ensemble.\n\nSIHRE is a framework for coordinating multiple reasoning modalities through a meta-orches",
+    "source": "SIHRE_Wiki/02_Public_Website/Newsletter_Issue_1.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Newsletter_Issue_1.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.015846+00:00",
+    "updated_at": "2026-05-25T05:37:43.015869+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_3521dc7219dd",
+    "project": "sihre",
+    "content": "Press_Kit.md: \ufeff---\ntags: [sihre, website, press-kit]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-24\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Press_Kit.md\n---\n# SIHRE Press Kit\n\n## Project name\n\nSIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble\n\n## One-line description\n\nSIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity.\n\n## Short",
+    "source": "SIHRE_Wiki/02_Public_Website/Press_Kit.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Press_Kit.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.047353+00:00",
+    "updated_at": "2026-05-25T05:37:43.047375+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_68584f13f7a3",
+    "project": "sihre",
+    "content": "Whitepaper_Page.md: \ufeff---\ntags: [sihre, website, whitepaper, download]\nstatus: draft\nsource: ingested\nclassification: public-safe\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/01_Public_Website_Content/Whitepaper_Page.md\n---\n# SIHRE Whitepaper Website Page\n\n## Title\n\n**SIHRE: Meta-Orchestrated Heterogeneous Reasoning for Adaptive Intelligence Under Non-Stationarity**\n\n## Abstract placeholder\n\nModern intelligent systems often operate in environments that are noisy, changing",
+    "source": "SIHRE_Wiki/02_Public_Website/Whitepaper_Page.md",
+    "type": "fact",
+    "tags": [
+      "public-safe",
+      "website",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-safe",
+      "artifact_type": "website",
+      "original_path": "02_Public_Website/Whitepaper_Page.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.078499+00:00",
+    "updated_at": "2026-05-25T05:37:43.078511+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_b3f2094bde78",
+    "project": "sihre",
+    "content": "Citation_and_DOI_Checklist.md: \ufeff---\ntags: [sihre, publication, citations, doi]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/04_IP_and_Publication/Citation_and_DOI_Checklist.md\n---\n# Citation and DOI Checklist\n\n## Citation metadata\n\n- Title\n- Author\n- Year\n- Version\n- DOI\n- URL\n- License\n- Abstract\n- Keywords\n\n## Suggested citation format\n\n```text\n[Your Name]. SIHRE: Meta-Orchestrated Heterogeneous Reasoning for Adaptive I",
+    "source": "SIHRE_Wiki/03_Whitepaper_and_Publication/Citation_and_DOI_Checklist.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "publication",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "publication",
+      "original_path": "03_Whitepaper_and_Publication/Citation_and_DOI_Checklist.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.109997+00:00",
+    "updated_at": "2026-05-25T05:37:43.110008+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_1d6614335fcd",
+    "project": "sihre",
+    "content": "Publication_Checklist.md: \ufeff---\ntags: [sihre, publication, checklist]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/00_START_HERE/Publication_Checklist.md\n---\n# SIHRE Publication Checklist\n\n## Before publishing\n\n- [ ] Confirm title and canonical acronym.\n- [ ] Verify all citations.\n- [ ] Remove internal names and implementation details.\n- [ ] Remove all domain-sensitive examples.\n- [ ] Add version number.\n- [ ] Add aut",
+    "source": "SIHRE_Wiki/03_Whitepaper_and_Publication/Publication_Checklist.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "publication",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "publication",
+      "original_path": "03_Whitepaper_and_Publication/Publication_Checklist.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.141018+00:00",
+    "updated_at": "2026-05-25T05:37:43.141028+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_e4acbdcfdbd7",
+    "project": "sihre",
+    "content": "SIHRE_Canonical_Paper_Title.md: ---\ntags: [sihre, publication, academic, title]\nstatus: draft\nsource: original\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: Publication/Academic/paper-title.md\n---\n\n# Canonical Paper Title\n\n**SIHRE: Meta-Orchestrated Heterogeneous Reasoning for Adaptive Intelligence Under Non-Stationarity**\n\n## Why This Title\n\n- **SIHRE** \u2014 establishes the term\n- **Meta-Orchestrated** \u2014 the key architectural novelty (the meta-orchestrator governs the ensemble)\n- **Heteroge",
+    "source": "SIHRE_Wiki/03_Whitepaper_and_Publication/SIHRE_Canonical_Paper_Title.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "publication",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "publication",
+      "original_path": "03_Whitepaper_and_Publication/SIHRE_Canonical_Paper_Title.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.165264+00:00",
+    "updated_at": "2026-05-25T05:37:43.165278+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_9be38e334e7e",
+    "project": "sihre",
+    "content": "SIHRE_Publication_Memo_Internal.md: ---\ntags: [sihre, publication, internal, planning]\nstatus: draft\nsource: original\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Whitepapers/SIHRE_Publication_Memo_Internal.md\n---\n\n# SIHRE Publication Memo\n\n## Purpose\n\nThis companion memo records the changes made to the SIHRE whitepaper package and the remaining work before public release. It is intended as an internal planning document, not as the public paper itself.\n\n## What changed\n\n1. Co",
+    "source": "SIHRE_Wiki/03_Whitepaper_and_Publication/SIHRE_Publication_Memo_Internal.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "publication",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "publication",
+      "original_path": "03_Whitepaper_and_Publication/SIHRE_Publication_Memo_Internal.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.196710+00:00",
+    "updated_at": "2026-05-25T05:37:43.196724+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_ea84aae9cdb4",
+    "project": "sihre",
+    "content": "SIHRE_Publishing_Guide.md: ---\ntags: [sihre, publication, strategy, checklist]\nstatus: review\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Publishing_Guide.md\n---\n\n# SIHRE Publishing Guide\n\n## Recommended Publishing Strategy\n\nFor SIHRE, the best publishing path is a controlled release that establishes authorship, preserves optional IP, and makes the paper look credible\u2014not just uploading a PDF.\n\n### Recommended route\n\n#### Phase 1 \u2014 Publish a public",
+    "source": "SIHRE_Wiki/03_Whitepaper_and_Publication/SIHRE_Publishing_Guide.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "publication",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "publication",
+      "original_path": "03_Whitepaper_and_Publication/SIHRE_Publishing_Guide.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.240320+00:00",
+    "updated_at": "2026-05-25T05:37:43.240356+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_2f2450b85121",
+    "project": "sihre",
+    "content": "SIHRE_Whitepaper_Public_Draft.md: ---\ntags: [sihre, whitepaper, publication, architecture]\nstatus: review\nsource: original\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Whitepapers/SIHRE_Standalone_Whitepaper_Public_Draft.md\n---\n\n# Abstract\n\nModern intelligent systems often operate in environments that are non-stationary, partially observable, noisy, and difficult to validate with a single model or static ensemble. **SIHRE** \u2014 **Self-Improving Heterogeneous Reasoning E",
+    "source": "SIHRE_Wiki/03_Whitepaper_and_Publication/SIHRE_Whitepaper_Public_Draft.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "publication",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "publication",
+      "original_path": "03_Whitepaper_and_Publication/SIHRE_Whitepaper_Public_Draft.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.280564+00:00",
+    "updated_at": "2026-05-25T05:37:43.280576+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_115a76bbe2e2",
+    "project": "sihre",
+    "content": "Whitepaper_Release_Checklist.md: \ufeff---\ntags: [sihre, publication, release, checklist]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/04_IP_and_Publication/Whitepaper_Release_Checklist.md\n---\n# Whitepaper Release Checklist\n\n## Final release steps\n\n- [ ] Title finalized\n- [ ] Abstract finalized\n- [ ] Author information added\n- [ ] Version number added\n- [ ] Date added\n- [ ] License added\n- [ ] References verified\n- [ ] Diagrams",
+    "source": "SIHRE_Wiki/03_Whitepaper_and_Publication/Whitepaper_Release_Checklist.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "publication",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "publication",
+      "original_path": "03_Whitepaper_and_Publication/Whitepaper_Release_Checklist.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.326205+00:00",
+    "updated_at": "2026-05-25T05:37:43.326215+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_fdc4c46c0927",
+    "project": "sihre",
+    "content": "Deep_Research_Signal_Optimization_Technical_Design.md: ---\ntags: [sihre, architecture, deep-research, signal-optimization, technical-design, neurofusion]\nstatus: final\nsource: deep-research\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/prompt-6-domain-optimization.md\n---\n\n# NeuroFusion-13 technical design for systematic trading\n\n## Design premise\n\nNeuroFusion-13 should not be built as thirteen equal-weight scores feeding a final vote. The attached research converges on a dif",
+    "source": "SIHRE_Wiki/04_Architecture/Deep_Research_Signal_Optimization_Technical_Design.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "architecture",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "architecture",
+      "original_path": "04_Architecture/Deep_Research_Signal_Optimization_Technical_Design.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.358798+00:00",
+    "updated_at": "2026-05-25T05:37:43.358809+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_b52488516c41",
+    "project": "sihre",
+    "content": "Diagram_Pack_Mermaid.md: \ufeff---\ntags: [sihre, architecture, diagrams, mermaid]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Diagram_Pack_Mermaid.md\n---\n# SIHRE Public-Safe Mermaid Diagram Pack\n\n## High-level architecture\n\n```mermaid\nflowchart TD\n    A[Changing Environment] --> B[Evidence Ingestion]\n    B --> C[Persistent Memory and Retrieval]\n    B --> D[Context Builder]\n    C --> D",
+    "source": "SIHRE_Wiki/04_Architecture/Diagram_Pack_Mermaid.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "architecture",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "architecture",
+      "original_path": "04_Architecture/Diagram_Pack_Mermaid.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.376884+00:00",
+    "updated_at": "2026-05-25T05:37:43.376901+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_ca0c8ca09f17",
+    "project": "sihre",
+    "content": "Layered_Architecture.md: \ufeff---\ntags: [sihre, architecture, layers]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Layered_Architecture.md\n---\n# SIHRE Layered Architecture\n\n| Layer | Purpose | Public-safe examples |\n|---|---|---|\n| Evidence layer | Ingest observations and documents | sensor logs, records, events |\n| Memory layer | Store context and prior outcomes | retrieved cases, pr",
+    "source": "SIHRE_Wiki/04_Architecture/Layered_Architecture.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "architecture",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "architecture",
+      "original_path": "04_Architecture/Layered_Architecture.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.415965+00:00",
+    "updated_at": "2026-05-25T05:37:43.415976+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_0f4c9af5a2eb",
+    "project": "sihre",
+    "content": "Modality_Interface_Spec_Public.md: \ufeff---\ntags: [sihre, architecture, modality, interface]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Modality_Interface_Spec_Public.md\n---\n# Public-Safe Modality Interface Spec\n\n## Purpose\n\nDefine a generic interface for SIHRE reasoning modalities without exposing implementation details.\n\n## Generic modality contract\n\nA modality should provide:\n\n- input requ",
+    "source": "SIHRE_Wiki/04_Architecture/Modality_Interface_Spec_Public.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "architecture",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "architecture",
+      "original_path": "04_Architecture/Modality_Interface_Spec_Public.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.447359+00:00",
+    "updated_at": "2026-05-25T05:37:43.447370+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_3b52e8126beb",
+    "project": "sihre",
+    "content": "Deep_Research_Meta_Orchestrator_Signal_13.md: ---\ntags: [sihre, meta-orchestrator, deep-research, signal-13, dynamic-weighting, drift-detection]\nstatus: final\nsource: deep-research\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/prompt-7-meta-orchestrator.md\n---\n\n# Signal 13 in NeuroFusion-13\n\n## Executive assessment\n\nIn the NeuroFusion-13 concept, Signal 13 is best understood not as \"another model\", but as the control plane for the entire Self-Improving Heterogeneous",
+    "source": "SIHRE_Wiki/05_Meta_Orchestrator/Deep_Research_Meta_Orchestrator_Signal_13.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "meta-orchestrator",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "meta-orchestrator",
+      "original_path": "05_Meta_Orchestrator/Deep_Research_Meta_Orchestrator_Signal_13.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.478111+00:00",
+    "updated_at": "2026-05-25T05:37:43.478121+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_0dcb239da3e8",
+    "project": "sihre",
+    "content": "Meta_Orchestrator_Spec_Public.md: \ufeff---\ntags: [sihre, meta-orchestrator, spec, public]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Meta_Orchestrator_Spec_Public.md\n---\n# SIHRE Meta-Orchestrator Public Specification\n\n## Public definition\n\nThe SIHRE meta-orchestrator is a reasoning-governance layer that selects, sequences, weights, challenges, suppresses, or promotes heterogeneous reasoning",
+    "source": "SIHRE_Wiki/05_Meta_Orchestrator/Meta_Orchestrator_Spec_Public.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "meta-orchestrator",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "meta-orchestrator",
+      "original_path": "05_Meta_Orchestrator/Meta_Orchestrator_Spec_Public.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.519237+00:00",
+    "updated_at": "2026-05-25T05:37:43.519249+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_0b9159174a41",
+    "project": "sihre",
+    "content": "Evaluation_Framework.md: \ufeff---\ntags: [sihre, evaluation, framework, metrics]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Evaluation_Framework.md\n---\n# SIHRE Evaluation Framework\n\n## Evaluation axes\n\n| Axis | Question |\n|---|---|\n| Drift robustness | Does SIHRE degrade gracefully after distribution shift? |\n| Calibration | Does uncertainty remain meaningful under shift? |\n| Escalat",
+    "source": "SIHRE_Wiki/06_Evaluation_and_Benchmarks/Evaluation_Framework.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "evaluation",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "evaluation",
+      "original_path": "06_Evaluation_and_Benchmarks/Evaluation_Framework.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.550098+00:00",
+    "updated_at": "2026-05-25T05:37:43.550108+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_a8e029699ca0",
+    "project": "sihre",
+    "content": "Deep_Research_DSLM_Quant_Hybrid.md: ---\ntags: [sihre, research, deep-research, dslm, quant, hybrid, feature-engineering]\nstatus: final\nsource: deep-research\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/prompt-2-dslm-quant-hybrid.md\n---\n\n# DSLM Features for a SIHRE Quant Stack\n\n## Bottom line\n\nYes: a domain-specific language model can emit structured outputs that are then consumed as features by a downstream tabular model such as LightGBM, and the stronges",
+    "source": "SIHRE_Wiki/07_Research_and_Prior_Art/Deep_Research_DSLM_Quant_Hybrid.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "research",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "research",
+      "original_path": "07_Research_and_Prior_Art/Deep_Research_DSLM_Quant_Hybrid.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.581522+00:00",
+    "updated_at": "2026-05-25T05:37:43.581570+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_f8674498ba5a",
+    "project": "sihre",
+    "content": "Deep_Research_Ensemble_Architecture_State_of_Art.md: ---\ntags: [sihre, research, deep-research, ensemble, architecture, literature-review]\nstatus: final\nsource: deep-research\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/prompt-1-ensemble-architecture.md\n---\n\n# NeuroFusion-13 and the state of heterogeneous reasoning architectures\n\n## Overall assessment\n\nYour proposed **Self-Improving Heterogeneous Reasoning Ensemble** is best understood as a **new architecture label for",
+    "source": "SIHRE_Wiki/07_Research_and_Prior_Art/Deep_Research_Ensemble_Architecture_State_of_Art.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "research",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "research",
+      "original_path": "07_Research_and_Prior_Art/Deep_Research_Ensemble_Architecture_State_of_Art.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.615128+00:00",
+    "updated_at": "2026-05-25T05:37:43.615139+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_c3fb6038f46a",
+    "project": "sihre",
+    "content": "Deep_Research_Extended_Signals_5_Through_13.md: ---\ntags: [sihre, research, deep-research, extended-signals, causal, conformal, adversarial, meta-orchestrator]\nstatus: final\nsource: deep-research\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/prompt-5-extended-signals.md\n---\n\n# Deep research for extending SIHRE into a genuinely novel quant architecture\n\n## Overall judgement\n\nYour proposed extension is credible as a **research architecture**, but it becomes genuinely",
+    "source": "SIHRE_Wiki/07_Research_and_Prior_Art/Deep_Research_Extended_Signals_5_Through_13.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "research",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "research",
+      "original_path": "07_Research_and_Prior_Art/Deep_Research_Extended_Signals_5_Through_13.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.645455+00:00",
+    "updated_at": "2026-05-25T05:37:43.645466+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_c7f3d8a7cead",
+    "project": "sihre",
+    "content": "Deep_Research_Gemini_Ensemble_Architecture.md: ---\ntags: [sihre, research, deep-research, ensemble, architecture, gemini]\nstatus: final\nsource: deep-research\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/prompt-1-gemini-ensemble-architecture.md\n---\n\nThe Architecture of Self-Improving Heterogeneous Reasoning Ensembles in Quantitative TradingQuantitative finance has historically evolved through distinct methodological epochs, transitioning from linear statistical arb",
+    "source": "SIHRE_Wiki/07_Research_and_Prior_Art/Deep_Research_Gemini_Ensemble_Architecture.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "research",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "research",
+      "original_path": "07_Research_and_Prior_Art/Deep_Research_Gemini_Ensemble_Architecture.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.680224+00:00",
+    "updated_at": "2026-05-25T05:37:43.680238+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_93c330651f5f",
+    "project": "sihre",
+    "content": "Deep_Research_Knowledge_Graph_Trading.md: ---\ntags: [sihre, research, deep-research, knowledge-graph, temporal, neurograph]\nstatus: final\nsource: deep-research\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/prompt-3-knowledge-graph.md\n---\n\n# NeuroGraph for systematic trading\n\n## Executive synthesis\n\nA persistent, compounding knowledge graph for a quant platform is a serious research direction rather than a decorative data layer. The closest existing bodies of wor",
+    "source": "SIHRE_Wiki/07_Research_and_Prior_Art/Deep_Research_Knowledge_Graph_Trading.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "research",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "research",
+      "original_path": "07_Research_and_Prior_Art/Deep_Research_Knowledge_Graph_Trading.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.711569+00:00",
+    "updated_at": "2026-05-25T05:37:43.711585+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_3c1f56914f9a",
+    "project": "sihre",
+    "content": "Deep_Research_Novel_Quant_Trading_Technology.md: ---\ntags: [sihre, research, deep-research, quant-trading, edge-forensics, monte-carlo]\nstatus: final\nsource: deep-research\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/prompt-4-quant-trading-tech.md\n---\n\n# Novel Quant Trading Technology Beyond Conventional Backtesting\n\n## The central finding\n\nYour SIHRE concept is directionally ahead of the market. The pieces already exist in isolation: automated strategy generation and",
+    "source": "SIHRE_Wiki/07_Research_and_Prior_Art/Deep_Research_Novel_Quant_Trading_Technology.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "research",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "research",
+      "original_path": "07_Research_and_Prior_Art/Deep_Research_Novel_Quant_Trading_Technology.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.743805+00:00",
+    "updated_at": "2026-05-25T05:37:43.743836+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_ae3a71d47e9a",
+    "project": "sihre",
+    "content": "NeuroFusion_Architecture_Research_Overview.md: ---\ntags: [sihre, research, neurofusion, architecture, signals]\nstatus: draft\nsource: original\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/README.md\n---\n\n# NeuroFusion Architecture Research\n\nCross-cutting research into the NeuroFusion-13 architecture \u2014 a Knowledge-Fused Ensemble Intelligence (KFEI) system that combines 13 distinct signal types into a unified quant trading platform.\n\nNeuroSpect is a **quant trading plat",
+    "source": "SIHRE_Wiki/07_Research_and_Prior_Art/NeuroFusion_Architecture_Research_Overview.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "research",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "research",
+      "original_path": "07_Research_and_Prior_Art/NeuroFusion_Architecture_Research_Overview.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.759446+00:00",
+    "updated_at": "2026-05-25T05:37:43.759456+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_88edcabeac51",
+    "project": "sihre",
+    "content": "README_Deep_Research_Prompt_Index.md: \ufeff---\ntags: [sihre, deep-research, prompts, index]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/README_Deep_Research_Prompt_Index.md\n---\n# Deep Research Prompt Index\n\nUse these prompts to generate additional SIHRE research docs. Recommended order:\n\n1. Competitive landscape\n2. Meta-orchestrator deep dive\n3. Evaluation benchmarks\n4. IP and patent prior art\n5. AI governance /",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/README_Deep_Research_Prompt_Index.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/README_Deep_Research_Prompt_Index.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.789626+00:00",
+    "updated_at": "2026-05-25T05:37:43.789636+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_8bdc6f2934d0",
+    "project": "sihre",
+    "content": "Prompt_Academic_Venue_Strategy.md: \ufeff---\ntags: [sihre, deep-research, academic, venues]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Academic_Venue_Strategy.md\n---\n# Deep Research Prompt \u2014 SIHRE Academic Venue Strategy\n\n## Prompt\n\n```text\nCreate a research report on where and how to publish SIHRE academically.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not includ",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Academic_and_Prior_Art/Prompt_Academic_Venue_Strategy.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Academic_and_Prior_Art/Prompt_Academic_Venue_Strategy.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.820832+00:00",
+    "updated_at": "2026-05-25T05:37:43.820847+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_33917c86bf2e",
+    "project": "sihre",
+    "content": "Prompt_Competitive_Landscape.md: \ufeff---\ntags: [sihre, deep-research, competitive-landscape]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Competitive_Landscape.md\n---\n# Deep Research Prompt \u2014 SIHRE Competitive Landscape\n\n## Prompt\n\n```text\nCreate a deep research report on the competitive landscape around SIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble.\n\nImportant boundaries:\n- Treat SIHRE as",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Academic_and_Prior_Art/Prompt_Competitive_Landscape.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Academic_and_Prior_Art/Prompt_Competitive_Landscape.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.852975+00:00",
+    "updated_at": "2026-05-25T05:37:43.852986+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_a3fcefefd18e",
+    "project": "sihre",
+    "content": "Prompt_Taxonomy_Prior_Art.md: \ufeff---\ntags: [sihre, deep-research, taxonomy, prior-art]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Taxonomy_Prior_Art.md\n---\n# Deep Research Prompt \u2014 SIHRE Taxonomy and Prior Art Map\n\n## Prompt\n\n```text\nCreate a taxonomy and prior-art map for SIHRE.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading, finance, alpha",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Academic_and_Prior_Art/Prompt_Taxonomy_Prior_Art.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Academic_and_Prior_Art/Prompt_Taxonomy_Prior_Art.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.884044+00:00",
+    "updated_at": "2026-05-25T05:37:43.884056+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_e2f3d1fe1d93",
+    "project": "sihre",
+    "content": "Prompt_Diagram_Pack.md: \ufeff---\ntags: [sihre, deep-research, diagrams]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Diagram_Pack.md\n---\n# Deep Research Prompt \u2014 SIHRE Public Diagram Pack\n\n## Prompt\n\n```text\nCreate a public-safe architecture diagram pack for SIHRE.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading, finance, alpha generation,",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Diagram_Pack.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Diagram_Pack.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.915558+00:00",
+    "updated_at": "2026-05-25T05:37:43.915569+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_999e81250162",
+    "project": "sihre",
+    "content": "Prompt_Domain_Adaptation.md: \ufeff---\ntags: [sihre, deep-research, domain-adaptation]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Domain_Adaptation.md\n---\n# Deep Research Prompt \u2014 SIHRE Domain Adaptation\n\n## Prompt\n\n```text\nCreate a research report on domain adaptation in SIHRE.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading, finance, alpha ge",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Domain_Adaptation.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Domain_Adaptation.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.948984+00:00",
+    "updated_at": "2026-05-25T05:37:43.949022+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_4a356ba40307",
+    "project": "sihre",
+    "content": "Prompt_Meta_Orchestrator_Deep_Dive.md: \ufeff---\ntags: [sihre, deep-research, meta-orchestrator]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Meta_Orchestrator_Deep_Dive.md\n---\n# Deep Research Prompt \u2014 SIHRE Meta-Orchestrator Deep Dive\n\n## Prompt\n\n```text\nCreate a deep research report on the SIHRE meta-orchestrator as the core reasoning-governance layer.\n\nImportant boundaries:\n- Treat SIHRE as a public, doma",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Meta_Orchestrator_Deep_Dive.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Meta_Orchestrator_Deep_Dive.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.978346+00:00",
+    "updated_at": "2026-05-25T05:37:43.978369+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_e90117f09647",
+    "project": "sihre",
+    "content": "Prompt_Reference_Architecture.md: \ufeff---\ntags: [sihre, deep-research, reference-architecture]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Reference_Architecture.md\n---\n# Deep Research Prompt \u2014 SIHRE Reference Architecture\n\n## Prompt\n\n```text\nCreate a public-safe SIHRE reference architecture document.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Reference_Architecture.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Reference_Architecture.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:43.998851+00:00",
+    "updated_at": "2026-05-25T05:37:43.998863+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_045d2fc2bf01",
+    "project": "sihre",
+    "content": "Prompt_Wiki_Population.md: \ufeff---\ntags: [sihre, deep-research, wiki, content-generation]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Wiki_Population.md\n---\n# Deep Research Prompt \u2014 Populate SIHRE Wiki\n\n## Prompt\n\n```text\nCreate a complete SIHRE wiki expansion plan.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading, finance, alpha generation,",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Wiki_Population.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/Prompt_Wiki_Population.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.031144+00:00",
+    "updated_at": "2026-05-25T05:37:44.031155+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_abed61c3d642",
+    "project": "sihre",
+    "content": "SIHRE_Deep_Research_Prompts_All_Seven.md: ---\ntags: [sihre, deep-research, prompts, chatgpt, architecture, meta-orchestrator]\nstatus: final\nsource: original\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: SIHRE Framework/Research Reports/deep-research-prompts.md\n---\n\n# Deep Research Prompts \u2014 NeuroFusion-13 (Self-Improving Heterogeneous Reasoning Ensemble)\n\nNeuroSpect is a **quant trading platform**. The AI coach (discretionary feedback on past trades) is a separate feature \u2014 it does NOT use the",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/SIHRE_Deep_Research_Prompts_All_Seven.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Architecture_and_Meta_Orchestration/SIHRE_Deep_Research_Prompts_All_Seven.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.061384+00:00",
+    "updated_at": "2026-05-25T05:37:44.061399+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_ee67a9720c04",
+    "project": "sihre",
+    "content": "Prompt_Benchmark_Suite.md: \ufeff---\ntags: [sihre, deep-research, benchmarks]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Benchmark_Suite.md\n---\n# Deep Research Prompt \u2014 SIHRE Benchmark Suite Design\n\n## Prompt\n\n```text\nDesign a public benchmark suite for SIHRE-style systems.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading, finance, alpha gener",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Evaluation_and_Benchmarks/Prompt_Benchmark_Suite.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Evaluation_and_Benchmarks/Prompt_Benchmark_Suite.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.079654+00:00",
+    "updated_at": "2026-05-25T05:37:44.079670+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_2a5a571c8603",
+    "project": "sihre",
+    "content": "Prompt_Evaluation_Benchmarks.md: \ufeff---\ntags: [sihre, deep-research, evaluation]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Evaluation_Benchmarks.md\n---\n# Deep Research Prompt \u2014 SIHRE Evaluation Benchmarks\n\n## Prompt\n\n```text\nCreate a deep research report proposing evaluation benchmarks for SIHRE.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading,",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Evaluation_and_Benchmarks/Prompt_Evaluation_Benchmarks.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Evaluation_and_Benchmarks/Prompt_Evaluation_Benchmarks.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.101531+00:00",
+    "updated_at": "2026-05-25T05:37:44.101546+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_7abec3788c8f",
+    "project": "sihre",
+    "content": "Prompt_AI_Governance_Compliance.md: \ufeff---\ntags: [sihre, deep-research, governance, compliance]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_AI_Governance_Compliance.md\n---\n# Deep Research Prompt \u2014 AI Governance and Compliance Positioning\n\n## Prompt\n\n```text\nCreate a deep research report on positioning SIHRE as an AI governance, reliability, and auditability framework.\n\nImportant boundaries:\n- Treat SI",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Governance_and_Safety/Prompt_AI_Governance_Compliance.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Governance_and_Safety/Prompt_AI_Governance_Compliance.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.146059+00:00",
+    "updated_at": "2026-05-25T05:37:44.146069+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_5b7bc56e095b",
+    "project": "sihre",
+    "content": "Prompt_Safety_Risk_Governance.md: \ufeff---\ntags: [sihre, deep-research, safety, risk]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Safety_Risk_Governance.md\n---\n# Deep Research Prompt \u2014 SIHRE Safety, Risk, and Governance\n\n## Prompt\n\n```text\nCreate a safety and risk report for SIHRE.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading, finance, alpha gene",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Governance_and_Safety/Prompt_Safety_Risk_Governance.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Governance_and_Safety/Prompt_Safety_Risk_Governance.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.178726+00:00",
+    "updated_at": "2026-05-25T05:37:44.178740+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_3fddb034cb27",
+    "project": "sihre",
+    "content": "Prompt_IP_Patent_Prior_Art.md: \ufeff---\ntags: [sihre, deep-research, ip, patents]\nstatus: draft\nsource: ingested\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_IP_Patent_Prior_Art.md\n---\n# Deep Research Prompt \u2014 SIHRE IP and Patent Prior Art\n\n## Prompt\n\n```text\nCreate a deep research report on SIHRE intellectual property strategy.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include tradi",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/IP_and_Publication/Prompt_IP_Patent_Prior_Art.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/IP_and_Publication/Prompt_IP_Patent_Prior_Art.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.195269+00:00",
+    "updated_at": "2026-05-25T05:37:44.195284+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_039ff2bda6ee",
+    "project": "sihre",
+    "content": "Prompt_Certification_Standard.md: \ufeff---\ntags: [sihre, deep-research, certification]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Certification_Standard.md\n---\n# Deep Research Prompt \u2014 SIHRE Certification Standard\n\n## Prompt\n\n```text\nCreate a research and business report on a future SIHRE certification program.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not inclu",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Market_and_Monetization/Prompt_Certification_Standard.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Market_and_Monetization/Prompt_Certification_Standard.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.232125+00:00",
+    "updated_at": "2026-05-25T05:37:44.232140+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_2bfa3aa8a916",
+    "project": "sihre",
+    "content": "Prompt_Control_Plane_Product.md: \ufeff---\ntags: [sihre, deep-research, control-plane, product]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Control_Plane_Product.md\n---\n# Deep Research Prompt \u2014 SIHRE Control Plane Product\n\n## Prompt\n\n```text\nCreate a product strategy and technical PRD for a SIHRE Control Plane.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not includ",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Market_and_Monetization/Prompt_Control_Plane_Product.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Market_and_Monetization/Prompt_Control_Plane_Product.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.264372+00:00",
+    "updated_at": "2026-05-25T05:37:44.264399+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_6b76c82f7a65",
+    "project": "sihre",
+    "content": "Prompt_Monetization_Market_Validation.md: \ufeff---\ntags: [sihre, deep-research, monetization, market]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Monetization_Market_Validation.md\n---\n# Deep Research Prompt \u2014 SIHRE Monetization Market Validation\n\n## Prompt\n\n```text\nCreate a market validation report for monetizing SIHRE as a standalone asset.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general fra",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Market_and_Monetization/Prompt_Monetization_Market_Validation.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Market_and_Monetization/Prompt_Monetization_Market_Validation.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.295453+00:00",
+    "updated_at": "2026-05-25T05:37:44.295483+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_5c423324c667",
+    "project": "sihre",
+    "content": "Prompt_Open_Core_Strategy.md: \ufeff---\ntags: [sihre, deep-research, open-core]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/02_Research_Prompts/Prompt_Open_Core_Strategy.md\n---\n# Deep Research Prompt \u2014 SIHRE Open-Core Strategy\n\n## Prompt\n\n```text\nCreate a strategic report on whether SIHRE should be open, closed, or open-core.\n\nImportant boundaries:\n- Treat SIHRE as a public, domain-general framework.\n- Do not include trading",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Market_and_Monetization/Prompt_Open_Core_Strategy.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Market_and_Monetization/Prompt_Open_Core_Strategy.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.326491+00:00",
+    "updated_at": "2026-05-25T05:37:44.326514+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_18aa7120fcff",
+    "project": "sihre",
+    "content": "SIHRE_Monetization_Deep_Research_Prompt.md: \ufeff---\ntags: [sihre, deep-research, monetization, market-validation, pricing]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Monetization_Deep_Research_Prompt.md\n---\n# Deep Research Prompt \u2014 SIHRE Monetization, Profit Potential, and Go-to-Market Validation\n\n```text\nI am developing SIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble \u2014 as a public research framework and potential standalone commercial asset.\n\nS",
+    "source": "SIHRE_Wiki/08_Deep_Research_Prompts/Market_and_Monetization/SIHRE_Monetization_Deep_Research_Prompt.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "research-prompts",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "research-prompts",
+      "original_path": "08_Deep_Research_Prompts/Market_and_Monetization/SIHRE_Monetization_Deep_Research_Prompt.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.357219+00:00",
+    "updated_at": "2026-05-25T05:37:44.357234+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_df41b89c745d",
+    "project": "sihre",
+    "content": "Author_Attribution_Plan.md: \ufeff---\ntags: [sihre, ip, authorship, attribution]\nstatus: draft\nsource: ingested\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/04_IP_and_Publication/Author_Attribution_Plan.md\n---\n# Author Attribution Plan\n\n## Goal\n\nAttach SIHRE clearly to you as the creator.\n\n## Tactics\n\n- Use consistent name and title on all documents\n- Add suggested citation to whitepaper\n- Publish DOI record\n- Add author page to website\n- Announce on",
+    "source": "SIHRE_Wiki/09_IP_and_Attribution/Author_Attribution_Plan.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "ip",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "ip",
+      "original_path": "09_IP_and_Attribution/Author_Attribution_Plan.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.374782+00:00",
+    "updated_at": "2026-05-25T05:37:44.374806+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_7e193f908697",
+    "project": "sihre",
+    "content": "Disclosure_Log_Template.md: \ufeff---\ntags: [sihre, ip, disclosure, log]\nstatus: draft\nsource: ingested\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/04_IP_and_Publication/Disclosure_Log_Template.md\n---\n# SIHRE Disclosure Log Template\n\n| Date | Disclosure | Audience | Public/private | Link/file | Notes |\n|---|---|---|---|---|---|\n| YYYY-MM-DD | Whitepaper draft | internal | private |  |  |\n| YYYY-MM-DD | Website launch | public | public |  |  |\n| YYYY",
+    "source": "SIHRE_Wiki/09_IP_and_Attribution/Disclosure_Log_Template.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "ip",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "ip",
+      "original_path": "09_IP_and_Attribution/Disclosure_Log_Template.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.419731+00:00",
+    "updated_at": "2026-05-25T05:37:44.419744+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_4abddc0051e6",
+    "project": "sihre",
+    "content": "IP_Strategy_Memo.md: \ufeff---\ntags: [sihre, ip, strategy, patents]\nstatus: draft\nsource: ingested\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/04_IP_and_Publication/IP_Strategy_Memo.md\n---\n# SIHRE IP Strategy Memo\n\n## Purpose\n\nThis memo tracks what should be protected, published, patented, trademarked, or kept as trade secret.\n\n## Protection categories\n\n| Category | Recommended treatment |\n|---|---|\n| SIHRE name | Trademark search / possible",
+    "source": "SIHRE_Wiki/09_IP_and_Attribution/IP_Strategy_Memo.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "ip",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "ip",
+      "original_path": "09_IP_and_Attribution/IP_Strategy_Memo.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.448528+00:00",
+    "updated_at": "2026-05-25T05:37:44.448563+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_2061a0dc913f",
+    "project": "sihre",
+    "content": "Provisional_Patent_Preparation.md: \ufeff---\ntags: [sihre, ip, patent, provisional]\nstatus: draft\nsource: ingested\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/04_IP_and_Publication/Provisional_Patent_Preparation.md\n---\n# SIHRE Provisional Patent Preparation Notes\n\n## Purpose\n\nPrepare materials for an IP attorney before public disclosure.\n\n## Bring to attorney\n\n- Whitepaper draft\n- Architecture diagrams\n- Meta-orchestrator report\n- Domain adaptation report",
+    "source": "SIHRE_Wiki/09_IP_and_Attribution/Provisional_Patent_Preparation.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "ip",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "ip",
+      "original_path": "09_IP_and_Attribution/Provisional_Patent_Preparation.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.463526+00:00",
+    "updated_at": "2026-05-25T05:37:44.463541+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_639c23b4958b",
+    "project": "sihre",
+    "content": "Trademark_Checklist.md: \ufeff---\ntags: [sihre, ip, trademark]\nstatus: draft\nsource: ingested\nclassification: private-sensitive\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/04_IP_and_Publication/Trademark_Checklist.md\n---\n# SIHRE Trademark Checklist\n\n## Name\n\nSIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble\n\n## Checklist\n\n- [ ] Search general web\n- [ ] Search USPTO\n- [ ] Search WIPO\n- [ ] Search domain names\n- [ ] Search GitHub\n- [ ] Search academic databases\n- [ ] Search",
+    "source": "SIHRE_Wiki/09_IP_and_Attribution/Trademark_Checklist.md",
+    "type": "fact",
+    "tags": [
+      "private-sensitive",
+      "ip",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "private-sensitive",
+      "artifact_type": "ip",
+      "original_path": "09_IP_and_Attribution/Trademark_Checklist.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.499515+00:00",
+    "updated_at": "2026-05-25T05:37:44.499725+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_5c3160424a3f",
+    "project": "sihre",
+    "content": "Certification_Program_Blueprint.md: \ufeff---\ntags: [sihre, monetization, certification]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/03_Product_and_Monetization/Certification_Program_Blueprint.md\n---\n# SIHRE Certification Program Blueprint\n\n## Certification concept\n\nA future SIHRE certification program would assess whether an AI system follows SIHRE-style reasoning governance principles.\n\n## Possible levels\n\n- SIHRE-Aware\n- SIHRE-",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/Certification_Program_Blueprint.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/Certification_Program_Blueprint.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.562865+00:00",
+    "updated_at": "2026-05-25T05:37:44.562891+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_c93b3114e11d",
+    "project": "sihre",
+    "content": "Consulting_Audit_Template.md: \ufeff---\ntags: [sihre, monetization, consulting, audit]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/03_Product_and_Monetization/Consulting_Audit_Template.md\n---\n# SIHRE Architecture Audit Template\n\n## Client\n\n`[client name]`\n\n## System reviewed\n\n`[system description]`\n\n## Scope\n\n- Reasoning architecture\n- Expert modules\n- Memory/retrieval\n- Uncertainty\n- Verification\n- Simulation\n- Drift handli",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/Consulting_Audit_Template.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/Consulting_Audit_Template.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.593910+00:00",
+    "updated_at": "2026-05-25T05:37:44.593923+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_b939371effe5",
+    "project": "sihre",
+    "content": "Monetization_Roadmap.md: \ufeff---\ntags: [sihre, monetization, roadmap]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/03_Product_and_Monetization/Monetization_Roadmap.md\n---\n# SIHRE Monetization Roadmap\n\n## Commercial thesis\n\nSIHRE is a meta-orchestrated framework for governing heterogeneous reasoning systems under uncertainty, drift, and non-stationarity. It should not be monetized as \u201ca model.\u201d It should be monetized as",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/Monetization_Roadmap.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/Monetization_Roadmap.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.624900+00:00",
+    "updated_at": "2026-05-25T05:37:44.624911+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_015ecfb8eb17",
+    "project": "sihre",
+    "content": "Offer_Ladder.md: \ufeff---\ntags: [sihre, monetization, offer-ladder, pricing]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/03_Product_and_Monetization/Offer_Ladder.md\n---\n# SIHRE Offer Ladder\n\n| Level | Offer | Price model | Purpose |\n|---|---|---|---|\n| Free | Whitepaper + website | Free | Build credibility |\n| Low | Paid report bundle | Fixed price | Educate buyers |\n| Mid | Architecture audit | Fixed project |",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/Offer_Ladder.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/Offer_Ladder.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.657608+00:00",
+    "updated_at": "2026-05-25T05:37:44.657626+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_37dd467af35d",
+    "project": "sihre",
+    "content": "Partner_Program.md: \ufeff---\ntags: [sihre, monetization, partners]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/03_Product_and_Monetization/Partner_Program.md\n---\n# SIHRE Partner Program\n\n## Concept\n\nThe SIHRE Partner Program would allow consultants, integrators, and AI platforms to build SIHRE-compatible systems.\n\n## Partner types\n\n- Implementation partners\n- Research partners\n- Tooling partners\n- Domain adaptatio",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/Partner_Program.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/Partner_Program.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.687261+00:00",
+    "updated_at": "2026-05-25T05:37:44.687278+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_d2d510c8dcc9",
+    "project": "sihre",
+    "content": "Pricing_Experiments.md: \ufeff---\ntags: [sihre, monetization, pricing]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/03_Product_and_Monetization/Pricing_Experiments.md\n---\n# SIHRE Pricing Experiments\n\n## Early pricing experiments\n\n| Offer | Test price | Notes |\n|---|---:|---|\n| SIHRE Architecture Audit | $2,500\u2013$10,000 | Good early consulting offer |\n| Meta-Orchestrator Blueprint | $5,000\u2013$20,000 | Higher-value technical",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/Pricing_Experiments.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/Pricing_Experiments.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.720147+00:00",
+    "updated_at": "2026-05-25T05:37:44.720162+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_1e40d18221a3",
+    "project": "sihre",
+    "content": "SIHRE_Control_Plane_PRD.md: \ufeff---\ntags: [sihre, product, control-plane, prd]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/03_Product_and_Monetization/SIHRE_Control_Plane_PRD.md\n---\n# SIHRE Control Plane \u2014 Draft PRD\n\n## Product concept\n\nThe SIHRE Control Plane is software for governing heterogeneous AI systems.\n\n## Target users\n\n- AI engineering teams\n- enterprise AI governance teams\n- agentic AI builders\n- model reliabi",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/SIHRE_Control_Plane_PRD.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/SIHRE_Control_Plane_PRD.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.751398+00:00",
+    "updated_at": "2026-05-25T05:37:44.751409+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_2c4baf47682c",
+    "project": "sihre",
+    "content": "SIHRE_Monetization_Model.md: \ufeff---\ntags: [sihre, monetization, business-model, profit-scenarios, go-to-market]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Monetization_Model.md\n---\n# SIHRE Monetization Model, Profit Scenarios, and Go-to-Market Plan\n\n**Framework:** SIHRE \u2014 Self-Improving Heterogeneous Reasoning Ensemble  \n**Purpose:** Internal business planning page for monetizing SIHRE as a standalone asset outside NeuroSpect Tier 3.  \n*",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/SIHRE_Monetization_Model.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/SIHRE_Monetization_Model.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.766789+00:00",
+    "updated_at": "2026-05-25T05:37:44.766801+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_5e854722fab7",
+    "project": "sihre",
+    "content": "SIHRE_Monetization_Strategy.md: ---\ntags: [sihre, monetization, business-model, product-strategy]\nstatus: draft\nsource: original\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: Monetization/High-Level Options (Needs Deep Research).md\n---\n\nThink of it as:\n\n> **an architecture, methodology, orchestration layer, certification framework, and IP category.**\n\nThat gives you more monetization paths than just subscriptions.\n\n---\n\n# The key distinction\n\n## NeuroSpect Tier 3: Quant\n\nThis is a **produ",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/SIHRE_Monetization_Strategy.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/SIHRE_Monetization_Strategy.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.814008+00:00",
+    "updated_at": "2026-05-25T05:37:44.814025+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_a2de7088e9a5",
+    "project": "sihre",
+    "content": "SIHRE_Pitch_Deck_Outline.md: \ufeff---\ntags: [sihre, monetization, pitch-deck, presentation]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Pitch_Deck_Outline.md\n---\n# SIHRE Pitch Deck Draft Outline\n\n## Slide 1 \u2014 Title\n\n**SIHRE**  \nMeta-Orchestrated Heterogeneous Reasoning for Adaptive Intelligence Under Non-Stationarity\n\n## Slide 2 \u2014 Problem\n\nAI systems are becoming complex combinations of models, tools, agents, retrieval layers, validators, m",
+    "source": "SIHRE_Wiki/10_Product_and_Monetization/SIHRE_Pitch_Deck_Outline.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "monetization",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "monetization",
+      "original_path": "10_Product_and_Monetization/SIHRE_Pitch_Deck_Outline.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.846230+00:00",
+    "updated_at": "2026-05-25T05:37:44.846250+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_c688dab026ca",
+    "project": "sihre",
+    "content": "Redaction_Checklist.md: \ufeff---\ntags: [sihre, governance, redaction, safety]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Redaction_Checklist.md\n---\n# SIHRE Redaction Checklist\n\n## Remove or generalize\n\n- [ ] Exact modality count\n- [ ] Internal system names\n- [ ] Private product names unless intended\n- [ ] Trading/finance examples\n- [ ] Operational workflows\n- [ ] Exact orchestration wei",
+    "source": "SIHRE_Wiki/11_Governance_Risk_and_Safety/Redaction_Checklist.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "governance",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "governance",
+      "original_path": "11_Governance_Risk_and_Safety/Redaction_Checklist.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.877655+00:00",
+    "updated_at": "2026-05-25T05:37:44.877666+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_f902a51713d7",
+    "project": "sihre",
+    "content": "Reliability_and_Governance.md: \ufeff---\ntags: [sihre, governance, reliability]\nstatus: draft\nsource: ingested\nclassification: public-after-review\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Reliability_and_Governance.md\n---\n# SIHRE Reliability and Governance\n\n## Governance principles\n\n- Log every routed reasoning path.\n- Track evidence provenance.\n- Track expert disagreement.\n- Track uncertainty and calibration.\n- Track verification outcomes.\n- Track simu",
+    "source": "SIHRE_Wiki/11_Governance_Risk_and_Safety/Reliability_and_Governance.md",
+    "type": "fact",
+    "tags": [
+      "public-after-review",
+      "governance",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "public-after-review",
+      "artifact_type": "governance",
+      "original_path": "11_Governance_Risk_and_Safety/Reliability_and_Governance.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.912729+00:00",
+    "updated_at": "2026-05-25T05:37:44.912748+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_fd1865211cfa",
+    "project": "sihre",
+    "content": "Risk_Register.md: \ufeff---\ntags: [sihre, governance, risk, register]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Risk_Register.md\n---\n# SIHRE Risk Register\n\n| Risk | Severity | Likelihood | Mitigation | Owner |\n|---|---|---|---|---|\n| Overdisclosure in whitepaper | High | Medium | Redaction checklist |  |\n| Weak citation quality | Medium | Medium | Verify references |  |\n| Novelty",
+    "source": "SIHRE_Wiki/11_Governance_Risk_and_Safety/Risk_Register.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "governance",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "governance",
+      "original_path": "11_Governance_Risk_and_Safety/Risk_Register.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.931721+00:00",
+    "updated_at": "2026-05-25T05:37:44.931733+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_2615c3fa4e76",
+    "project": "sihre",
+    "content": "Architecture_Decision_Record_Template.md: \ufeff---\ntags: [sihre, template, adr, architecture]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/05_Architecture_and_Technical/Architecture_Decision_Record_Template.md\n---\n# SIHRE Architecture Decision Record Template\n\n## ADR: `[short title]`\n\n**Status:** Proposed / Accepted / Rejected / Superseded  \n**Date:** YYYY-MM-DD  \n**Owner:** `[name]`\n\n## Context\n\nWhat problem or design decision is being",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Architecture_Decision_Record_Template.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Architecture_Decision_Record_Template.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.962079+00:00",
+    "updated_at": "2026-05-25T05:37:44.962096+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_65328e0c4975",
+    "project": "sihre",
+    "content": "Artifact_Status_Tracker.md: \ufeff---\ntags: [sihre, tracker, artifacts, status]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Artifact_Status_Tracker.md\n---\n# SIHRE Artifact Status Tracker\n\n| Artifact | Type | Audience | Status | Owner | Link |\n|---|---|---|---|---|---|\n| SIHRE whitepaper | research | public | draft |  |  |\n| Architecture diagrams | visual | public | draft |  |  |\n| Publication",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Artifact_Status_Tracker.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Artifact_Status_Tracker.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:44.993093+00:00",
+    "updated_at": "2026-05-25T05:37:44.993111+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_723586801bc7",
+    "project": "sihre",
+    "content": "Citation_Register.md: \ufeff---\ntags: [sihre, tracker, citations]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Citation_Register.md\n---\n# SIHRE Citation Register\n\n| Topic | Source | Verified? | Used in | Notes |\n|---|---|---|---|---|\n| Compound AI systems |  | No | related work |  |\n| Weighted Majority |  | No | prior art |  |\n| Mixture-of-experts |  | No | related work |  |\n| Concept dr",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Citation_Register.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Citation_Register.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.010221+00:00",
+    "updated_at": "2026-05-25T05:37:45.010245+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_4e22b53ecc9f",
+    "project": "sihre",
+    "content": "Claim_Register.md: \ufeff---\ntags: [sihre, tracker, claims, novelty]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Claim_Register.md\n---\n# SIHRE Claim Register\n\n| Claim | Public-safe? | Evidence needed | Citation | Status |\n|---|---|---|---|---|\n| SIHRE is a domain-general framework | Yes | whitepaper definition |  | Draft |\n| SIHRE\u2019s novelty is architectural integration | Yes | prior",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Claim_Register.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Claim_Register.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.035854+00:00",
+    "updated_at": "2026-05-25T05:37:45.035866+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_f1baa42fad86",
+    "project": "sihre",
+    "content": "Decision_Log.md: \ufeff---\ntags: [sihre, tracker, decisions]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Decision_Log.md\n---\n# SIHRE Decision Log\n\n| Date | Decision | Reason | Alternatives | Revisit date |\n|---|---|---|---|---|\n| YYYY-MM-DD | Use SIHRE as public framework name | Clean, domain-general, extensible | SIHRE-13, SIHRE-X |  |\n| YYYY-MM-DD | Keep fixed modality count priv",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Decision_Log.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Decision_Log.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.079018+00:00",
+    "updated_at": "2026-05-25T05:37:45.079036+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_e1074d37856a",
+    "project": "sihre",
+    "content": "Deep_Research_Run_Log.md: \ufeff---\ntags: [sihre, tracker, deep-research, runs]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Deep_Research_Run_Log.md\n---\n# Deep Research Run Log\n\n| Date | Prompt | Inputs | Output | Quality | Follow-up |\n|---|---|---|---|---|---|\n| YYYY-MM-DD |  |  |  |  |  |\n\n## Quality notes\n\n- Did it use reliable sources?\n- Did it accidentally include sensitive examples?\n-",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Deep_Research_Run_Log.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Deep_Research_Run_Log.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.117872+00:00",
+    "updated_at": "2026-05-25T05:37:45.117884+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_b8384418a358",
+    "project": "sihre",
+    "content": "Meeting_Notes_Template.md: \ufeff---\ntags: [sihre, template, meeting-notes]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Meeting_Notes_Template.md\n---\n# SIHRE Meeting Notes Template\n\n## Meeting\n\n**Date:**  \n**Participants:**  \n**Topic:**  \n\n## Summary\n\n## Decisions\n\n## Open questions\n\n## Action items\n\n| Action | Owner | Due |\n|---|---|---|\n\n## Public/private notes\n\n- Public-safe:\n- Private:\n-",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Meeting_Notes_Template.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Meeting_Notes_Template.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.150132+00:00",
+    "updated_at": "2026-05-25T05:37:45.150146+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_6245796323ed",
+    "project": "sihre",
+    "content": "Public_Content_Calendar.md: \ufeff---\ntags: [sihre, tracker, content, calendar]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Public_Content_Calendar.md\n---\n# SIHRE Public Content Calendar\n\n| Week | Content | Channel | Status |\n|---|---|---|---|\n| 1 | Whitepaper announcement | website + social | planned |\n| 2 | What is SIHRE? | blog | planned |\n| 3 | Meta-orchestrator explainer | blog | planned",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Public_Content_Calendar.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Public_Content_Calendar.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.180390+00:00",
+    "updated_at": "2026-05-25T05:37:45.180406+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_98280d798741",
+    "project": "sihre",
+    "content": "Research_Backlog.md: \ufeff---\ntags: [sihre, tracker, research, backlog]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Research_Backlog.md\n---\n# SIHRE Research Backlog\n\n| Priority | Topic | Purpose | Status |\n|---|---|---|---|\n| High | Competitive landscape | Identify positioning | Not started |\n| High | IP prior art | Reduce disclosure risk | Not started |\n| High | Evaluation benchmarks",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Research_Backlog.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Research_Backlog.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.197130+00:00",
+    "updated_at": "2026-05-25T05:37:45.197141+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_15af4194b25a",
+    "project": "sihre",
+    "content": "Version_History.md: \ufeff---\ntags: [sihre, tracker, versions]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/06_Wiki_Trackers_and_Templates/Version_History.md\n---\n# SIHRE Version History\n\n| Version | Date | Changes | Public? |\n|---|---|---|---|\n| v0.1 |  | Initial notes | No |\n| v0.5 |  | Research package | No |\n| v0.9 |  | Public draft | Limited |\n| v1.0 |  | First public whitepaper | Yes |\n\n## Versioning rule\n\nUse",
+    "source": "SIHRE_Wiki/12_Trackers_and_Templates/Version_History.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "trackers",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "trackers",
+      "original_path": "12_Trackers_and_Templates/Version_History.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.243321+00:00",
+    "updated_at": "2026-05-25T05:37:45.243333+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_d971646d1cb9",
+    "project": "sihre",
+    "content": "Artifact_Roadmap.md: \ufeff---\ntags: [sihre, roadmap, artifacts, planning]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/00_START_HERE/Artifact_Roadmap.md\n---\n# SIHRE Artifact Roadmap\n\n## Artifact tiers\n\n### Tier 1 \u2014 Public identity artifacts\n\n- Public whitepaper\n- Public architecture diagrams\n- Website landing page\n- Citation block\n- DOI record\n- Public glossary\n- Announcement post\n- FAQ\n\n### Tier 2 \u2014 Research credib",
+    "source": "SIHRE_Wiki/13_Future_Roadmap/Artifact_Roadmap.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "roadmap",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "roadmap",
+      "original_path": "13_Future_Roadmap/Artifact_Roadmap.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.280643+00:00",
+    "updated_at": "2026-05-25T05:37:45.280662+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_cd709bda027d",
+    "project": "sihre",
+    "content": "Comprehensive_Artifact_Backlog.md: \ufeff---\ntags: [sihre, roadmap, backlog, artifacts]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/07_Future_Artifacts_List/Comprehensive_Artifact_Backlog.md\n---\n# Comprehensive SIHRE Artifact Backlog\n\n## Research docs\n\n- SIHRE literature review\n- Meta-orchestrator deep dive\n- Domain adaptation report\n- Evaluation benchmark proposal\n- Prior-art map\n- Risk and governance report\n- Open-core strategy",
+    "source": "SIHRE_Wiki/13_Future_Roadmap/Comprehensive_Artifact_Backlog.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "roadmap",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "roadmap",
+      "original_path": "13_Future_Roadmap/Comprehensive_Artifact_Backlog.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.312075+00:00",
+    "updated_at": "2026-05-25T05:37:45.312091+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_54bffab606f5",
+    "project": "sihre",
+    "content": "Domain_Specific_Expansion_List.md: \ufeff---\ntags: [sihre, roadmap, domains, expansion]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/07_Future_Artifacts_List/Domain_Specific_Expansion_List.md\n---\n# SIHRE Domain-Specific Expansion List\n\n## Public-safe expansion domains\n\n- Robotics\n- Industrial monitoring\n- Cyber defense\n- Logistics\n- Scientific discovery\n- Climate-risk modeling\n- Healthcare decision support\n- Manufacturing quality",
+    "source": "SIHRE_Wiki/13_Future_Roadmap/Domain_Specific_Expansion_List.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "roadmap",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "roadmap",
+      "original_path": "13_Future_Roadmap/Domain_Specific_Expansion_List.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.346296+00:00",
+    "updated_at": "2026-05-25T05:37:45.346315+00:00",
+    "retrieval_count": 0
+  },
+  {
+    "id": "mem_a1ef257b8d3f",
+    "project": "sihre",
+    "content": "Suggested_Docs_To_Generate_Next.md: \ufeff---\ntags: [sihre, roadmap, next-docs]\nstatus: draft\nsource: ingested\nclassification: internal-only\ncreated: 2026-05-23\nupdated: 2026-05-23\noriginal_path: raw_ingest/SIHRE_Wiki_Content_Pack/07_Future_Artifacts_List/Suggested_Docs_To_Generate_Next.md\n---\n# Suggested SIHRE Docs to Generate Next\n\n## Highest priority\n\n1. **Citation Verification Report**\n   - Verify references before publication.\n\n2. **IP / Trademark Research Memo**\n   - Reduce risk before public launch.\n\n3. **Competitive Landscape R",
+    "source": "SIHRE_Wiki/13_Future_Roadmap/Suggested_Docs_To_Generate_Next.md",
+    "type": "fact",
+    "tags": [
+      "internal-only",
+      "roadmap",
+      "sihre",
+      "p0-ingest"
+    ],
+    "metadata": {
+      "classification": "internal-only",
+      "artifact_type": "roadmap",
+      "original_path": "13_Future_Roadmap/Suggested_Docs_To_Generate_Next.md"
+    },
+    "session_id": "",
+    "status": "active",
+    "created_at": "2026-05-25T05:37:45.386011+00:00",
+    "updated_at": "2026-05-25T05:37:45.386031+00:00",
+    "retrieval_count": 0
   }
 ]
