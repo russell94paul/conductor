@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    /* === Labs Institute Design System === */
+    /* Dark chrome aesthetic matching labs.institute */
+
+    .labs {
+        --labs-black: #0a0a0a;
+        --labs-dark: #111111;
+        --labs-surface: #1a1a1a;
+        --labs-surface-2: #222222;
+        --labs-border: rgba(255,255,255,0.08);
+        --labs-border-hover: rgba(255,255,255,0.15);
+        --labs-chrome: linear-gradient(135deg, #c0c0c0, #e8e8e8, #a0a0a0);
+        --labs-chrome-text: linear-gradient(90deg, #999, #ddd, #999);
+        --labs-white: #f0f0f0;
+        --labs-dim: #666;
+        --labs-muted: #888;
+        --labs-accent: #c0c0c0;
+        --labs-gold: #c9a84c;
+        --labs-green: #4ade80;
+        --labs-red: #f87171;
+        --labs-blue: #60a5fa;
+        --labs-font: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        --labs-mono: 'Consolas', 'Courier New', monospace;
+        --labs-tracking: 0.18em;
+        --labs-tracking-sm: 0.08em;
+    }
+
+    .labs-page {
+        padding: 0; margin: 0;
+        background: var(--labs-black);
+        min-height: 100vh;
+        font-family: var(--labs-font);
+        color: var(--labs-white);
+    }
+
+    /* Header bar */
+    .labs-topbar {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 20px 40px;
+        border-bottom: 1px solid var(--labs-border);
+        background: var(--labs-black);
+        position: sticky; top: 0; z-index: 50;
+    }
+    .labs-brand {
+        font-size: 0.72rem; font-weight: 700;
+        letter-spacing: var(--labs-tracking);
+        text-transform: uppercase;
+        background: var(--labs-chrome-text);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .labs-brand-sub {
+        font-size: 0.55rem; color: var(--labs-dim);
+        letter-spacing: var(--labs-tracking);
+        text-transform: uppercase; margin-top: 2px;
+    }
+    .labs-topbar-right {
+        font-size: 0.6rem; color: var(--labs-dim);
+        letter-spacing: var(--labs-tracking-sm);
+        text-transform: uppercase;
+    }
+
+    /* Layout */
+    .labs-layout { display: flex; max-width: 1200px; margin: 0 auto; }
+
+    /* Sidebar */
+    .labs-nav {
+        width: 220px; flex-shrink: 0; padding: 30px 20px;
+        border-right: 1px solid var(--labs-border);
+        position: sticky; top: 60px; align-self: flex-start;
+        height: calc(100vh - 60px); overflow-y: auto;
+    }
+    .labs-nav-title {
+        font-size: 0.55rem; font-weight: 700; color: var(--labs-dim);
+        letter-spacing: var(--labs-tracking); text-transform: uppercase;
+        margin-bottom: 16px;
+    }
+    .labs-nav-item {
+        display: flex; align-items: center; gap: 10px;
+        padding: 10px 14px; margin-bottom: 2px;
+        font-size: 0.68rem; font-weight: 500; color: var(--labs-dim);
+        letter-spacing: var(--labs-tracking-sm); text-transform: uppercase;
+        cursor: pointer; border-radius: 6px; transition: all 0.15s;
+        border-left: 2px solid transparent;
+    }
+    .labs-nav-item:hover { color: var(--labs-muted); background: rgba(255,255,255,0.02); }
+    .labs-nav-item.active {
+        color: var(--labs-white); border-left-color: var(--labs-accent);
+        background: rgba(255,255,255,0.03);
+    }
+    .labs-nav-num {
+        font-family: var(--labs-mono); font-size: 0.58rem;
+        color: var(--labs-dim); width: 18px;
+    }
+    .labs-nav-item.active .labs-nav-num { color: var(--labs-accent); }
+
+    /* Main content */
+    .labs-main {
+        flex: 1; padding: 30px 40px; min-width: 0;
+    }
+
+    /* Section blocks */
+    .labs-section {
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--labs-border);
+    }
+    .labs-section:last-child { border-bottom: none; }
+
+    .labs-section-hdr {
+        display: flex; align-items: baseline; gap: 14px;
+        margin-bottom: 6px;
+    }
+    .labs-section-num {
+        font-family: var(--labs-mono); font-size: 0.65rem;
+        color: var(--labs-dim); letter-spacing: 0.05em;
+    }
+    .labs-section-title {
+        font-size: 0.78rem; font-weight: 700;
+        letter-spacing: var(--labs-tracking);
+        text-transform: uppercase; color: var(--labs-white);
+    }
+    .labs-section-desc {
+        font-size: 0.7rem; color: var(--labs-dim); margin-bottom: 24px;
+        letter-spacing: 0.02em; line-height: 1.6;
+    }
+
+    /* Form elements */
+    .labs-label {
+        font-size: 0.6rem; font-weight: 700; color: var(--labs-muted);
+        letter-spacing: var(--labs-tracking-sm); text-transform: uppercase;
+        margin: 18px 0 6px; display: block;
+    }
+    .labs-label:first-child { margin-top: 0; }
+    .labs-required::after { content: ' *'; color: var(--labs-red); font-size: 0.7em; }
+    .labs-hint {
+        font-size: 0.6rem; color: #555; margin-top: 4px;
+        letter-spacing: 0.02em; font-style: italic;
+    }
+
+    .labs-input, .labs-textarea, .labs-select {
+        width: 100%; padding: 12px 16px;
+        background: var(--labs-surface);
+        border: 1px solid var(--labs-border);
+        border-radius: 6px;
+        color: var(--labs-white);
+        font-size: 0.82rem; font-family: var(--labs-font);
+        transition: border-color 0.15s;
+        letter-spacing: 0.01em;
+    }
+    .labs-textarea { resize: vertical; min-height: 60px; line-height: 1.6; }
+    .labs-select { cursor: pointer; }
+    .labs-select option { background: var(--labs-dark); color: var(--labs-white); }
+    .labs-input:focus, .labs-textarea:focus, .labs-select:focus {
+        outline: none; border-color: var(--labs-accent);
+        background: var(--labs-surface-2);
+    }
+
+    .labs-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .labs-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+    /* Autocomplete dropdown */
+    .labs-suggest {
+        position: relative;
+    }
+    .labs-suggest-list {
+        position: absolute; top: 100%; left: 0; right: 0; z-index: 20;
+        background: var(--labs-surface-2); border: 1px solid var(--labs-border-hover);
+        border-radius: 6px; max-height: 180px; overflow-y: auto;
+        display: none; margin-top: 2px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .labs-suggest-list.open { display: block; }
+    .labs-suggest-item {
+        padding: 8px 14px; font-size: 0.75rem; color: var(--labs-muted);
+        cursor: pointer; transition: background 0.1s;
+    }
+    .labs-suggest-item:hover {
+        background: rgba(255,255,255,0.05); color: var(--labs-white);
+    }
+    .labs-suggest-item .suggest-cat {
+        font-size: 0.58rem; color: var(--labs-dim);
+        text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    /* Service cards */
+    .labs-svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .labs-svc {
+        background: var(--labs-surface); border: 1px solid var(--labs-border);
+        border-radius: 8px; padding: 14px 16px; cursor: pointer;
+        transition: all 0.15s;
+    }
+    .labs-svc:hover { border-color: var(--labs-border-hover); }
+    .labs-svc.selected { border-color: var(--labs-accent); background: rgba(192,192,192,0.04); }
+    .labs-svc-name {
+        font-size: 0.72rem; font-weight: 700; color: var(--labs-white);
+        letter-spacing: var(--labs-tracking-sm); text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+    .labs-svc-desc { font-size: 0.65rem; color: var(--labs-dim); }
+    .labs-svc-bench {
+        font-size: 0.58rem; color: var(--labs-gold);
+        margin-top: 4px; font-style: italic;
+    }
+
+    /* DJ card */
+    .labs-dj {
+        background: var(--labs-surface); border: 1px solid var(--labs-border);
+        border-radius: 10px; padding: 20px; margin-bottom: 14px;
+    }
+    .labs-dj-hdr {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 16px; padding-bottom: 10px;
+        border-bottom: 1px solid var(--labs-border);
+    }
+    .labs-dj-name {
+        font-size: 0.82rem; font-weight: 700;
+        letter-spacing: var(--labs-tracking-sm); text-transform: uppercase;
+    }
+    .labs-dj-remove {
+        background: none; border: none; color: var(--labs-dim);
+        cursor: pointer; font-size: 0.68rem; letter-spacing: 0.04em;
+        text-transform: uppercase; transition: color 0.15s;
+    }
+    .labs-dj-remove:hover { color: var(--labs-red); }
+
+    /* KPI grid */
+    .labs-kpi-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+        margin-top: 8px;
+    }
+    .labs-kpi {
+        background: var(--labs-dark); border: 1px solid var(--labs-border);
+        border-radius: 6px; padding: 10px; text-align: center;
+    }
+    .labs-kpi label {
+        font-size: 0.55rem; color: var(--labs-dim); display: block;
+        text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;
+    }
+    .labs-kpi input {
+        width: 100%; text-align: center; background: none; border: none;
+        color: var(--labs-white); font-size: 0.88rem; font-weight: 700;
+        font-family: var(--labs-mono); outline: none;
+    }
+    .labs-kpi-bench {
+        font-size: 0.5rem; color: var(--labs-gold); margin-top: 2px;
+        font-style: italic;
+    }
+
+    /* Social row */
+    .labs-social-row {
+        display: grid; grid-template-columns: 110px 1fr; gap: 10px;
+        margin-bottom: 6px; align-items: center;
+    }
+    .labs-social-label {
+        font-size: 0.65rem; font-weight: 600; color: var(--labs-dim);
+        text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .labs-social-label .importance {
+        font-size: 0.5rem; padding: 1px 5px; border-radius: 4px;
+        margin-left: 4px; font-weight: 700;
+    }
+    .importance-critical { background: rgba(192,192,192,0.12); color: var(--labs-accent); }
+    .importance-high { background: rgba(96,165,250,0.12); color: var(--labs-blue); }
+
+    /* Buttons */
+    .labs-btn {
+        padding: 10px 24px; border-radius: 4px;
+        font-size: 0.68rem; font-weight: 700; cursor: pointer;
+        font-family: var(--labs-font); border: none;
+        letter-spacing: var(--labs-tracking-sm); text-transform: uppercase;
+        transition: all 0.15s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .labs-btn-chrome {
+        background: var(--labs-chrome); color: var(--labs-black);
+    }
+    .labs-btn-chrome:hover { opacity: 0.9; }
+    .labs-btn-outline {
+        background: transparent; color: var(--labs-accent);
+        border: 1px solid var(--labs-border);
+    }
+    .labs-btn-outline:hover { border-color: var(--labs-accent); }
+    .labs-btn-sm { padding: 7px 16px; font-size: 0.62rem; }
+
+    /* Output */
+    .labs-output {
+        background: var(--labs-dark); border: 1px solid var(--labs-border);
+        border-radius: 6px; padding: 16px;
+        font-family: var(--labs-mono); font-size: 0.68rem;
+        color: var(--labs-muted); line-height: 1.7;
+        white-space: pre-wrap; max-height: 400px; overflow-y: auto;
+    }
+    .labs-gen-card {
+        background: var(--labs-surface); border: 1px solid var(--labs-border);
+        border-radius: 8px; padding: 14px 18px; margin-bottom: 8px;
+    }
+    .labs-gen-title {
+        font-size: 0.65rem; font-weight: 700; color: var(--labs-accent);
+        text-transform: uppercase; letter-spacing: var(--labs-tracking-sm);
+        margin-bottom: 8px;
+    }
+    .labs-gen-list {
+        font-size: 0.68rem; color: var(--labs-dim); line-height: 1.8;
+        padding-left: 14px;
+    }
+
+    /* Toast override for Labs style */
+    .labs-page .toast {
+        background: var(--labs-surface-2); border: 1px solid var(--labs-accent);
+        color: var(--labs-white); font-size: 0.72rem; letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 900px) {
+        .labs-layout { flex-direction: column; overflow: hidden; }
+        .labs-nav {
+            width: 100%; max-width: 100vw; position: static; height: auto;
+            border-right: none; border-bottom: 1px solid var(--labs-border);
+            display: flex; overflow-x: auto; padding: 10px 20px; gap: 0;
+            scrollbar-width: none;
+        }
+        .labs-nav::-webkit-scrollbar { display: none; }
+        .labs-nav-title { display: none; }
+        .labs-nav-item { white-space: nowrap; border-left: none; padding: 8px 12px; }
+        .labs-main { padding: 20px; }
+        .labs-topbar { padding: 16px 20px; }
+        .labs-grid-2, .labs-grid-3, .labs-svc-grid { grid-template-columns: 1fr; }
+        .labs-kpi-grid { grid-template-columns: 1fr 1fr; }
+        .labs-social-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+
+    @media (max-width: 480px) {
+        .labs-main { padding: 16px 12px; }
+        .labs-topbar { padding: 12px 14px; }
+        .labs-brand { font-size: 0.62rem; }
+        .labs-kpi-grid { grid-template-columns: 1fr; }
+        .labs-section { margin-bottom: 28px; padding-bottom: 28px; }
+        .labs-btn { width: 100%; justify-content: center; }
+    }
+</style>
+</head>
+<body>
+<div class="labs labs-page">
+    <div class="labs-topbar">
+        <div>
+            <div class="labs-brand">LABS.INSTITUTE</div>
+            <div class="labs-brand-sub">Site Content Builder</div>
+        </div>
+        <div class="labs-topbar-right">Founded For The Future</div>
+    </div>
+
+    <div class="labs-layout">
+        <div class="labs-nav" id="labs-nav">
+            <div class="labs-nav-title">Sections</div>
+        </div>
+        <div class="labs-main" id="labs-main"></div>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+
+    var industry = null;
+    var djCounter = 0;
+    var selectedServices = {};
+
+    var SECTIONS = [
+        { id: 'brand', num: '01', title: 'Brand Identity' , desc: 'Name, tagline, values, and the voice of the brand. This shapes every page.' },
+        { id: 'vision', num: '02', title: 'Vision & Mission', desc: 'Where Labs Institute is going, what problem it solves, and what makes it different.' },
+        { id: 'services', num: '03', title: 'Services', desc: 'What Labs Institute offers. Industry suggestions shown — select what applies.' },
+        { id: 'roster', num: '04', title: 'Artist Roster', desc: 'DJ profiles with bios, socials, and progress KPIs. Each becomes a profile page.' },
+        { id: 'proof', num: '05', title: 'Proof of Value', desc: 'KPIs, case studies, and testimonials that show what joining Labs means for an artist.' },
+        { id: 'socials', num: '06', title: 'Social & Contact', desc: 'Company channels, contact info, and calls-to-action.' },
+        { id: 'site', num: '07', title: 'Site Structure', desc: 'Pages, homepage sections, design references, and embedded content.' },
+        { id: 'output', num: '08', title: 'Blueprint', desc: 'Generated site blueprint. Save to memory or copy as a development prompt.' },
+    ];
+
+    function loadIndustry() {
+        return fetch('/data/labs-industry.json').then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; });
+    }
+
+    function init() {
+        loadIndustry().then(function(data) {
+            industry = data || {};
+            renderNav();
+            renderSections();
+            setupScrollSpy();
+        });
+    }
+
+    function renderNav() {
+        var html = '<div class="labs-nav-title">Sections</div>';
+        SECTIONS.forEach(function(s) {
+            html += '<div class="labs-nav-item" data-section="' + s.id + '" onclick="scrollTo(\'' + s.id + '\')">' +
+                '<span class="labs-nav-num">' + s.num + '</span>' + s.title + '</div>';
+        });
+        document.getElementById('labs-nav').innerHTML = html;
+    }
+
+    function renderSections() {
+        var h = '';
+
+        // 01 Brand
+        h += secOpen('brand', '01', 'Brand Identity', SECTIONS[0].desc);
+        h += inp('Company Name', 'inp-name', 'Labs Institute', true);
+        h += inp('Primary Tagline', 'inp-tagline', 'Founded For The Future', true);
+        h += inp('Secondary Tagline', 'inp-tagline2', 'A short pitch — e.g. "Artist management for the underground"');
+        h += txt('Core Values', 'inp-values', 'One per line', true, 'Reputation\nTransparency\nReinvestment\nFamily\nValue', 5);
+        h += txt('Brand Voice', 'inp-voice', 'How should the site sound?', false, '', 2);
+        h += '<div class="labs-hint">e.g. Professional but underground. Confident, not corporate. Community-first.</div>';
+        h += txt('Target Audience', 'inp-audience', 'Who is this site for?', true, '', 2);
+        h += '<div class="labs-hint">e.g. Emerging DJs seeking management, promoters looking for talent, venues booking acts</div>';
+        h += secClose();
+
+        // 02 Vision
+        h += secOpen('vision', '02', 'Vision & Mission', SECTIONS[1].desc);
+        h += txt('Vision', 'inp-vision', 'Long-term goal', true, '', 3);
+        h += txt('Mission', 'inp-mission', 'What Labs does day-to-day', true, '', 3);
+        h += txt('Origin Story', 'inp-origin', 'How and why Labs started — humanises the brand', false, '', 4);
+        h += txt('What Problem Does Labs Solve?', 'inp-problem', 'The pain point for DJs', true, '', 3);
+        h += '<div class="labs-hint">e.g. Talented DJs can\'t get exposure, fair contracts, or structured career development</div>';
+        h += txt('What Makes Labs Different?', 'inp-diff', 'Your edge', true, '', 3);
+        h += secClose();
+
+        // 03 Services
+        h += secOpen('services', '03', 'Services', SECTIONS[2].desc);
+        h += '<div class="labs-svc-grid" id="svc-grid"></div>';
+        h += txt('Additional Services', 'inp-custom-svcs', 'Any not listed above, one per line', false, '', 2);
+        h += txt('Pricing Model', 'inp-pricing', 'How services are priced', false, '', 2);
+        h += '<div class="labs-hint">e.g. Commission-based (15-20%), retainer, per-event fee</div>';
+        h += secClose();
+
+        // 04 Roster
+        h += secOpen('roster', '04', 'Artist Roster', SECTIONS[3].desc);
+        h += '<div id="dj-cards"></div>';
+        h += '<button class="labs-btn labs-btn-outline labs-btn-sm" onclick="addDJ()">+ Add Artist</button>';
+        h += secClose();
+
+        // 05 Proof
+        h += secOpen('proof', '05', 'Proof of Value', SECTIONS[4].desc);
+        h += txt('Headline KPIs', 'inp-kpis', 'Big numbers for the hero. One per line.', true, '', 5);
+        h += '<div class="labs-hint">e.g. 12 Artists Managed / 150+ Gigs Booked / 3x Social Growth / £50K+ Revenue</div>';
+        h += txt('Case Study', 'inp-case', 'One DJ\'s journey — before and after Labs', false, '', 4);
+        h += txt('Testimonials', 'inp-testimonials', 'Quotes with attribution, one per line', false, '', 4);
+        h += txt('Before/After Metrics', 'inp-ba-metrics', 'KPIs tracked per DJ to show progress', true, '', 4);
+        h += '<div class="labs-hint">e.g. IG followers at join vs now / Monthly gigs / Paid ratio / Average fee / SC plays</div>';
+        h += secClose();
+
+        // 06 Socials
+        h += secOpen('socials', '06', 'Social & Contact', SECTIONS[5].desc);
+        h += '<div id="social-fields"></div>';
+        h += '<div class="labs-grid-2" style="margin-top:14px;">';
+        h += '<div>' + inp('Email', 'social-email', 'Contact email', true) + '</div>';
+        h += '<div>' + inp('Phone', 'social-phone', 'Contact number') + '</div>';
+        h += '</div>';
+        h += inp('CTA for Artists', 'inp-cta-artists', 'e.g. "Join the roster — apply now"');
+        h += inp('CTA for Promoters', 'inp-cta-promo', 'e.g. "Book our artists for your next event"');
+        h += secClose();
+
+        // 07 Site
+        h += secOpen('site', '07', 'Site Structure', SECTIONS[6].desc);
+        h += txt('Pages', 'inp-pages', 'One per line', true, 'Home\nAbout\nRoster\nServices\nEvents\nContact', 6);
+        h += txt('Homepage Sections', 'inp-hero', 'Sections on the landing page, in order', false, 'Hero + tagline\nKPI bar\nFeatured artists\nServices overview\nLatest events\nTestimonials\nCTA', 7);
+        h += txt('Design References', 'inp-design', 'Sites with a look/feel you like', false, '', 3);
+        h += txt('Embedded Content', 'inp-embeds', 'What should be embedded?', false, '', 2);
+        h += '<div class="labs-hint">e.g. SoundCloud player, Spotify playlist, Instagram feed, YouTube highlights</div>';
+        h += txt('Notes on Current Site', 'inp-notes', 'What to keep, change, or remove from labs.institute', false, '', 2);
+        h += secClose();
+
+        // 08 Output
+        h += secOpen('output', '08', 'Generated Blueprint', SECTIONS[7].desc);
+        h += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">' +
+            '<button class="labs-btn labs-btn-chrome" onclick="generate()">Generate Blueprint</button>' +
+            '<button class="labs-btn labs-btn-outline" onclick="saveMemory()">Save to Memory</button>' +
+            '<button class="labs-btn labs-btn-outline" onclick="copyPrompt()">Copy Prompt</button>' +
+            '</div>';
+        h += '<div id="blueprint-cards"></div>';
+        h += '<div class="labs-label" style="margin-top:20px;">Development Prompt</div>';
+        h += '<div class="labs-output" id="blueprint-prompt">Click Generate Blueprint to create the output.</div>';
+        h += '<div class="labs-label">JSON Export</div>';
+        h += '<div class="labs-output" id="blueprint-json"></div>';
+        h += secClose();
+
+        document.getElementById('labs-main').innerHTML = h;
+        renderServices();
+        renderSocials();
+        addDJ(); addDJ();
+    }
+
+    function secOpen(id, num, title, desc) {
+        return '<div class="labs-section" id="section-' + id + '">' +
+            '<div class="labs-section-hdr"><span class="labs-section-num">' + num + '</span>' +
+            '<span class="labs-section-title">' + title + '</span></div>' +
+            '<div class="labs-section-desc">' + desc + '</div>';
+    }
+    function secClose() { return '</div>'; }
+
+    function inp(label, id, ph, req) {
+        return '<label class="labs-label' + (req ? ' labs-required' : '') + '">' + label + '</label>' +
+            '<input class="labs-input" id="' + id + '" placeholder="' + esc(ph || '') + '">';
+    }
+    function txt(label, id, ph, req, defVal, rows) {
+        return '<label class="labs-label' + (req ? ' labs-required' : '') + '">' + label + '</label>' +
+            '<textarea class="labs-textarea" id="' + id + '" rows="' + (rows||3) + '" placeholder="' + esc(ph||'') + '">' + esc(defVal||'') + '</textarea>';
+    }
+
+    function renderServices() {
+        var svcs = (industry && industry.services_industry) || [];
+        var html = '';
+        svcs.forEach(function(s) {
+            html += '<div class="labs-svc" data-svc="' + s.name + '">' +
+                '<div class="labs-svc-name">' + s.name + '</div>' +
+                '<div class="labs-svc-desc">' + s.desc + '</div></div>';
+        });
+        document.getElementById('svc-grid').innerHTML = html;
+        document.querySelectorAll('.labs-svc').forEach(function(el) {
+            el.addEventListener('click', function() {
+                var id = this.dataset.svc;
+                selectedServices[id] = !selectedServices[id];
+                this.classList.toggle('selected', selectedServices[id]);
+            });
+        });
+    }
+
+    function renderSocials() {
+        var platforms = (industry && industry.social_platforms) || [];
+        var html = '';
+        platforms.forEach(function(p) {
+            var badge = '';
+            if (p.importance === 'critical') badge = '<span class="importance importance-critical">Key</span>';
+            else if (p.importance === 'high') badge = '<span class="importance importance-high">High</span>';
+            html += '<div class="labs-social-row">' +
+                '<span class="labs-social-label">' + p.name + badge + '</span>' +
+                '<input class="labs-input" id="social-' + p.id + '" placeholder="' + p.placeholder + '" style="padding:8px 12px;">' +
+                '</div>';
+        });
+        document.getElementById('social-fields').innerHTML = html;
+    }
+
+    window.addDJ = function() {
+        djCounter++;
+        var n = djCounter;
+        var genres = (industry && industry.genres) || [];
+        var benchmarks = (industry && industry.kpi_benchmarks) || {};
+
+        var genreDatalist = '<datalist id="genres-' + n + '">';
+        genres.forEach(function(g) { genreDatalist += '<option value="' + g + '">'; });
+        genreDatalist += '</datalist>';
+
+        var html = '<div class="labs-dj" id="dj-' + n + '">' +
+            '<div class="labs-dj-hdr"><span class="labs-dj-name" id="dj-title-' + n + '">Artist #' + n + '</span>' +
+            '<button class="labs-dj-remove" onclick="removeDJ(' + n + ')">Remove</button></div>' +
+
+            '<div class="labs-grid-2">' +
+            '<div><label class="labs-label labs-required">Artist Name</label>' +
+            '<input class="labs-input dj-name" placeholder="Stage name" oninput="updateDJTitle(' + n + ',this.value)"></div>' +
+            '<div><label class="labs-label">Real Name</label>' +
+            '<input class="labs-input dj-realname" placeholder="For contracts"></div></div>' +
+
+            '<div class="labs-grid-3">' +
+            '<div><label class="labs-label labs-required">Genres</label>' +
+            '<div class="labs-suggest"><input class="labs-input dj-genres" placeholder="Start typing..." list="genres-' + n + '" autocomplete="off">' + genreDatalist + '</div></div>' +
+            '<div><label class="labs-label">Tier</label>' +
+            '<select class="labs-select dj-tier" onchange="updateBenchmarks(' + n + ')">' +
+            '<option value="emerging">Emerging</option><option value="developing">Developing</option>' +
+            '<option value="established">Established</option><option value="headliner">Headliner</option></select></div>' +
+            '<div><label class="labs-label">Joined</label>' +
+            '<input class="labs-input dj-joined" type="month"></div></div>' +
+
+            '<label class="labs-label">Bio</label>' +
+            '<textarea class="labs-textarea dj-bio" rows="2" placeholder="Short bio for their profile page"></textarea>' +
+
+            '<label class="labs-label">Socials</label>' +
+            '<div class="labs-grid-2">' +
+            '<input class="labs-input dj-ig" placeholder="Instagram @handle">' +
+            '<input class="labs-input dj-sc" placeholder="SoundCloud URL">' +
+            '<input class="labs-input dj-spotify" placeholder="Spotify URL">' +
+            '<input class="labs-input dj-mc" placeholder="Mixcloud URL"></div>' +
+
+            '<label class="labs-label">Progress KPIs</label>' +
+            '<div class="labs-kpi-grid" id="dj-kpis-' + n + '">' +
+            kpiCell('Gigs', 'dj-k-gigs', '', n) +
+            kpiCell('Paid', 'dj-k-paid', '', n) +
+            kpiCell('IG Now', 'dj-k-ig', '', n) +
+            kpiCell('IG @ Join', 'dj-k-ig0', '', n) +
+            kpiCell('SC Plays', 'dj-k-sc', '', n) +
+            kpiCell('SC @ Join', 'dj-k-sc0', '', n) +
+            kpiCell('Avg Fee £', 'dj-k-fee', '', n) +
+            kpiCell('Releases', 'dj-k-rel', '', n) +
+            '</div>' +
+            '<div class="labs-hint" id="dj-bench-' + n + '" style="margin-top:6px;color:#c9a84c;"></div>' +
+
+            '<label class="labs-label">Highlights</label>' +
+            '<textarea class="labs-textarea dj-highlights" rows="2" placeholder="Notable achievements since joining"></textarea>' +
+            '</div>';
+
+        document.getElementById('dj-cards').insertAdjacentHTML('beforeend', html);
+        updateBenchmarks(n);
+    };
+
+    function kpiCell(label, cls, bench, n) {
+        return '<div class="labs-kpi"><label>' + label + '</label>' +
+            '<input class="' + cls + '" type="number" placeholder="0">' +
+            '</div>';
+    }
+
+    window.updateDJTitle = function(n, val) {
+        var el = document.getElementById('dj-title-' + n);
+        if (el) el.textContent = val || ('Artist #' + n);
+    };
+
+    window.updateBenchmarks = function(n) {
+        var card = document.getElementById('dj-' + n);
+        if (!card) return;
+        var tier = card.querySelector('.dj-tier').value;
+        var bench = (industry && industry.kpi_benchmarks && industry.kpi_benchmarks[tier]) || {};
+        var el = document.getElementById('dj-bench-' + n);
+        if (el && Object.keys(bench).length) {
+            el.textContent = 'Industry benchmark (' + tier + '): IG ' + (bench.ig_followers||'?') +
+                ' / SC ' + (bench.sc_plays_monthly||'?') + '/mo / ' + (bench.gigs_per_month||'?') +
+                ' gigs/mo / ' + (bench.paid_ratio||'?') + ' paid / avg ' + (bench.avg_fee||'?');
+        }
+    };
+
+    window.removeDJ = function(n) {
+        var el = document.getElementById('dj-' + n);
+        if (el) el.remove();
+    };
+
+    window.scrollTo = function(id) {
+        var el = document.getElementById('section-' + id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    function setupScrollSpy() {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) {
+                    var id = e.target.id.replace('section-', '');
+                    document.querySelectorAll('.labs-nav-item').forEach(function(item) {
+                        item.classList.toggle('active', item.dataset.section === id);
+                    });
+                }
+            });
+        }, { rootMargin: '-10% 0px -80% 0px' });
+        SECTIONS.forEach(function(s) {
+            var el = document.getElementById('section-' + s.id);
+            if (el) observer.observe(el);
+        });
+    }
+
+    function v(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+    function collectAll() {
+        var djs = [];
+        document.querySelectorAll('.labs-dj').forEach(function(card) {
+            var name = card.querySelector('.dj-name').value.trim();
+            if (!name) return;
+            djs.push({
+                name: name, real_name: card.querySelector('.dj-realname').value.trim(),
+                genres: card.querySelector('.dj-genres').value.split(',').map(function(g){return g.trim();}).filter(Boolean),
+                tier: card.querySelector('.dj-tier').value,
+                joined: card.querySelector('.dj-joined').value,
+                bio: card.querySelector('.dj-bio').value.trim(),
+                socials: { instagram: card.querySelector('.dj-ig').value.trim(), soundcloud: card.querySelector('.dj-sc').value.trim(), spotify: card.querySelector('.dj-spotify').value.trim(), mixcloud: card.querySelector('.dj-mc').value.trim() },
+                kpis: { gigs: int(card,'.dj-k-gigs'), paid: int(card,'.dj-k-paid'), ig: int(card,'.dj-k-ig'), ig_join: int(card,'.dj-k-ig0'), sc: int(card,'.dj-k-sc'), sc_join: int(card,'.dj-k-sc0'), fee: int(card,'.dj-k-fee'), releases: int(card,'.dj-k-rel') },
+                highlights: card.querySelector('.dj-highlights').value.trim(),
+            });
+        });
+        function int(card,cls) { var el = card.querySelector(cls); return el ? (parseInt(el.value)||0) : 0; }
+
+        var svcs = Object.keys(selectedServices).filter(function(k){return selectedServices[k];});
+        var custom = v('inp-custom-svcs').split('\n').filter(Boolean);
+        svcs = svcs.concat(custom);
+
+        var socials = {};
+        var platforms = (industry && industry.social_platforms) || [];
+        platforms.forEach(function(p) { var val = v('social-'+p.id); if(val) socials[p.id]=val; });
+        if(v('social-email')) socials.email = v('social-email');
+        if(v('social-phone')) socials.phone = v('social-phone');
+
+        return {
+            brand: { name: v('inp-name')||'Labs Institute', tagline: v('inp-tagline'), tagline2: v('inp-tagline2'), values: v('inp-values').split('\n').filter(Boolean), voice: v('inp-voice'), audience: v('inp-audience') },
+            vision: { vision: v('inp-vision'), mission: v('inp-mission'), origin: v('inp-origin'), problem: v('inp-problem'), differentiator: v('inp-diff') },
+            services: svcs, pricing: v('inp-pricing'),
+            roster: djs,
+            proof: { headline_kpis: v('inp-kpis').split('\n').filter(Boolean), case_study: v('inp-case'), testimonials: v('inp-testimonials').split('\n').filter(Boolean), ba_metrics: v('inp-ba-metrics').split('\n').filter(Boolean) },
+            socials: socials, ctas: { artists: v('inp-cta-artists'), promoters: v('inp-cta-promo') },
+            site: { pages: v('inp-pages').split('\n').filter(Boolean), hero: v('inp-hero').split('\n').filter(Boolean), design_refs: v('inp-design'), embeds: v('inp-embeds'), notes: v('inp-notes') },
+            industry_benchmarks: industry ? { pricing: industry.pricing_benchmarks, kpis: industry.kpi_benchmarks } : null,
+            generated_at: new Date().toISOString(),
+        };
+    }
+
+    window.generate = function() {
+        var data = collectAll();
+        var cards = '';
+        cards += genCard('Brand', data.brand.name + ' — "' + (data.brand.tagline||'') + '"', ['Values: ' + data.brand.values.join(' / '), 'Audience: ' + (data.brand.audience||'—')]);
+        cards += genCard('Services (' + data.services.length + ')', '', data.services);
+        cards += genCard('Roster (' + data.roster.length + ')', '', data.roster.map(function(d) {
+            var g = d.kpis.ig_join ? ' (IG: '+d.kpis.ig_join+'→'+d.kpis.ig+')' : '';
+            return d.name + ' — ' + d.tier + g;
+        }));
+        cards += genCard('Proof', '', data.proof.headline_kpis.length ? data.proof.headline_kpis : ['No KPIs set']);
+        cards += genCard('Pages', '', data.site.pages);
+        document.getElementById('blueprint-cards').innerHTML = cards;
+        document.getElementById('blueprint-prompt').textContent = buildPrompt(data);
+        document.getElementById('blueprint-json').textContent = JSON.stringify(data, null, 2);
+        window.scrollTo('output');
+    };
+
+    function genCard(title, sub, items) {
+        var h = '<div class="labs-gen-card"><div class="labs-gen-title">' + esc(title) + '</div>';
+        if (sub) h += '<div style="font-size:0.68rem;color:var(--labs-muted);margin-bottom:6px;">' + esc(sub) + '</div>';
+        h += '<ul class="labs-gen-list">';
+        items.forEach(function(i) { h += '<li>' + esc(i) + '</li>'; });
+        return h + '</ul></div>';
+    }
+
+    function buildPrompt(d) {
+        var l = ['# Labs Institute — Marketing Site Blueprint', 'Generated: ' + new Date().toLocaleDateString('en-GB'), ''];
+        l.push('## Brand'); l.push('- Name: ' + d.brand.name);
+        if(d.brand.tagline) l.push('- Tagline: ' + d.brand.tagline);
+        if(d.brand.values.length) l.push('- Values: ' + d.brand.values.join(' / '));
+        if(d.brand.voice) l.push('- Voice: ' + d.brand.voice);
+        if(d.brand.audience) l.push('- Audience: ' + d.brand.audience);
+        l.push(''); l.push('## Vision');
+        if(d.vision.vision) l.push('- Vision: ' + d.vision.vision);
+        if(d.vision.mission) l.push('- Mission: ' + d.vision.mission);
+        if(d.vision.problem) l.push('- Problem: ' + d.vision.problem);
+        if(d.vision.differentiator) l.push('- Edge: ' + d.vision.differentiator);
+        if(d.vision.origin) { l.push(''); l.push('### Origin'); l.push(d.vision.origin); }
+        if(d.services.length) { l.push(''); l.push('## Services'); d.services.forEach(function(s){l.push('- '+s);}); if(d.pricing) l.push('- Pricing: '+d.pricing); }
+        if(d.roster.length) { l.push(''); l.push('## Roster (' + d.roster.length + ')');
+            d.roster.forEach(function(dj) {
+                l.push(''); l.push('### ' + dj.name + ' (' + dj.tier + ')');
+                if(dj.genres.length) l.push('- Genres: ' + dj.genres.join(', '));
+                if(dj.bio) l.push('- Bio: ' + dj.bio);
+                var k=dj.kpis; if(k.gigs) l.push('- KPIs: '+k.gigs+' gigs ('+k.paid+' paid), avg £'+k.fee+', IG '+k.ig_join+'→'+k.ig+', SC '+k.sc_join+'→'+k.sc+', '+k.releases+' releases');
+                if(dj.highlights) l.push('- Highlights: '+dj.highlights);
+            });
+        }
+        if(d.proof.headline_kpis.length) { l.push(''); l.push('## Proof'); d.proof.headline_kpis.forEach(function(k){l.push('- '+k);}); }
+        if(d.proof.case_study) { l.push('### Case Study'); l.push(d.proof.case_study); }
+        if(Object.keys(d.socials).length) { l.push(''); l.push('## Socials'); Object.keys(d.socials).forEach(function(k){l.push('- '+k+': '+d.socials[k]);}); }
+        if(d.site.pages.length) { l.push(''); l.push('## Site'); l.push('### Pages'); d.site.pages.forEach(function(p){l.push('- '+p);}); }
+        if(d.site.hero.length) { l.push('### Homepage'); d.site.hero.forEach(function(s){l.push('- '+s);}); }
+        return l.join('\n');
+    }
+
+    window.saveMemory = function() {
+        var data = collectAll();
+        fetch('/api/projects/labs-institute/memory/store', {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ content: JSON.stringify(data), type:'context', tags:['onboarding','site-blueprint','marketing'], source:'site-content-builder' })
+        }).then(function(){toast('Saved to project memory');}).catch(function(){toast('API offline',true);});
+
+        fetch('/api/projects/labs-institute/memory/store', {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ content: JSON.stringify(industry), type:'context', tags:['industry','benchmarks','reference'], source:'labs-industry.json' })
+        }).catch(function(){});
+    };
+
+    window.copyPrompt = function() {
+        var text = document.getElementById('blueprint-prompt').textContent;
+        navigator.clipboard.writeText(text).then(function(){toast('Copied');});
+    };
+
+    function toast(msg,err) {
+        var t = document.createElement('div');
+        t.className = 'toast show' + (err?' error':'');
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(function(){t.classList.remove('show');},2500);
+        setTimeout(function(){t.remove();},3000);
+    }
+
+    function esc(s) { if(!s)return''; var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+    init();
+})();
+</script>
+</body>
+</html>

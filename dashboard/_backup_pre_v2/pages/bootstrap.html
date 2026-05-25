@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap Orchestration Console</title>
+    <link rel="stylesheet" href="../styles/base.css">
+    <style>
+    /* ================================================================
+       Bootstrap Console — Styles
+       ================================================================ */
+
+    .bs-shell { padding: 0; }
+
+    .bs-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 20px 24px 12px; flex-wrap: wrap; gap: 12px;
+    }
+    .bs-header-left { display: flex; align-items: center; gap: 14px; }
+    .bs-title {
+        font-size: 1.1rem; font-weight: 800; letter-spacing: 0.12em;
+        background: linear-gradient(90deg, #38bdf8, #a78bfa, #4ade80);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .bs-subtitle {
+        font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase;
+        letter-spacing: 0.14em; font-weight: 600;
+    }
+    .bs-header-right { display: flex; align-items: center; gap: 8px; }
+    .bs-badge {
+        font-size: 0.6rem; font-weight: 700; padding: 3px 10px; border-radius: 10px;
+        text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .bs-badge-mode {
+        background: rgba(167,139,250,0.12); color: var(--accent-purple);
+        border: 1px solid rgba(167,139,250,0.25);
+    }
+
+    /* KPI strip */
+    .bs-kpi-strip {
+        display: flex; align-items: center; gap: 10px;
+        padding: 8px 24px 14px; flex-wrap: wrap;
+    }
+    .bs-kpi {
+        display: flex; align-items: center; gap: 6px;
+        font-size: 0.7rem; color: var(--text-dim);
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        border-radius: 8px; padding: 5px 12px;
+    }
+    .bs-kpi-val {
+        font-family: var(--font-mono); font-weight: 800;
+        color: var(--text-secondary); font-size: 0.78rem;
+    }
+    .bs-kpi-val.green { color: var(--accent-green); }
+    .bs-kpi-val.blue { color: var(--accent-blue); }
+    .bs-kpi-val.amber { color: var(--accent-amber); }
+    .bs-kpi-val.red { color: var(--accent-red); }
+
+    /* Tabs */
+    .bs-tabs {
+        display: flex; gap: 2px; padding: 0 24px;
+        border-bottom: 1px solid var(--border-light);
+        overflow-x: auto;
+    }
+    .bs-tab {
+        padding: 8px 16px; font-size: 0.72rem; font-weight: 600;
+        color: var(--text-dim); cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s, border-color 0.2s;
+        white-space: nowrap;
+    }
+    .bs-tab:hover { color: var(--text-secondary); }
+    .bs-tab.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
+
+    /* Panels */
+    .bs-panel { display: none; padding: 20px 24px; }
+    .bs-panel.active { display: block; }
+
+    /* Cards */
+    .bs-card {
+        background: var(--card-gradient); border-radius: var(--card-radius);
+        border: 1px solid var(--border-light); padding: 16px 20px;
+        margin-bottom: 12px;
+    }
+    .bs-card-header {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 8px;
+    }
+    .bs-card-title {
+        font-size: 0.82rem; font-weight: 700; color: #fff;
+    }
+
+    /* Phase row */
+    .bs-phase-row {
+        display: grid;
+        grid-template-columns: 32px 1fr 100px 80px 80px 100px;
+        align-items: center; gap: 10px;
+        padding: 10px 14px; border-radius: 8px;
+        border: 1px solid var(--border-subtle);
+        margin-bottom: 6px; cursor: pointer;
+        transition: background 0.15s, border-color 0.15s;
+    }
+    .bs-phase-row:hover {
+        background: rgba(255,255,255,0.02);
+        border-color: var(--border-medium);
+    }
+
+    .bs-phase-idx {
+        font-family: var(--font-mono); font-size: 0.68rem;
+        color: var(--text-dim); font-weight: 700; text-align: center;
+    }
+    .bs-phase-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .bs-phase-name {
+        font-size: 0.78rem; font-weight: 700; color: var(--text-primary);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .bs-phase-desc {
+        font-size: 0.65rem; color: var(--text-dim);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* Status pill */
+    .bs-status {
+        font-size: 0.6rem; font-weight: 700; padding: 3px 8px;
+        border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+        text-align: center; white-space: nowrap;
+    }
+    .bs-status-completed { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+    .bs-status-running { background: rgba(56,189,248,0.15); color: var(--accent-blue); }
+    .bs-status-eligible { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
+    .bs-status-not_started { background: rgba(255,255,255,0.05); color: var(--text-dim); }
+    .bs-status-blocked { background: rgba(248,113,113,0.15); color: var(--accent-red); }
+    .bs-status-failed { background: rgba(248,113,113,0.2); color: var(--accent-red); }
+    .bs-status-needs_review { background: rgba(251,191,36,0.15); color: var(--accent-gold); }
+    .bs-status-skipped { background: rgba(255,255,255,0.04); color: var(--text-faint); }
+    .bs-status-cancelled { background: rgba(255,255,255,0.04); color: var(--text-faint); }
+
+    /* Risk pill */
+    .bs-risk {
+        font-size: 0.6rem; font-weight: 700; padding: 2px 8px;
+        border-radius: 6px; text-transform: uppercase; text-align: center;
+    }
+    .bs-risk-low { background: rgba(74,222,128,0.1); color: var(--accent-green); }
+    .bs-risk-medium { background: rgba(251,146,60,0.1); color: var(--accent-amber); }
+    .bs-risk-high { background: rgba(248,113,113,0.1); color: var(--accent-red); }
+
+    /* Complexity pill */
+    .bs-complexity {
+        font-size: 0.6rem; font-weight: 700; padding: 2px 8px;
+        border-radius: 6px; text-align: center;
+        background: rgba(255,255,255,0.04); color: var(--text-muted);
+        font-family: var(--font-mono);
+    }
+
+    /* Parallel indicator */
+    .bs-parallel {
+        font-size: 0.6rem; padding: 2px 8px; border-radius: 6px;
+        text-align: center; font-weight: 600;
+    }
+    .bs-parallel-yes { background: rgba(74,222,128,0.1); color: var(--accent-green); }
+    .bs-parallel-no { background: rgba(255,255,255,0.04); color: var(--text-dim); }
+
+    /* Detail overlay */
+    .bs-detail-overlay {
+        display: none; position: fixed; inset: 0; z-index: 200;
+        background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    }
+    .bs-detail-overlay.active { display: flex; align-items: center; justify-content: center; }
+    .bs-detail-panel {
+        background: var(--bg-primary); border: 1px solid var(--border-medium);
+        border-radius: 16px; width: 680px; max-width: 95vw;
+        max-height: 85vh; overflow-y: auto; padding: 24px;
+    }
+    .bs-detail-close {
+        float: right; cursor: pointer; font-size: 1.2rem;
+        color: var(--text-dim); background: none; border: none;
+        padding: 4px 8px;
+    }
+    .bs-detail-close:hover { color: #fff; }
+    .bs-detail-section {
+        margin-top: 16px; padding-top: 12px;
+        border-top: 1px solid var(--border-subtle);
+    }
+    .bs-detail-label {
+        font-size: 0.62rem; font-weight: 700; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;
+    }
+    .bs-detail-val {
+        font-size: 0.78rem; color: var(--text-secondary);
+    }
+    .bs-detail-mono {
+        font-family: var(--font-mono); font-size: 0.72rem;
+        background: rgba(255,255,255,0.03); padding: 8px 12px;
+        border-radius: 8px; border: 1px solid var(--border-subtle);
+        color: var(--text-muted); word-break: break-all;
+    }
+
+    /* DAG view */
+    .bs-dag-node {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 6px 12px; border-radius: 8px;
+        border: 1px solid var(--border-light);
+        font-size: 0.72rem; font-weight: 600;
+        margin: 4px; cursor: pointer;
+    }
+    .bs-dag-arrow {
+        font-size: 0.7rem; color: var(--text-faint); margin: 0 4px;
+    }
+    .bs-dag-row {
+        display: flex; align-items: center; flex-wrap: wrap;
+        margin-bottom: 6px;
+    }
+
+    /* Queue list */
+    .bs-queue-item {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 10px 14px; border-radius: 8px;
+        border: 1px solid var(--border-subtle);
+        margin-bottom: 6px;
+    }
+    .bs-queue-item:hover { border-color: var(--border-medium); }
+    .bs-queue-left { display: flex; align-items: center; gap: 10px; }
+    .bs-queue-right { display: flex; align-items: center; gap: 8px; }
+
+    /* Buttons */
+    .bs-btn {
+        font-size: 0.65rem; font-weight: 700; padding: 5px 12px;
+        border-radius: 6px; border: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.04); color: var(--text-secondary);
+        cursor: pointer; transition: background 0.15s;
+        text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .bs-btn:hover { background: rgba(255,255,255,0.08); }
+    .bs-btn-primary {
+        background: rgba(56,189,248,0.15); color: var(--accent-blue);
+        border-color: rgba(56,189,248,0.3);
+    }
+    .bs-btn-primary:hover { background: rgba(56,189,248,0.25); }
+    .bs-btn-success {
+        background: rgba(74,222,128,0.12); color: var(--accent-green);
+        border-color: rgba(74,222,128,0.25);
+    }
+
+    /* Table */
+    .bs-table {
+        width: 100%; border-collapse: collapse; font-size: 0.72rem;
+    }
+    .bs-table th {
+        text-align: left; padding: 8px 12px; font-weight: 700;
+        color: var(--text-dim); text-transform: uppercase;
+        letter-spacing: 0.06em; font-size: 0.62rem;
+        border-bottom: 1px solid var(--border-light);
+    }
+    .bs-table td {
+        padding: 8px 12px; border-bottom: 1px solid var(--border-subtle);
+        color: var(--text-secondary);
+    }
+
+    /* Empty state */
+    .bs-empty {
+        text-align: center; padding: 40px 20px;
+        color: var(--text-dim); font-size: 0.78rem;
+    }
+
+    /* Copypaste box */
+    .bs-copy-box {
+        position: relative;
+        font-family: var(--font-mono); font-size: 0.7rem;
+        background: rgba(0,0,0,0.3); padding: 10px 14px;
+        border-radius: 8px; border: 1px solid var(--border-subtle);
+        color: var(--text-muted); word-break: break-all;
+    }
+    .bs-copy-btn {
+        position: absolute; top: 6px; right: 6px;
+        font-size: 0.58rem; padding: 2px 8px; border-radius: 4px;
+        background: rgba(255,255,255,0.06); border: 1px solid var(--border-light);
+        color: var(--text-dim); cursor: pointer;
+    }
+    .bs-copy-btn:hover { background: rgba(255,255,255,0.1); }
+
+    /* Section title */
+    .bs-section-title {
+        font-size: 0.72rem; font-weight: 700; color: var(--text-label);
+        text-transform: uppercase; letter-spacing: 0.08em;
+        margin-bottom: 10px;
+    }
+
+    /* Toast */
+    .bs-toast {
+        position: fixed; bottom: 24px; right: 24px; z-index: 300;
+        padding: 10px 18px; border-radius: 8px;
+        background: var(--bg-card-1); border: 1px solid var(--accent-green);
+        color: var(--accent-green); font-size: 0.72rem; font-weight: 600;
+        opacity: 0; transition: opacity 0.3s;
+        pointer-events: none;
+    }
+    .bs-toast.show { opacity: 1; }
+
+    /* Work Guard */
+    .bs-wg-banner {
+        display: flex; align-items: center; gap: 12px;
+        padding: 10px 24px; border-bottom: 1px solid var(--border-subtle);
+        font-size: 0.72rem;
+    }
+    .bs-wg-indicator {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 4px 12px; border-radius: 8px; font-weight: 700;
+        font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .bs-wg-unlocked { background: rgba(74,222,128,0.12); color: var(--accent-green); border: 1px solid rgba(74,222,128,0.25); }
+    .bs-wg-locked { background: rgba(251,191,36,0.12); color: var(--accent-gold); border: 1px solid rgba(251,191,36,0.25); }
+    .bs-wg-stale { background: rgba(248,113,113,0.12); color: var(--accent-red); border: 1px solid rgba(248,113,113,0.25); }
+    .bs-wg-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        display: inline-block;
+    }
+    .bs-wg-dot-green { background: var(--accent-green); }
+    .bs-wg-dot-amber { background: var(--accent-gold); }
+    .bs-wg-dot-red { background: var(--accent-red); }
+    .bs-wg-detail {
+        font-size: 0.68rem; color: var(--text-dim);
+    }
+    .bs-wg-safe {
+        font-weight: 700; padding: 3px 10px; border-radius: 6px;
+        font-size: 0.62rem; text-transform: uppercase;
+    }
+    .bs-wg-safe-yes { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+    .bs-wg-safe-no { background: rgba(248,113,113,0.15); color: var(--accent-red); }
+
+    .bs-wg-section { margin-bottom: 16px; }
+    .bs-wg-grid {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    @media (max-width: 700px) { .bs-wg-grid { grid-template-columns: 1fr; } }
+    .bs-wg-check-row {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 8px 12px; border-radius: 6px;
+        border: 1px solid var(--border-subtle);
+        font-size: 0.72rem; margin-bottom: 4px;
+    }
+    .bs-wg-check-pass { color: var(--accent-green); font-weight: 700; }
+    .bs-wg-check-fail { color: var(--accent-red); font-weight: 700; }
+
+    /* Event feed */
+    .bs-event-row {
+        display: grid;
+        grid-template-columns: 140px 1fr 90px;
+        align-items: center; gap: 10px;
+        padding: 8px 14px; border-radius: 6px;
+        border: 1px solid var(--border-subtle);
+        margin-bottom: 4px; font-size: 0.72rem;
+        transition: background 0.15s;
+    }
+    .bs-event-row:hover { background: rgba(255,255,255,0.02); }
+    .bs-event-time {
+        font-family: var(--font-mono); font-size: 0.65rem;
+        color: var(--text-dim);
+    }
+    .bs-event-type {
+        font-weight: 700; font-size: 0.68rem;
+        padding: 2px 8px; border-radius: 4px;
+        display: inline-block;
+    }
+    .bs-event-type-phase { background: rgba(167,139,250,0.12); color: var(--accent-purple); }
+    .bs-event-type-pipeline { background: rgba(56,189,248,0.12); color: var(--accent-blue); }
+    .bs-event-type-session { background: rgba(251,146,60,0.12); color: var(--accent-amber); }
+    .bs-event-type-work_guard { background: rgba(74,222,128,0.12); color: var(--accent-green); }
+    .bs-event-type-system { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+    .bs-event-detail { color: var(--text-secondary); }
+    .bs-event-source {
+        font-size: 0.62rem; color: var(--text-dim); text-align: right;
+        font-family: var(--font-mono);
+    }
+
+    /* SSE connection indicator */
+    .bs-sse-status {
+        display: inline-flex; align-items: center; gap: 5px;
+        font-size: 0.6rem; font-weight: 600; padding: 3px 10px;
+        border-radius: 6px; text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+    .bs-sse-connected { background: rgba(74,222,128,0.12); color: var(--accent-green); }
+    .bs-sse-disconnected { background: rgba(248,113,113,0.12); color: var(--accent-red); }
+    .bs-sse-connecting { background: rgba(251,191,36,0.12); color: var(--accent-gold); }
+    .bs-sse-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .bs-sse-dot-on { background: var(--accent-green); }
+    .bs-sse-dot-off { background: var(--accent-red); }
+    .bs-sse-dot-wait { background: var(--accent-gold); }
+
+    .bs-event-stats {
+        display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;
+    }
+    .bs-event-stat {
+        font-size: 0.68rem; color: var(--text-dim);
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        border-radius: 6px; padding: 4px 10px;
+    }
+    .bs-event-stat-val {
+        font-family: var(--font-mono); font-weight: 700;
+        color: var(--text-secondary); margin-left: 4px;
+    }
+    </style>
+</head>
+<body>
+    <div class="bs-shell">
+        <!-- Header -->
+        <div class="bs-header">
+            <div class="bs-header-left">
+                <div>
+                    <div class="bs-title">BOOTSTRAP CONSOLE</div>
+                    <div class="bs-subtitle">Internal Build Orchestration</div>
+                </div>
+            </div>
+            <div class="bs-header-right">
+                <span class="bs-sse-status bs-sse-connecting" id="bs-sse-badge">
+                    <span class="bs-sse-dot bs-sse-dot-wait" id="bs-sse-dot"></span>
+                    <span id="bs-sse-label">Connecting</span>
+                </span>
+                <span class="bs-badge bs-badge-mode">MODE: ASSISTED</span>
+                <button class="bs-btn" onclick="BS.refresh()">Refresh</button>
+            </div>
+        </div>
+
+        <!-- Work Guard Banner -->
+        <div class="bs-wg-banner" id="bs-wg-banner">
+            <span class="bs-wg-indicator bs-wg-unlocked" id="bs-wg-lock-badge">
+                <span class="bs-wg-dot bs-wg-dot-green" id="bs-wg-dot"></span>
+                <span id="bs-wg-lock-label">Loading...</span>
+            </span>
+            <span class="bs-wg-safe bs-wg-safe-yes" id="bs-wg-safe-badge">...</span>
+            <span class="bs-wg-detail" id="bs-wg-detail"></span>
+            <button class="bs-btn" onclick="BS.refreshWorkGuard()" style="margin-left:auto;font-size:0.6rem;">Check</button>
+        </div>
+
+        <!-- KPI Strip -->
+        <div class="bs-kpi-strip" id="bs-kpi-strip"></div>
+
+        <!-- Tabs -->
+        <div class="bs-tabs" id="bs-tabs">
+            <div class="bs-tab" data-panel="events">Events</div>
+            <div class="bs-tab" data-panel="workguard">Work Guard</div>
+            <div class="bs-tab active" data-panel="roadmap">Roadmap</div>
+            <div class="bs-tab" data-panel="dag">Dependencies</div>
+            <div class="bs-tab" data-panel="queue">Work Queue</div>
+            <div class="bs-tab" data-panel="blockers">Blockers</div>
+            <div class="bs-tab" data-panel="approvals">Approvals</div>
+            <div class="bs-tab" data-panel="reports">Reports</div>
+            <div class="bs-tab" data-panel="parallel">Parallelization</div>
+            <div class="bs-tab" data-panel="changes">Changes</div>
+            <div class="bs-tab" data-panel="rollback">Rollback</div>
+            <div class="bs-tab" data-panel="quarantine">Quarantine</div>
+        </div>
+
+        <!-- Panels -->
+
+        <!-- Events -->
+        <div class="bs-panel" id="panel-events">
+            <div class="bs-section-title">Live Event Feed</div>
+            <div class="bs-event-stats" id="bs-event-stats"></div>
+            <div id="bs-event-feed"></div>
+        </div>
+
+        <!-- Work Guard -->
+        <div class="bs-panel" id="panel-workguard">
+            <div class="bs-section-title">Work Guard Status</div>
+            <div class="bs-wg-grid">
+                <div class="bs-card" id="bs-wg-git-card">
+                    <div class="bs-card-header"><div class="bs-card-title">Git State</div></div>
+                    <div id="bs-wg-git-detail">Loading...</div>
+                </div>
+                <div class="bs-card" id="bs-wg-lock-card">
+                    <div class="bs-card-header"><div class="bs-card-title">Session Lock</div></div>
+                    <div id="bs-wg-lock-detail">Loading...</div>
+                </div>
+            </div>
+            <div class="bs-card" style="margin-top:12px;">
+                <div class="bs-card-header">
+                    <div class="bs-card-title">Safety Checks</div>
+                    <span class="bs-wg-safe bs-wg-safe-yes" id="bs-wg-safe-detail">...</span>
+                </div>
+                <div id="bs-wg-checks-list">Loading...</div>
+            </div>
+            <div class="bs-card" style="margin-top:12px;">
+                <div class="bs-card-header"><div class="bs-card-title">Recommended Action</div></div>
+                <div id="bs-wg-recommendation" style="font-size:0.78rem;color:var(--text-secondary);">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Roadmap -->
+        <div class="bs-panel active" id="panel-roadmap">
+            <div class="bs-section-title">Phase Roadmap</div>
+            <div id="bs-roadmap-list"></div>
+        </div>
+
+        <!-- DAG / Dependencies -->
+        <div class="bs-panel" id="panel-dag">
+            <div class="bs-section-title">Dependency Graph</div>
+            <div id="bs-dag-view"></div>
+            <div style="margin-top:16px;">
+                <div class="bs-section-title">Critical Path</div>
+                <div id="bs-critical-path"></div>
+            </div>
+        </div>
+
+        <!-- Work Queue -->
+        <div class="bs-panel" id="panel-queue">
+            <div class="bs-section-title">Eligible Work Queue</div>
+            <div id="bs-queue-list"></div>
+            <div style="margin-top:20px;">
+                <div class="bs-section-title">Next Recommended</div>
+                <div id="bs-next-rec"></div>
+            </div>
+        </div>
+
+        <!-- Blockers -->
+        <div class="bs-panel" id="panel-blockers">
+            <div class="bs-section-title">Current Blockers</div>
+            <div id="bs-blockers-list"></div>
+        </div>
+
+        <!-- Approvals -->
+        <div class="bs-panel" id="panel-approvals">
+            <div class="bs-section-title">Approval-Gated Phases</div>
+            <div id="bs-approvals-list"></div>
+        </div>
+
+        <!-- Reports -->
+        <div class="bs-panel" id="panel-reports">
+            <div class="bs-section-title">Build Reports</div>
+            <div id="bs-reports-list"></div>
+        </div>
+
+        <!-- Parallelization -->
+        <div class="bs-panel" id="panel-parallel">
+            <div class="bs-section-title">Parallelization Status</div>
+            <div id="bs-parallel-list"></div>
+        </div>
+
+        <!-- Changes / Manifest -->
+        <div class="bs-panel" id="panel-changes">
+            <div class="bs-section-title">Modified Files / Change Manifest</div>
+            <div id="bs-changes-list"></div>
+        </div>
+
+        <!-- Rollback -->
+        <div class="bs-panel" id="panel-rollback">
+            <div class="bs-section-title">Rollback Center</div>
+            <div id="bs-rollback-list"></div>
+        </div>
+
+        <!-- Quarantine -->
+        <div class="bs-panel" id="panel-quarantine">
+            <div class="bs-section-title">Quarantine Review</div>
+            <div id="bs-quarantine-list"></div>
+        </div>
+    </div>
+
+    <!-- Phase Detail Overlay -->
+    <div class="bs-detail-overlay" id="bs-detail-overlay">
+        <div class="bs-detail-panel" id="bs-detail-panel">
+            <button class="bs-detail-close" onclick="BS.closeDetail()">&times;</button>
+            <div id="bs-detail-content"></div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="bs-toast" id="bs-toast"></div>
+
+    <script>
+    var BS = (function() {
+        var phases = [];
+        var summary = {};
+
+        function toast(msg) {
+            var el = document.getElementById('bs-toast');
+            el.textContent = msg;
+            el.classList.add('show');
+            setTimeout(function() { el.classList.remove('show'); }, 2000);
+        }
+
+        function copyText(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() { toast('Copied!'); });
+            } else {
+                toast('Copy not supported');
+            }
+        }
+
+        function statusClass(s) { return 'bs-status bs-status-' + (s || 'not_started'); }
+        function riskClass(r) { return 'bs-risk bs-risk-' + (r || 'low'); }
+
+        function statusLabel(s) {
+            var map = {
+                'not_started': 'Not Started', 'eligible': 'Eligible', 'blocked': 'Blocked',
+                'running': 'Running', 'needs_review': 'Review', 'failed': 'Failed',
+                'completed': 'Completed', 'skipped': 'Skipped', 'cancelled': 'Cancelled'
+            };
+            return map[s] || s;
+        }
+
+        function dagNodeColor(status) {
+            var m = {
+                'completed': 'var(--accent-green)', 'running': 'var(--accent-blue)',
+                'eligible': 'var(--accent-purple)', 'blocked': 'var(--accent-red)',
+                'failed': 'var(--accent-red)', 'needs_review': 'var(--accent-gold)'
+            };
+            return m[status] || 'var(--text-dim)';
+        }
+
+        // --- Fetch ---
+        function fetchPhases() {
+            return fetch('/api/bootstrap/phases')
+                .then(function(r) { return r.json(); })
+                .then(function(data) { phases = data; return data; });
+        }
+
+        function fetchSummary() {
+            return fetch('/api/bootstrap/summary')
+                .then(function(r) { return r.json(); })
+                .then(function(data) { summary = data; return data; });
+        }
+
+        // --- Render KPIs ---
+        function renderKPIs() {
+            var sc = summary.statusCounts || {};
+            var html = '';
+            html += '<div class="bs-kpi">Total <span class="bs-kpi-val">' + (summary.totalPhases || 0) + '</span></div>';
+            html += '<div class="bs-kpi">Completed <span class="bs-kpi-val green">' + (sc.completed || 0) + '</span></div>';
+            html += '<div class="bs-kpi">Running <span class="bs-kpi-val blue">' + (sc.running || 0) + '</span></div>';
+            html += '<div class="bs-kpi">Eligible <span class="bs-kpi-val">' + (summary.eligiblePhases || []).length + '</span></div>';
+            html += '<div class="bs-kpi">Blocked <span class="bs-kpi-val amber">' + (summary.blockedPhases || []).length + '</span></div>';
+            html += '<div class="bs-kpi">Approval-Gated <span class="bs-kpi-val">' + (summary.approvalGated || []).length + '</span></div>';
+            html += '<div class="bs-kpi">Next <span class="bs-kpi-val blue">' + (summary.nextRecommended || 'none') + '</span></div>';
+            document.getElementById('bs-kpi-strip').innerHTML = html;
+        }
+
+        // --- Render Roadmap ---
+        function renderRoadmap() {
+            var html = '';
+            for (var i = 0; i < phases.length; i++) {
+                var p = phases[i];
+                html += '<div class="bs-phase-row" onclick="BS.showDetail(\'' + p.phaseId + '\')">';
+                html += '<div class="bs-phase-idx">' + (i + 1) + '</div>';
+                html += '<div class="bs-phase-info">';
+                html += '<div class="bs-phase-name">' + esc(p.name) + '</div>';
+                html += '<div class="bs-phase-desc">' + esc(p.description || '') + '</div>';
+                html += '</div>';
+                html += '<div><span class="' + statusClass(p.status) + '">' + statusLabel(p.status) + '</span></div>';
+                html += '<div><span class="' + riskClass(p.riskLevel) + '">' + (p.riskLevel || 'low') + '</span></div>';
+                html += '<div><span class="bs-complexity">' + (p.estimatedComplexity || '?') + '</span></div>';
+                html += '<div><span class="bs-parallel ' + (p.canRunInParallel ? 'bs-parallel-yes' : 'bs-parallel-no') + '">';
+                html += p.canRunInParallel ? 'Parallel OK' : 'Serial';
+                html += '</span></div>';
+                html += '</div>';
+            }
+            document.getElementById('bs-roadmap-list').innerHTML = html || '<div class="bs-empty">No phases loaded</div>';
+        }
+
+        // --- Render DAG ---
+        function renderDAG() {
+            var pm = {};
+            for (var i = 0; i < phases.length; i++) pm[phases[i].phaseId] = phases[i];
+
+            var layers = [];
+            var placed = {};
+
+            function canPlace(p) {
+                var deps = p.dependencies || [];
+                for (var d = 0; d < deps.length; d++) {
+                    if (!placed[deps[d]]) return false;
+                }
+                return true;
+            }
+
+            var remaining = phases.slice();
+            var safety = 20;
+            while (remaining.length > 0 && safety > 0) {
+                safety--;
+                var layer = [];
+                var next = [];
+                for (var r = 0; r < remaining.length; r++) {
+                    if (canPlace(remaining[r])) {
+                        layer.push(remaining[r]);
+                        placed[remaining[r].phaseId] = true;
+                    } else {
+                        next.push(remaining[r]);
+                    }
+                }
+                if (layer.length === 0) {
+                    layers.push(next);
+                    break;
+                }
+                layers.push(layer);
+                remaining = next;
+            }
+
+            var html = '';
+            for (var l = 0; l < layers.length; l++) {
+                html += '<div class="bs-dag-row">';
+                if (l > 0) html += '<span class="bs-dag-arrow">&#8595;</span> ';
+                for (var n = 0; n < layers[l].length; n++) {
+                    var ph = layers[l][n];
+                    var borderColor = dagNodeColor(ph.status);
+                    html += '<div class="bs-dag-node" style="border-color:' + borderColor + ';color:' + borderColor + ';" ';
+                    html += 'onclick="BS.showDetail(\'' + ph.phaseId + '\')">';
+                    html += esc(ph.phaseId);
+                    html += '</div>';
+                    if (n < layers[l].length - 1) html += '<span class="bs-dag-arrow">|</span>';
+                }
+                html += '</div>';
+            }
+
+            var cpHtml = '';
+            var cp = summary.criticalPath || [];
+            for (var c = 0; c < cp.length; c++) {
+                if (c > 0) cpHtml += ' <span class="bs-dag-arrow">&#8594;</span> ';
+                var cph = pm[cp[c]];
+                var cColor = cph ? dagNodeColor(cph.status) : 'var(--text-dim)';
+                cpHtml += '<span class="bs-dag-node" style="border-color:' + cColor + ';color:' + cColor + ';">' + cp[c] + '</span>';
+            }
+
+            document.getElementById('bs-dag-view').innerHTML = html || '<div class="bs-empty">No dependency data</div>';
+            document.getElementById('bs-critical-path').innerHTML = cpHtml || '<div class="bs-empty">No critical path data</div>';
+        }
+
+        // --- Render Work Queue ---
+        function renderQueue() {
+            var eligible = [];
+            var eligibleIds = summary.eligiblePhases || [];
+            var pm = {};
+            for (var i = 0; i < phases.length; i++) pm[phases[i].phaseId] = phases[i];
+
+            for (var e = 0; e < eligibleIds.length; e++) {
+                if (pm[eligibleIds[e]]) eligible.push(pm[eligibleIds[e]]);
+            }
+
+            var running = phases.filter(function(p) { return p.status === 'running'; });
+
+            var html = '';
+            if (running.length > 0) {
+                html += '<div class="bs-card"><div class="bs-card-header"><div class="bs-card-title">Active Sessions</div></div>';
+                for (var r = 0; r < running.length; r++) {
+                    html += '<div class="bs-queue-item">';
+                    html += '<div class="bs-queue-left">';
+                    html += '<span class="' + statusClass('running') + '">Running</span>';
+                    html += '<span style="font-size:0.78rem;font-weight:600;">' + esc(running[r].name) + '</span>';
+                    html += '</div>';
+                    html += '<div class="bs-queue-right">';
+                    html += '<span style="font-size:0.65rem;color:var(--text-dim);">' + (running[r].branchName || '') + '</span>';
+                    html += '</div></div>';
+                }
+                html += '</div>';
+            }
+
+            if (eligible.length > 0) {
+                html += '<div class="bs-card"><div class="bs-card-header"><div class="bs-card-title">Ready to Start</div></div>';
+                for (var q = 0; q < eligible.length; q++) {
+                    var ep = eligible[q];
+                    html += '<div class="bs-queue-item">';
+                    html += '<div class="bs-queue-left">';
+                    html += '<span class="' + riskClass(ep.riskLevel) + '">' + (ep.riskLevel || 'low') + '</span>';
+                    html += '<span style="font-size:0.78rem;font-weight:600;">' + esc(ep.name) + '</span>';
+                    html += '</div>';
+                    html += '<div class="bs-queue-right">';
+                    if (ep.promptPath) {
+                        html += '<button class="bs-btn" onclick="event.stopPropagation();BS.copyPromptPath(\'' + esc(ep.promptPath) + '\')">Copy Prompt</button>';
+                    }
+                    html += '<button class="bs-btn bs-btn-primary" onclick="event.stopPropagation();BS.showLaunchInstructions(\'' + ep.phaseId + '\')">Launch</button>';
+                    html += '</div></div>';
+                }
+                html += '</div>';
+            }
+
+            var nextId = summary.nextRecommended;
+            var recHtml = '<div class="bs-empty">No recommendation — all phases complete or blocked</div>';
+            if (nextId && pm[nextId]) {
+                var np = pm[nextId];
+                recHtml = '<div class="bs-card">';
+                recHtml += '<div class="bs-card-header"><div class="bs-card-title">' + esc(np.name) + '</div>';
+                recHtml += '<span class="' + statusClass(np.status) + '">' + statusLabel(np.status) + '</span></div>';
+                recHtml += '<p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:8px;">' + esc(np.description || '') + '</p>';
+                if (np.branchName) {
+                    recHtml += '<div class="bs-copy-box">git checkout -b ' + esc(np.branchName);
+                    recHtml += '<span class="bs-copy-btn" onclick="BS.copyText(\'git checkout -b ' + esc(np.branchName) + '\')">Copy</span></div>';
+                }
+                recHtml += '</div>';
+            }
+
+            document.getElementById('bs-queue-list').innerHTML = html || '<div class="bs-empty">No eligible phases</div>';
+            document.getElementById('bs-next-rec').innerHTML = recHtml;
+        }
+
+        // --- Render Blockers ---
+        function renderBlockers() {
+            var blocked = summary.blockedPhases || [];
+            var pm = {};
+            for (var i = 0; i < phases.length; i++) pm[phases[i].phaseId] = phases[i];
+
+            var html = '';
+            if (blocked.length === 0) {
+                html = '<div class="bs-empty">No blocked phases</div>';
+            } else {
+                html += '<table class="bs-table"><thead><tr>';
+                html += '<th>Phase</th><th>Missing Deps</th><th>Blocked By</th><th>Risk</th>';
+                html += '</tr></thead><tbody>';
+                for (var b = 0; b < blocked.length; b++) {
+                    var bp = blocked[b];
+                    var ph = pm[bp.phaseId] || {};
+                    html += '<tr>';
+                    html += '<td style="font-weight:600;">' + esc(ph.name || bp.phaseId) + '</td>';
+                    html += '<td>' + (bp.missingDeps || []).join(', ') + '</td>';
+                    html += '<td>' + (bp.blockedBy || []).join(', ') + '</td>';
+                    html += '<td><span class="' + riskClass(ph.riskLevel) + '">' + (ph.riskLevel || '?') + '</span></td>';
+                    html += '</tr>';
+                }
+                html += '</tbody></table>';
+            }
+            document.getElementById('bs-blockers-list').innerHTML = html;
+        }
+
+        // --- Render Approvals ---
+        function renderApprovals() {
+            var gated = summary.approvalGated || [];
+            var pm = {};
+            for (var i = 0; i < phases.length; i++) pm[phases[i].phaseId] = phases[i];
+
+            var html = '';
+            if (gated.length === 0) {
+                html = '<div class="bs-empty">No approval-gated phases</div>';
+            } else {
+                html += '<table class="bs-table"><thead><tr>';
+                html += '<th>Phase</th><th>Status</th><th>Risk</th><th>Required Agents</th>';
+                html += '</tr></thead><tbody>';
+                for (var g = 0; g < gated.length; g++) {
+                    var ph = pm[gated[g]] || {};
+                    html += '<tr>';
+                    html += '<td style="font-weight:600;">' + esc(ph.name || gated[g]) + '</td>';
+                    html += '<td><span class="' + statusClass(ph.status) + '">' + statusLabel(ph.status) + '</span></td>';
+                    html += '<td><span class="' + riskClass(ph.riskLevel) + '">' + (ph.riskLevel || '?') + '</span></td>';
+                    html += '<td>' + (ph.requiredAgents || []).join(', ') + '</td>';
+                    html += '</tr>';
+                }
+                html += '</tbody></table>';
+            }
+            document.getElementById('bs-approvals-list').innerHTML = html;
+        }
+
+        // --- Render Reports ---
+        function renderReports() {
+            var html = '<table class="bs-table"><thead><tr>';
+            html += '<th>Phase</th><th>Report Path</th><th>Status</th>';
+            html += '</tr></thead><tbody>';
+            for (var i = 0; i < phases.length; i++) {
+                var p = phases[i];
+                html += '<tr>';
+                html += '<td style="font-weight:600;">' + esc(p.name) + '</td>';
+                html += '<td style="font-family:var(--font-mono);font-size:0.68rem;">' + esc(p.reportPath || 'none') + '</td>';
+                html += '<td><span class="' + statusClass(p.status) + '">' + statusLabel(p.status) + '</span></td>';
+                html += '</tr>';
+            }
+            html += '</tbody></table>';
+            document.getElementById('bs-reports-list').innerHTML = html;
+        }
+
+        // --- Render Parallelization ---
+        function renderParallel() {
+            var canPar = summary.parallelizablePhases || [];
+            var pm = {};
+            for (var i = 0; i < phases.length; i++) pm[phases[i].phaseId] = phases[i];
+
+            var serialPhases = phases.filter(function(p) {
+                return !p.canRunInParallel && !p.allowedParallelism && p.status !== 'completed';
+            });
+
+            var html = '<div class="bs-card"><div class="bs-card-header"><div class="bs-card-title">Safe to Parallelize Now</div></div>';
+            if (canPar.length === 0) {
+                html += '<div class="bs-empty">No phases eligible for parallel execution</div>';
+            } else {
+                for (var p = 0; p < canPar.length; p++) {
+                    var ph = pm[canPar[p]] || {};
+                    html += '<div class="bs-queue-item"><div class="bs-queue-left">';
+                    html += '<span class="bs-parallel bs-parallel-yes">Parallel OK</span>';
+                    html += '<span style="font-size:0.78rem;font-weight:600;">' + esc(ph.name || canPar[p]) + '</span>';
+                    html += '</div><div class="bs-queue-right">';
+                    html += '<span style="font-size:0.65rem;color:var(--text-dim);">' + esc(ph.parallelizationReason || '') + '</span>';
+                    html += '</div></div>';
+                }
+            }
+            html += '</div>';
+
+            html += '<div class="bs-card" style="margin-top:12px;"><div class="bs-card-header"><div class="bs-card-title">Must Serialize</div></div>';
+            if (serialPhases.length === 0) {
+                html += '<div class="bs-empty">All remaining phases can be parallelized</div>';
+            } else {
+                for (var s = 0; s < serialPhases.length; s++) {
+                    html += '<div class="bs-queue-item"><div class="bs-queue-left">';
+                    html += '<span class="bs-parallel bs-parallel-no">Serial</span>';
+                    html += '<span style="font-size:0.78rem;font-weight:600;">' + esc(serialPhases[s].name) + '</span>';
+                    html += '</div><div class="bs-queue-right">';
+                    html += '<span style="font-size:0.65rem;color:var(--text-dim);">' + esc(serialPhases[s].parallelizationReason || '') + '</span>';
+                    html += '</div></div>';
+                }
+            }
+            html += '</div>';
+
+            html += '<div style="margin-top:12px;font-size:0.7rem;color:var(--text-dim);">Recommended max concurrency: <strong style="color:var(--text-secondary);">2</strong> (docs work can parallel with serial engine work)</div>';
+
+            document.getElementById('bs-parallel-list').innerHTML = html;
+        }
+
+        // --- Render Changes ---
+        function renderChanges() {
+            var html = '<div class="bs-card"><div class="bs-card-header"><div class="bs-card-title">Phase 5 — Bootstrap Orchestration Console</div></div>';
+            html += '<table class="bs-table"><thead><tr><th>File</th><th>Action</th></tr></thead><tbody>';
+            var files = [
+                ['engine/bootstrap.py', 'Created'],
+                ['engine/server.py', 'Modified'],
+                ['dashboard/pages/bootstrap.html', 'Created'],
+                ['dashboard/index.html', 'Modified'],
+                ['config/phase-status.json', 'Modified'],
+                ['docs/build/bootstrap-orchestration-console-build-report.md', 'Created'],
+                ['docs/build/rollback/bootstrap-orchestration-console-rollback.md', 'Created'],
+                ['docs/build/session-handoffs/bootstrap-orchestration-console-handoff.md', 'Created'],
+                ['docs/build/change-manifest.md', 'Modified'],
+                ['docs/build/blockers.md', 'Modified'],
+                ['docs/build/approval-requests.md', 'Modified'],
+                ['docs/build/parallelization-status.md', 'Modified'],
+                ['docs/decisions/bootstrap-orchestration-console.md', 'Created']
+            ];
+            for (var f = 0; f < files.length; f++) {
+                html += '<tr><td style="font-family:var(--font-mono);font-size:0.68rem;">' + files[f][0] + '</td>';
+                html += '<td>' + files[f][1] + '</td></tr>';
+            }
+            html += '</tbody></table></div>';
+            document.getElementById('bs-changes-list').innerHTML = html;
+        }
+
+        // --- Render Rollback ---
+        function renderRollback() {
+            var html = '<div class="bs-card"><div class="bs-card-header"><div class="bs-card-title">Rollback Instructions</div></div>';
+            html += '<p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:12px;">To roll back the Bootstrap Console phase, run:</p>';
+            html += '<div class="bs-copy-box">git log --oneline -5<span class="bs-copy-btn" onclick="BS.copyText(\'git log --oneline -5\')">Copy</span></div>';
+            html += '<div class="bs-copy-box" style="margin-top:8px;">git revert &lt;commit-hash&gt;<span class="bs-copy-btn" onclick="BS.copyText(\'git revert <commit-hash>\')">Copy</span></div>';
+            html += '<p style="font-size:0.72rem;color:var(--text-dim);margin-top:12px;">Safe checkpoint: <code style="color:var(--accent-blue);">8b7c1b1</code> (Phase 4 complete)</p>';
+            html += '<p style="font-size:0.72rem;color:var(--text-dim);">Full rollback doc: <code>docs/build/rollback/bootstrap-orchestration-console-rollback.md</code></p>';
+            html += '</div>';
+
+            var rollbackFiles = [
+                'docs/build/rollback/preflight-autonomy-rollback-policy-rollback.md',
+                'docs/build/rollback/clean-start-reset-rollback.md',
+                'docs/build/rollback/repo-restructure-roadmap-ingestion-rollback.md',
+                'docs/build/rollback/research-inputs-intake-system-rollback.md',
+                'docs/build/rollback/bootstrap-orchestration-console-rollback.md'
+            ];
+            html += '<div class="bs-card" style="margin-top:12px;"><div class="bs-card-header"><div class="bs-card-title">All Rollback Plans</div></div>';
+            html += '<table class="bs-table"><thead><tr><th>Phase</th><th>Rollback Doc</th></tr></thead><tbody>';
+            for (var r = 0; r < rollbackFiles.length; r++) {
+                var name = rollbackFiles[r].replace('docs/build/rollback/', '').replace('-rollback.md', '');
+                html += '<tr><td style="font-weight:600;">' + name + '</td>';
+                html += '<td style="font-family:var(--font-mono);font-size:0.68rem;">' + rollbackFiles[r] + '</td></tr>';
+            }
+            html += '</tbody></table></div>';
+
+            document.getElementById('bs-rollback-list').innerHTML = html;
+        }
+
+        // --- Render Quarantine ---
+        function renderQuarantine() {
+            var html = '<div class="bs-card"><div class="bs-card-header"><div class="bs-card-title">Quarantined Files</div></div>';
+            html += '<table class="bs-table"><thead><tr><th>File</th><th>Reason</th><th>Status</th></tr></thead><tbody>';
+            html += '<tr><td style="font-family:var(--font-mono);font-size:0.68rem;">.cleanup-quarantine/conductor_platform_build_pack_v5.zip</td>';
+            html += '<td>Build pack archive — source material only</td>';
+            html += '<td><span class="bs-status bs-status-completed">Reviewed</span></td></tr>';
+            html += '</tbody></table></div>';
+            html += '<p style="font-size:0.72rem;color:var(--text-dim);margin-top:8px;">Quarantine manifest: <code>.cleanup-quarantine/README.md</code></p>';
+            document.getElementById('bs-quarantine-list').innerHTML = html;
+        }
+
+        // --- Show Detail ---
+        function showDetail(phaseId) {
+            var pm = {};
+            for (var i = 0; i < phases.length; i++) pm[phases[i].phaseId] = phases[i];
+            var p = pm[phaseId];
+            if (!p) return;
+
+            var html = '';
+            html += '<h3 style="margin-bottom:4px;">' + esc(p.name) + '</h3>';
+            html += '<div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:8px;">' + esc(p.phaseId) + '</div>';
+            html += '<p style="font-size:0.78rem;color:var(--text-muted);">' + esc(p.description || '') + '</p>';
+
+            html += '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">';
+            html += '<span class="' + statusClass(p.status) + '">' + statusLabel(p.status) + '</span>';
+            html += '<span class="' + riskClass(p.riskLevel) + '">' + (p.riskLevel || 'low') + '</span>';
+            html += '<span class="bs-complexity">' + (p.estimatedComplexity || '?') + '</span>';
+            html += '<span class="bs-parallel ' + (p.canRunInParallel ? 'bs-parallel-yes' : 'bs-parallel-no') + '">';
+            html += p.canRunInParallel ? 'Parallel OK' : 'Serial';
+            html += '</span>';
+            if (p.approvalRequired) html += '<span class="bs-badge" style="background:rgba(251,191,36,0.15);color:var(--accent-gold);border:1px solid rgba(251,191,36,0.3);">Approval Required</span>';
+            html += '</div>';
+
+            html += '<div class="bs-detail-section">';
+            html += '<div class="bs-detail-label">Dependencies</div>';
+            html += '<div class="bs-detail-val">' + ((p.dependencies || []).join(', ') || 'None') + '</div>';
+            html += '</div>';
+
+            html += '<div class="bs-detail-section">';
+            html += '<div class="bs-detail-label">Blocks</div>';
+            html += '<div class="bs-detail-val">' + ((p.blocks || []).join(', ') || 'None') + '</div>';
+            html += '</div>';
+
+            html += '<div class="bs-detail-section">';
+            html += '<div class="bs-detail-label">Blocked By</div>';
+            html += '<div class="bs-detail-val">' + ((p.blockedBy || []).join(', ') || 'None') + '</div>';
+            html += '</div>';
+
+            if (p.branchName) {
+                html += '<div class="bs-detail-section">';
+                html += '<div class="bs-detail-label">Branch</div>';
+                html += '<div class="bs-copy-box">git checkout -b ' + esc(p.branchName);
+                html += '<span class="bs-copy-btn" onclick="BS.copyText(\'git checkout -b ' + esc(p.branchName) + '\')">Copy</span></div>';
+                html += '</div>';
+            }
+
+            if (p.promptPath) {
+                html += '<div class="bs-detail-section">';
+                html += '<div class="bs-detail-label">Prompt Path</div>';
+                html += '<div class="bs-copy-box">' + esc(p.promptPath);
+                html += '<span class="bs-copy-btn" onclick="BS.copyText(\'' + esc(p.promptPath) + '\')">Copy</span></div>';
+                html += '</div>';
+            }
+
+            if (p.reportPath) {
+                html += '<div class="bs-detail-section">';
+                html += '<div class="bs-detail-label">Report Path</div>';
+                html += '<div class="bs-detail-val" style="font-family:var(--font-mono);font-size:0.72rem;">' + esc(p.reportPath) + '</div>';
+                html += '</div>';
+            }
+
+            if (p.expectedFiles && p.expectedFiles.length > 0) {
+                html += '<div class="bs-detail-section">';
+                html += '<div class="bs-detail-label">Expected Files</div>';
+                for (var ef = 0; ef < p.expectedFiles.length; ef++) {
+                    html += '<div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text-muted);padding:2px 0;">' + esc(p.expectedFiles[ef]) + '</div>';
+                }
+                html += '</div>';
+            }
+
+            if (p.requiredAgents && p.requiredAgents.length > 0) {
+                html += '<div class="bs-detail-section">';
+                html += '<div class="bs-detail-label">Required Agents</div>';
+                html += '<div class="bs-detail-val">' + p.requiredAgents.join(', ') + '</div>';
+                html += '</div>';
+            }
+
+            if (p.requiredArtifacts && p.requiredArtifacts.length > 0) {
+                html += '<div class="bs-detail-section">';
+                html += '<div class="bs-detail-label">Required Artifacts</div>';
+                html += '<div class="bs-detail-val">' + p.requiredArtifacts.join(', ') + '</div>';
+                html += '</div>';
+            }
+
+            html += '<div class="bs-detail-section">';
+            html += '<div class="bs-detail-label">Parallelization Reason</div>';
+            html += '<div class="bs-detail-val">' + esc(p.parallelizationReason || 'N/A') + '</div>';
+            html += '</div>';
+
+            if (p.nextRecommendedAction) {
+                html += '<div class="bs-detail-section">';
+                html += '<div class="bs-detail-label">Next Recommended Action</div>';
+                html += '<div class="bs-detail-val" style="color:var(--accent-blue);">' + esc(p.nextRecommendedAction) + '</div>';
+                html += '</div>';
+            }
+
+            html += '<div class="bs-detail-section">';
+            html += '<div class="bs-detail-label">Last Updated</div>';
+            html += '<div class="bs-detail-val">' + esc(p.lastUpdated || 'Unknown') + '</div>';
+            html += '</div>';
+
+            html += '<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">';
+            if (p.status !== 'completed') {
+                html += '<button class="bs-btn bs-btn-success" onclick="BS.markComplete(\'' + p.phaseId + '\')">Mark Complete</button>';
+                html += '<button class="bs-btn" style="color:var(--accent-red);" onclick="BS.markBlocked(\'' + p.phaseId + '\')">Mark Blocked</button>';
+            }
+            if (p.promptPath) {
+                html += '<button class="bs-btn bs-btn-primary" onclick="BS.showLaunchInstructions(\'' + p.phaseId + '\')">Launch Instructions</button>';
+            }
+            html += '</div>';
+
+            document.getElementById('bs-detail-content').innerHTML = html;
+            document.getElementById('bs-detail-overlay').classList.add('active');
+        }
+
+        function closeDetail() {
+            document.getElementById('bs-detail-overlay').classList.remove('active');
+        }
+
+        // --- Actions ---
+        function markComplete(phaseId) {
+            fetch('/api/bootstrap/phases/' + phaseId, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: 'completed', lastUpdated: new Date().toISOString().slice(0, 10) })
+            }).then(function() { closeDetail(); refresh(); });
+        }
+
+        function markBlocked(phaseId) {
+            fetch('/api/bootstrap/phases/' + phaseId, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: 'blocked', lastUpdated: new Date().toISOString().slice(0, 10) })
+            }).then(function() { closeDetail(); refresh(); });
+        }
+
+        function copyPromptPath(path) {
+            copyText(path);
+        }
+
+        function showLaunchInstructions(phaseId) {
+            var pm = {};
+            for (var i = 0; i < phases.length; i++) pm[phases[i].phaseId] = phases[i];
+            var p = pm[phaseId];
+            if (!p) return;
+
+            var instructions = 'Phase: ' + p.name + '\n';
+            instructions += 'Branch: ' + (p.branchName || 'conductor-platform-rebuild') + '\n';
+            if (p.promptPath) instructions += 'Prompt: ' + p.promptPath + '\n';
+            instructions += '\n--- Commands ---\n';
+            if (p.branchName && p.branchName !== 'conductor-platform-rebuild') {
+                instructions += 'git checkout -b ' + p.branchName + '\n';
+            }
+            instructions += 'cat ' + (p.promptPath || 'N/A') + '\n';
+            instructions += '\n--- Notes ---\n';
+            instructions += 'Risk: ' + (p.riskLevel || 'low') + '\n';
+            instructions += 'Complexity: ' + (p.estimatedComplexity || '?') + '\n';
+            if (p.approvalRequired) instructions += 'APPROVAL REQUIRED before starting\n';
+            if (p.requiredArtifacts && p.requiredArtifacts.length > 0) {
+                instructions += 'Required artifacts: ' + p.requiredArtifacts.join(', ') + '\n';
+            }
+
+            copyText(instructions);
+            toast('Launch instructions copied!');
+        }
+
+        // --- Work Guard ---
+        var wgData = null;
+
+        function fetchWorkGuard() {
+            return fetch('/api/work-guard/status')
+                .then(function(r) { return r.json(); })
+                .then(function(data) { wgData = data; return data; })
+                .catch(function() { wgData = null; return null; });
+        }
+
+        function renderWorkGuardBanner() {
+            if (!wgData) {
+                document.getElementById('bs-wg-lock-label').textContent = 'Unavailable';
+                document.getElementById('bs-wg-safe-badge').textContent = '?';
+                document.getElementById('bs-wg-detail').textContent = 'Server not reachable';
+                return;
+            }
+
+            var lockBadge = document.getElementById('bs-wg-lock-badge');
+            var dot = document.getElementById('bs-wg-dot');
+            var lockLabel = document.getElementById('bs-wg-lock-label');
+            var safeBadge = document.getElementById('bs-wg-safe-badge');
+            var detail = document.getElementById('bs-wg-detail');
+
+            lockBadge.className = 'bs-wg-indicator';
+            dot.className = 'bs-wg-dot';
+
+            if (wgData.lockStatus === 'unlocked') {
+                lockBadge.classList.add('bs-wg-unlocked');
+                dot.classList.add('bs-wg-dot-green');
+                lockLabel.textContent = 'Unlocked';
+            } else if (wgData.lockStatus === 'stale') {
+                lockBadge.classList.add('bs-wg-stale');
+                dot.classList.add('bs-wg-dot-red');
+                lockLabel.textContent = 'Stale Lock';
+            } else {
+                lockBadge.classList.add('bs-wg-locked');
+                dot.classList.add('bs-wg-dot-amber');
+                lockLabel.textContent = 'Locked';
+            }
+
+            safeBadge.className = 'bs-wg-safe';
+            if (wgData.safeToRun) {
+                safeBadge.classList.add('bs-wg-safe-yes');
+                safeBadge.textContent = 'Safe to Run';
+            } else {
+                safeBadge.classList.add('bs-wg-safe-no');
+                safeBadge.textContent = 'Not Safe';
+            }
+
+            var parts = [];
+            if (wgData.git) {
+                parts.push(wgData.git.branch + ' @ ' + wgData.git.latestCommit);
+                if (!wgData.git.clean) parts.push(wgData.git.dirtyFileCount + ' dirty');
+            }
+            detail.textContent = parts.join(' | ');
+        }
+
+        function renderWorkGuardPanel() {
+            if (!wgData) return;
+
+            var gitHtml = '';
+            if (wgData.git) {
+                var g = wgData.git;
+                gitHtml += '<div class="bs-wg-check-row">Branch <span style="font-family:var(--font-mono);color:var(--accent-blue);">' + esc(g.branch) + '</span></div>';
+                gitHtml += '<div class="bs-wg-check-row">Latest Commit <span style="font-family:var(--font-mono);">' + esc(g.latestCommit) + '</span></div>';
+                gitHtml += '<div class="bs-wg-check-row">Commit Message <span style="color:var(--text-muted);font-size:0.68rem;">' + esc(g.commitMessage) + '</span></div>';
+                gitHtml += '<div class="bs-wg-check-row">Working Tree ';
+                if (g.clean) {
+                    gitHtml += '<span class="bs-wg-check-pass">Clean</span>';
+                } else {
+                    gitHtml += '<span class="bs-wg-check-fail">' + g.dirtyFileCount + ' dirty files</span>';
+                }
+                gitHtml += '</div>';
+                if (!g.clean && g.dirtyFiles) {
+                    gitHtml += '<div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent-red);padding:6px 12px;background:rgba(248,113,113,0.06);border-radius:6px;margin-top:4px;">';
+                    for (var d = 0; d < g.dirtyFiles.length && d < 10; d++) {
+                        gitHtml += esc(g.dirtyFiles[d]) + '<br>';
+                    }
+                    if (g.dirtyFiles.length > 10) gitHtml += '... and ' + (g.dirtyFiles.length - 10) + ' more';
+                    gitHtml += '</div>';
+                }
+            }
+            document.getElementById('bs-wg-git-detail').innerHTML = gitHtml || '<div class="bs-empty">No git data</div>';
+
+            var lockHtml = '';
+            if (wgData.lockStatus === 'unlocked') {
+                lockHtml = '<div style="text-align:center;padding:16px;color:var(--accent-green);font-weight:600;">No active lock</div>';
+            } else if (wgData.lock) {
+                var lk = wgData.lock;
+                lockHtml += '<div class="bs-wg-check-row">Lock ID <span style="font-family:var(--font-mono);font-size:0.65rem;">' + esc(lk.lockId) + '</span></div>';
+                lockHtml += '<div class="bs-wg-check-row">Owner <span>' + esc(lk.owner) + '</span></div>';
+                lockHtml += '<div class="bs-wg-check-row">Phase <span>' + esc(lk.phaseId || 'none') + '</span></div>';
+                lockHtml += '<div class="bs-wg-check-row">Type <span>' + esc(lk.sessionType) + '</span></div>';
+                lockHtml += '<div class="bs-wg-check-row">Started <span style="font-size:0.65rem;">' + esc(lk.startedAt) + '</span></div>';
+                lockHtml += '<div class="bs-wg-check-row">Heartbeat <span style="font-size:0.65rem;">' + esc(lk.lastHeartbeatAt) + '</span></div>';
+                lockHtml += '<div class="bs-wg-check-row">Stale? ';
+                if (lk.stale) {
+                    lockHtml += '<span class="bs-wg-check-fail">Yes</span>';
+                } else {
+                    lockHtml += '<span class="bs-wg-check-pass">No</span>';
+                }
+                lockHtml += '</div>';
+                lockHtml += '<div class="bs-wg-check-row">PID (' + (lk.pid || '?') + ') Alive? ';
+                if (lk.pidAlive) {
+                    lockHtml += '<span class="bs-wg-check-pass">Yes</span>';
+                } else {
+                    lockHtml += '<span class="bs-wg-check-fail">No</span>';
+                }
+                lockHtml += '</div>';
+            }
+            document.getElementById('bs-wg-lock-detail').innerHTML = lockHtml;
+
+            var checksHtml = '';
+            var checks = wgData.checks || {};
+            var checkItems = [
+                ['cleanWorkingTree', 'Clean Working Tree'],
+                ['noActiveLock', 'No Active Lock'],
+                ['previousPhaseCommitted', 'Previous Phase Committed'],
+            ];
+            for (var c = 0; c < checkItems.length; c++) {
+                var key = checkItems[c][0];
+                var label = checkItems[c][1];
+                if (checks[key] !== undefined) {
+                    checksHtml += '<div class="bs-wg-check-row">' + label + ' ';
+                    if (checks[key]) {
+                        checksHtml += '<span class="bs-wg-check-pass">Pass</span>';
+                    } else {
+                        checksHtml += '<span class="bs-wg-check-fail">Fail</span>';
+                    }
+                    checksHtml += '</div>';
+                }
+            }
+            if (checks.lockStale !== undefined) {
+                checksHtml += '<div class="bs-wg-check-row">Lock Stale ';
+                checksHtml += '<span class="' + (checks.lockStale ? 'bs-wg-check-fail' : 'bs-wg-check-pass') + '">' + (checks.lockStale ? 'Yes' : 'No') + '</span></div>';
+            }
+            document.getElementById('bs-wg-checks-list').innerHTML = checksHtml || '<div class="bs-empty">No checks</div>';
+
+            var safeDetail = document.getElementById('bs-wg-safe-detail');
+            safeDetail.className = 'bs-wg-safe';
+            if (wgData.safeToRun) {
+                safeDetail.classList.add('bs-wg-safe-yes');
+                safeDetail.textContent = 'Safe to Run';
+            } else {
+                safeDetail.classList.add('bs-wg-safe-no');
+                safeDetail.textContent = 'Not Safe';
+            }
+
+            document.getElementById('bs-wg-recommendation').innerHTML = esc(wgData.recommendedAction || 'No recommendation');
+        }
+
+        function refreshWorkGuard() {
+            fetchWorkGuard().then(function() {
+                renderWorkGuardBanner();
+                renderWorkGuardPanel();
+            });
+        }
+
+        // --- Events / SSE ---
+        var liveEvents = [];
+        var maxLiveEvents = 100;
+        var evtSource = null;
+
+        function eventTypeClass(type) {
+            if (type.indexOf('phase') === 0) return 'bs-event-type-phase';
+            if (type.indexOf('pipeline') === 0) return 'bs-event-type-pipeline';
+            if (type.indexOf('session') === 0) return 'bs-event-type-session';
+            if (type.indexOf('work_guard') === 0) return 'bs-event-type-work_guard';
+            return 'bs-event-type-system';
+        }
+
+        function eventSummary(evt) {
+            var d = evt.data || {};
+            switch (evt.type) {
+                case 'phase.status_changed':
+                    return (d.name || d.phaseId || '') + ': ' + (d.oldStatus || '?') + ' → ' + (d.newStatus || '?');
+                case 'pipeline.created':
+                    return (d.name || d.pipelineId || '') + ' (template: ' + (d.template || '?') + ')';
+                case 'pipeline.started':
+                case 'pipeline.completed':
+                case 'pipeline.failed':
+                case 'pipeline.cancelled':
+                    return d.name || d.pipelineId || '';
+                case 'pipeline.stage.status_changed':
+                    return (d.stageLabel || d.stageName || '') + ': ' + (d.oldStatus || '?') + ' → ' + (d.newStatus || '?');
+                case 'session.created':
+                    return (d.sessionId || '') + ' [' + (d.template || '') + '/' + (d.model || '') + ']';
+                case 'session.started':
+                    return d.sessionId || '';
+                case 'session.completed':
+                    return (d.sessionId || '') + ' (' + (d.status || '?') + ')';
+                case 'work_guard.lock_acquired':
+                    return 'by ' + (d.owner || '?') + (d.phaseId ? ' for ' + d.phaseId : '');
+                case 'work_guard.lock_released':
+                    return d.lockId || '';
+                case 'system.startup':
+                    return 'port ' + (d.port || '?');
+                case 'system.shutdown':
+                    return '';
+                default:
+                    return JSON.stringify(d).slice(0, 80);
+            }
+        }
+
+        function formatTime(ts) {
+            if (!ts) return '';
+            try {
+                var d = new Date(ts);
+                return d.toLocaleTimeString();
+            } catch (e) { return ts; }
+        }
+
+        function renderEventFeed() {
+            var html = '';
+            for (var i = liveEvents.length - 1; i >= 0; i--) {
+                var e = liveEvents[i];
+                html += '<div class="bs-event-row">';
+                html += '<div class="bs-event-time">' + formatTime(e.timestamp) + '</div>';
+                html += '<div>';
+                html += '<span class="bs-event-type ' + eventTypeClass(e.type) + '">' + esc(e.type) + '</span> ';
+                html += '<span class="bs-event-detail">' + esc(eventSummary(e)) + '</span>';
+                html += '</div>';
+                html += '<div class="bs-event-source">' + esc(e.source || '') + '</div>';
+                html += '</div>';
+            }
+            var el = document.getElementById('bs-event-feed');
+            if (el) el.innerHTML = html || '<div class="bs-empty">No events yet — waiting for activity</div>';
+        }
+
+        function renderEventStats() {
+            fetch('/api/events/stats')
+                .then(function(r) { return r.json(); })
+                .then(function(stats) {
+                    var html = '';
+                    html += '<div class="bs-event-stat">Total<span class="bs-event-stat-val">' + (stats.totalEvents || 0) + '</span></div>';
+                    html += '<div class="bs-event-stat">Buffer<span class="bs-event-stat-val">' + (stats.totalEvents || 0) + '/' + (stats.maxEvents || 500) + '</span></div>';
+                    html += '<div class="bs-event-stat">SSE Clients<span class="bs-event-stat-val">' + (stats.subscribers || 0) + '</span></div>';
+                    var el = document.getElementById('bs-event-stats');
+                    if (el) el.innerHTML = html;
+                })
+                .catch(function() {});
+        }
+
+        function loadEventHistory() {
+            fetch('/api/events?limit=50')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    liveEvents = data.events || [];
+                    renderEventFeed();
+                    renderEventStats();
+                })
+                .catch(function() {});
+        }
+
+        function updateSseBadge(state) {
+            var badge = document.getElementById('bs-sse-badge');
+            var dot = document.getElementById('bs-sse-dot');
+            var label = document.getElementById('bs-sse-label');
+            if (!badge) return;
+            badge.className = 'bs-sse-status';
+            dot.className = 'bs-sse-dot';
+            if (state === 'connected') {
+                badge.classList.add('bs-sse-connected');
+                dot.classList.add('bs-sse-dot-on');
+                label.textContent = 'Live';
+            } else if (state === 'connecting') {
+                badge.classList.add('bs-sse-connecting');
+                dot.classList.add('bs-sse-dot-wait');
+                label.textContent = 'Connecting';
+            } else {
+                badge.classList.add('bs-sse-disconnected');
+                dot.classList.add('bs-sse-dot-off');
+                label.textContent = 'Offline';
+            }
+        }
+
+        function connectSSE() {
+            if (evtSource) { evtSource.close(); evtSource = null; }
+            updateSseBadge('connecting');
+
+            evtSource = new EventSource('/api/events/stream');
+
+            evtSource.addEventListener('connected', function() {
+                updateSseBadge('connected');
+            });
+
+            evtSource.onmessage = function(msg) {
+                try {
+                    var evt = JSON.parse(msg.data);
+                    liveEvents.push(evt);
+                    if (liveEvents.length > maxLiveEvents) liveEvents.shift();
+                    renderEventFeed();
+                    autoRefreshOnEvent(evt);
+                } catch (e) {}
+            };
+
+            evtSource.addEventListener('phase.status_changed', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('pipeline.created', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('pipeline.started', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('pipeline.completed', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('pipeline.failed', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('pipeline.cancelled', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('pipeline.stage.status_changed', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('session.created', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('session.started', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('session.completed', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('work_guard.lock_acquired', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('work_guard.lock_released', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('system.startup', function(msg) { handleSSEEvent(msg); });
+            evtSource.addEventListener('system.shutdown', function(msg) { handleSSEEvent(msg); });
+
+            evtSource.onerror = function() {
+                updateSseBadge('disconnected');
+            };
+
+            evtSource.onopen = function() {
+                updateSseBadge('connected');
+            };
+        }
+
+        function handleSSEEvent(msg) {
+            try {
+                var evt = JSON.parse(msg.data);
+                liveEvents.push(evt);
+                if (liveEvents.length > maxLiveEvents) liveEvents.shift();
+                renderEventFeed();
+                autoRefreshOnEvent(evt);
+            } catch (e) {}
+        }
+
+        function autoRefreshOnEvent(evt) {
+            var type = evt.type || '';
+            if (type.indexOf('phase') === 0) {
+                fetchPhases().then(function() { fetchSummary().then(function() {
+                    renderKPIs(); renderRoadmap(); renderDAG(); renderQueue();
+                    renderBlockers(); renderApprovals();
+                }); });
+            } else if (type.indexOf('pipeline') === 0) {
+                fetchSummary().then(function() { renderKPIs(); });
+            } else if (type.indexOf('work_guard') === 0) {
+                refreshWorkGuard();
+            }
+        }
+
+        // --- Escape HTML ---
+        function esc(s) {
+            if (!s) return '';
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // --- Tab switching ---
+        function initTabs() {
+            var tabs = document.querySelectorAll('#bs-tabs .bs-tab');
+            for (var t = 0; t < tabs.length; t++) {
+                tabs[t].addEventListener('click', function() {
+                    var panel = this.getAttribute('data-panel');
+                    var allTabs = document.querySelectorAll('#bs-tabs .bs-tab');
+                    var allPanels = document.querySelectorAll('.bs-panel');
+                    for (var i = 0; i < allTabs.length; i++) allTabs[i].classList.remove('active');
+                    for (var j = 0; j < allPanels.length; j++) allPanels[j].classList.remove('active');
+                    this.classList.add('active');
+                    var target = document.getElementById('panel-' + panel);
+                    if (target) target.classList.add('active');
+                });
+            }
+        }
+
+        // --- Refresh ---
+        function refresh() {
+            Promise.all([fetchPhases(), fetchSummary(), fetchWorkGuard()]).then(function() {
+                renderKPIs();
+                renderWorkGuardBanner();
+                renderWorkGuardPanel();
+                renderRoadmap();
+                renderDAG();
+                renderQueue();
+                renderBlockers();
+                renderApprovals();
+                renderReports();
+                renderParallel();
+                renderChanges();
+                renderRollback();
+                renderQuarantine();
+            });
+        }
+
+        // --- Init ---
+        function init() {
+            initTabs();
+            refresh();
+            connectSSE();
+            loadEventHistory();
+        }
+
+        // Boot
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        return {
+            refresh: refresh,
+            showDetail: showDetail,
+            closeDetail: closeDetail,
+            markComplete: markComplete,
+            markBlocked: markBlocked,
+            copyPromptPath: copyPromptPath,
+            showLaunchInstructions: showLaunchInstructions,
+            copyText: copyText,
+            refreshWorkGuard: refreshWorkGuard,
+            connectSSE: connectSSE,
+            loadEventHistory: loadEventHistory
+        };
+    })();
+    </script>
+</body>
+</html>

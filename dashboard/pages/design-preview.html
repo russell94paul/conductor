@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Preview — Conductor Cortex</title>
+    <link rel="stylesheet" href="../styles/base.css">
+    <style>
+    body { background: var(--bg-void, var(--bg-primary)); }
+
+    .dp-toolbar {
+        position: sticky; top: 0; z-index: 100;
+        display: flex; align-items: center; gap: 10px;
+        padding: 10px 20px; flex-wrap: wrap;
+        background: rgba(5,8,22,0.92); backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-light);
+    }
+    .dp-toolbar-title {
+        font-size: 0.72rem; font-weight: 800; color: var(--accent-cyan, var(--accent-blue));
+        text-transform: uppercase; letter-spacing: 0.12em; margin-right: 12px;
+    }
+    .dp-select {
+        font-size: 0.7rem; font-weight: 600; padding: 5px 12px; border-radius: 8px;
+        border: 1px solid var(--border-medium); background: rgba(255,255,255,0.04);
+        color: var(--text-secondary); cursor: pointer; font-family: var(--font-family);
+    }
+    .dp-select:focus { outline: none; border-color: var(--accent-cyan, var(--accent-blue)); }
+    .dp-select option { background: #0a0f1a; }
+    .dp-check-group {
+        display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto;
+    }
+    .dp-check {
+        display: flex; align-items: center; gap: 5px; font-size: 0.62rem;
+        color: var(--text-muted); cursor: pointer; padding: 4px 10px;
+        border-radius: 6px; border: 1px solid var(--border-subtle);
+        transition: all 0.15s; user-select: none;
+    }
+    .dp-check:hover { border-color: rgba(94,231,255,0.3); }
+    .dp-check.active { border-color: var(--accent-cyan, var(--accent-blue)); color: var(--accent-cyan, var(--accent-blue)); background: rgba(94,231,255,0.06); }
+    .dp-check input { display: none; }
+
+    .dp-canvas {
+        padding: 24px; max-width: 1200px; margin: 0 auto;
+    }
+    .dp-section {
+        margin-bottom: 28px; display: none;
+    }
+    .dp-section.visible { display: block; animation: fadeIn 0.25s ease; }
+    .dp-section-title {
+        font-size: 0.68rem; font-weight: 700; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: 0.08em;
+        margin-bottom: 14px; padding-bottom: 6px;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* KPI row */
+    .dp-kpi-row {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+    }
+    .dp-kpi {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md, 12px); padding: 16px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .dp-kpi:hover { border-color: rgba(94,231,255,0.3); box-shadow: 0 0 16px rgba(94,231,255,0.06); }
+    .dp-kpi-label { font-size: 0.62rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .dp-kpi-value { font-size: 1.8rem; font-weight: 800; color: #fff; font-family: var(--font-mono); }
+    .dp-kpi-delta { font-size: 0.68rem; font-weight: 700; margin-top: 4px; }
+    .dp-kpi-spark { margin-top: 8px; height: 28px; }
+
+    /* Charts grid */
+    .dp-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .dp-chart-panel {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md, 12px); padding: 18px;
+    }
+    .dp-chart-title { font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 12px; }
+
+    /* Progress bars */
+    .dp-progress-item { margin-bottom: 12px; }
+    .dp-progress-label { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
+    .dp-progress-bar { height: 10px; border-radius: 5px; background: rgba(255,255,255,0.04); overflow: hidden; display: flex; }
+    .dp-progress-seg { height: 100%; transition: width 0.6s ease; }
+
+    /* Table */
+    .dp-table-wrap {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md, 12px); overflow: hidden;
+    }
+
+    /* Cards grid */
+    .dp-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .dp-card {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md, 12px); padding: 18px;
+        transition: all 0.2s; cursor: pointer;
+    }
+    .dp-card:hover { border-color: rgba(94,231,255,0.3); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .dp-card-name { font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .dp-card-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+    .dp-card-stats { display: flex; gap: 12px; font-size: 0.62rem; color: var(--text-dim); }
+    .dp-card-stat-val { font-family: var(--font-mono); font-weight: 700; color: var(--text-secondary); }
+
+    /* Form */
+    .dp-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* Nav mockup */
+    .dp-nav-mock {
+        display: flex; gap: 2px; padding: 8px 0; border-bottom: 1px solid var(--border-light); margin-bottom: 16px;
+    }
+    .dp-nav-item {
+        padding: 6px 16px; font-size: 0.72rem; font-weight: 600;
+        color: var(--text-dim); border-bottom: 2px solid transparent;
+        cursor: pointer; transition: all 0.15s;
+    }
+    .dp-nav-item:hover { color: var(--text-secondary); }
+    .dp-nav-item.active { color: var(--accent-cyan, var(--accent-blue)); border-bottom-color: var(--accent-cyan, var(--accent-blue)); }
+
+    /* Hero header mockup */
+    .dp-hero {
+        padding: 28px 24px; margin-bottom: 24px;
+        background: linear-gradient(135deg, rgba(94,231,255,0.04), rgba(155,92,255,0.03));
+        border: 1px solid var(--border-light); border-radius: var(--radius-lg, 16px);
+    }
+    .dp-hero-title {
+        font-size: 1.3rem; font-weight: 800; letter-spacing: 0.12em;
+        background: linear-gradient(90deg, var(--accent-cyan, #5ee7ff), var(--accent-violet, #9b5cff), var(--accent-green, #52ffb8));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        margin-bottom: 4px;
+    }
+    .dp-hero-sub { font-size: 0.72rem; color: var(--text-dim); }
+
+    @media (max-width: 768px) {
+        .dp-charts { grid-template-columns: 1fr; }
+        .dp-form { grid-template-columns: 1fr; }
+        .dp-kpi-row { grid-template-columns: 1fr 1fr; }
+    }
+    </style>
+</head>
+<body>
+    <div class="dp-toolbar">
+        <span class="dp-toolbar-title">Preview Playground</span>
+        <span style="font-size:0.62rem;color:var(--text-dim);">Controlled from Dashboard Builder</span>
+    </div>
+
+    <div class="dp-canvas" id="dp-canvas"></div>
+
+    <script>
+    (function() {
+    'use strict';
+
+    // Applied after applyFullConfig is defined — see bottom of script
+
+    var COMPONENTS = [
+        { key: 'hero', label: 'Hero Header' },
+        { key: 'nav', label: 'Navigation' },
+        { key: 'kpis', label: 'KPI Cards' },
+        { key: 'charts', label: 'Charts' },
+        { key: 'progress', label: 'Progress Bars' },
+        { key: 'table', label: 'Data Table' },
+        { key: 'cards', label: 'Cards' },
+        { key: 'badges', label: 'Badges' },
+        { key: 'buttons', label: 'Buttons' },
+        { key: 'form', label: 'Form Controls' },
+        { key: 'callouts', label: 'Callouts' },
+        { key: 'typography', label: 'Typography' },
+    ];
+
+    var visible = {};
+    COMPONENTS.forEach(function(c) { visible[c.key] = true; });
+    var currentPage = 'dashboard';
+
+    function vis(key) { return visible[key] ? ' visible' : ''; }
+
+    function renderPage() {
+        var page = currentPage;
+        var html = '';
+
+        if (page === 'dashboard') html = renderDashboard();
+        else if (page === 'projects') html = renderProjects();
+        else if (page === 'sessions') html = renderSessions();
+        else if (page === 'settings') html = renderSettings();
+
+        document.getElementById('dp-canvas').innerHTML = html;
+    }
+
+    function renderDashboard() {
+        var html = '';
+
+        html += '<div class="dp-section' + vis('hero') + '" data-comp="hero">';
+        html += '<div class="dp-hero">';
+        html += '<div class="dp-hero-title">CONDUCTOR CORTEX</div>';
+        html += '<div class="dp-hero-sub">AI Operations Intelligence — All Projects — Last 24h</div>';
+        html += '</div></div>';
+
+        html += '<div class="dp-section' + vis('nav') + '" data-comp="nav">';
+        html += '<div class="dp-nav-mock">';
+        html += '<div class="dp-nav-item active">Overview</div>';
+        html += '<div class="dp-nav-item">Sessions</div>';
+        html += '<div class="dp-nav-item">Pipelines</div>';
+        html += '<div class="dp-nav-item">Phases</div>';
+        html += '<div class="dp-nav-item">Projects</div>';
+        html += '</div></div>';
+
+        html += '<div class="dp-section' + vis('kpis') + '" data-comp="kpis">';
+        html += '<div class="dp-section-title">Key Metrics</div>';
+        html += '<div class="dp-kpi-row">';
+        var kpis = [
+            { label: 'Sessions', value: '47', delta: '+12%', up: true },
+            { label: 'Success Rate', value: '87%', delta: '+3%', up: true },
+            { label: 'Total Cost', value: '$18.42', delta: '-$2.10', up: false },
+            { label: 'Pipelines', value: '14', delta: '+2', up: true },
+            { label: 'Active Now', value: '3', delta: '', up: true },
+            { label: 'Avg Duration', value: '4:32', delta: '-18%', up: true },
+        ];
+        kpis.forEach(function(k) {
+            html += '<div class="dp-kpi">';
+            html += '<div class="dp-kpi-label">' + k.label + '</div>';
+            html += '<div class="dp-kpi-value">' + k.value + '</div>';
+            if (k.delta) {
+                var c = k.up ? 'var(--accent-green)' : 'var(--accent-red)';
+                html += '<div class="dp-kpi-delta" style="color:' + c + ';">' + k.delta + '</div>';
+            }
+            html += '<div class="dp-kpi-spark" style="background:linear-gradient(90deg,rgba(94,231,255,0.08),rgba(94,231,255,0.02));border-radius:4px;"></div>';
+            html += '</div>';
+        });
+        html += '</div></div>';
+
+        html += '<div class="dp-section' + vis('charts') + '" data-comp="charts">';
+        html += '<div class="dp-section-title">Visualizations</div>';
+        html += '<div class="dp-charts">';
+        html += '<div class="dp-chart-panel"><div class="dp-chart-title">Session Status</div><div style="height:160px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:0.72rem;">[Ring Chart]</div></div>';
+        html += '<div class="dp-chart-panel"><div class="dp-chart-title">Activity Heatmap</div><div style="height:160px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:0.72rem;">[Heatmap Grid]</div></div>';
+        html += '<div class="dp-chart-panel"><div class="dp-chart-title">Cost Over Time</div><div style="height:160px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:0.72rem;">[Line Chart]</div></div>';
+        html += '<div class="dp-chart-panel"><div class="dp-chart-title">Pipeline Completion</div><div style="height:160px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:0.72rem;">[Gauge]</div></div>';
+        html += '</div></div>';
+
+        html += '<div class="dp-section' + vis('progress') + '" data-comp="progress">';
+        html += '<div class="dp-section-title">Progress</div>';
+        var bars = [
+            { label: 'Overall', pct: '72%', segs: [{w:45,c:'var(--accent-green)'},{w:15,c:'var(--accent-cyan)'},{w:12,c:'var(--text-dim)'},{w:5,c:'var(--accent-red)'}] },
+            { label: 'SIHRE', pct: '11%', segs: [{w:8,c:'var(--accent-green)'},{w:3,c:'var(--accent-cyan)'},{w:66,c:'var(--text-dim)'}] },
+            { label: 'NeuroSpect', pct: '38%', segs: [{w:25,c:'var(--accent-green)'},{w:8,c:'var(--accent-cyan)'},{w:5,c:'var(--accent-amber)'},{w:40,c:'var(--text-dim)'},{w:3,c:'var(--accent-red)'}] },
+        ];
+        bars.forEach(function(b) {
+            html += '<div class="dp-progress-item">';
+            html += '<div class="dp-progress-label"><span>' + b.label + '</span><span style="font-family:var(--font-mono);font-weight:700;color:var(--text-secondary);">' + b.pct + '</span></div>';
+            html += '<div class="dp-progress-bar">';
+            b.segs.forEach(function(s) {
+                html += '<div class="dp-progress-seg" style="width:' + s.w + '%;background:' + s.c + ';"></div>';
+            });
+            html += '</div></div>';
+        });
+        html += '</div>';
+
+        html += renderBadges();
+        html += renderButtons();
+        html += renderCallouts();
+        html += renderTypography();
+
+        return html;
+    }
+
+    function renderProjects() {
+        var html = '';
+        html += '<div class="dp-section' + vis('hero') + '">';
+        html += '<div class="dp-hero"><div class="dp-hero-title">PROJECTS</div><div class="dp-hero-sub">Product Portfolio Health</div></div></div>';
+
+        html += '<div class="dp-section' + vis('cards') + '">';
+        html += '<div class="dp-section-title">Project Cards</div>';
+        html += '<div class="dp-cards">';
+        var projects = [
+            { name: 'NeuroSpect', desc: 'AI trading intelligence platform. 13 phases, 2 complete.', sessions: 32, pipes: 8, rate: '87%', cost: '$12.40' },
+            { name: 'SIHRE', desc: 'Public research platform + website for SIHRE framework. 9 phases.', sessions: 8, pipes: 3, rate: '92%', cost: '$3.18' },
+            { name: 'Labs Institute', desc: 'DJ artist management portal. Contracts, gig matching, profiles.', sessions: 4, pipes: 2, rate: '100%', cost: '$1.60' },
+            { name: 'GrooveNet', desc: 'DJ collective cross-collaboration. Events, mixes, pooling.', sessions: 3, pipes: 1, rate: '67%', cost: '$1.24' },
+        ];
+        projects.forEach(function(p) {
+            html += '<div class="dp-card">';
+            html += '<div class="dp-card-name">' + p.name + '</div>';
+            html += '<div class="dp-card-desc">' + p.desc + '</div>';
+            html += '<div class="dp-card-stats">';
+            html += '<span>Sessions <span class="dp-card-stat-val">' + p.sessions + '</span></span>';
+            html += '<span>Pipelines <span class="dp-card-stat-val">' + p.pipes + '</span></span>';
+            html += '<span>Success <span class="dp-card-stat-val" style="color:var(--accent-green);">' + p.rate + '</span></span>';
+            html += '<span>Cost <span class="dp-card-stat-val" style="color:var(--accent-gold,var(--accent-amber));">' + p.cost + '</span></span>';
+            html += '</div></div>';
+        });
+        html += '</div></div>';
+
+        html += renderBadges();
+        html += renderButtons();
+        return html;
+    }
+
+    function renderSessions() {
+        var html = '';
+        html += '<div class="dp-section' + vis('hero') + '">';
+        html += '<div class="dp-hero"><div class="dp-hero-title">SESSIONS</div><div class="dp-hero-sub">Session Intelligence Board</div></div></div>';
+
+        html += '<div class="dp-section' + vis('kpis') + '">';
+        html += '<div class="dp-kpi-row">';
+        [{l:'Total',v:'47'},{l:'Running',v:'3'},{l:'Succeeded',v:'38'},{l:'Failed',v:'6'}].forEach(function(k) {
+            html += '<div class="dp-kpi"><div class="dp-kpi-label">' + k.l + '</div><div class="dp-kpi-value">' + k.v + '</div></div>';
+        });
+        html += '</div></div>';
+
+        html += '<div class="dp-section' + vis('table') + '">';
+        html += '<div class="dp-section-title">Session Log</div>';
+        html += '<div class="dp-table-wrap"><table class="data-table"><thead><tr>';
+        html += '<th>ID</th><th>Project</th><th>Status</th><th>Model</th><th>Cost</th><th>Duration</th>';
+        html += '</tr></thead><tbody>';
+        var rows = [
+            { id: 'ses_ed77ba86', proj: 'sihre', status: 'succeeded', model: 'sonnet', cost: '$0.42', dur: '3:12' },
+            { id: 'ses_3ff6ffac', proj: 'neurospect', status: 'failed', model: 'opus', cost: '$1.84', dur: '8:45' },
+            { id: 'ses_a4b60e67', proj: 'neurospect', status: 'succeeded', model: 'sonnet', cost: '$0.31', dur: '2:05' },
+            { id: 'ses_130f5029', proj: 'neurospect', status: 'running', model: 'sonnet', cost: '$0.18', dur: '1:30' },
+            { id: 'ses_c962a10e', proj: 'labs-institute', status: 'succeeded', model: 'haiku', cost: '$0.08', dur: '0:42' },
+        ];
+        rows.forEach(function(r) {
+            var badge = r.status === 'succeeded' ? 'green' : r.status === 'failed' ? 'red' : r.status === 'running' ? 'blue' : 'amber';
+            html += '<tr>';
+            html += '<td style="font-family:var(--font-mono);color:var(--accent-cyan,var(--accent-blue));">' + r.id.substring(0,12) + '</td>';
+            html += '<td>' + r.proj + '</td>';
+            html += '<td><span class="badge ' + badge + '">' + r.status + '</span></td>';
+            html += '<td>' + r.model + '</td>';
+            html += '<td style="font-family:var(--font-mono);color:var(--accent-gold,var(--accent-amber));">' + r.cost + '</td>';
+            html += '<td style="font-family:var(--font-mono);">' + r.dur + '</td>';
+            html += '</tr>';
+        });
+        html += '</tbody></table></div></div>';
+
+        html += renderBadges();
+        return html;
+    }
+
+    function renderSettings() {
+        var html = '';
+        html += '<div class="dp-section' + vis('hero') + '">';
+        html += '<div class="dp-hero"><div class="dp-hero-title">SETTINGS</div><div class="dp-hero-sub">Configuration &amp; Preferences</div></div></div>';
+
+        html += '<div class="dp-section' + vis('form') + '">';
+        html += '<div class="dp-section-title">Form Controls</div>';
+        html += '<div class="dp-form">';
+        html += '<div class="form-group"><label class="form-label">Project Name</label><input class="form-input" value="SIHRE Platform"></div>';
+        html += '<div class="form-group"><label class="form-label">Model</label><select class="form-select"><option>Sonnet</option><option>Opus</option><option>Haiku</option></select></div>';
+        html += '<div class="form-group"><label class="form-label">Budget (USD)</label><input class="form-input" type="number" value="5.00"></div>';
+        html += '<div class="form-group"><label class="form-label">Timeout (min)</label><input class="form-input" type="number" value="60"></div>';
+        html += '</div>';
+        html += '<div class="form-group" style="margin-top:14px;"><label class="form-label">Prompt</label><textarea class="form-textarea" rows="3" placeholder="Describe the task...">Implement the artifact manager for SIHRE P1</textarea></div>';
+        html += '<div style="display:flex;gap:8px;margin-top:14px;">';
+        html += '<label class="form-checkbox"><input type="checkbox" checked> Auto-start pipeline</label>';
+        html += '<label class="form-checkbox"><input type="checkbox"> Use worktree</label>';
+        html += '<label class="form-checkbox"><input type="checkbox" checked> Validate on completion</label>';
+        html += '</div>';
+        html += '</div>';
+
+        html += renderCallouts();
+        html += renderButtons();
+        html += renderTypography();
+        return html;
+    }
+
+    function renderBadges() {
+        var html = '<div class="dp-section' + vis('badges') + '">';
+        html += '<div class="dp-section-title">Status Badges</div>';
+        html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+        html += '<span class="badge running">Running</span><span class="badge succeeded">Succeeded</span>';
+        html += '<span class="badge failed">Failed</span><span class="badge queued">Queued</span>';
+        html += '<span class="badge review">Review</span><span class="badge gold">Premium</span>';
+        html += '<span class="badge blue">Info</span><span class="badge purple">Planned</span>';
+        html += '</div></div>';
+        return html;
+    }
+
+    function renderButtons() {
+        var html = '<div class="dp-section' + vis('buttons') + '">';
+        html += '<div class="dp-section-title">Buttons</div>';
+        html += '<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">';
+        html += '<button class="btn btn-primary btn-sm">Primary</button>';
+        html += '<button class="btn btn-success btn-sm">Success</button>';
+        html += '<button class="btn btn-danger btn-sm">Danger</button>';
+        html += '<button class="btn btn-ghost btn-sm">Ghost</button>';
+        html += '<button class="btn btn-back btn-sm">Back</button>';
+        html += '<button class="btn btn-primary btn-sm" disabled>Disabled</button>';
+        html += '</div></div>';
+        return html;
+    }
+
+    function renderCallouts() {
+        var html = '<div class="dp-section' + vis('callouts') + '">';
+        html += '<div class="dp-section-title">Callouts</div>';
+        html += '<div class="callout info">Info — Pipeline validation passed all 4 checks. Session cost was within budget parameters.</div>';
+        html += '<div class="callout warn">Warning — 3 sessions have been running for over 10 minutes. Consider reviewing or cancelling.</div>';
+        html += '<div class="callout success">Success — Project SIHRE created with 9 phases. All artifacts ingested and classified.</div>';
+        html += '</div>';
+        return html;
+    }
+
+    function renderTypography() {
+        var html = '<div class="dp-section' + vis('typography') + '">';
+        html += '<div class="dp-section-title">Typography</div>';
+        html += '<div style="padding:16px;background:var(--card-gradient);border:1px solid var(--border-medium);border-radius:12px;">';
+        html += '<h2 style="margin-bottom:6px;">Heading 2 — Page Title</h2>';
+        html += '<h3 style="margin-bottom:6px;">Heading 3 — Section Title</h3>';
+        html += '<p class="body">Body text with <strong>bold emphasis</strong> and <code>inline code</code> for technical references. Line height is 1.8 for comfortable reading across long sessions.</p>';
+        html += '<p style="font-size:0.72rem;color:var(--text-dim);">Dim text — timestamps, captions, hints, and secondary information</p>';
+        html += '<p style="font-family:var(--font-mono);font-size:0.78rem;color:var(--accent-cyan,var(--accent-blue));">ses_ed77ba86 — monospace for IDs, code, and technical values</p>';
+        html += '</div></div>';
+        return html;
+    }
+
+    // Apply saved config on load
+    try {
+        var saved = localStorage.getItem('db-config');
+        if (saved) applyFullConfig(JSON.parse(saved));
+    } catch(e) {}
+
+    // Init
+    renderPage();
+
+    // Theme definitions (must match design-system.html)
+    var PREVIEW_THEMES = {
+        'cortex-dark': { '--bg-void':'#03050a','--bg-primary':'#050816','--accent-cyan':'#5ee7ff','--accent-violet':'#9b5cff','--accent-green':'#52ffb8','--accent-red':'#ff5c8a','--accent-amber':'#ffd166' },
+        'aurora-ops': { '--bg-void':'#040812','--bg-primary':'#081018','--accent-cyan':'#67e8f9','--accent-violet':'#c084fc','--accent-green':'#86efac','--accent-red':'#fca5a5','--accent-amber':'#fde68a' },
+        'neon-exec': { '--bg-void':'#0a0014','--bg-primary':'#12001e','--accent-cyan':'#00f0ff','--accent-violet':'#bf5af2','--accent-green':'#30d158','--accent-red':'#ff453a','--accent-amber':'#ffd60a' },
+        'graphite': { '--bg-void':'#111111','--bg-primary':'#1a1a1a','--accent-cyan':'#8ecae6','--accent-violet':'#b5a3d4','--accent-green':'#a3d9a5','--accent-red':'#e57373','--accent-amber':'#ddb892' },
+        'labs-spectrum': { '--bg-void':'#020210','--bg-primary':'#060620','--accent-cyan':'#38bdf8','--accent-violet':'#a78bfa','--accent-green':'#4ade80','--accent-red':'#f87171','--accent-amber':'#fb923c' },
+    };
+
+    function applyFullConfig(cfg) {
+        var root = document.documentElement;
+
+        // Theme base vars
+        if (cfg.theme && PREVIEW_THEMES[cfg.theme]) {
+            Object.keys(PREVIEW_THEMES[cfg.theme]).forEach(function(k) {
+                root.style.setProperty(k, PREVIEW_THEMES[cfg.theme][k]);
+            });
+        }
+
+        // Custom color overrides
+        if (cfg.colors) {
+            Object.keys(cfg.colors).forEach(function(k) {
+                root.style.setProperty(k, cfg.colors[k]);
+            });
+        }
+
+        // Density
+        if (cfg.density) root.dataset.density = cfg.density;
+
+        // Background FX
+        if (cfg.bgfx) root.dataset.bgfx = cfg.bgfx;
+
+        // Radius scale
+        if (cfg.radiusScale !== undefined) {
+            var rs = parseFloat(cfg.radiusScale);
+            root.style.setProperty('--radius-sm', Math.round(8 * rs) + 'px');
+            root.style.setProperty('--radius-md', Math.round(14 * rs) + 'px');
+            root.style.setProperty('--radius-lg', Math.round(22 * rs) + 'px');
+        }
+
+        // Glow intensity
+        if (cfg.glowIntensity !== undefined) {
+            var gi = parseFloat(cfg.glowIntensity);
+            root.style.setProperty('--shadow-glow-cyan', '0 0 ' + Math.round(28 * gi) + 'px rgba(94,231,255,' + (0.24 * gi).toFixed(2) + ')');
+            root.style.setProperty('--shadow-glow-violet', '0 0 ' + Math.round(32 * gi) + 'px rgba(155,92,255,' + (0.22 * gi).toFixed(2) + ')');
+            root.style.setProperty('--shadow-glow-green', '0 0 ' + Math.round(28 * gi) + 'px rgba(82,255,184,' + (0.20 * gi).toFixed(2) + ')');
+        }
+
+        // Motion speed
+        if (cfg.motionSpeed !== undefined) {
+            var ms = parseFloat(cfg.motionSpeed);
+            root.style.setProperty('--transition-fast', Math.round(160 / Math.max(ms, 0.1)) + 'ms var(--ease-out-expo)');
+            root.style.setProperty('--transition-smooth', Math.round(420 / Math.max(ms, 0.1)) + 'ms var(--ease-out-expo)');
+        }
+
+        // Update background color on body
+        document.body.style.background = 'var(--bg-void, var(--bg-primary))';
+
+        renderPage();
+    }
+
+    // Live sync from design system via BroadcastChannel
+    if (typeof BroadcastChannel !== 'undefined') {
+        var _previewChannel = new BroadcastChannel('db-config-sync');
+        _previewChannel.onmessage = function(e) {
+            if (!e.data) return;
+            if (e.data.type === 'config-update') {
+                applyFullConfig(e.data.config);
+            }
+            if (e.data.type === 'preview-page') {
+                currentPage = e.data.page || 'dashboard';
+                renderPage();
+            }
+            if (e.data.type === 'preview-components') {
+                visible = e.data.visible || {};
+                renderPage();
+            }
+        };
+    }
+
+    })();
+    </script>
+</body>
+</html>

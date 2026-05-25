@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+    .gn-page { padding: 28px 20px; max-width: 1200px; margin: 0 auto; }
+
+    .gn-header {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+    }
+    .gn-header-left { display: flex; align-items: center; gap: 14px; }
+    .gn-logo {
+        width: 42px; height: 42px; border-radius: 12px;
+        background: linear-gradient(135deg, #a78bfa, #f472b6);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 18px; font-weight: 900; color: #fff;
+        box-shadow: 0 0 20px rgba(167,139,250,0.3);
+    }
+    .gn-header h1 {
+        font-size: 1.5rem; font-weight: 700; text-align: left; letter-spacing: 0;
+    }
+    .gn-header-sub {
+        font-size: 0.75rem; color: var(--text-dim); font-weight: 400;
+    }
+    .gn-tabs {
+        display: flex; gap: 2px; background: rgba(255,255,255,0.03);
+        border-radius: 10px; padding: 3px; border: 1px solid var(--border-light);
+    }
+    .gn-tab {
+        padding: 8px 18px; border-radius: 8px; font-size: 0.78rem;
+        font-weight: 600; color: var(--text-dim); cursor: pointer;
+        transition: all 0.15s; border: none; background: none;
+        font-family: var(--font-family);
+    }
+    .gn-tab:hover { color: var(--text-secondary); }
+    .gn-tab.active {
+        background: rgba(167,139,250,0.15); color: #a78bfa;
+    }
+
+    .gn-section { display: none; }
+    .gn-section.active { display: block; }
+
+    /* Filters */
+    .gn-filters {
+        display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+        align-items: center;
+    }
+    .gn-filter {
+        padding: 6px 14px; border-radius: 20px; font-size: 0.72rem;
+        font-weight: 600; cursor: pointer; border: 1px solid var(--border-strong);
+        background: rgba(255,255,255,0.03); color: var(--text-muted);
+        transition: all 0.15s; font-family: var(--font-family);
+    }
+    .gn-filter:hover { border-color: rgba(167,139,250,0.4); color: var(--text-secondary); }
+    .gn-filter.active {
+        background: rgba(167,139,250,0.12); border-color: rgba(167,139,250,0.4);
+        color: #a78bfa;
+    }
+    .gn-filter-label {
+        font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase;
+        letter-spacing: 0.06em; font-weight: 700; margin-right: 4px;
+    }
+    .gn-filter-sep {
+        width: 1px; height: 20px; background: var(--border-medium);
+    }
+
+    /* Event Cards */
+    .gn-events { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+    .gn-event {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: 12px; padding: 18px 20px;
+        border-left: 3px solid var(--accent-slate);
+        transition: transform 0.15s, border-color 0.15s;
+        cursor: pointer;
+    }
+    .gn-event:hover {
+        transform: translateY(-2px); border-color: rgba(167,139,250,0.3);
+    }
+    .gn-event.type-paid { border-left-color: var(--accent-green); }
+    .gn-event.type-open-deck { border-left-color: var(--accent-amber); }
+    .gn-event.type-guest-slot { border-left-color: var(--accent-blue); }
+    .gn-event.type-collab { border-left-color: var(--accent-purple); }
+    .gn-event.type-residency { border-left-color: var(--accent-gold); }
+    .gn-event.matched {
+        box-shadow: 0 0 0 1px rgba(167,139,250,0.2), 0 0 20px rgba(167,139,250,0.08);
+    }
+
+    .gn-event-top {
+        display: flex; align-items: flex-start; justify-content: space-between;
+        gap: 12px; margin-bottom: 8px;
+    }
+    .gn-event-title {
+        font-size: 0.95rem; font-weight: 700; color: #fff;
+    }
+    .gn-event-badges { display: flex; gap: 6px; flex-shrink: 0; }
+
+    .gn-event-meta {
+        display: flex; gap: 16px; font-size: 0.75rem; color: var(--text-muted);
+        margin-bottom: 8px; flex-wrap: wrap;
+    }
+    .gn-event-meta-item {
+        display: flex; align-items: center; gap: 4px;
+    }
+    .gn-event-meta-item svg {
+        width: 13px; height: 13px; stroke: currentColor; fill: none;
+        stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .gn-event-desc {
+        font-size: 0.78rem; color: var(--text-dim); line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .gn-event-genres {
+        display: flex; gap: 5px; flex-wrap: wrap;
+    }
+    .gn-genre-tag {
+        font-size: 0.62rem; font-weight: 700; padding: 2px 8px;
+        border-radius: 10px; text-transform: uppercase; letter-spacing: 0.04em;
+        background: rgba(255,255,255,0.05); color: var(--text-dim);
+    }
+    .gn-genre-tag.match {
+        background: rgba(167,139,250,0.12); color: #a78bfa;
+    }
+
+    .gn-match-badge {
+        font-size: 0.58rem; font-weight: 700; padding: 2px 8px;
+        border-radius: 10px; background: rgba(167,139,250,0.15);
+        color: #a78bfa; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    .gn-fee-badge {
+        font-size: 0.62rem; font-weight: 700; padding: 2px 8px;
+        border-radius: 10px; background: rgba(74,222,128,0.12);
+        color: var(--accent-green);
+    }
+
+    /* Set Tracker */
+    .gn-sets { display: grid; grid-template-columns: 1fr; gap: 10px; }
+
+    .gn-set {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: 12px; padding: 16px 20px;
+        display: flex; align-items: center; gap: 16px;
+    }
+    .gn-set-icon {
+        width: 40px; height: 40px; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 18px; flex-shrink: 0;
+    }
+    .gn-set-icon.posted {
+        background: rgba(74,222,128,0.12); color: var(--accent-green);
+    }
+    .gn-set-icon.unposted {
+        background: rgba(251,146,60,0.12); color: var(--accent-amber);
+    }
+    .gn-set-info { flex: 1; min-width: 0; }
+    .gn-set-title {
+        font-size: 0.88rem; font-weight: 600; color: #fff;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .gn-set-meta {
+        font-size: 0.72rem; color: var(--text-dim);
+        display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .gn-set-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+    .gn-nudge {
+        background: rgba(251,146,60,0.08); border: 1px solid rgba(251,146,60,0.2);
+        border-radius: 10px; padding: 12px 16px; margin-bottom: 16px;
+        display: flex; align-items: center; gap: 10px;
+        font-size: 0.78rem; color: var(--accent-amber);
+    }
+    .gn-nudge-icon { font-size: 18px; flex-shrink: 0; }
+
+    /* Log Set Modal */
+    .gn-modal-overlay {
+        position: fixed; inset: 0;
+        background: rgba(5,10,16,0.75); backdrop-filter: blur(6px);
+        z-index: 500; display: none; align-items: center; justify-content: center;
+    }
+    .gn-modal-overlay.open { display: flex; }
+    .gn-modal {
+        background: linear-gradient(135deg, #1a2738, #11202f);
+        border: 1px solid rgba(255,255,255,0.10); border-radius: 14px;
+        padding: 24px 26px; max-width: 520px; width: calc(100% - 40px);
+        box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+        max-height: 90vh; overflow-y: auto;
+    }
+
+    /* Empty state */
+    .gn-empty {
+        text-align: center; padding: 60px 20px; color: var(--text-dim);
+    }
+    .gn-empty h3 { color: var(--text-muted); margin-bottom: 8px; }
+
+    @media (max-width: 768px) {
+        .gn-header { flex-direction: column; align-items: flex-start; }
+        .gn-event-meta { flex-direction: column; gap: 4px; }
+        .gn-set { flex-direction: column; align-items: flex-start; }
+    }
+</style>
+</head>
+<body>
+<div class="gn-page">
+    <div class="gn-header">
+        <div class="gn-header-left">
+            <div class="gn-logo">G</div>
+            <div>
+                <h1>GrooveNet</h1>
+                <div class="gn-header-sub">Event Discovery + Set Tracker</div>
+            </div>
+        </div>
+        <div class="gn-tabs">
+            <button class="gn-tab active" data-tab="discover">Discover</button>
+            <button class="gn-tab" data-tab="my-sets">My Sets</button>
+            <button class="gn-tab" data-tab="matched">For You</button>
+            <button class="gn-tab" data-tab="profile">Profile</button>
+        </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-row" id="gn-kpis"></div>
+
+    <!-- Nudges for unposted sets -->
+    <div id="gn-nudges"></div>
+
+    <!-- DISCOVER TAB -->
+    <div class="gn-section active" id="tab-discover">
+        <div class="gn-filters" id="gn-filters">
+            <span class="gn-filter-label">Type</span>
+            <button class="gn-filter active" data-filter-type="all">All</button>
+            <button class="gn-filter" data-filter-type="open-deck">Open Deck</button>
+            <button class="gn-filter" data-filter-type="paid">Paid</button>
+            <button class="gn-filter" data-filter-type="guest-slot">Guest Slot</button>
+            <button class="gn-filter" data-filter-type="collab">Collab</button>
+            <button class="gn-filter" data-filter-type="residency">Residency</button>
+            <div class="gn-filter-sep"></div>
+            <span class="gn-filter-label">Location</span>
+            <button class="gn-filter active" data-filter-loc="all">All</button>
+        </div>
+        <div class="gn-events" id="gn-events"></div>
+    </div>
+
+    <!-- MY SETS TAB -->
+    <div class="gn-section" id="tab-my-sets">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <h3>Set History</h3>
+            <button class="btn btn-primary btn-sm" onclick="openLogSetModal()">+ Log Set</button>
+        </div>
+        <div class="gn-sets" id="gn-sets"></div>
+    </div>
+
+    <!-- FOR YOU TAB -->
+    <div class="gn-section" id="tab-matched">
+        <div style="margin-bottom:16px;">
+            <h3>Events Matched to Your Profile</h3>
+            <p style="font-size:0.78rem;color:var(--text-dim);margin-top:4px;">
+                Based on your genres, location, and availability.
+            </p>
+        </div>
+        <div class="gn-events" id="gn-matched"></div>
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div class="gn-section" id="tab-profile">
+        <div style="max-width:560px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                <h3>DJ Profile</h3>
+                <button class="btn btn-primary btn-sm" onclick="saveProfile()">Save Profile</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">DJ Name</label>
+                <input class="form-input" id="prof-name" placeholder="Your DJ name">
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input class="form-input" id="prof-location" placeholder="e.g. Manchester">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Experience Level</label>
+                    <select class="form-select" id="prof-experience">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="experienced">Experienced</option>
+                        <option value="professional">Professional</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Genres</label>
+                <input class="form-input" id="prof-genres" placeholder="e.g. house, techno, disco">
+                <div class="form-hint">Comma-separated. Used for event matching.</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Available Days</label>
+                <div id="prof-days" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;"></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Bio</label>
+                <textarea class="form-textarea" id="prof-bio" placeholder="A short bio about your style and experience..."></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Log Set Modal -->
+<div class="gn-modal-overlay" id="log-set-modal">
+    <div class="gn-modal">
+        <h2 id="log-set-modal-title">Log a Set</h2>
+        <div class="form-group">
+            <label class="form-label">Event / Night Name</label>
+            <input class="form-input" id="set-event" placeholder="e.g. Underground Sessions">
+        </div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label">Venue</label>
+                <input class="form-input" id="set-venue" placeholder="e.g. The Vault">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Date</label>
+                <input class="form-input" id="set-date" type="date">
+            </div>
+        </div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label">Set Type</label>
+                <select class="form-select" id="set-type">
+                    <option value="open-deck">Open Deck</option>
+                    <option value="support">Support</option>
+                    <option value="headliner">Headliner</option>
+                    <option value="b2b">B2B</option>
+                    <option value="guest">Guest Slot</option>
+                    <option value="residency">Residency</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Duration (min)</label>
+                <input class="form-input" id="set-duration" type="number" placeholder="60">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Recording Link</label>
+            <input class="form-input" id="set-recording" placeholder="SoundCloud / Mixcloud / YouTube URL">
+            <div class="form-hint">Leave blank if not recorded — we'll remind you to upload later.</div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Notes</label>
+            <textarea class="form-textarea" id="set-notes" placeholder="How did it go? What worked?"></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-back btn-sm" onclick="closeLogSetModal()">Cancel</button>
+            <button class="btn btn-primary btn-sm" onclick="saveSet()">Save Set</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var events = [];
+    var sets = [];
+    var profile = {};
+    var activeTab = 'discover';
+    var filterType = 'all';
+    var filterLoc = 'all';
+    var editingSetId = null;
+
+    function loadData() {
+        return Promise.all([
+            fetch('/data/groovenet-events.json').then(function(r) { return r.ok ? r.json() : []; }).catch(function() { return []; }),
+            fetch('/data/groovenet-sets.json').then(function(r) { return r.ok ? r.json() : []; }).catch(function() { return []; }),
+            fetch('/data/groovenet-profile.json').then(function(r) { return r.ok ? r.json() : {}; }).catch(function() { return {}; })
+        ]).then(function(res) {
+            events = res[0];
+            sets = res[1];
+            profile = res[2];
+            render();
+        });
+    }
+
+    function getLocations() {
+        var locs = {};
+        events.forEach(function(e) { locs[e.location] = true; });
+        return Object.keys(locs).sort();
+    }
+
+    function matchScore(evt) {
+        if (!profile.genres || !profile.genres.length) return 0;
+        var score = 0;
+        var pg = profile.genres.map(function(g) { return g.toLowerCase(); });
+        evt.genres.forEach(function(g) {
+            if (pg.indexOf(g.toLowerCase()) !== -1) score += 2;
+        });
+        if (profile.location && evt.location.toLowerCase() === profile.location.toLowerCase()) score += 3;
+        var day = new Date(evt.date).toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+        if (profile.available_days && profile.available_days.indexOf(day) !== -1) score += 1;
+        return score;
+    }
+
+    function renderKPIs() {
+        var upcoming = events.filter(function(e) { return new Date(e.date) >= new Date(); }).length;
+        var totalSets = sets.length;
+        var unposted = sets.filter(function(s) { return !s.posted; }).length;
+        var openDecks = events.filter(function(e) { return e.type === 'open-deck' && new Date(e.date) >= new Date(); }).length;
+
+        document.getElementById('gn-kpis').innerHTML =
+            '<div class="kpi"><div class="kpi-val text-purple">' + upcoming + '</div><div class="kpi-label">Upcoming Events</div></div>' +
+            '<div class="kpi"><div class="kpi-val text-green">' + totalSets + '</div><div class="kpi-label">Sets Played</div></div>' +
+            '<div class="kpi"><div class="kpi-val ' + (unposted > 0 ? 'text-amber' : 'text-green') + '">' + unposted + '</div><div class="kpi-label">Unposted Sets</div></div>' +
+            '<div class="kpi"><div class="kpi-val text-amber">' + openDecks + '</div><div class="kpi-label">Open Decks</div></div>';
+    }
+
+    function renderNudges() {
+        var unposted = sets.filter(function(s) { return !s.posted; });
+        var html = '';
+        unposted.forEach(function(s) {
+            html += '<div class="gn-nudge">' +
+                '<span class="gn-nudge-icon">&#9888;</span>' +
+                '<span>Your set from <strong>' + esc(s.event_title) + '</strong> (' + s.date + ') hasn\'t been posted yet. ' +
+                '<a href="#" onclick="openEditSet(\'' + s.id + '\');return false;" style="color:var(--accent-blue);text-decoration:underline;">Add recording link</a></span>' +
+                '</div>';
+        });
+        document.getElementById('gn-nudges').innerHTML = html;
+    }
+
+    function renderLocFilters() {
+        var locs = getLocations();
+        var container = document.getElementById('gn-filters');
+        var existingLocBtns = container.querySelectorAll('[data-filter-loc]');
+        existingLocBtns.forEach(function(b) { if (b.dataset.filterLoc !== 'all') b.remove(); });
+        locs.forEach(function(loc) {
+            var btn = document.createElement('button');
+            btn.className = 'gn-filter' + (filterLoc === loc ? ' active' : '');
+            btn.dataset.filterLoc = loc;
+            btn.textContent = loc;
+            btn.addEventListener('click', function() {
+                filterLoc = loc;
+                updateFilterUI();
+                renderEvents();
+            });
+            container.appendChild(btn);
+        });
+    }
+
+    function renderEvents() {
+        var filtered = events.filter(function(e) {
+            if (new Date(e.date) < new Date(new Date().toDateString())) return false;
+            if (filterType !== 'all' && e.type !== filterType) return false;
+            if (filterLoc !== 'all' && e.location !== filterLoc) return false;
+            return true;
+        });
+
+        filtered.sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+
+        if (filtered.length === 0) {
+            document.getElementById('gn-events').innerHTML =
+                '<div class="gn-empty"><h3>No events found</h3><p>Try adjusting your filters.</p></div>';
+            return;
+        }
+
+        var html = '';
+        filtered.forEach(function(e) {
+            var score = matchScore(e);
+            var isMatch = score >= 3;
+            var pg = (profile.genres || []).map(function(g) { return g.toLowerCase(); });
+
+            html += '<div class="gn-event type-' + e.type + (isMatch ? ' matched' : '') + '">';
+            html += '<div class="gn-event-top">';
+            html += '<div class="gn-event-title">' + esc(e.title) + '</div>';
+            html += '<div class="gn-event-badges">';
+            if (isMatch) html += '<span class="gn-match-badge">Match</span>';
+            html += '<span class="badge ' + typeBadgeClass(e.type) + '">' + typeLabel(e.type) + '</span>';
+            if (e.paid && e.fee_range) html += '<span class="gn-fee-badge">&#163;' + e.fee_range + '</span>';
+            html += '</div></div>';
+
+            html += '<div class="gn-event-meta">';
+            html += metaItem('M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z', e.venue + ', ' + e.location);
+            html += metaItem('M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z', formatDate(e.date) + ' @ ' + e.time);
+            html += metaItem('M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2', e.promoter);
+            if (e.capacity) html += metaItem('M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2', e.capacity + ' capacity');
+            html += '</div>';
+
+            html += '<div class="gn-event-desc">' + esc(e.description) + '</div>';
+
+            html += '<div class="gn-event-genres">';
+            e.genres.forEach(function(g) {
+                var isGenreMatch = pg.indexOf(g.toLowerCase()) !== -1;
+                html += '<span class="gn-genre-tag' + (isGenreMatch ? ' match' : '') + '">' + g + '</span>';
+            });
+            html += '</div>';
+            html += '</div>';
+        });
+
+        document.getElementById('gn-events').innerHTML = html;
+    }
+
+    function renderMatched() {
+        var scored = events.filter(function(e) {
+            return new Date(e.date) >= new Date(new Date().toDateString());
+        }).map(function(e) {
+            return { event: e, score: matchScore(e) };
+        }).filter(function(s) {
+            return s.score >= 2;
+        });
+        scored.sort(function(a, b) { return b.score - a.score; });
+
+        if (scored.length === 0) {
+            document.getElementById('gn-matched').innerHTML =
+                '<div class="gn-empty"><h3>No matches yet</h3><p>Update your profile genres and location to see matched events.</p></div>';
+            return;
+        }
+
+        var pg = (profile.genres || []).map(function(g) { return g.toLowerCase(); });
+        var html = '';
+        scored.forEach(function(s) {
+            var e = s.event;
+            html += '<div class="gn-event type-' + e.type + ' matched">';
+            html += '<div class="gn-event-top">';
+            html += '<div class="gn-event-title">' + esc(e.title) + '</div>';
+            html += '<div class="gn-event-badges">';
+            html += '<span class="gn-match-badge">Score: ' + s.score + '</span>';
+            html += '<span class="badge ' + typeBadgeClass(e.type) + '">' + typeLabel(e.type) + '</span>';
+            if (e.paid && e.fee_range) html += '<span class="gn-fee-badge">&#163;' + e.fee_range + '</span>';
+            html += '</div></div>';
+
+            html += '<div class="gn-event-meta">';
+            html += metaItem('M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z', e.venue + ', ' + e.location);
+            html += metaItem('M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z', formatDate(e.date) + ' @ ' + e.time);
+            html += metaItem('M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2', e.promoter);
+            html += '</div>';
+
+            html += '<div class="gn-event-desc">' + esc(e.description) + '</div>';
+            html += '<div class="gn-event-genres">';
+            e.genres.forEach(function(g) {
+                var isGenreMatch = pg.indexOf(g.toLowerCase()) !== -1;
+                html += '<span class="gn-genre-tag' + (isGenreMatch ? ' match' : '') + '">' + g + '</span>';
+            });
+            html += '</div></div>';
+        });
+        document.getElementById('gn-matched').innerHTML = html;
+    }
+
+    function renderSets() {
+        if (sets.length === 0) {
+            document.getElementById('gn-sets').innerHTML =
+                '<div class="gn-empty"><h3>No sets logged yet</h3><p>Click "+ Log Set" to record your first performance.</p></div>';
+            return;
+        }
+
+        var sorted = sets.slice().sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+        var html = '';
+        sorted.forEach(function(s) {
+            html += '<div class="gn-set">';
+            html += '<div class="gn-set-icon ' + (s.posted ? 'posted' : 'unposted') + '">' + (s.posted ? '&#9835;' : '&#9888;') + '</div>';
+            html += '<div class="gn-set-info">';
+            html += '<div class="gn-set-title">' + esc(s.event_title) + ' @ ' + esc(s.venue) + '</div>';
+            html += '<div class="gn-set-meta">';
+            html += '<span>' + formatDate(s.date) + '</span>';
+            html += '<span>' + typeLabel(s.set_type) + '</span>';
+            html += '<span>' + s.duration_min + ' min</span>';
+            if (s.posted) html += '<span style="color:var(--accent-green)">Posted</span>';
+            else html += '<span style="color:var(--accent-amber)">Not posted</span>';
+            html += '</div>';
+            if (s.notes) html += '<div style="font-size:0.72rem;color:var(--text-dim);margin-top:4px;">' + esc(s.notes) + '</div>';
+            html += '</div>';
+            html += '<div class="gn-set-actions">';
+            if (s.recording_url) {
+                html += '<a href="' + esc(s.recording_url) + '" target="_blank" class="btn btn-ghost btn-sm" style="font-size:0.68rem;">Listen</a>';
+            }
+            html += '<button class="btn btn-ghost btn-sm" style="font-size:0.68rem;" onclick="openEditSet(\'' + s.id + '\')">Edit</button>';
+            html += '</div>';
+            html += '</div>';
+        });
+        document.getElementById('gn-sets').innerHTML = html;
+    }
+
+    function renderProfile() {
+        var nameEl = document.getElementById('prof-name');
+        if (!nameEl) return;
+        nameEl.value = profile.dj_name || '';
+        document.getElementById('prof-location').value = profile.location || '';
+        document.getElementById('prof-experience').value = profile.experience_level || 'intermediate';
+        document.getElementById('prof-genres').value = (profile.genres || []).join(', ');
+        document.getElementById('prof-bio').value = profile.bio || '';
+
+        var allDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        var activeDays = profile.available_days || [];
+        var container = document.getElementById('prof-days');
+        container.innerHTML = '';
+        allDays.forEach(function(day) {
+            var btn = document.createElement('button');
+            var isActive = activeDays.indexOf(day) !== -1;
+            btn.className = 'gn-filter' + (isActive ? ' active' : '');
+            btn.textContent = day.charAt(0).toUpperCase() + day.slice(1, 3);
+            btn.dataset.day = day;
+            btn.addEventListener('click', function() { this.classList.toggle('active'); });
+            container.appendChild(btn);
+        });
+    }
+
+    window.saveProfile = function() {
+        var genres = document.getElementById('prof-genres').value
+            .split(',').map(function(g) { return g.trim().toLowerCase(); })
+            .filter(function(g) { return g; });
+        var dayBtns = document.querySelectorAll('#prof-days .gn-filter.active');
+        var days = [];
+        for (var i = 0; i < dayBtns.length; i++) { days.push(dayBtns[i].dataset.day); }
+        var updated = {
+            dj_name: document.getElementById('prof-name').value,
+            location: document.getElementById('prof-location').value,
+            experience_level: document.getElementById('prof-experience').value,
+            genres: genres,
+            available_days: days,
+            bio: document.getElementById('prof-bio').value,
+            links: profile.links || {}
+        };
+        fetch('/api/groovenet/profile', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updated)
+        }).then(function(r) { return r.ok ? r.json() : updated; }).then(function(saved) {
+            profile = saved;
+            showToast('Profile saved!');
+            renderKPIs();
+            renderEvents();
+            renderMatched();
+        }).catch(function() {
+            profile = updated;
+            showToast('Profile saved locally (API offline)');
+            renderKPIs();
+            renderEvents();
+            renderMatched();
+        });
+    };
+
+    function render() {
+        renderKPIs();
+        renderNudges();
+        renderLocFilters();
+        renderEvents();
+        renderSets();
+        renderMatched();
+        renderProfile();
+    }
+
+    function updateFilterUI() {
+        document.querySelectorAll('[data-filter-type]').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.filterType === filterType);
+        });
+        document.querySelectorAll('[data-filter-loc]').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.filterLoc === filterLoc);
+        });
+    }
+
+    var tabSections = { 'discover': 'tab-discover', 'my-sets': 'tab-my-sets', 'matched': 'tab-matched', 'profile': 'tab-profile' };
+
+    // Tab switching
+    document.querySelectorAll('.gn-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            activeTab = this.dataset.tab;
+            document.querySelectorAll('.gn-tab').forEach(function(t) { t.classList.remove('active'); });
+            this.classList.add('active');
+            document.querySelectorAll('.gn-section').forEach(function(s) { s.classList.remove('active'); });
+            var sectionId = tabSections[activeTab] || 'tab-discover';
+            document.getElementById(sectionId).classList.add('active');
+        });
+    });
+
+    // Type filters
+    document.querySelectorAll('[data-filter-type]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            filterType = this.dataset.filterType;
+            updateFilterUI();
+            renderEvents();
+        });
+    });
+
+    // Location "All" filter
+    document.querySelector('[data-filter-loc="all"]').addEventListener('click', function() {
+        filterLoc = 'all';
+        updateFilterUI();
+        renderEvents();
+    });
+
+    // Modal
+    window.openLogSetModal = function() {
+        editingSetId = null;
+        document.getElementById('log-set-modal-title').textContent = 'Log a Set';
+        document.getElementById('set-event').value = '';
+        document.getElementById('set-venue').value = '';
+        document.getElementById('set-date').value = new Date().toISOString().split('T')[0];
+        document.getElementById('set-type').value = 'open-deck';
+        document.getElementById('set-duration').value = '';
+        document.getElementById('set-recording').value = '';
+        document.getElementById('set-notes').value = '';
+        document.getElementById('log-set-modal').classList.add('open');
+    };
+    window.closeLogSetModal = function() {
+        document.getElementById('log-set-modal').classList.remove('open');
+        editingSetId = null;
+    };
+    window.openEditSet = function(id) {
+        var s = null;
+        for (var i = 0; i < sets.length; i++) { if (sets[i].id === id) { s = sets[i]; break; } }
+        if (!s) return;
+        editingSetId = id;
+        document.getElementById('log-set-modal-title').textContent = 'Edit Set';
+        document.getElementById('set-event').value = s.event_title;
+        document.getElementById('set-venue').value = s.venue;
+        document.getElementById('set-date').value = s.date;
+        document.getElementById('set-type').value = s.set_type;
+        document.getElementById('set-duration').value = s.duration_min;
+        document.getElementById('set-recording').value = s.recording_url || '';
+        document.getElementById('set-notes').value = s.notes || '';
+        document.getElementById('log-set-modal').classList.add('open');
+    };
+
+    window.saveSet = function() {
+        var recordingUrl = document.getElementById('set-recording').value;
+
+        if (editingSetId) {
+            var existing = null;
+            var existingIdx = -1;
+            for (var i = 0; i < sets.length; i++) {
+                if (sets[i].id === editingSetId) { existing = sets[i]; existingIdx = i; break; }
+            }
+            if (!existing) return;
+            var updates = {
+                event_title: document.getElementById('set-event').value,
+                venue: document.getElementById('set-venue').value,
+                date: document.getElementById('set-date').value,
+                set_type: document.getElementById('set-type').value,
+                duration_min: parseInt(document.getElementById('set-duration').value) || existing.duration_min,
+                recording_url: recordingUrl,
+                posted: !!recordingUrl,
+                notes: document.getElementById('set-notes').value
+            };
+            var setId = editingSetId;
+            var idx = existingIdx;
+            fetch('/api/groovenet/sets/' + setId, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updates)
+            }).then(function(r) { return r.ok ? r.json() : null; }).then(function(saved) {
+                if (saved) {
+                    sets[idx] = saved;
+                } else {
+                    var merged = {};
+                    for (var k in existing) { merged[k] = existing[k]; }
+                    for (var k in updates) { merged[k] = updates[k]; }
+                    sets[idx] = merged;
+                }
+                closeLogSetModal();
+                render();
+                showToast('Set updated!');
+            }).catch(function() {
+                var merged = {};
+                for (var k in existing) { merged[k] = existing[k]; }
+                for (var k in updates) { merged[k] = updates[k]; }
+                sets[idx] = merged;
+                closeLogSetModal();
+                render();
+                showToast('Set updated locally (API offline)');
+            });
+            return;
+        }
+
+        var newSet = {
+            id: 'set-' + Date.now(),
+            dj_name: profile.dj_name || 'Unknown',
+            event_id: null,
+            event_title: document.getElementById('set-event').value,
+            venue: document.getElementById('set-venue').value,
+            date: document.getElementById('set-date').value,
+            set_type: document.getElementById('set-type').value,
+            duration_min: parseInt(document.getElementById('set-duration').value) || 60,
+            recording_url: recordingUrl,
+            posted: !!recordingUrl,
+            genres: profile.genres || [],
+            notes: document.getElementById('set-notes').value
+        };
+        sets.push(newSet);
+
+        fetch('/api/groovenet/sets', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newSet)
+        }).then(function() {
+            closeLogSetModal();
+            render();
+            showToast('Set logged!');
+        }).catch(function() {
+            closeLogSetModal();
+            render();
+            showToast('Set saved locally (API offline)');
+        });
+    };
+
+    function showToast(msg) {
+        var existing = document.querySelector('.toast');
+        if (existing) existing.remove();
+        var t = document.createElement('div');
+        t.className = 'toast show';
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(function() { t.classList.remove('show'); }, 2500);
+        setTimeout(function() { t.remove(); }, 3000);
+    }
+
+    // Helpers
+    function esc(s) {
+        if (!s) return '';
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+    }
+    function formatDate(d) {
+        return new Date(d).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+    }
+    function typeLabel(t) {
+        var labels = { 'open-deck': 'Open Deck', 'paid': 'Paid', 'guest-slot': 'Guest Slot',
+                       'collab': 'Collab', 'residency': 'Residency', 'support': 'Support',
+                       'headliner': 'Headliner', 'b2b': 'B2B', 'guest': 'Guest' };
+        return labels[t] || t;
+    }
+    function typeBadgeClass(t) {
+        var classes = { 'paid': 'green', 'open-deck': 'amber', 'guest-slot': 'blue',
+                        'collab': 'purple', 'residency': 'gold' };
+        return classes[t] || '';
+    }
+    function metaItem(pathD, text) {
+        return '<span class="gn-event-meta-item"><svg viewBox="0 0 24 24"><path d="' + pathD + '"/></svg>' + esc(text) + '</span>';
+    }
+
+    loadData();
+})();
+</script>
+</body>
+</html>

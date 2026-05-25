@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phase Orchestration</title>
+    <link rel="stylesheet" href="../styles/base.css">
+    <style>
+    .ph-shell { padding: 0; }
+
+    .ph-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 20px 24px 12px; flex-wrap: wrap; gap: 12px;
+        background: linear-gradient(135deg, rgba(94,231,255,0.02), rgba(155,92,255,0.01));
+        border-bottom: 1px solid var(--border-light);
+    }
+    .ph-header-left { display: flex; align-items: center; gap: 14px; }
+    .ph-title {
+        font-size: 1.1rem; font-weight: 800; letter-spacing: 0.12em;
+        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet), var(--accent-green));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .ph-subtitle {
+        font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase;
+        letter-spacing: 0.14em; font-weight: 600;
+    }
+    .ph-header-right { display: flex; align-items: center; gap: 8px; }
+
+    /* Project selector */
+    .ph-project-select {
+        font-size: 0.72rem; font-weight: 600; padding: 5px 12px;
+        border-radius: 8px; border: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.04); color: var(--text-secondary);
+        cursor: pointer;
+    }
+    .ph-project-select:focus { outline: none; border-color: var(--accent-blue); }
+
+    /* KPI strip */
+    .ph-kpi-strip {
+        display: flex; align-items: center; gap: 10px;
+        padding: 8px 24px 14px; flex-wrap: wrap;
+    }
+    .ph-kpi {
+        display: flex; align-items: center; gap: 6px;
+        font-size: 0.7rem; color: var(--text-dim);
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        border-radius: 8px; padding: 5px 12px;
+    }
+    .ph-kpi-val {
+        font-family: var(--font-mono); font-weight: 800;
+        color: var(--text-secondary); font-size: 0.78rem;
+    }
+    .ph-kpi-val.green { color: var(--accent-green); }
+    .ph-kpi-val.cyan { color: var(--accent-cyan); }
+    .ph-kpi-val.blue { color: var(--accent-blue); }
+    .ph-kpi-val.amber { color: var(--accent-amber); }
+    .ph-kpi-val.purple { color: var(--accent-purple); }
+
+    /* Phase grid */
+    .ph-grid { padding: 0 24px 24px; }
+
+    .ph-phase-row {
+        display: grid;
+        grid-template-columns: 56px 1fr 100px 80px 80px 100px 90px;
+        align-items: center; gap: 10px;
+        padding: 12px 14px; border-radius: 8px;
+        border: 1px solid var(--border-subtle);
+        margin-bottom: 6px; cursor: pointer;
+        transition: background 0.15s, border-color 0.15s;
+    }
+    .ph-phase-row:hover {
+        background: rgba(255,255,255,0.02);
+        border-color: var(--panel-border-hover);
+    }
+
+    .ph-phase-id {
+        font-family: var(--font-mono); font-size: 0.68rem;
+        color: var(--text-dim); font-weight: 700; text-align: center;
+    }
+    .ph-phase-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .ph-phase-name {
+        font-size: 0.78rem; font-weight: 700; color: var(--text-primary);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .ph-phase-desc {
+        font-size: 0.65rem; color: var(--text-dim);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .ph-revenue {
+        font-size: 0.58rem; font-weight: 700; color: var(--accent-gold);
+        margin-top: 1px;
+    }
+
+    /* Status pill */
+    .ph-status {
+        font-size: 0.6rem; font-weight: 700; padding: 3px 8px;
+        border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+        text-align: center; white-space: nowrap;
+    }
+    .ph-status-completed { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+    .ph-status-running, .ph-status-in-progress { background: rgba(94,231,255,0.12); color: var(--accent-cyan); }
+    .ph-status-planned { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
+    .ph-status-not_started { background: rgba(255,255,255,0.05); color: var(--text-dim); }
+    .ph-status-blocked { background: rgba(248,113,113,0.15); color: var(--accent-red); }
+
+    /* Risk + complexity pills */
+    .ph-risk, .ph-complexity {
+        font-size: 0.6rem; font-weight: 700; padding: 2px 8px;
+        border-radius: 6px; text-transform: uppercase; text-align: center;
+    }
+    .ph-risk-low { background: rgba(74,222,128,0.1); color: var(--accent-green); }
+    .ph-risk-medium { background: rgba(251,146,60,0.1); color: var(--accent-amber); }
+    .ph-risk-high { background: rgba(248,113,113,0.1); color: var(--accent-red); }
+    .ph-complexity {
+        background: rgba(255,255,255,0.04); color: var(--text-muted);
+        font-family: var(--font-mono);
+    }
+
+    /* Parallel indicator */
+    .ph-parallel {
+        font-size: 0.6rem; padding: 2px 8px; border-radius: 6px;
+        text-align: center; font-weight: 600;
+    }
+    .ph-parallel-yes { background: rgba(74,222,128,0.1); color: var(--accent-green); }
+    .ph-parallel-no { background: rgba(255,255,255,0.04); color: var(--text-dim); }
+
+    /* Actions column */
+    .ph-actions { display: flex; gap: 4px; justify-content: flex-end; }
+    .ph-btn {
+        font-size: 0.6rem; font-weight: 700; padding: 4px 10px;
+        border-radius: 6px; border: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.04); color: var(--text-secondary);
+        cursor: pointer; transition: background 0.15s;
+        text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .ph-btn:hover { background: rgba(255,255,255,0.08); }
+    .ph-btn-run {
+        background: rgba(56,189,248,0.15); color: var(--accent-blue);
+        border-color: rgba(56,189,248,0.3);
+    }
+    .ph-btn-run:hover { background: rgba(56,189,248,0.25); }
+    .ph-btn:disabled {
+        opacity: 0.3; cursor: not-allowed;
+    }
+    .ph-btn:disabled:hover { background: rgba(255,255,255,0.04); }
+
+    /* Detail overlay */
+    .ph-detail-overlay {
+        display: none; position: fixed; inset: 0; z-index: 200;
+        background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    }
+    .ph-detail-overlay.active { display: flex; align-items: center; justify-content: center; }
+    .ph-detail-panel {
+        background: var(--bg-primary); border: 1px solid var(--border-medium);
+        border-radius: 16px; width: 680px; max-width: 95vw;
+        max-height: 85vh; overflow-y: auto; padding: 24px;
+    }
+    .ph-detail-close {
+        float: right; cursor: pointer; font-size: 1.2rem;
+        color: var(--text-dim); background: none; border: none; padding: 4px 8px;
+    }
+    .ph-detail-close:hover { color: #fff; }
+    .ph-detail-section {
+        margin-top: 16px; padding-top: 12px;
+        border-top: 1px solid var(--border-subtle);
+    }
+    .ph-detail-label {
+        font-size: 0.62rem; font-weight: 700; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;
+    }
+    .ph-detail-val { font-size: 0.78rem; color: var(--text-secondary); }
+
+    /* DAG visualization */
+    .ph-dag { padding: 0 24px 24px; }
+    .ph-dag-node {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 6px 12px; border-radius: 8px;
+        border: 1px solid var(--border-light);
+        font-size: 0.68rem; font-weight: 600;
+        margin: 3px; cursor: pointer;
+        transition: background 0.15s, border-color 0.15s;
+    }
+    .ph-dag-node:hover { border-color: var(--accent-blue); }
+    .ph-dag-node.completed { border-color: rgba(74,222,128,0.3); color: var(--accent-green); }
+    .ph-dag-node.in-progress { border-color: rgba(56,189,248,0.3); color: var(--accent-blue); }
+    .ph-dag-node.planned { border-color: rgba(167,139,250,0.2); color: var(--accent-purple); }
+    .ph-dag-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+    }
+    .ph-dag-dot.completed { background: var(--accent-green); }
+    .ph-dag-dot.in-progress { background: var(--accent-blue); }
+    .ph-dag-dot.planned { background: var(--accent-purple); }
+    .ph-dag-arrow { font-size: 0.7rem; color: var(--text-faint); margin: 0 2px; }
+    .ph-dag-row { display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+    .ph-dag-label {
+        font-size: 0.58rem; font-weight: 700; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: 0.08em;
+        width: 80px; flex-shrink: 0;
+    }
+
+    /* Section headers */
+    .ph-section-title {
+        font-size: 0.72rem; font-weight: 700; color: var(--text-label);
+        text-transform: uppercase; letter-spacing: 0.08em;
+        margin-bottom: 10px; padding: 0 24px;
+    }
+
+    /* Toast */
+    .ph-toast {
+        position: fixed; bottom: 24px; right: 24px; z-index: 300;
+        padding: 10px 18px; border-radius: 8px;
+        background: var(--bg-card-1); border: 1px solid var(--accent-green);
+        color: var(--accent-green); font-size: 0.72rem; font-weight: 600;
+        opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .ph-toast.show { opacity: 1; }
+    .ph-toast.error { border-color: var(--accent-red); color: var(--accent-red); }
+
+    /* Column header */
+    .ph-col-header {
+        display: grid;
+        grid-template-columns: 56px 1fr 100px 80px 80px 100px 90px;
+        gap: 10px; padding: 6px 14px;
+        font-size: 0.58rem; font-weight: 700; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    /* Inline pipeline stage indicators */
+    .ph-pipeline-bar {
+        display: flex; align-items: center; gap: 3px;
+        margin-top: 4px;
+    }
+    .ph-stage-dot {
+        width: 10px; height: 10px; border-radius: 3px;
+        border: 1px solid var(--border-light);
+        transition: background 0.3s;
+    }
+    .ph-stage-dot.completed { background: var(--accent-green); border-color: var(--accent-green); }
+    .ph-stage-dot.running { background: var(--accent-blue); border-color: var(--accent-blue); animation: stagePulse 1.5s ease-in-out infinite; }
+    .ph-stage-dot.failed { background: var(--accent-red); border-color: var(--accent-red); }
+    .ph-stage-dot.waiting_for_approval { background: var(--accent-amber); border-color: var(--accent-amber); }
+    .ph-stage-dot.pending, .ph-stage-dot.ready { background: transparent; }
+    .ph-stage-dot.blocked { background: rgba(248,113,113,0.3); border-color: var(--accent-red); }
+    @keyframes stagePulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+    .ph-stage-label {
+        font-size: 0.55rem; color: var(--text-dim); font-weight: 600;
+        margin-left: 4px;
+    }
+
+    /* Session output in detail panel */
+    .ph-session-output {
+        font-family: var(--font-mono); font-size: 0.68rem;
+        background: rgba(0,0,0,0.4); padding: 12px;
+        border-radius: 8px; border: 1px solid var(--border-subtle);
+        color: var(--text-muted); max-height: 300px; overflow-y: auto;
+        white-space: pre-wrap; word-break: break-word;
+        line-height: 1.5;
+    }
+    .ph-continue-box {
+        margin-top: 8px;
+    }
+    .ph-continue-input {
+        width: 100%; padding: 8px 12px; border-radius: 8px;
+        border: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.03); color: var(--text-secondary);
+        font-size: 0.75rem; font-family: inherit; resize: vertical;
+        min-height: 60px;
+    }
+    .ph-continue-input:focus { outline: none; border-color: var(--accent-blue); }
+    .ph-continue-input::placeholder { color: var(--text-faint); }
+
+    /* Pipeline stage detail in panel */
+    .ph-pipeline-stages {
+        display: flex; flex-direction: column; gap: 4px; margin-top: 8px;
+    }
+    .ph-pipeline-stage-row {
+        display: flex; align-items: center; gap: 8px;
+        padding: 6px 10px; border-radius: 6px;
+        border: 1px solid var(--border-subtle); font-size: 0.7rem;
+    }
+    .ph-pipeline-stage-row .ph-stage-dot { flex-shrink: 0; }
+    .ph-pipeline-stage-name { font-weight: 600; color: var(--text-primary); flex: 1; }
+    .ph-pipeline-stage-status { font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div class="ph-shell">
+        <div class="ph-header">
+            <div class="ph-header-left">
+                <div>
+                    <div class="ph-title">PHASE ORCHESTRATION</div>
+                    <div class="ph-subtitle">Phase Intelligence &amp; Orchestration</div>
+                </div>
+            </div>
+            <div class="ph-header-right">
+                <select class="ph-project-select" id="project-select" onchange="loadPhases()">
+                </select>
+            </div>
+        </div>
+
+        <div class="ph-kpi-strip" id="kpi-strip"></div>
+
+        <div class="ph-section-title" style="margin-top:8px;">Dependency Graph</div>
+        <div class="ph-dag" id="dag-view"></div>
+
+        <div class="ph-section-title" style="margin-top:16px;">All Phases</div>
+        <div class="ph-grid">
+            <div class="ph-col-header">
+                <span>Phase</span>
+                <span>Name</span>
+                <span>Status</span>
+                <span>Risk</span>
+                <span>Size</span>
+                <span>Parallel</span>
+                <span style="text-align:right">Actions</span>
+            </div>
+            <div id="phase-list"></div>
+        </div>
+    </div>
+
+    <!-- Detail overlay -->
+    <div class="ph-detail-overlay" id="detail-overlay" onclick="if(event.target===this)closeDetail()">
+        <div class="ph-detail-panel" id="detail-panel"></div>
+    </div>
+
+    <!-- Toast -->
+    <div class="ph-toast" id="toast"></div>
+
+    <script>
+    var phases = [];
+    var summary = {};
+    var activePipelines = {};  // phaseId -> pipeline data
+    var activeSessionOutputs = {}; // sessionId -> output text
+    var currentDetailPhase = null;
+    var sse = null;
+    var outputPollTimer = null;
+
+    function loadPhases() {
+        var project = document.getElementById('project-select').value;
+        fetch('/api/projects/' + project + '/phases')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                phases = data.phases || [];
+                summary = data.summary || {};
+                renderKPIs();
+                renderDAG();
+                renderPhaseList();
+                loadActivePipelines();
+            })
+            .catch(function(err) { console.error('Failed to load phases:', err); });
+    }
+
+    function loadActivePipelines() {
+        var project = document.getElementById('project-select').value;
+        fetch('/api/pipelines?project=' + project)
+            .then(function(r) { return r.json(); })
+            .then(function(pipes) {
+                activePipelines = {};
+                (pipes || []).forEach(function(p) {
+                    if (p.status === 'running' || p.status === 'pending') {
+                        phases.forEach(function(ph) {
+                            if (ph.activeSessionId === p.id) {
+                                activePipelines[ph.phaseId] = p;
+                            }
+                        });
+                    }
+                });
+                renderPhaseList();
+                if (currentDetailPhase) refreshDetailPipeline(currentDetailPhase);
+            })
+            .catch(function() {});
+    }
+
+    // --- Desktop notifications ---
+    function requestNotifyPermission() {
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+    }
+
+    function notify(title, body, tag) {
+        if (!('Notification' in window) || Notification.permission !== 'granted') return;
+        try {
+            var n = new Notification(title, {
+                body: body,
+                tag: tag || 'conductor',
+                icon: '/favicon.ico',
+                requireInteraction: true,
+            });
+            n.onclick = function() { window.focus(); n.close(); };
+        } catch(ex) {}
+    }
+
+    // --- SSE for real-time updates ---
+    function connectSSE() {
+        if (sse) sse.close();
+        sse = new EventSource('/api/events/stream');
+        sse.addEventListener('pipeline.stage.status_changed', function(e) {
+            try {
+                var d = JSON.parse(e.data);
+                var dd = d.data || {};
+                if (dd.newStatus === 'failed') {
+                    notify('Stage Failed', (dd.stageName || 'Stage') + ' failed in ' + (dd.pipelineName || dd.pipelineId), 'stage-fail-' + dd.pipelineId);
+                }
+                if (dd.newStatus === 'waiting_for_approval') {
+                    notify('Approval Needed', (dd.stageName || 'Stage') + ' needs your approval', 'gate-' + dd.pipelineId);
+                }
+            } catch(ex) {}
+            loadActivePipelines();
+        });
+        sse.addEventListener('pipeline.started', function() { loadActivePipelines(); });
+        sse.addEventListener('pipeline.completed', function(e) {
+            try {
+                var d = JSON.parse(e.data);
+                notify('Pipeline Complete', (d.data || {}).name || 'Pipeline finished', 'pipe-done-' + (d.data || {}).pipelineId);
+            } catch(ex) {}
+            loadPhases();
+        });
+        sse.addEventListener('pipeline.cancelled', function() { loadPhases(); });
+        sse.addEventListener('session.completed', function(e) {
+            try {
+                var d = JSON.parse(e.data);
+                var dd = d.data || {};
+                if (dd.sessionId) loadSessionOutput(dd.sessionId);
+                if (dd.status === 'succeeded' || dd.status === 'failed') {
+                    notify('Session ' + (dd.status === 'succeeded' ? 'Done' : 'Failed'),
+                        dd.sessionId + ' — may need your input', 'sess-' + dd.sessionId);
+                }
+            } catch(ex) {}
+            loadActivePipelines();
+        });
+        sse.addEventListener('session.validated', function(e) {
+            try {
+                var d = JSON.parse(e.data);
+                var dd = d.data || {};
+                if (dd.allPassed === false) {
+                    notify('Validation Failed', dd.sessionId + ' — checks did not pass', 'val-' + dd.sessionId);
+                }
+            } catch(ex) {}
+            loadActivePipelines();
+        });
+        sse.addEventListener('phase.status_changed', function() { loadPhases(); });
+        sse.addEventListener('phase.execution_started', function() { loadPhases(); });
+        sse.onerror = function() { setTimeout(connectSSE, 5000); };
+    }
+
+    function loadSessionOutput(sid) {
+        fetch('/api/sessions/' + sid + '/output?lines=200')
+            .then(function(r) { return r.ok ? r.json() : null; })
+            .then(function(data) {
+                if (!data) return;
+                var parts = [];
+                (data.lines || []).forEach(function(line) {
+                    try {
+                        var obj = JSON.parse(line);
+                        var msg = obj.message || {};
+                        var content = msg.content || [];
+                        if (obj.type === 'assistant' && Array.isArray(content)) {
+                            content.forEach(function(c) {
+                                if (c.type === 'text' && c.text) parts.push(c.text);
+                                else if (c.type === 'tool_use') parts.push('[tool: ' + (c.name || 'unknown') + ']');
+                            });
+                        } else if (obj.type === 'result') {
+                            var rc = (obj.result || '');
+                            if (rc) parts.push('\n--- Result ---\n' + rc);
+                        }
+                        if (obj.text && !msg.content) parts.push(obj.text);
+                    } catch(ex) {}
+                });
+                var newOutput = parts.join('\n').trim();
+                // Only update DOM if content actually changed
+                if (newOutput !== activeSessionOutputs[sid]) {
+                    activeSessionOutputs[sid] = newOutput;
+                    var el = document.getElementById('session-output-' + sid);
+                    if (el) {
+                        var wasAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 30;
+                        el.textContent = newOutput || 'Waiting for output...';
+                        if (wasAtBottom) el.scrollTop = el.scrollHeight;
+                    }
+                    // Extract options from latest output
+                    renderExtractedOptions(sid, newOutput);
+                }
+            })
+            .catch(function() {});
+    }
+
+    function extractOptions(text) {
+        if (!text) return { question: null, options: [] };
+        // Find the last block of text (most recent assistant output)
+        var blocks = text.split(/\n{2,}/);
+        var lastChunk = blocks.slice(-5).join('\n\n');
+
+        var options = [];
+        var question = null;
+
+        // Look for question lines
+        var lines = lastChunk.split('\n');
+        for (var i = lines.length - 1; i >= 0; i--) {
+            if (lines[i].trim().endsWith('?')) {
+                question = lines[i].trim();
+                break;
+            }
+        }
+
+        // Extract numbered options: "1. ...", "2. ...", etc.
+        var numbered = lastChunk.match(/^\s*(\d+)\.\s+(.+)/gm);
+        if (numbered && numbered.length >= 2) {
+            numbered.forEach(function(m) {
+                var match = m.match(/^\s*(\d+)\.\s+(.+)/);
+                if (match) options.push({ label: match[2].trim(), value: match[0].trim() });
+            });
+        }
+
+        // Extract lettered options: "A) ...", "B) ...", etc.
+        if (!options.length) {
+            var lettered = lastChunk.match(/^\s*([A-D])\)\s+(.+)/gm);
+            if (lettered && lettered.length >= 2) {
+                lettered.forEach(function(m) {
+                    var match = m.match(/^\s*([A-D])\)\s+(.+)/);
+                    if (match) options.push({ label: match[2].trim(), value: match[0].trim() });
+                });
+            }
+        }
+
+        // Extract "**Option N:**" or "**N.**" style
+        if (!options.length) {
+            var bold = lastChunk.match(/\*\*(?:Option\s+)?\d+[.:]\*?\*?\s*(.+)/gm);
+            if (bold && bold.length >= 2) {
+                bold.forEach(function(m) {
+                    var clean = m.replace(/\*\*/g, '').trim();
+                    options.push({ label: clean, value: clean });
+                });
+            }
+        }
+
+        // Extract dash options: "- Option: ..."
+        if (!options.length) {
+            var dashed = lastChunk.match(/^\s*[-•]\s+\*?\*?([^:*]+)\*?\*?:\s*(.+)/gm);
+            if (dashed && dashed.length >= 2) {
+                dashed.forEach(function(m) {
+                    var clean = m.replace(/^\s*[-•]\s+/, '').replace(/\*\*/g, '').trim();
+                    options.push({ label: clean.substring(0, 80), value: clean });
+                });
+            }
+        }
+
+        return { question: question, options: options.slice(0, 6) };
+    }
+
+    function renderExtractedOptions(sid, output) {
+        var el = document.getElementById('extracted-options-' + sid);
+        if (!el) return;
+
+        var parsed = extractOptions(output);
+        if (!parsed.options.length && !parsed.question) {
+            el.innerHTML = '';
+            return;
+        }
+
+        var html = '';
+        if (parsed.question) {
+            html += '<div style="font-size:0.75rem;font-weight:700;color:var(--accent-blue);margin-bottom:6px;">' + esc(parsed.question) + '</div>';
+        }
+        if (parsed.options.length) {
+            html += '<div style="display:flex;flex-direction:column;gap:4px;margin-bottom:8px;">';
+            parsed.options.forEach(function(opt, i) {
+                html += '<label style="display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:6px;border:1px solid var(--border-subtle);cursor:pointer;font-size:0.72rem;color:var(--text-secondary);transition:border-color 0.15s;" onmouseover="this.style.borderColor=\'var(--accent-blue)\'" onmouseout="this.style.borderColor=\'var(--border-subtle)\'">';
+                html += '<input type="radio" name="option-' + sid + '" value="' + esc(opt.value) + '" style="margin-top:2px;" onchange="selectOption(\'' + sid + '\',this.value)">';
+                html += '<span>' + esc(opt.label) + '</span>';
+                html += '</label>';
+            });
+            html += '</div>';
+        }
+        el.innerHTML = html;
+    }
+
+    function selectOption(sid, value) {
+        var input = document.getElementById('continue-input-' + sid);
+        if (input) input.value = value;
+    }
+
+    function startOutputPolling() {
+        stopOutputPolling();
+        outputPollTimer = setInterval(function() {
+            if (!currentDetailPhase) return;
+            // Refresh pipeline data + output
+            loadActivePipelines();
+            var pipe = activePipelines[currentDetailPhase];
+            if (!pipe) return;
+            var sid = null;
+            (pipe.stages || []).forEach(function(s) {
+                if (s.session_id && (s.status === 'running' || s.status === 'completed' || s.status === 'failed')) {
+                    sid = s.session_id;
+                }
+            });
+            if (sid) loadSessionOutput(sid);
+        }, 3000);
+    }
+
+    function stopOutputPolling() {
+        if (outputPollTimer) { clearInterval(outputPollTimer); outputPollTimer = null; }
+    }
+
+    // --- Render ---
+    function renderKPIs() {
+        var sc = summary.statusCounts || {};
+        var completed = sc.completed || 0;
+        var inProgress = (sc['in-progress'] || 0) + (sc.running || 0);
+        var planned = (sc.planned || 0) + (sc.not_started || 0);
+        var total = phases.length;
+        var parallelizable = (summary.parallelizablePhases || []).length;
+        var html = '';
+        html += '<div class="ph-kpi">Total <span class="ph-kpi-val">' + total + '</span></div>';
+        html += '<div class="ph-kpi">Completed <span class="ph-kpi-val green">' + completed + '</span></div>';
+        html += '<div class="ph-kpi">In Progress <span class="ph-kpi-val blue">' + inProgress + '</span></div>';
+        html += '<div class="ph-kpi">Planned <span class="ph-kpi-val purple">' + planned + '</span></div>';
+        html += '<div class="ph-kpi">Parallelizable <span class="ph-kpi-val amber">' + parallelizable + '</span></div>';
+        if (summary.nextRecommended) {
+            html += '<div class="ph-kpi">Next <span class="ph-kpi-val blue">' + summary.nextRecommended + '</span></div>';
+        }
+        document.getElementById('kpi-strip').innerHTML = html;
+    }
+
+    function renderDAG() {
+        var byId = {};
+        phases.forEach(function(p) { byId[p.phaseId] = p; });
+        var roots = phases.filter(function(p) { return !p.dependencies || p.dependencies.length === 0; });
+        var visited = {};
+        var layers = [];
+        function assignLayer(pid, depth) {
+            if (visited[pid]) return;
+            visited[pid] = true;
+            if (!layers[depth]) layers[depth] = [];
+            layers[depth].push(pid);
+            var p = byId[pid];
+            if (p && p.blocks) p.blocks.forEach(function(bid) { assignLayer(bid, depth + 1); });
+        }
+        roots.forEach(function(r) { assignLayer(r.phaseId, 0); });
+        phases.forEach(function(p) {
+            if (!visited[p.phaseId]) { if (!layers[0]) layers[0] = []; layers[0].push(p.phaseId); }
+        });
+        var html = '';
+        layers.forEach(function(layer, i) {
+            html += '<div class="ph-dag-row">';
+            html += '<span class="ph-dag-label">Layer ' + i + '</span>';
+            layer.forEach(function(pid, j) {
+                var p = byId[pid] || { status: 'planned', name: pid };
+                var cls = p.status === 'completed' ? 'completed'
+                        : (p.status === 'in-progress' || p.status === 'running') ? 'in-progress' : 'planned';
+                if (j > 0) html += '<span class="ph-dag-arrow"></span>';
+                html += '<span class="ph-dag-node ' + cls + '" onclick="openDetail(\'' + pid + '\')" title="' + (p.name || pid) + '">';
+                html += '<span class="ph-dag-dot ' + cls + '"></span>';
+                html += pid.replace('ns-', '');
+                html += '</span>';
+            });
+            html += '</div>';
+        });
+        document.getElementById('dag-view').innerHTML = html;
+    }
+
+    function renderPhaseList() {
+        var html = '';
+        phases.forEach(function(p) {
+            var statusClass = p.status.replace(/[^a-zA-Z_-]/g, '-');
+            var riskClass = p.riskLevel || 'low';
+            var canParallel = p.canRunInParallel;
+            var canLaunch = p.status !== 'completed';
+            var pipe = activePipelines[p.phaseId];
+
+            html += '<div class="ph-phase-row" onclick="openDetail(\'' + p.phaseId + '\')">';
+            html += '<div class="ph-phase-id">' + p.phaseId.replace('ns-', '') + '</div>';
+            html += '<div class="ph-phase-info">';
+            html += '<div class="ph-phase-name">' + esc(p.name) + '</div>';
+            html += '<div class="ph-phase-desc">' + esc(p.description || '') + '</div>';
+            if (p.revenueEvent) html += '<div class="ph-revenue">' + esc(p.revenueEvent) + '</div>';
+            // Inline pipeline stage bar
+            if (pipe && pipe.stages) {
+                html += '<div class="ph-pipeline-bar">';
+                pipe.stages.forEach(function(s) {
+                    html += '<div class="ph-stage-dot ' + s.status + '" title="' + esc(s.label || s.name) + ': ' + s.status + '"></div>';
+                });
+                var running = pipe.stages.filter(function(s) { return s.status === 'running'; });
+                if (running.length) html += '<span class="ph-stage-label">' + esc(running[0].label || running[0].name) + '</span>';
+                html += '</div>';
+            }
+            html += '</div>';
+            html += '<span class="ph-status ph-status-' + statusClass + '">' + p.status + '</span>';
+            html += '<span class="ph-risk ph-risk-' + riskClass + '">' + riskClass + '</span>';
+            html += '<span class="ph-complexity">' + (p.estimatedComplexity || 'M') + '</span>';
+            html += '<span class="ph-parallel ' + (canParallel ? 'ph-parallel-yes' : 'ph-parallel-no') + '">' + (canParallel ? 'Yes' : 'No') + '</span>';
+            html += '<div class="ph-actions" onclick="event.stopPropagation()">';
+            if (canLaunch) html += '<button class="ph-btn ph-btn-run" onclick="executePhase(\'' + p.phaseId + '\')">Run Pipeline</button>';
+            html += '</div>';
+            html += '</div>';
+        });
+        document.getElementById('phase-list').innerHTML = html;
+    }
+
+    // --- Detail panel ---
+    function openDetail(phaseId) {
+        currentDetailPhase = phaseId;
+        var p = phases.find(function(x) { return x.phaseId === phaseId; });
+        if (!p) return;
+
+        var statusClass = p.status.replace(/[^a-zA-Z_-]/g, '-');
+        var html = '';
+        html += '<button class="ph-detail-close" onclick="closeDetail()">&times;</button>';
+        html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">';
+        html += '<span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);font-weight:700">' + p.phaseId + '</span>';
+        html += '<span class="ph-status ph-status-' + statusClass + '">' + p.status + '</span>';
+        if (p.approvalRequired) html += '<span style="font-size:0.58rem;color:var(--accent-amber);font-weight:700">APPROVAL REQUIRED</span>';
+        html += '</div>';
+        html += '<div style="font-size:1rem;font-weight:800;color:#fff;margin-bottom:4px">' + esc(p.name) + '</div>';
+        html += '<div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">' + esc(p.description || '') + '</div>';
+
+        if (p.revenueEvent) {
+            html += '<div class="ph-detail-section"><div class="ph-detail-label">Revenue Event</div>';
+            html += '<div class="ph-detail-val" style="color:var(--accent-gold);font-weight:700">' + esc(p.revenueEvent) + '</div></div>';
+        }
+        if (p.command) {
+            html += '<div class="ph-detail-section"><div class="ph-detail-label">Phase Command</div>';
+            html += '<div style="font-family:var(--font-mono);font-size:0.78rem;background:rgba(0,0,0,0.3);padding:8px 12px;border-radius:8px;color:var(--accent-blue)">' + esc(p.command) + '</div></div>';
+        }
+        if (p.dependencies && p.dependencies.length > 0) {
+            html += '<div class="ph-detail-section"><div class="ph-detail-label">Dependencies</div>';
+            html += '<div class="ph-detail-val">' + p.dependencies.map(function(d) {
+                var dep = phases.find(function(x) { return x.phaseId === d; });
+                var color = (dep && dep.status === 'completed') ? 'var(--accent-green)' : 'var(--text-dim)';
+                return '<span style="color:' + color + '">' + d + '</span>';
+            }).join(', ') + '</div></div>';
+        }
+
+        html += '<div class="ph-detail-section"><div style="display:flex;gap:16px">';
+        html += '<div><div class="ph-detail-label">Risk</div><span class="ph-risk ph-risk-' + (p.riskLevel || 'low') + '">' + (p.riskLevel || 'low') + '</span></div>';
+        html += '<div><div class="ph-detail-label">Complexity</div><span class="ph-complexity">' + (p.estimatedComplexity || 'M') + '</span></div>';
+        html += '<div><div class="ph-detail-label">Parallel</div><span class="ph-parallel ' + (p.canRunInParallel ? 'ph-parallel-yes' : 'ph-parallel-no') + '">' + (p.canRunInParallel ? 'Yes' : 'No') + '</span></div>';
+        html += '</div></div>';
+
+        // Pipeline stages section (populated dynamically)
+        html += '<div id="detail-pipeline-section"></div>';
+
+        // Session output + continue (populated dynamically)
+        html += '<div id="detail-session-section"></div>';
+
+        // Launch button
+        if (p.status !== 'completed') {
+            html += '<div class="ph-detail-section" style="display:flex;gap:8px">';
+            html += '<button class="ph-btn ph-btn-run" onclick="executePhase(\'' + p.phaseId + '\')">Run Pipeline</button>';
+            html += '</div>';
+        }
+
+        document.getElementById('detail-panel').innerHTML = html;
+        document.getElementById('detail-overlay').classList.add('active');
+        _lastPipelineFingerprint = '';
+        _lastDetailSessionId = '';
+        refreshDetailPipeline(phaseId);
+        startOutputPolling();
+    }
+
+    var _lastPipelineFingerprint = '';
+    var _lastDetailSessionId = '';
+
+    function refreshDetailPipeline(phaseId) {
+        var pipe = activePipelines[phaseId];
+        var pipeEl = document.getElementById('detail-pipeline-section');
+        var sessEl = document.getElementById('detail-session-section');
+        if (!pipeEl || !sessEl) return;
+
+        if (!pipe) {
+            pipeEl.innerHTML = '';
+            sessEl.innerHTML = '';
+            _lastPipelineFingerprint = '';
+            _lastDetailSessionId = '';
+            return;
+        }
+
+        // Build a fingerprint of stage statuses to detect actual changes
+        var fingerprint = (pipe.stages || []).map(function(s) {
+            return s.name + ':' + s.status + ':' + (s.session_id || '');
+        }).join('|');
+
+        var activeSessionId = null;
+        (pipe.stages || []).forEach(function(s) {
+            if (s.session_id && (s.status === 'running' || s.status === 'completed' || s.status === 'failed')) {
+                activeSessionId = s.session_id;
+            }
+        });
+
+        // Only rebuild pipeline stages if they actually changed
+        if (fingerprint !== _lastPipelineFingerprint) {
+            _lastPipelineFingerprint = fingerprint;
+            var html = '<div class="ph-detail-section">';
+            html += '<div class="ph-detail-label">Pipeline: ' + pipe.id + ' — ' + pipe.status + '</div>';
+            html += '<div class="ph-pipeline-stages">';
+            (pipe.stages || []).forEach(function(s) {
+                html += '<div class="ph-pipeline-stage-row">';
+                html += '<div class="ph-stage-dot ' + s.status + '"></div>';
+                html += '<span class="ph-pipeline-stage-name">' + esc(s.label || s.name) + '</span>';
+                html += '<span class="ph-pipeline-stage-status">' + s.status + '</span>';
+                if (s.status === 'waiting_for_approval') {
+                    html += '<button class="ph-btn ph-btn-run" style="font-size:0.55rem;padding:2px 8px;margin-left:4px" onclick="approveGate(\'' + pipe.id + '\',\'' + s.name + '\')">Approve</button>';
+                }
+                html += '</div>';
+            });
+            html += '</div></div>';
+            pipeEl.innerHTML = html;
+        }
+
+        // Only rebuild session section if the session ID changed
+        if (activeSessionId && activeSessionId !== _lastDetailSessionId) {
+            _lastDetailSessionId = activeSessionId;
+            var shtml = '<div class="ph-detail-section">';
+            shtml += '<div class="ph-detail-label">Session Output: ' + activeSessionId + '</div>';
+            shtml += '<div class="ph-session-output" id="session-output-' + activeSessionId + '">';
+            shtml += activeSessionOutputs[activeSessionId] || 'Waiting for output...';
+            shtml += '</div>';
+
+            var stage = (pipe.stages || []).find(function(s) { return s.session_id === activeSessionId; });
+            if (stage && (stage.status === 'completed' || stage.status === 'failed')) {
+                shtml += '<div class="ph-continue-box">';
+                shtml += '<div class="ph-detail-label" style="margin-top:8px">Respond / Continue</div>';
+                shtml += '<div id="extracted-options-' + activeSessionId + '"></div>';
+                shtml += '<textarea class="ph-continue-input" id="continue-input-' + activeSessionId + '" placeholder="Select an option above, or type custom direction..."></textarea>';
+                shtml += '<button class="ph-btn ph-btn-run" style="margin-top:6px" onclick="continueSession(\'' + activeSessionId + '\')">Send Response</button>';
+                shtml += '</div>';
+            }
+            shtml += '</div>';
+            sessEl.innerHTML = shtml;
+            loadSessionOutput(activeSessionId);
+        } else if (activeSessionId) {
+            // Session didn't change — just fetch new output (loadSessionOutput handles diff)
+            loadSessionOutput(activeSessionId);
+            // Check if stage transitioned to completed/failed and we need the continue box
+            var stage = (pipe.stages || []).find(function(s) { return s.session_id === activeSessionId; });
+            if (stage && (stage.status === 'completed' || stage.status === 'failed') && !document.getElementById('continue-input-' + activeSessionId)) {
+                _lastDetailSessionId = ''; // Force rebuild on next tick
+            }
+        } else if (!activeSessionId) {
+            sessEl.innerHTML = '';
+            _lastDetailSessionId = '';
+        }
+    }
+
+    function closeDetail() {
+        currentDetailPhase = null;
+        stopOutputPolling();
+        document.getElementById('detail-overlay').classList.remove('active');
+    }
+
+    // --- Actions ---
+    function executePhase(phaseId) {
+        var project = document.getElementById('project-select').value;
+        fetch('/api/projects/' + project + '/phases/' + phaseId + '/execute', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ auto_start: true })
+        })
+        .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+        .then(function(result) {
+            if (result.ok) {
+                showToast('Pipeline launched for ' + phaseId);
+                loadPhases();
+                if (currentDetailPhase === phaseId) {
+                    setTimeout(function() { openDetail(phaseId); }, 500);
+                }
+            } else {
+                showToast(result.data.error || 'Failed to execute', true);
+            }
+        })
+        .catch(function(err) { showToast('Network error: ' + err.message, true); });
+    }
+
+    function approveGate(pipeId, stageName) {
+        fetch('/api/pipelines/' + pipeId + '/stages/' + stageName + '/approve', { method: 'POST' })
+            .then(function(r) {
+                if (r.ok) { showToast('Gate approved — advancing pipeline'); loadActivePipelines(); }
+                else showToast('Failed to approve gate', true);
+            })
+            .catch(function() { showToast('Network error', true); });
+    }
+
+    function continueSession(sessionId) {
+        var input = document.getElementById('continue-input-' + sessionId);
+        if (!input || !input.value.trim()) {
+            showToast('Type a response first', true);
+            return;
+        }
+        fetch('/api/sessions/' + sessionId + '/continue', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ input: input.value.trim() })
+        })
+        .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+        .then(function(result) {
+            if (result.ok) {
+                showToast('Continuation launched: ' + result.data.id);
+                loadPhases();
+            } else {
+                showToast(result.data.error || 'Failed to continue', true);
+            }
+        })
+        .catch(function() { showToast('Network error', true); });
+    }
+
+    function showToast(msg, isError) {
+        var el = document.getElementById('toast');
+        el.textContent = msg;
+        el.className = 'ph-toast show' + (isError ? ' error' : '');
+        setTimeout(function() { el.className = 'ph-toast'; }, 3000);
+    }
+
+    function esc(s) {
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+    }
+
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDetail(); });
+
+    function populateProjectDropdown(cb) {
+        fetch('/api/projects').then(function(r) { return r.json(); }).then(function(projects) {
+            var sel = document.getElementById('project-select');
+            sel.innerHTML = '';
+            projects.forEach(function(p) {
+                var opt = document.createElement('option');
+                opt.value = p.slug;
+                opt.textContent = p.name;
+                sel.appendChild(opt);
+            });
+            var hash = window.location.hash;
+            var projMatch = hash && hash.match(/project=([a-zA-Z0-9_-]+)/);
+            if (projMatch) sel.value = projMatch[1];
+            if (cb) cb();
+        }).catch(function(e) { if (cb) cb(); });
+    }
+    try { populateProjectDropdown(function() { loadPhases(); }); } catch(e) { console.error('loadPhases failed:', e); }
+    try { connectSSE(); } catch(e) { console.error('connectSSE failed:', e); }
+    try { requestNotifyPermission(); } catch(e) {}
+    </script>
+</body>
+</html>

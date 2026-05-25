@@ -437,6 +437,10 @@
                 </span>
                 <select id="studio-project-filter" onchange="Studio.refresh()" style="font-size:0.72rem;font-weight:600;padding:5px 10px;border-radius:8px;border:1px solid var(--border-light);background:rgba(255,255,255,0.04);color:var(--text-secondary);cursor:pointer;">
                     <option value="">All Projects</option>
+                    <option value="conductor">Conductor</option>
+                    <option value="labs-institute">Labs Institute</option>
+                    <option value="groovenet">GrooveNet</option>
+                    <option value="neurospect">NeuroSpect</option>
                 </select>
                 <button class="studio-btn" onclick="Studio.refresh()">Refresh</button>
             </div>
@@ -1502,24 +1506,8 @@
             });
         }
 
-        function populateProjectFilter() {
-            fetch('/api/projects').then(function(r) { return r.json(); }).then(function(projects) {
-                var sel = document.getElementById('studio-project-filter');
-                var current = sel.value;
-                sel.innerHTML = '<option value="">All Projects</option>';
-                projects.forEach(function(p) {
-                    var opt = document.createElement('option');
-                    opt.value = p.slug;
-                    opt.textContent = p.name;
-                    sel.appendChild(opt);
-                });
-                if (current) sel.value = current;
-            }).catch(function() {});
-        }
-
         function init() {
             initTabs();
-            populateProjectFilter();
             refresh();
             connectSSE();
             loadEventHistory();

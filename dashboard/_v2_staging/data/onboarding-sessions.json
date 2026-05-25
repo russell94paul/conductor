@@ -1,0 +1,1189 @@
+{
+  "onb_6c8bf8094e1e": {
+    "id": "onb_6c8bf8094e1e",
+    "created": "2026-05-25T03:38:23.361430+00:00",
+    "updated": "2026-05-25T03:38:23.361446+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_2f775c4bd085": {
+    "id": "onb_2f775c4bd085",
+    "created": "2026-05-25T03:39:35.934837+00:00",
+    "updated": "2026-05-25T03:39:35.934857+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_12128f415015": {
+    "id": "onb_12128f415015",
+    "created": "2026-05-25T03:45:22.983306+00:00",
+    "updated": "2026-05-25T03:45:22.983325+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_1e1adc4c2886": {
+    "id": "onb_1e1adc4c2886",
+    "created": "2026-05-25T03:45:33.294014+00:00",
+    "updated": "2026-05-25T03:45:33.294035+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_ced7b8481db2": {
+    "id": "onb_ced7b8481db2",
+    "created": "2026-05-25T03:45:51.273105+00:00",
+    "updated": "2026-05-25T03:45:51.273126+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_ada73bed883f": {
+    "id": "onb_ada73bed883f",
+    "created": "2026-05-25T03:48:03.667185+00:00",
+    "updated": "2026-05-25T03:48:03.667199+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_fb99872ffb3c": {
+    "id": "onb_fb99872ffb3c",
+    "created": "2026-05-25T03:48:15.670289+00:00",
+    "updated": "2026-05-25T03:48:15.670310+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_f5729c97bb81": {
+    "id": "onb_f5729c97bb81",
+    "created": "2026-05-25T04:09:09.719741+00:00",
+    "updated": "2026-05-25T04:09:09.719755+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_91fd67d4b251": {
+    "id": "onb_91fd67d4b251",
+    "created": "2026-05-25T04:09:39.726251+00:00",
+    "updated": "2026-05-25T04:09:39.726318+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_7d17ac6255d1": {
+    "id": "onb_7d17ac6255d1",
+    "created": "2026-05-25T04:10:03.543517+00:00",
+    "updated": "2026-05-25T04:10:39.869812+00:00",
+    "messages": [
+      {
+        "role": "user",
+        "content": "I want to build a task management app for small teams",
+        "timestamp": "2026-05-25T04:10:03.580976+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Good starting point. Task management is a crowded space, so the key question is: what's broken about what small teams use today that's prompting this?\n\nIs this solving a pain you've personally experienced with a team, or are you building it for a specific type of team or industry? That context shapes everything from the feature set to how opinionated the UX should be.",
+        "timestamp": "2026-05-25T04:10:15.323320+00:00",
+        "structured": []
+      },
+      {
+        "role": "user",
+        "content": "It is for software dev teams. We need kanban boards, sprint planning, and time tracking. We use React and PostgreSQL already.",
+        "timestamp": "2026-05-25T04:10:25.964034+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Good, React + PostgreSQL is a solid match for this \u2014 no reason to deviate. That simplifies the stack decision significantly.\n\nTwo things I want to understand before proposing phases:\n\n**Is this a SaaS product** (multiple teams pay to use it) or an **internal tool** for one org? That's the biggest fork in the road \u2014 multi-tenancy, billing, and onboarding complexity are a completely different scope than a single-org app.\n\nAnd on time tracking specifically \u2014 is that \"log hours against tickets\" (simple), or do you need billing rates, client invoicing, or reporting to stakeholders outside the team? Time tracking has a huge range of depth.",
+        "timestamp": "2026-05-25T04:10:39.869801+00:00",
+        "structured": []
+      }
+    ],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_1b5c8525a071": {
+    "id": "onb_1b5c8525a071",
+    "created": "2026-05-25T04:12:33.287366+00:00",
+    "updated": "2026-05-25T04:12:43.773698+00:00",
+    "messages": [
+      {
+        "role": "user",
+        "content": "I want to build a real-time analytics dashboard for e-commerce",
+        "timestamp": "2026-05-25T04:12:33.302358+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Good starting point. Before we get into tech, let me understand the problem a bit more.\n\n**Who's the primary user?** Are we talking about a merchant running their own store, an ops team inside a larger e-commerce company, or something else \u2014 like a SaaS product sold to multiple merchants?\n\nAnd what's the core pain point today \u2014 are they flying blind (no analytics at all), dealing with stale reports that are hours old, or do they have data but it's scattered across too many tools?",
+        "timestamp": "2026-05-25T04:12:43.773688+00:00",
+        "structured": []
+      }
+    ],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_1dc849da294d": {
+    "id": "onb_1dc849da294d",
+    "created": "2026-05-25T04:12:48.675194+00:00",
+    "updated": "2026-05-25T04:12:48.675206+00:00",
+    "messages": [],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_68e289e2ccd5": {
+    "id": "onb_68e289e2ccd5",
+    "created": "2026-05-25T04:13:54.229708+00:00",
+    "updated": "2026-05-25T04:14:07.925469+00:00",
+    "messages": [
+      {
+        "role": "user",
+        "content": "I want to build a fitness tracking app with social features",
+        "timestamp": "2026-05-25T04:13:54.248281+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Fitness + social is a well-trodden space, which means there are clear patterns to borrow from \u2014 and real traps to avoid (ghost-town social features being the biggest one).\n\nBefore I start sketching anything: **who's the primary user, and what's the core loop?**\n\nFor example \u2014 is this:\n- **Athletes** logging workouts who want to share PRs and compete with friends?\n- **Casual users** who need accountability partners to stay consistent?\n- **Coaches and clients** where the social layer is about guidance, not peer competition?\n\nThe answer changes the architecture significantly. A competition/leaderboard model needs different data models than a coaching model, and \"social\" in a ghost-town app is just noise.\n\nWhat's the problem you're actually solving \u2014 and who experiences it?",
+        "timestamp": "2026-05-25T04:14:07.925383+00:00",
+        "structured": []
+      }
+    ],
+    "blueprint": null,
+    "status": "active"
+  },
+  "onb_14d8f9e8fea1": {
+    "id": "onb_14d8f9e8fea1",
+    "created": "2026-05-25T04:21:16.030174+00:00",
+    "updated": "2026-05-25T05:01:00.821138+00:00",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Converting a wiki into a platform for me to manage, design and implement SIRE related artifacts - docs/guides/use-cases/demo-apps/monetization/go to market strategy/ socials/ roadmap/ action items by sequence/priority and deploy a public-facing website.\nI would like to be able to login or access the portal from the website some how, the platform should have a website design and content editing/creation functionality.\n\nI have a detailed prompt to send next, before you ask any questions - stand-by",
+        "timestamp": "2026-05-25T04:21:16.056599+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "This is rich and clear. Let me map out what I'm hearing before proposing phases.\n\n**Two layers of work here:**\n\n1. **Conductor enhancements** \u2014 New capabilities the platform needs to support this workflow: artifact management UI, website builder/content editor, deploy pipeline, portal auth\n2. **SIRE project setup** \u2014 The actual SIRE project in Conductor with its full artifact library, roadmap, GTM, content, and phases\n\nThe wiki migration is the starting point \u2014 convert that existing content into structured Conductor artifacts rather than starting from scratch.\n\nHere's how I'd phase this:\n\n```json\n{\"type\":\"phase_proposal\",\"phases\":[{\"id\":\"P0\",\"name\":\"SIRE Project Bootstrap\",\"description\":\"Create SIRE in Conductor. Migrate wiki content into structured artifacts. Define full artifact taxonomy (docs, use cases, GTM, socials, roadmap, action items). Establish phase structure for the SIRE build itself.\",\"complexity\":\"S\",\"risk\":\"low\",\"dependencies\":[],\"deliverables\":[\"SIRE project entry in Conductor\",\"Artifact taxonomy + folder structure\",\"Wiki content migrated to artifacts\",\"SIRE phase roadmap defined\"]},{\"id\":\"P1\",\"name\":\"Artifact Manager\",\"description\":\"New Conductor dashboard capability: create, edit, and organize all SIRE artifacts. Markdown editor with preview, artifact types, status/priority tags. Replaces the wiki as primary working surface.\",\"complexity\":\"M\",\"risk\":\"low\",\"dependencies\":[\"P0\"],\"deliverables\":[\"Artifacts page in Conductor dashboard\",\"Markdown editor with live preview\",\"Filter/sort by type, status, priority\",\"All SIRE artifacts accessible and editable\"]},{\"id\":\"P2\",\"name\":\"Roadmap & Action Items\",\"description\":\"Visual SIRE roadmap with phase dependencies. Prioritized, sequenced action item list. Tracks what needs to happen and in what order.\",\"complexity\":\"S\",\"risk\":\"low\",\"dependencies\":[\"P1\"],\"deliverables\":[\"SIRE roadmap view\",\"Action items with sequence + priority\",\"Phase dependency visualization\"]},{\"id\":\"P3\",\"name\":\"Content & GTM Workspace\",\"description\":\"Structured workspace for go-to-market execution: social media calendar, newsletter/brief drafts, GTM strategy docs. Export artifacts to Markdown or PDF for distribution.\",\"complexity\":\"M\",\"risk\":\"low\",\"dependencies\":[\"P1\"],\"deliverables\":[\"Social content calendar\",\"Newsletter draft templates\",\"GTM strategy artifact set\",\"Export to Markdown/PDF\"]},{\"id\":\"P4\",\"name\":\"Website Studio\",\"description\":\"Visual website builder in Conductor for the SIRE public site. Section/block editor, component library (hero, features, pricing, blog, waitlist CTA), live preview mode.\",\"complexity\":\"L\",\"risk\":\"medium\",\"dependencies\":[\"P1\"],\"deliverables\":[\"Website Studio page in Conductor\",\"Block-based page editor\",\"Component library for SIRE site\",\"Live preview + content versioning\"]},{\"id\":\"P5\",\"name\":\"Public Website Launch\",\"description\":\"Deploy SIRE marketing website from Conductor. Waitlist capture, custom domain, SEO basics, analytics. The public face of SIRE goes live.\",\"complexity\":\"M\",\"risk\":\"medium\",\"dependencies\":[\"P4\"],\"deliverables\":[\"SIRE public site live at custom domain\",\"Waitlist capture + email confirmation\",\"Blog/teaser content published\",\"Analytics + SEO baseline\"]},{\"id\":\"P6\",\"name\":\"Portal & Auth\",\"description\":\"Login layer accessible from the SIRE public site. Auth (Supabase or Auth0), protected area in Conductor for internal team or beta users. Foundation for eventual subscriber portal.\",\"complexity\":\"M\",\"risk\":\"medium\",\"dependencies\":[\"P5\"],\"deliverables\":[\"Auth flow (signup, login, password reset)\",\"Login CTA on public site \u2192 protected portal\",\"Role-based access (admin, beta user)\",\"Session persistence\"]},{\"id\":\"P7\",\"name\":\"SIRE Platform MVP\",\"description\":\"First production-grade SIRE capabilities: regulatory feed ingestion (SEC/FINRA), AI-assisted summaries, Intelligence Brief engine. Deployed as gated SaaS behind P6 auth.\",\"complexity\":\"XL\",\"risk\":\"high\",\"dependencies\":[\"P6\"],\"deliverables\":[\"Regulatory feed ingestion pipeline\",\"AI summary + tagging layer\",\"Intelligence Brief (weekly digest)\",\"Subscriber dashboard with feed + briefs\"]}]}\n```\n\nP0\u2013P3 are pure Conductor/management work \u2014 no external dependencies, low risk, high value immediately. P4\u2013P5 are the public-facing push. P6\u2013P7 turn this into a live product.\n\n**One question before I go further:** On P6 \u2014 is the portal primarily for **your internal use** (you logging into Conductor to manage SIRE artifacts, accessed via the public site)? Or is it building toward **subscriber access** (compliance professionals logging into SIRE as a product)? The auth architecture is meaningfully different between those two.",
+        "timestamp": "2026-05-25T04:22:51.366778+00:00",
+        "structured": [
+          {
+            "type": "phase_proposal",
+            "phases": [
+              {
+                "id": "P0",
+                "name": "SIRE Project Bootstrap",
+                "description": "Create SIRE in Conductor. Migrate wiki content into structured artifacts. Define full artifact taxonomy (docs, use cases, GTM, socials, roadmap, action items). Establish phase structure for the SIRE build itself.",
+                "complexity": "S",
+                "risk": "low",
+                "dependencies": [],
+                "deliverables": [
+                  "SIRE project entry in Conductor",
+                  "Artifact taxonomy + folder structure",
+                  "Wiki content migrated to artifacts",
+                  "SIRE phase roadmap defined"
+                ]
+              },
+              {
+                "id": "P1",
+                "name": "Artifact Manager",
+                "description": "New Conductor dashboard capability: create, edit, and organize all SIRE artifacts. Markdown editor with preview, artifact types, status/priority tags. Replaces the wiki as primary working surface.",
+                "complexity": "M",
+                "risk": "low",
+                "dependencies": [
+                  "P0"
+                ],
+                "deliverables": [
+                  "Artifacts page in Conductor dashboard",
+                  "Markdown editor with live preview",
+                  "Filter/sort by type, status, priority",
+                  "All SIRE artifacts accessible and editable"
+                ]
+              },
+              {
+                "id": "P2",
+                "name": "Roadmap & Action Items",
+                "description": "Visual SIRE roadmap with phase dependencies. Prioritized, sequenced action item list. Tracks what needs to happen and in what order.",
+                "complexity": "S",
+                "risk": "low",
+                "dependencies": [
+                  "P1"
+                ],
+                "deliverables": [
+                  "SIRE roadmap view",
+                  "Action items with sequence + priority",
+                  "Phase dependency visualization"
+                ]
+              },
+              {
+                "id": "P3",
+                "name": "Content & GTM Workspace",
+                "description": "Structured workspace for go-to-market execution: social media calendar, newsletter/brief drafts, GTM strategy docs. Export artifacts to Markdown or PDF for distribution.",
+                "complexity": "M",
+                "risk": "low",
+                "dependencies": [
+                  "P1"
+                ],
+                "deliverables": [
+                  "Social content calendar",
+                  "Newsletter draft templates",
+                  "GTM strategy artifact set",
+                  "Export to Markdown/PDF"
+                ]
+              },
+              {
+                "id": "P4",
+                "name": "Website Studio",
+                "description": "Visual website builder in Conductor for the SIRE public site. Section/block editor, component library (hero, features, pricing, blog, waitlist CTA), live preview mode.",
+                "complexity": "L",
+                "risk": "medium",
+                "dependencies": [
+                  "P1"
+                ],
+                "deliverables": [
+                  "Website Studio page in Conductor",
+                  "Block-based page editor",
+                  "Component library for SIRE site",
+                  "Live preview + content versioning"
+                ]
+              },
+              {
+                "id": "P5",
+                "name": "Public Website Launch",
+                "description": "Deploy SIRE marketing website from Conductor. Waitlist capture, custom domain, SEO basics, analytics. The public face of SIRE goes live.",
+                "complexity": "M",
+                "risk": "medium",
+                "dependencies": [
+                  "P4"
+                ],
+                "deliverables": [
+                  "SIRE public site live at custom domain",
+                  "Waitlist capture + email confirmation",
+                  "Blog/teaser content published",
+                  "Analytics + SEO baseline"
+                ]
+              },
+              {
+                "id": "P6",
+                "name": "Portal & Auth",
+                "description": "Login layer accessible from the SIRE public site. Auth (Supabase or Auth0), protected area in Conductor for internal team or beta users. Foundation for eventual subscriber portal.",
+                "complexity": "M",
+                "risk": "medium",
+                "dependencies": [
+                  "P5"
+                ],
+                "deliverables": [
+                  "Auth flow (signup, login, password reset)",
+                  "Login CTA on public site \u2192 protected portal",
+                  "Role-based access (admin, beta user)",
+                  "Session persistence"
+                ]
+              },
+              {
+                "id": "P7",
+                "name": "SIRE Platform MVP",
+                "description": "First production-grade SIRE capabilities: regulatory feed ingestion (SEC/FINRA), AI-assisted summaries, Intelligence Brief engine. Deployed as gated SaaS behind P6 auth.",
+                "complexity": "XL",
+                "risk": "high",
+                "dependencies": [
+                  "P6"
+                ],
+                "deliverables": [
+                  "Regulatory feed ingestion pipeline",
+                  "AI summary + tagging layer",
+                  "Intelligence Brief (weekly digest)",
+                  "Subscriber dashboard with feed + briefs"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "I am attaching a path - 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework' containing my current wiki/research documentation for a project called SIHRE. Please analyze the full contents carefully and help me turn this into a professional public-facing website and platform.\n\nThe canonical project name is SIHRE. Do not rename the project unless you are recommending optional branding improvements. Treat \u201cSIRE\u201d as an error unless the documents clearly define it as a separate term.\n\nYour task is to act as a world-class:\n\n- Product strategist\n- Technical architect\n- UX/UI planner\n- Research documentation organizer\n- Knowledge management expert\n- Startup monetization strategist\n- Public platform launch advisor\n\nThe goal is to design a public site and platform that tracks, organizes, and presents all important information related to SIHRE/SIRE, including research, action items, experiments, roadmap, monetization strategy, contributors, documentation, and future development.\n\nPlease do not give a shallow response. I want a serious, structured, investor-grade and builder-ready plan.\n\n---\n\n# 1. First, analyze the 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework'\n\nPlease inspect the attached 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework' thoroughly.\n\nIdentify:\n\n- All files and folders\n- The main topics covered\n- The current structure of the wiki\n- Key concepts, terminology, and definitions\n- Important research themes\n- Current project goals\n- Any action items, TODOs, tasks, or unresolved questions\n- Experiments, hypotheses, tests, or results\n- Technical documents\n- Strategy documents\n- Monetization ideas\n- Missing information\n- Duplicate or inconsistent information\n- Naming inconsistencies, especially SIHRE vs SIRE\n\nWhen referencing the source material, cite the specific file names or paths where possible.\n\nDo not invent details that are not in the documents. If something is missing, clearly label it as a recommendation or assumption.\n\n---\n\n# 2. Determine the best public platform structure\n\nBased on the contents of the 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework', propose the ideal structure for a public SIHRE platform.\n\nThe platform should include, where relevant:\n\n## Public Website\n\n- Homepage\n- Mission / Vision page\n- About the project\n- Research overview\n- Wiki / knowledge base\n- Experiments dashboard\n- Roadmap\n- Public updates / changelog\n- Blog or research notes\n- FAQ\n- Contact / contributor page\n- Press / media kit\n- Donation, sponsorship, or monetization page\n\n## Internal or Admin-Facing Platform\n\n- Action item tracker\n- Experiment tracker\n- Research database\n- Document library\n- Decision log\n- Contributor management\n- Roadmap management\n- Task status dashboard\n- Monetization pipeline\n- Grant / sponsor tracker\n- Meeting notes\n- Risk register\n- Open questions tracker\n\n## Optional Advanced Features\n\n- Searchable knowledge base\n- Tagging system\n- Public/private visibility controls\n- Research citations\n- Experiment status labels\n- Interactive dashboards\n- AI assistant trained on the project docs\n- Contributor submissions\n- Newsletter capture\n- Member-only content\n- API or data access layer\n- Analytics dashboard\n\nPlease recommend what should be public, private, or admin-only.\n\n---\n\n# 3. Create an information architecture\n\nDesign a clear information architecture for the whole platform.\n\nInclude:\n\n- Main navigation\n- Footer navigation\n- Page hierarchy\n- Content categories\n- Tags / metadata system\n- Recommended URL structure\n- Search/filter system\n- Public vs private content model\n\nPlease make the structure easy for:\n\n- General public visitors\n- Researchers\n- Collaborators\n- Investors or sponsors\n- Contributors\n- Project administrators\n\n---\n\n# 4. Create a data model\n\nDesign a database/content model for the platform.\n\nInclude recommended entities such as:\n\n- Documents\n- Research notes\n- Experiments\n- Action items\n- Tasks\n- Contributors\n- Updates\n- Roadmap items\n- Decisions\n- Risks\n- Questions\n- Monetization opportunities\n- Sponsors / partners\n- Resources\n- Tags\n- Categories\n\nFor each entity, include:\n\n- Purpose\n- Required fields\n- Optional fields\n- Relationships to other entities\n- Visibility level: public, private, admin-only\n- Suggested status values\n\nExample status values may include:\n\n- Draft\n- Active\n- In progress\n- Blocked\n- Completed\n- Archived\n- Public\n- Private\n- Needs review\n\n---\n\n# 5. Recommend the best tech stack\n\nRecommend a modern, scalable tech stack for this platform.\n\nPlease compare options and then recommend the best one.\n\nConsider:\n\n- Next.js\n- React\n- Tailwind CSS\n- Supabase\n- PostgreSQL\n- Sanity / Payload / Strapi\n- Notion as CMS\n- GitHub as source of truth\n- Vercel deployment\n- Auth systems\n- Search tools\n- Analytics\n- Payments\n- Newsletter tools\n- AI/RAG integration for the documentation\n\nFor the final recommendation, include:\n\n- Frontend framework\n- Backend / database\n- CMS or content system\n- Authentication\n- Hosting\n- Analytics\n- Payments\n- Search\n- AI documentation assistant option\n- Estimated complexity\n- MVP-friendly setup\n- Long-term scalable setup\n\n---\n\n# 6. Design the MVP\n\nCreate a practical MVP version of the platform that can be launched quickly.\n\nThe MVP should include:\n\n- The minimum public website pages\n- The minimum admin features\n- The first version of the experiment tracker\n- The first version of the action item tracker\n- A basic monetization page\n- A basic contributor/contact system\n- A clean knowledge base\n- Basic analytics\n\nPlease divide the MVP into:\n\n## Phase 1: Foundation\n\nWhat should be built first.\n\n## Phase 2: Public Launch\n\nWhat is needed before making the site public.\n\n## Phase 3: Platform Expansion\n\nWhat should be added after launch.\n\n## Phase 4: Monetization and Growth\n\nWhat should be added once traffic and credibility increase.\n\nFor each phase, include:\n\n- Features\n- Priority\n- Estimated difficulty\n- Dependencies\n- Success criteria\n\n---\n\n# 7. Create a monetization strategy\n\nBased on the project contents, propose a serious monetization strategy.\n\nInclude possible models such as:\n\n- Donations\n- Sponsorships\n- Grants\n- Premium membership\n- Paid research reports\n- Consulting\n- Licensing\n- Courses / workshops\n- Community access\n- API or dataset access\n- Partnerships\n- Enterprise offerings\n- Affiliate opportunities, only if appropriate\n- Crowdfunding\n\nFor each monetization model, include:\n\n- Description\n- Why it fits or does not fit SIHRE/SIRE\n- Difficulty\n- Revenue potential\n- Trust risks\n- Ethical concerns\n- Required platform features\n- Recommended timing\n\nAlso recommend the top 3 monetization paths to prioritize first.\n\n---\n\n# 8. Create a content strategy\n\nCreate a content strategy for turning the existing wiki into public-facing content.\n\nInclude:\n\n- Which pages should be rewritten\n- Which pages should remain internal\n- Which documents need summaries\n- Which topics need diagrams\n- Which topics need beginner-friendly explanations\n- Which topics should be turned into blog posts\n- Which topics should become research pages\n- Which topics should become landing pages\n- Which pages need disclaimers or evidence labels\n\nPlease create a content classification system such as:\n\n- Public-ready\n- Needs editing\n- Internal only\n- Sensitive\n- Technical\n- Beginner-friendly\n- Investor-facing\n- Contributor-facing\n\nAlso recommend an editorial style guide for the site.\n\n---\n\n# 9. Design dashboards and trackers\n\nRecommend dashboards for managing the project.\n\nInclude:\n\n## Public Dashboards\n\n- Research progress\n- Experiment status\n- Roadmap\n- Public changelog\n- Open collaboration opportunities\n\n## Internal Dashboards\n\n- Action items\n- Experiments\n- Risks\n- Open questions\n- Monetization pipeline\n- Contributor status\n- Content publishing pipeline\n- Technical backlog\n\nFor each dashboard, include:\n\n- Purpose\n- Key fields\n- Filters\n- Views\n- Example statuses\n- Who should access it\n\n---\n\n# 10. Risk, trust, and credibility review\n\nBecause this will be a public platform, please identify risks related to:\n\n- Public trust\n- Scientific credibility\n- Overclaiming\n- Incomplete research\n- Privacy\n- Security\n- Contributor management\n- Monetization conflicts\n- Misinterpretation of research\n- Legal or compliance issues\n- Intellectual property\n- Public criticism\n\nFor each risk, include:\n\n- Risk description\n- Severity\n- Likelihood\n- Mitigation\n- Platform feature or policy needed\n\nPlease recommend disclaimers, transparency policies, and evidence-level labels.\n\n---\n\n# 11. Create a professional brand and positioning strategy\n\nBased on the documents, recommend how SIHRE/SIRE should be positioned publicly.\n\nInclude:\n\n- One-sentence positioning statement\n- Mission statement\n- Vision statement\n- Tagline options\n- Audience segments\n- Brand tone\n- Visual style direction\n- Homepage messaging\n- Credibility-building elements\n- Differentiators\n- What not to say publicly yet\n\nAlso address whether the project should use the name SIHRE, SIRE, or another naming convention based on the documents.\n\n---\n\n# 12. Produce a complete final blueprint\n\nAfter analysis, produce a final structured blueprint with these sections:\n\n1. Executive summary\n2. What the current wiki contains\n3. Major gaps and opportunities\n4. Recommended public platform vision\n5. Site map\n6. User roles\n7. Public vs private content strategy\n8. Database/content model\n9. MVP scope\n10. Full feature roadmap\n11. Monetization strategy\n12. Content strategy\n13. Dashboard and tracker designs\n14. Recommended tech stack\n15. Launch plan\n16. Risk and trust review\n17. Brand and positioning strategy\n18. Recommended next actions\n19. Questions that still need my input\n20. A developer-ready implementation prompt\n\n---\n\n# 13. Create a developer-ready implementation prompt\n\nAt the end, write a second prompt that I can give to an AI coding agent, developer, or platform builder.\n\nThat implementation prompt should include:\n\n- Project overview\n- Required pages\n- Required features\n- Data models\n- User roles\n- Tech stack recommendation\n- Design style\n- MVP requirements\n- Admin dashboard requirements\n- Public website requirements\n- Monetization page requirements\n- Security and privacy requirements\n- Deployment target\n- Acceptance criteria\n\nMake the implementation prompt detailed enough that a developer or AI coding tool could begin building the platform from it.\n\n---\n\n# 14. Working style\n\nPlease follow these rules:\n\n- Be specific.\n- Be practical.\n- Be professional.\n- Do not hallucinate.\n- Clearly separate facts from recommendations.\n- Cite file names or paths from the 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework' when possible.\n- Flag contradictions or unclear points.\n- Recommend the most important next steps.\n- Think like a founder, CTO, product manager, UX designer, and research strategist at the same time.\n- Optimize for a platform that can start simple but scale into a serious public research/project hub.\n\nBegin by analyzing the C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework, then produce the complete blueprint.",
+        "timestamp": "2026-05-25T04:28:58.041139+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Error: Reached max turns (1)",
+        "timestamp": "2026-05-25T04:29:45.740131+00:00",
+        "structured": []
+      },
+      {
+        "role": "user",
+        "content": "other context: Converting a wiki into a platform + website for me to manage, design and implement SIRE related artifacts - docs/guides/use-cases/demo-apps/monetization/go to market strategy/ socials/ roadmap/ action items by sequence/priority and deploy a public-facing website. I would like to be able to login or access the portal from the website some how, the platform should have a website design and content editing/creation functionality. I have a detailed prompt to send next, before you ask any questions - stand-by I am attaching a path - 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework' containing my current wiki/research documentation for a project called SIHRE. Please analyze the full contents carefully and help me turn this into a professional public-facing website and platform. The canonical project name is SIHRE. Do not rename the project unless you are recommending optional branding improvements. Treat \u201cSIRE\u201d as an error unless the documents clearly define it as a separate term. Your task is to act as a world-class: - Product strategist - Technical architect - UX/UI planner - Research documentation organizer - Knowledge management expert - Startup monetization strategist - Public platform launch advisor The goal is to design a public site and platform that tracks, organizes, and presents all important information related to SIHRE/SIRE, including research, action items, experiments, roadmap, monetization strategy, contributors, documentation, and future development. Please do not give a shallow response. I want a serious, structured, investor-grade and builder-ready plan. --- # 1. First, analyze the 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework' Please inspect the attached 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework' thoroughly. Identify: - All files and folders - The main topics covered - The current structure of the wiki - Key concepts, terminology, and definitions - Important research themes - Current project goals - Any action items, TODOs, tasks, or unresolved questions - Experiments, hypotheses, tests, or results - Technical documents - Strategy documents - Monetization ideas - Missing information - Duplicate or inconsistent information - Naming inconsistencies, especially SIHRE vs SIRE When referencing the source material, cite the specific file names or paths where possible. Do not invent details that are not in the documents. If something is missing, clearly label it as a recommendation or assumption. --- # 2. Determine the best public platform structure Based on the contents of the 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework', propose the ideal structure for a public SIHRE platform. The platform should include, where relevant: ## Public Website - Homepage - Mission / Vision page - About the project - Research overview - Wiki / knowledge base - Experiments dashboard - Roadmap - Public updates / changelog - Blog or research notes - FAQ - Contact / contributor page - Press / media kit - Donation, sponsorship, or monetization page ## Internal or Admin-Facing Platform - Action item tracker - Experiment tracker - Research database - Document library - Decision log - Contributor management - Roadmap management - Task status dashboard - Monetization pipeline - Grant / sponsor tracker - Meeting notes - Risk register - Open questions tracker ## Optional Advanced Features - Searchable knowledge base - Tagging system - Public/private visibility controls - Research citations - Experiment status labels - Interactive dashboards - AI assistant trained on the project docs - Contributor submissions - Newsletter capture - Member-only content - API or data access layer - Analytics dashboard Please recommend what should be public, private, or admin-only. --- # 3. Create an information architecture Design a clear information architecture for the whole platform. Include: - Main navigation - Footer navigation - Page hierarchy - Content categories - Tags / metadata system - Recommended URL structure - Search/filter system - Public vs private content model Please make the structure easy for: - General public visitors - Researchers - Collaborators - Investors or sponsors - Contributors - Project administrators --- # 4. Create a data model Design a database/content model for the platform. Include recommended entities such as: - Documents - Research notes - Experiments - Action items - Tasks - Contributors - Updates - Roadmap items - Decisions - Risks - Questions - Monetization opportunities - Sponsors / partners - Resources - Tags - Categories For each entity, include: - Purpose - Required fields - Optional fields - Relationships to other entities - Visibility level: public, private, admin-only - Suggested status values Example status values may include: - Draft - Active - In progress - Blocked - Completed - Archived - Public - Private - Needs review --- # 5. Recommend the best tech stack Recommend a modern, scalable tech stack for this platform. Please compare options and then recommend the best one. Consider: - Next.js - React - Tailwind CSS - Supabase - PostgreSQL - Sanity / Payload / Strapi - Notion as CMS - GitHub as source of truth - Vercel deployment - Auth systems - Search tools - Analytics - Payments - Newsletter tools - AI/RAG integration for the documentation For the final recommendation, include: - Frontend framework - Backend / database - CMS or content system - Authentication - Hosting - Analytics - Payments - Search - AI documentation assistant option - Estimated complexity - MVP-friendly setup - Long-term scalable setup --- # 6. Design the MVP Create a practical MVP version of the platform that can be launched quickly. The MVP should include: - The minimum public website pages - The minimum admin features - The first version of the experiment tracker - The first version of the action item tracker - A basic monetization page - A basic contributor/contact system - A clean knowledge base - Basic analytics Please divide the MVP into: ## Phase 1: Foundation What should be built first. ## Phase 2: Public Launch What is needed before making the site public. ## Phase 3: Platform Expansion What should be added after launch. ## Phase 4: Monetization and Growth What should be added once traffic and credibility increase. For each phase, include: - Features - Priority - Estimated difficulty - Dependencies - Success criteria --- # 7. Create a monetization strategy Based on the project contents, propose a serious monetization strategy. Include possible models such as: - Donations - Sponsorships - Grants - Premium membership - Paid research reports - Consulting - Licensing - Courses / workshops - Community access - API or dataset access - Partnerships - Enterprise offerings - Affiliate opportunities, only if appropriate - Crowdfunding For each monetization model, include: - Description - Why it fits or does not fit SIHRE/SIRE - Difficulty - Revenue potential - Trust risks - Ethical concerns - Required platform features - Recommended timing Also recommend the top 3 monetization paths to prioritize first. --- # 8. Create a content strategy Create a content strategy for turning the existing wiki into public-facing content. Include: - Which pages should be rewritten - Which pages should remain internal - Which documents need summaries - Which topics need diagrams - Which topics need beginner-friendly explanations - Which topics should be turned into blog posts - Which topics should become research pages - Which topics should become landing pages - Which pages need disclaimers or evidence labels Please create a content classification system such as: - Public-ready - Needs editing - Internal only - Sensitive - Technical - Beginner-friendly - Investor-facing - Contributor-facing Also recommend an editorial style guide for the site. --- # 9. Design dashboards and trackers Recommend dashboards for managing the project. Include: ## Public Dashboards - Research progress - Experiment status - Roadmap - Public changelog - Open collaboration opportunities ## Internal Dashboards - Action items - Experiments - Risks - Open questions - Monetization pipeline - Contributor status - Content publishing pipeline - Technical backlog For each dashboard, include: - Purpose - Key fields - Filters - Views - Example statuses - Who should access it --- # 10. Risk, trust, and credibility review Because this will be a public platform, please identify risks related to: - Public trust - Scientific credibility - Overclaiming - Incomplete research - Privacy - Security - Contributor management - Monetization conflicts - Misinterpretation of research - Legal or compliance issues - Intellectual property - Public criticism For each risk, include: - Risk description - Severity - Likelihood - Mitigation - Platform feature or policy needed Please recommend disclaimers, transparency policies, and evidence-level labels. --- # 11. Create a professional brand and positioning strategy Based on the documents, recommend how SIHRE/SIRE should be positioned publicly. Include: - One-sentence positioning statement - Mission statement - Vision statement - Tagline options - Audience segments - Brand tone - Visual style direction - Homepage messaging - Credibility-building elements - Differentiators - What not to say publicly yet Also address whether the project should use the name SIHRE, SIRE, or another naming convention based on the documents. --- # 12. Produce a complete final blueprint After analysis, produce a final structured blueprint with these sections: 1. Executive summary 2. What the current wiki contains 3. Major gaps and opportunities 4. Recommended public platform vision 5. Site map 6. User roles 7. Public vs private content strategy 8. Database/content model 9. MVP scope 10. Full feature roadmap 11. Monetization strategy 12. Content strategy 13. Dashboard and tracker designs 14. Recommended tech stack 15. Launch plan 16. Risk and trust review 17. Brand and positioning strategy 18. Recommended next actions 19. Questions that still need my input 20. A developer-ready implementation prompt --- # 13. Create a developer-ready implementation prompt At the end, write a second prompt that I can give to an AI coding agent, developer, or platform builder. That implementation prompt should include: - Project overview - Required pages - Required features - Data models - User roles - Tech stack recommendation - Design style - MVP requirements - Admin dashboard requirements - Public website requirements - Monetization page requirements - Security and privacy requirements - Deployment target - Acceptance criteria Make the implementation prompt detailed enough that a developer or AI coding tool could begin building the platform from it. --- # 14. Working style Please follow these rules: - Be specific. - Be practical. - Be professional. - Do not hallucinate. - Clearly separate facts from recommendations. - Cite file names or paths from the 'C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework' when possible. - Flag contradictions or unclear points. - Recommend the most important next steps. - Think like a founder, CTO, product manager, UX designer, and research strategist at the same time. - Optimize for a platform that can start simple but scale into a serious public research/project hub. Begin by analyzing the C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework, then produce the complete blueprint.",
+        "timestamp": "2026-05-25T04:39:31.475825+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "The tool is blocked from reading outside the conductor working directory \u2014 I need your help getting the files in scope. Two options:\n\n1. **Copy the folder into the repo** \u2014 run this in PowerShell (no git impact):\n   ```powershell\n   Copy-Item -Recurse \"C:\\Users\\PaulRussell\\Documents\\SIHRE-Framework\" \"C:\\Users\\PaulRussell\\repos\\conductor\\SIHRE-Framework\"\n   ```\n   Then I can read everything and delete the copy when done.\n\n2. **Paste the content here** \u2014 if the files are small enough, paste the text of the key documents directly into the chat.\n\nOption 1 is faster since I can read all files at depth. Which do you prefer?",
+        "timestamp": "2026-05-25T04:40:16.983790+00:00",
+        "structured": []
+      },
+      {
+        "role": "user",
+        "content": "option 1 is done.",
+        "timestamp": "2026-05-25T04:41:26.821106+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Now I have a complete picture. Let me deliver the full analysis and updated blueprint.\n\n---\n\n## SIHRE Analysis: What's Here\n\n**Naming correction applied.** \"SIRE\" in the existing blueprint was an error. The canonical name is **SIHRE** \u2014 *Self-Improving Heterogeneous Reasoning Ensemble*. All references updated below.\n\n---\n\n## 1. What the Documents Contain\n\nThe `SIHRE-Framework` is not a draft wiki \u2014 it is a **production-grade launch asset**. I found:\n\n| Category | Content |\n|---|---|\n| Core whitepaper | Full academic paper, 8-layer architecture, meta-orchestrator spec |\n| Website content | 15 pages fully drafted (homepage, about, architecture, applications, FAQ, press kit, blog launch, newsletter, whitepaper page) |\n| Monetization roadmap | 7-phase commercial plan, full pricing table, 3-year revenue projections |\n| GTM strategy | Prospect segmentation, first-offer specifics, outreach playbook |\n| IP strategy | Trademark checklist, patent family candidates, disclosure rules |\n| Deep research | 7 technical reports on ensemble architecture, prior art, signal design |\n| Artifact taxonomy | 57 artifacts organized in 5 tiers |\n| Evaluation framework | 10-axis framework + recommended methods |\n| Governance model | 10 rules, 9 reliability risks, 8 mitigations |\n| Domain use cases | Robotics, industrial, cyber, logistics, science, climate (all public-safe) |\n\n**Key structural fact:** SIHRE has a hard public/private boundary. The **SIHRE framework** is public \u2014 intended for publication, citation, and commercialization. **NeuroFusion-13** is a proprietary trading implementation that must never be disclosed. Every platform feature must respect this boundary.\n\n---\n\n## 2. Critical Reframe: This Is a Product Launch, Not a Wiki Migration\n\nThe documents make the commercial thesis explicit:\n\n- **Immediate revenue**: Architecture Audits at $7.5k\u2013$15k (no SaaS needed)\n- **3\u20136 month revenue**: Consulting + research product sales\n- **6\u201312 month revenue**: SIHRE Control Plane SaaS pilot ($1k\u2013$10k/mo)\n- **Year 2 base case**: $300k\u2013$1M\n\nPublication unlocks consulting. Consulting funds the SaaS. SaaS enables licensing and certification. **The website is the credibility wedge**, not an afterthought.\n\n---\n\n## 3. Architecture Recommendation\n\n```json\n{\"type\":\"architecture\",\"title\":\"SIHRE Platform Architecture\",\"stack\":{\"frontend\":\"Next.js 14 (App Router) + Tailwind CSS\",\"backend\":\"FastAPI (Python) \u2014 reuses Conductor engine patterns\",\"database\":\"Supabase (PostgreSQL + Auth + Storage)\",\"cms\":\"MDX files in GitHub + Conductor artifact manager\",\"hosting\":\"Vercel (public site) + existing Conductor runtime (admin portal)\",\"analytics\":\"Plausible Analytics (privacy-first)\",\"payments\":\"Stripe (for research packs, memberships)\",\"search\":\"Algolia or built-in Supabase full-text (later)\",\"ai_assistant\":\"Claude API with RAG over public SIHRE docs (Phase 7+)\",\"email\":\"Resend (transactional + newsletter)\"},\"components\":[{\"name\":\"Public Site (sihre.ai)\",\"purpose\":\"Marketing, whitepaper, research pages, waitlist, blog \u2014 deployed to Vercel\"},{\"name\":\"Conductor Artifact Manager\",\"purpose\":\"Internal admin surface for managing all 57 SIHRE artifacts, drafts, roadmap, action items\"},{\"name\":\"SIHRE Portal (authenticated)\",\"purpose\":\"Gated area: subscriber access, paid research packs, client dashboard (post-Phase 6)\"},{\"name\":\"Control Plane SaaS (Phase 8+)\",\"purpose\":\"The actual product \u2014 reasoning governance dashboard for enterprise AI teams\"}],\"rationale\":\"Vercel + Supabase is the fastest path to a professional public site with auth, storage, and a DB. Conductor handles the internal management surface already \u2014 we extend it rather than build a second admin tool. The public site is fully separate from the internal platform, connected only via auth at login.\"}\n```\n\n---\n\n## 4. Updated Phase Proposal\n\nSignificantly revised from the existing blueprint based on what's actually in the documents:\n\n```json\n{\"type\":\"phase_proposal\",\"phases\":[{\"id\":\"P0\",\"name\":\"SIHRE Project Bootstrap\",\"description\":\"Create SIHRE project in Conductor. Migrate all SIHRE-Framework artifacts into structured Conductor artifacts with correct taxonomy (public-safe, internal, sensitive). Establish artifact types, status/classification tags, and the public/private boundary enforcement model. Fix all 'SIRE' naming errors in existing assets.\",\"complexity\":\"S\",\"risk\":\"low\",\"dependencies\":[],\"deliverables\":[\"SIHRE project in Conductor with correct naming\",\"Artifact taxonomy: 5 tiers, 57 artifacts inventoried\",\"All SIHRE-Framework files mapped to Conductor artifacts\",\"Public/private boundary rules documented\",\"SIHRE phase roadmap defined in Conductor\"]},{\"id\":\"P1\",\"name\":\"Artifact Manager\",\"description\":\"New Conductor dashboard capability: create, edit, organize, and classify all SIHRE artifacts. Markdown editor with live preview. Filter/sort by type (doc/research/GTM/social/roadmap), status (draft/review/final/published), classification (public-safe/internal/sensitive). This becomes the single working surface replacing the Obsidian vault.\",\"complexity\":\"M\",\"risk\":\"low\",\"dependencies\":[\"P0\"],\"deliverables\":[\"Artifacts page in Conductor dashboard\",\"Markdown editor with live preview\",\"Classification tags: public-safe / internal-only / sensitive\",\"Filter/sort by type, status, classification\",\"All 57 SIHRE artifacts accessible and editable\"]},{\"id\":\"P2\",\"name\":\"Roadmap & Action Items\",\"description\":\"Visual SIHRE roadmap and sequenced action item tracker inside Conductor. Maps to the 7-phase monetization roadmap and the 57-artifact roadmap already defined in the documents. Tracks what needs to happen, in what order, with dependencies.\",\"complexity\":\"S\",\"risk\":\"low\",\"dependencies\":[\"P1\"],\"deliverables\":[\"SIHRE roadmap view with phase cards\",\"Action items with sequence + priority + owner\",\"Dependency visualization\",\"Pre-launch checklist (14 items) as live tracker\",\"57-artifact completion tracker\"]},{\"id\":\"P3\",\"name\":\"Content & GTM Workspace\",\"description\":\"Structured workspace for executing the SIHRE GTM plan: social content calendar, newsletter drafts, outreach templates, press kit management, blog post pipeline. Export artifacts to Markdown/PDF for distribution. The 15 ready-drafted website pages live here as editable artifacts awaiting publication.\",\"complexity\":\"M\",\"risk\":\"low\",\"dependencies\":[\"P1\"],\"deliverables\":[\"15 drafted website pages accessible as artifacts\",\"Social content calendar (Tier 1 artifacts)\",\"Newsletter Issue 1 draft editable and exportable\",\"Press kit artifact (one-liner, descriptions, tags)\",\"GTM outreach templates (email, pitch)\",\"Export to Markdown and PDF\"]},{\"id\":\"P4\",\"name\":\"Public Website \u2014 SIHRE.ai\",\"description\":\"Deploy the SIHRE public marketing site using the 15 already-drafted pages. Next.js + Vercel. Content sourced from Conductor artifact manager. Pages: Homepage, About, Architecture, Applications, Meta-Orchestrator, Whitepaper (PDF download + DOI), FAQ, Blog/Announcements, Press Kit, Contact. Waitlist capture with email confirmation. SEO baseline.\",\"complexity\":\"M\",\"risk\":\"medium\",\"dependencies\":[\"P3\"],\"deliverables\":[\"sihre.ai (or equivalent) live on Vercel\",\"Homepage, About, Architecture, Applications, Whitepaper pages\",\"FAQ and Blog live\",\"Whitepaper PDF downloadable with citation block\",\"Waitlist capture + email confirmation via Resend\",\"SEO metadata + Open Graph\",\"Analytics (Plausible)\",\"Public/private boundary enforced \u2014 no NeuroFusion-13 content\"]},{\"id\":\"P5\",\"name\":\"Portal & Auth\",\"description\":\"Login layer accessible from sihre.ai. Supabase Auth (signup, login, reset). Protected portal area for internal team access and first beta clients. Role model: admin (Paul), beta client, subscriber. Foundation for consulting client dashboards and paid research pack delivery.\",\"complexity\":\"M\",\"risk\":\"medium\",\"dependencies\":[\"P4\"],\"deliverables\":[\"Supabase Auth integrated with public site\",\"Login CTA on sihre.ai nav and footer\",\"Protected /portal route\",\"Role-based access: admin / beta-client / subscriber\",\"Session persistence\",\"Admin can manage users and content from Conductor\"]},{\"id\":\"P6\",\"name\":\"Monetization Layer\",\"description\":\"Revenue-enabling features: paid research pack delivery (Stripe), consulting inquiry flow (intake form \u2192 email \u2192 CRM lite), waitlist-to-client conversion. Maps to Phase 2 of SIHRE monetization roadmap. Architecture Audit offer live as a bookable service. Research packs purchasable. Simple pricing page.\",\"complexity\":\"M\",\"risk\":\"medium\",\"dependencies\":[\"P5\"],\"deliverables\":[\"Pricing page live on public site\",\"Architecture Audit offer page with booking/inquiry form\",\"Paid research pack delivery (Stripe + protected download)\",\"Consulting inquiry intake \u2192 email notification\",\"Client onboarding artifact template in Conductor\",\"First paid offer live and bookable\"]},{\"id\":\"P7\",\"name\":\"Knowledge Base & Research Hub\",\"description\":\"Searchable public knowledge base built from SIHRE's public-safe artifact library. Article pages for Architecture, Meta-Orchestrator, Applications, Evaluation, Governance, Glossary. Internal search. Related article linking. Evidence-level labels (Framework / Proposed / Research-backed). AI documentation assistant (Claude RAG over public docs) as stretch goal.\",\"complexity\":\"M\",\"risk\":\"low\",\"dependencies\":[\"P4\"],\"deliverables\":[\"/docs or /research section on sihre.ai\",\"Architecture, Meta-Orchestrator, Evaluation, Governance article pages\",\"Glossary page (public-safe terminology)\",\"Evidence-level labels on all claims\",\"Internal search (Algolia or Supabase full-text)\",\"Related article linking\",\"AI docs assistant (optional stretch)\"]},{\"id\":\"P8\",\"name\":\"SIHRE Control Plane MVP\",\"description\":\"The first production-grade SIHRE product: reasoning governance dashboard for enterprise AI teams. Expert registry, task routing log, uncertainty summaries, disagreement detection, drift indicators, verification escalation log, expert reliability history, audit-ready decision trace. Deployed as gated SaaS behind P5 auth. This is Phase 4 of the SIHRE monetization roadmap ($1k\u2013$10k/mo pilot pricing).\",\"complexity\":\"XL\",\"risk\":\"high\",\"dependencies\":[\"P5\",\"P6\"],\"deliverables\":[\"Expert registry (register/manage reasoning modalities)\",\"Task routing log with full trace\",\"Uncertainty and disagreement dashboards\",\"Drift indicator integration\",\"Verification and simulation escalation logs\",\"Expert reliability history\",\"Audit-ready decision trace export\",\"Pilot pricing: $1k\u2013$10k/mo\",\"First pilot client onboarded\"]}]}\n```\n\n---\n\n## 5. Key Observations Before You Approve\n\n**Things that change the original blueprint significantly:**\n\n1. **P0 requires a naming fix** \u2014 \"SIRE\" appears throughout the existing Conductor blueprint. Every reference needs to become \"SIHRE\" before this project is created in the system.\n\n2. **P4 is faster than it looks** \u2014 15 website pages are already fully drafted. The work is deployment + polish, not content creation. This could compress to S complexity with the content pre-existing.\n\n3. **P6 should precede P7** \u2014 Revenue enablement (consulting inquiry + paid packs) is higher priority than the knowledge base. Consulting is the first revenue stream per the monetization roadmap.\n\n4. **P8 is the actual product** \u2014 The Control Plane SaaS is what everything is building toward. P0\u2013P7 are the foundation and credibility layer that makes P8 commercially viable.\n\n5. **Public/private boundary is a first-class platform concern** \u2014 Every artifact in the system needs a `classification` field (public-safe / internal-only / sensitive). The Artifact Manager must enforce this to prevent accidental disclosure of NeuroFusion-13 details.\n\n6. **Domain:** Per the IP strategy doc, `sihre.ai`, `sihre.org`, and `sihre.dev` are all recommended. This is an action item before P4.\n\n---\n\nDo these phases look right? Any you'd reorder, split, or change scope on? Once you approve, I'll produce the final blueprint JSON and the developer-ready implementation prompt.",
+        "timestamp": "2026-05-25T04:45:16.228400+00:00",
+        "structured": [
+          {
+            "type": "architecture",
+            "title": "SIHRE Platform Architecture",
+            "stack": {
+              "frontend": "Next.js 14 (App Router) + Tailwind CSS",
+              "backend": "FastAPI (Python) \u2014 reuses Conductor engine patterns",
+              "database": "Supabase (PostgreSQL + Auth + Storage)",
+              "cms": "MDX files in GitHub + Conductor artifact manager",
+              "hosting": "Vercel (public site) + existing Conductor runtime (admin portal)",
+              "analytics": "Plausible Analytics (privacy-first)",
+              "payments": "Stripe (for research packs, memberships)",
+              "search": "Algolia or built-in Supabase full-text (later)",
+              "ai_assistant": "Claude API with RAG over public SIHRE docs (Phase 7+)",
+              "email": "Resend (transactional + newsletter)"
+            },
+            "components": [
+              {
+                "name": "Public Site (sihre.ai)",
+                "purpose": "Marketing, whitepaper, research pages, waitlist, blog \u2014 deployed to Vercel"
+              },
+              {
+                "name": "Conductor Artifact Manager",
+                "purpose": "Internal admin surface for managing all 57 SIHRE artifacts, drafts, roadmap, action items"
+              },
+              {
+                "name": "SIHRE Portal (authenticated)",
+                "purpose": "Gated area: subscriber access, paid research packs, client dashboard (post-Phase 6)"
+              },
+              {
+                "name": "Control Plane SaaS (Phase 8+)",
+                "purpose": "The actual product \u2014 reasoning governance dashboard for enterprise AI teams"
+              }
+            ],
+            "rationale": "Vercel + Supabase is the fastest path to a professional public site with auth, storage, and a DB. Conductor handles the internal management surface already \u2014 we extend it rather than build a second admin tool. The public site is fully separate from the internal platform, connected only via auth at login."
+          },
+          {
+            "type": "phase_proposal",
+            "phases": [
+              {
+                "id": "P0",
+                "name": "SIHRE Project Bootstrap",
+                "description": "Create SIHRE project in Conductor. Migrate all SIHRE-Framework artifacts into structured Conductor artifacts with correct taxonomy (public-safe, internal, sensitive). Establish artifact types, status/classification tags, and the public/private boundary enforcement model. Fix all 'SIRE' naming errors in existing assets.",
+                "complexity": "S",
+                "risk": "low",
+                "dependencies": [],
+                "deliverables": [
+                  "SIHRE project in Conductor with correct naming",
+                  "Artifact taxonomy: 5 tiers, 57 artifacts inventoried",
+                  "All SIHRE-Framework files mapped to Conductor artifacts",
+                  "Public/private boundary rules documented",
+                  "SIHRE phase roadmap defined in Conductor"
+                ]
+              },
+              {
+                "id": "P1",
+                "name": "Artifact Manager",
+                "description": "New Conductor dashboard capability: create, edit, organize, and classify all SIHRE artifacts. Markdown editor with live preview. Filter/sort by type (doc/research/GTM/social/roadmap), status (draft/review/final/published), classification (public-safe/internal/sensitive). This becomes the single working surface replacing the Obsidian vault.",
+                "complexity": "M",
+                "risk": "low",
+                "dependencies": [
+                  "P0"
+                ],
+                "deliverables": [
+                  "Artifacts page in Conductor dashboard",
+                  "Markdown editor with live preview",
+                  "Classification tags: public-safe / internal-only / sensitive",
+                  "Filter/sort by type, status, classification",
+                  "All 57 SIHRE artifacts accessible and editable"
+                ]
+              },
+              {
+                "id": "P2",
+                "name": "Roadmap & Action Items",
+                "description": "Visual SIHRE roadmap and sequenced action item tracker inside Conductor. Maps to the 7-phase monetization roadmap and the 57-artifact roadmap already defined in the documents. Tracks what needs to happen, in what order, with dependencies.",
+                "complexity": "S",
+                "risk": "low",
+                "dependencies": [
+                  "P1"
+                ],
+                "deliverables": [
+                  "SIHRE roadmap view with phase cards",
+                  "Action items with sequence + priority + owner",
+                  "Dependency visualization",
+                  "Pre-launch checklist (14 items) as live tracker",
+                  "57-artifact completion tracker"
+                ]
+              },
+              {
+                "id": "P3",
+                "name": "Content & GTM Workspace",
+                "description": "Structured workspace for executing the SIHRE GTM plan: social content calendar, newsletter drafts, outreach templates, press kit management, blog post pipeline. Export artifacts to Markdown/PDF for distribution. The 15 ready-drafted website pages live here as editable artifacts awaiting publication.",
+                "complexity": "M",
+                "risk": "low",
+                "dependencies": [
+                  "P1"
+                ],
+                "deliverables": [
+                  "15 drafted website pages accessible as artifacts",
+                  "Social content calendar (Tier 1 artifacts)",
+                  "Newsletter Issue 1 draft editable and exportable",
+                  "Press kit artifact (one-liner, descriptions, tags)",
+                  "GTM outreach templates (email, pitch)",
+                  "Export to Markdown and PDF"
+                ]
+              },
+              {
+                "id": "P4",
+                "name": "Public Website \u2014 SIHRE.ai",
+                "description": "Deploy the SIHRE public marketing site using the 15 already-drafted pages. Next.js + Vercel. Content sourced from Conductor artifact manager. Pages: Homepage, About, Architecture, Applications, Meta-Orchestrator, Whitepaper (PDF download + DOI), FAQ, Blog/Announcements, Press Kit, Contact. Waitlist capture with email confirmation. SEO baseline.",
+                "complexity": "M",
+                "risk": "medium",
+                "dependencies": [
+                  "P3"
+                ],
+                "deliverables": [
+                  "sihre.ai (or equivalent) live on Vercel",
+                  "Homepage, About, Architecture, Applications, Whitepaper pages",
+                  "FAQ and Blog live",
+                  "Whitepaper PDF downloadable with citation block",
+                  "Waitlist capture + email confirmation via Resend",
+                  "SEO metadata + Open Graph",
+                  "Analytics (Plausible)",
+                  "Public/private boundary enforced \u2014 no NeuroFusion-13 content"
+                ]
+              },
+              {
+                "id": "P5",
+                "name": "Portal & Auth",
+                "description": "Login layer accessible from sihre.ai. Supabase Auth (signup, login, reset). Protected portal area for internal team access and first beta clients. Role model: admin (Paul), beta client, subscriber. Foundation for consulting client dashboards and paid research pack delivery.",
+                "complexity": "M",
+                "risk": "medium",
+                "dependencies": [
+                  "P4"
+                ],
+                "deliverables": [
+                  "Supabase Auth integrated with public site",
+                  "Login CTA on sihre.ai nav and footer",
+                  "Protected /portal route",
+                  "Role-based access: admin / beta-client / subscriber",
+                  "Session persistence",
+                  "Admin can manage users and content from Conductor"
+                ]
+              },
+              {
+                "id": "P6",
+                "name": "Monetization Layer",
+                "description": "Revenue-enabling features: paid research pack delivery (Stripe), consulting inquiry flow (intake form \u2192 email \u2192 CRM lite), waitlist-to-client conversion. Maps to Phase 2 of SIHRE monetization roadmap. Architecture Audit offer live as a bookable service. Research packs purchasable. Simple pricing page.",
+                "complexity": "M",
+                "risk": "medium",
+                "dependencies": [
+                  "P5"
+                ],
+                "deliverables": [
+                  "Pricing page live on public site",
+                  "Architecture Audit offer page with booking/inquiry form",
+                  "Paid research pack delivery (Stripe + protected download)",
+                  "Consulting inquiry intake \u2192 email notification",
+                  "Client onboarding artifact template in Conductor",
+                  "First paid offer live and bookable"
+                ]
+              },
+              {
+                "id": "P7",
+                "name": "Knowledge Base & Research Hub",
+                "description": "Searchable public knowledge base built from SIHRE's public-safe artifact library. Article pages for Architecture, Meta-Orchestrator, Applications, Evaluation, Governance, Glossary. Internal search. Related article linking. Evidence-level labels (Framework / Proposed / Research-backed). AI documentation assistant (Claude RAG over public docs) as stretch goal.",
+                "complexity": "M",
+                "risk": "low",
+                "dependencies": [
+                  "P4"
+                ],
+                "deliverables": [
+                  "/docs or /research section on sihre.ai",
+                  "Architecture, Meta-Orchestrator, Evaluation, Governance article pages",
+                  "Glossary page (public-safe terminology)",
+                  "Evidence-level labels on all claims",
+                  "Internal search (Algolia or Supabase full-text)",
+                  "Related article linking",
+                  "AI docs assistant (optional stretch)"
+                ]
+              },
+              {
+                "id": "P8",
+                "name": "SIHRE Control Plane MVP",
+                "description": "The first production-grade SIHRE product: reasoning governance dashboard for enterprise AI teams. Expert registry, task routing log, uncertainty summaries, disagreement detection, drift indicators, verification escalation log, expert reliability history, audit-ready decision trace. Deployed as gated SaaS behind P5 auth. This is Phase 4 of the SIHRE monetization roadmap ($1k\u2013$10k/mo pilot pricing).",
+                "complexity": "XL",
+                "risk": "high",
+                "dependencies": [
+                  "P5",
+                  "P6"
+                ],
+                "deliverables": [
+                  "Expert registry (register/manage reasoning modalities)",
+                  "Task routing log with full trace",
+                  "Uncertainty and disagreement dashboards",
+                  "Drift indicator integration",
+                  "Verification and simulation escalation logs",
+                  "Expert reliability history",
+                  "Audit-ready decision trace export",
+                  "Pilot pricing: $1k\u2013$10k/mo",
+                  "First pilot client onboarded"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "This looks good. one question. is there any reason or use-case for applying SIHRE in this platform. I don't think so , any opinions",
+        "timestamp": "2026-05-25T04:48:58.722340+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Your instinct is right. No compelling use case.\n\n**Conductor's job here is to manage the SIHRE project** \u2014 artifacts, roadmap, pipelines, content. It's a single Claude session per task, not a multi-expert ensemble with uncertainty quantification across heterogeneous reasoning modalities. SIHRE governs *that* class of problem, which Conductor doesn't have.\n\nThe one argument for it would be **dogfooding** \u2014 running SIHRE's own Control Plane on Conductor's multi-agent decisions as a reference implementation to show to prospects. But that's a demo/marketing use case, not a real architecture need, and it would be a distraction before P8 even exists.\n\n**Short answer:** Conductor builds and manages SIHRE. SIHRE is what Conductor ships. Don't conflate the builder tool with the product.\n\nReady to finalize the blueprint? I'll output the full `blueprint` JSON and the developer-ready implementation prompt.",
+        "timestamp": "2026-05-25T04:49:18.101007+00:00",
+        "structured": []
+      },
+      {
+        "role": "user",
+        "content": "That looks good. Finalize the blueprint for SIHRE.",
+        "timestamp": "2026-05-25T04:51:21.514651+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Now I have everything grounded in the actual content. Here is the finalized blueprint.\n\n---\n\n```json\n{\n  \"type\": \"blueprint\",\n  \"name\": \"SIHRE Platform\",\n  \"slug\": \"sihre\",\n  \"description\": \"Public research platform, marketing website, and internal management workspace for the SIHRE (Self-Improving Heterogeneous Reasoning Ensemble) framework. Covers artifact management, content production, public website deployment, auth portal, monetization, and the SIHRE Control Plane SaaS product.\",\n  \"stack\": {\n    \"frontend\": \"Next.js 14 (App Router) + Tailwind CSS\",\n    \"backend\": \"FastAPI (Python) \u2014 reuses Conductor engine patterns\",\n    \"database\": \"Supabase (PostgreSQL + Auth + Storage)\",\n    \"cms\": \"MDX files in GitHub + Conductor artifact manager\",\n    \"hosting\": \"Vercel (public site) + existing Conductor runtime (admin portal)\",\n    \"analytics\": \"Plausible Analytics (privacy-first)\",\n    \"payments\": \"Stripe (research packs, consulting intake, memberships)\",\n    \"search\": \"Supabase full-text (MVP) \u2192 Algolia (post-launch)\",\n    \"email\": \"Resend (transactional + newsletter)\",\n    \"ai_assistant\": \"Claude API with RAG over public-safe SIHRE docs (P7+)\"\n  },\n  \"phases\": [\n    {\n      \"id\": \"P0\",\n      \"name\": \"SIHRE Project Bootstrap\",\n      \"description\": \"Create SIHRE project in Conductor. Migrate all 94 SIHRE_Wiki artifacts into structured Conductor artifacts with correct classification taxonomy (public-safe / public-after-review / internal-only / private-sensitive). Establish artifact types, status tags, and hard public/private boundary rules derived from PUBLIC_PRIVATE_MAP.md. Fix all SIRE naming errors in existing Conductor assets.\",\n      \"status\": \"planned\",\n      \"complexity\": \"S\",\n      \"risk\": \"low\",\n      \"dependencies\": [],\n      \"deliverables\": [\n        \"SIHRE project registered in Conductor with correct name\",\n        \"Artifact taxonomy: 4-tier classification matching PUBLIC_PRIVATE_MAP.md\",\n        \"All 94 SIHRE_Wiki files mapped to Conductor artifact records\",\n        \"Public/private boundary rules enforced in data model\",\n        \"SIHRE phase roadmap (P0\u2013P8) defined in Conductor\"\n      ],\n      \"acceptance_criteria\": [\n        \"No artifact classified 'private-sensitive' is reachable from a public route\",\n        \"NeuroFusion-13 references appear zero times in any public-safe artifact\",\n        \"All existing 'SIRE' references in Conductor renamed to 'SIHRE'\",\n        \"Conductor project page shows SIHRE with correct phase count\"\n      ]\n    },\n    {\n      \"id\": \"P1\",\n      \"name\": \"Artifact Manager\",\n      \"description\": \"New Conductor dashboard capability: create, edit, organize, and classify all SIHRE artifacts. Markdown editor with live preview. Filter and sort by type (doc / research / GTM / social / roadmap / tracker / template), status (draft / review / final / published), and classification (public-safe / public-after-review / internal-only / private-sensitive). Replaces the Obsidian vault as the primary working surface.\",\n      \"status\": \"planned\",\n      \"complexity\": \"M\",\n      \"risk\": \"low\",\n      \"dependencies\": [\"P0\"],\n      \"deliverables\": [\n        \"Artifacts page in Conductor dashboard (/artifacts)\",\n        \"Markdown editor with live preview panel\",\n        \"Classification badge: public-safe / public-after-review / internal-only / private-sensitive\",\n        \"Filter/sort: type, status, classification, updated date\",\n        \"All 94 SIHRE artifacts accessible, editable, and tagged\",\n        \"YAML frontmatter fields surfaced as form fields (tags, status, classification, source)\"\n      ],\n      \"acceptance_criteria\": [\n        \"Can open any of the 94 SIHRE_Wiki files, edit, and save from Conductor\",\n        \"Classification filter correctly narrows the artifact list\",\n        \"Markdown editor renders Mermaid diagrams (used in Diagram_Pack_Mermaid.md)\",\n        \"Artifact count per classification matches PUBLIC_PRIVATE_MAP.md (9 / 16 / 58 / 11)\"\n      ]\n    },\n    {\n      \"id\": \"P2\",\n      \"name\": \"Roadmap & Action Items\",\n      \"description\": \"Visual SIHRE roadmap and sequenced action item tracker inside Conductor. Maps to the 7-phase monetization roadmap (Monetization_Roadmap.md) and the tiered artifact backlog (Artifact_Roadmap.md, Comprehensive_Artifact_Backlog.md). Tracks what needs to happen, in what order, with dependencies and owners.\",\n      \"status\": \"planned\",\n      \"complexity\": \"S\",\n      \"risk\": \"low\",\n      \"dependencies\": [\"P1\"],\n      \"deliverables\": [\n        \"SIHRE roadmap view: phase cards with status, complexity, risk\",\n        \"Action items with sequence number, priority, owner, status, due date\",\n        \"Dependency graph visualization between action items\",\n        \"Pre-publication checklist (from Publication_Checklist.md and Whitepaper_Release_Checklist.md) as live tracker\",\n        \"Artifact completion tracker: 94 total, status per item\",\n        \"Research backlog view sourced from Research_Backlog.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"Can create, edit, reorder, and complete action items\",\n        \"Roadmap phases link to artifact tracker filtered by phase\",\n        \"Pre-publication checklist items each have a status and owner\",\n        \"Artifact completion percentage visible on project overview\"\n      ]\n    },\n    {\n      \"id\": \"P3\",\n      \"name\": \"Content & GTM Workspace\",\n      \"description\": \"Structured workspace for executing the SIHRE GTM plan. The 11 public website drafts (02_Public_Website), newsletter, press kit, social calendar, and outreach templates all live here as editable artifacts. Export to Markdown/PDF for distribution. This is where public content moves from 'draft' to 'final' before P4 deployment.\",\n      \"status\": \"planned\",\n      \"complexity\": \"M\",\n      \"risk\": \"low\",\n      \"dependencies\": [\"P1\"],\n      \"deliverables\": [\n        \"All 11 Public_Website artifacts editable and export-ready\",\n        \"Social content calendar (sourced from Public_Content_Calendar.md)\",\n        \"Newsletter_Issue_1.md editable and exportable as HTML/Markdown\",\n        \"Press_Kit.md accessible with export to PDF\",\n        \"GTM outreach templates (email, pitch) from Offer_Ladder.md and Consulting_Audit_Template.md\",\n        \"Content status pipeline: draft \u2192 review \u2192 final \u2192 queued for publish\",\n        \"Export artifacts to Markdown and PDF\"\n      ],\n      \"acceptance_criteria\": [\n        \"Each of the 11 public website drafts has a status of 'final' or 'review' before P4 starts\",\n        \"Newsletter Issue 1 exports cleanly as HTML for Resend delivery\",\n        \"Press kit PDF export includes SIHRE one-liner, taglines, and key facts\",\n        \"Social calendar shows at least 4 weeks of scheduled content at P4 launch\"\n      ]\n    },\n    {\n      \"id\": \"P4\",\n      \"name\": \"Public Website \u2014 SIHRE.ai\",\n      \"description\": \"Deploy the SIHRE public marketing site using the 11 already-drafted pages from 02_Public_Website. Next.js 14 + Vercel. Pages: Homepage, About, Architecture, Applications, Meta-Orchestrator, Whitepaper (PDF download + DOI citation block), FAQ, Blog/Announcements, Press Kit, Contact. Waitlist capture with email confirmation via Resend. SEO baseline. Evidence-level labels on all claims. NeuroFusion-13 boundary enforced \u2014 zero private-sensitive content reachable from public routes.\",\n      \"status\": \"planned\",\n      \"complexity\": \"M\",\n      \"risk\": \"medium\",\n      \"dependencies\": [\"P3\"],\n      \"deliverables\": [\n        \"sihre.ai live on Vercel (domain registration: sihre.ai, sihre.org, sihre.dev per Trademark_Checklist.md)\",\n        \"Homepage (Homepage_Draft.md), About (About_SIHRE.md), Architecture (Architecture_Page.md)\",\n        \"Applications (Applications_Page.md), Meta-Orchestrator (Meta_Orchestrator_Page.md)\",\n        \"Whitepaper page (Whitepaper_Page.md) with PDF download + DOI citation block\",\n        \"FAQ (FAQ.md), Blog with launch post (Blog_Post_Announcement.md)\",\n        \"Press Kit page (Press_Kit.md), Contact/waitlist page\",\n        \"Waitlist email capture \u2192 Resend confirmation email\",\n        \"SEO metadata + Open Graph per page\",\n        \"Plausible Analytics installed\",\n        \"Evidence-level label system: Framework / Proposed / Research-backed\",\n        \"Non_Goals.md content surfaced as 'What SIHRE is not' section (credibility)\",\n        \"Public/private boundary enforced: zero private-sensitive artifact content on any public page\"\n      ],\n      \"acceptance_criteria\": [\n        \"All 11 public website pages live and rendering correctly\",\n        \"Whitepaper PDF downloadable with correct DOI citation block\",\n        \"Waitlist form submits, user receives confirmation email via Resend\",\n        \"Plausible analytics recording pageviews\",\n        \"Lighthouse score \u2265 85 on performance, \u2265 90 on accessibility\",\n        \"Zero references to NeuroFusion-13, NeuroSpect, or private trading details on any public page\",\n        \"Evidence-level labels visible on Architecture and Meta-Orchestrator pages\"\n      ]\n    },\n    {\n      \"id\": \"P5\",\n      \"name\": \"Portal & Auth\",\n      \"description\": \"Login layer accessible from sihre.ai nav and footer. Supabase Auth (signup, login, password reset). Protected /portal route. Role model: admin (Paul), beta-client, subscriber. Foundation for consulting client dashboards and paid research pack delivery. Admin manages users and content from Conductor.\",\n      \"status\": \"planned\",\n      \"complexity\": \"M\",\n      \"risk\": \"medium\",\n      \"dependencies\": [\"P4\"],\n      \"deliverables\": [\n        \"Supabase Auth integrated with sihre.ai\",\n        \"Login CTA in public site nav and footer\",\n        \"Protected /portal route (redirects to login if unauthenticated)\",\n        \"Role-based access: admin / beta-client / subscriber\",\n        \"Session persistence across page reloads\",\n        \"Admin can view user list and assign roles from Conductor\",\n        \"Password reset flow via Resend email\"\n      ],\n      \"acceptance_criteria\": [\n        \"Unauthenticated user hitting /portal is redirected to /login\",\n        \"Admin role has access to all portal content\",\n        \"Subscriber and beta-client roles have correctly scoped access\",\n        \"Session survives browser refresh\",\n        \"Password reset email delivered within 60 seconds\"\n      ]\n    },\n    {\n      \"id\": \"P6\",\n      \"name\": \"Monetization Layer\",\n      \"description\": \"Revenue-enabling features mapped to Phase 2 of Monetization_Roadmap.md. Architecture Audit offer live as a bookable service (Consulting_Audit_Template.md). Research packs purchasable via Stripe (Paid_Research_Assets from Offer_Ladder.md). Consulting inquiry intake with email notification. Pricing page live. First paid offer bookable at launch.\",\n      \"status\": \"planned\",\n      \"complexity\": \"M\",\n      \"risk\": \"medium\",\n      \"dependencies\": [\"P5\"],\n      \"deliverables\": [\n        \"Pricing page on sihre.ai (Offer_Ladder.md tiers: free \u2192 research pack \u2192 audit \u2192 retainer)\",\n        \"Architecture Audit offer page with inquiry/booking form \u2192 email to Paul via Resend\",\n        \"Paid research pack delivery: Stripe payment \u2192 protected download link in /portal\",\n        \"Consulting inquiry intake form \u2192 email notification + Conductor action item created\",\n        \"Client onboarding artifact template in Conductor (from Consulting_Audit_Template.md)\",\n        \"First paid offer live, tested, and bookable\"\n      ],\n      \"acceptance_criteria\": [\n        \"Pricing page live with at least 3 offer tiers per Offer_Ladder.md\",\n        \"Architecture Audit inquiry form submits and triggers email to paul.russell@aldc.io\",\n        \"Stripe test payment for research pack succeeds, download link delivered\",\n        \"Paid download links require authenticated /portal session\",\n        \"Conductor creates an action item when a consulting inquiry is submitted\"\n      ]\n    },\n    {\n      \"id\": \"P7\",\n      \"name\": \"Knowledge Base & Research Hub\",\n      \"description\": \"Searchable public knowledge base built from SIHRE's public-safe and public-after-review artifact library (25 files per PUBLIC_PRIVATE_MAP.md). Article pages for Architecture, Meta-Orchestrator, Evaluation, Governance, Glossary. Evidence-level labels on all claims. Internal search. Related article linking. AI documentation assistant (Claude RAG over public docs) as stretch goal.\",\n      \"status\": \"planned\",\n      \"complexity\": \"M\",\n      \"risk\": \"low\",\n      \"dependencies\": [\"P4\"],\n      \"deliverables\": [\n        \"/docs or /research section on sihre.ai\",\n        \"Architecture, Meta-Orchestrator, Evaluation_Framework, Reliability_and_Governance article pages\",\n        \"Glossary page sourced from Glossary.md (public-safe)\",\n        \"Public_Safe_Examples.md as interactive examples section\",\n        \"Evidence-level labels on all article claims: Framework / Proposed / Research-backed\",\n        \"Internal search: Supabase full-text over public docs\",\n        \"Related article linking between docs pages\",\n        \"AI docs assistant: Claude API + RAG over public-safe artifact set (stretch goal)\"\n      ],\n      \"acceptance_criteria\": [\n        \"All 25 public-safe + public-after-review artifacts accessible as /docs pages\",\n        \"Evidence labels visible and explained to users\",\n        \"Search returns relevant results for terms from Glossary.md\",\n        \"No private-sensitive content reachable from /docs\",\n        \"Related articles surfaced on each docs page\"\n      ]\n    },\n    {\n      \"id\": \"P8\",\n      \"name\": \"SIHRE Control Plane MVP\",\n      \"description\": \"The first production-grade SIHRE product: a reasoning governance dashboard for enterprise AI teams. Spec sourced from SIHRE_Control_Plane_PRD.md. Expert registry, task routing log, uncertainty summaries, disagreement detection, drift indicators, verification escalation log, expert reliability history, audit-ready decision trace export. Deployed as gated SaaS behind P5 auth at pilot pricing ($1k\u2013$10k/mo per Pricing_Experiments.md).\",\n      \"status\": \"planned\",\n      \"complexity\": \"XL\",\n      \"risk\": \"high\",\n      \"dependencies\": [\"P5\", \"P6\"],\n      \"deliverables\": [\n        \"Expert/modality registry: register and manage reasoning components\",\n        \"Task routing log with full decision trace\",\n        \"Uncertainty and disagreement summary dashboards\",\n        \"Drift indicator panel\",\n        \"Verification and simulation escalation log\",\n        \"Expert reliability history charts\",\n        \"Audit-ready decision trace export (PDF + JSON)\",\n        \"Pilot pricing gate: $1k\u2013$10k/mo per Pricing_Experiments.md\",\n        \"First pilot client onboarded and active\"\n      ],\n      \"acceptance_criteria\": [\n        \"Expert registry CRUD functional\",\n        \"Task routing log records and displays full decision trace\",\n        \"Uncertainty and disagreement dashboards display with synthetic data\",\n        \"Audit export generates valid PDF and JSON\",\n        \"At least one pilot client onboarded and paying\",\n        \"No SIHRE internal IP (NeuroFusion-13) exposed in client-facing views\"\n      ]\n    }\n  ],\n  \"decisions\": [\n    {\n      \"topic\": \"Database\",\n      \"choice\": \"Supabase (PostgreSQL + Auth + Storage)\",\n      \"reason\": \"Fastest path to auth, storage, and full-text search with a single hosted service. Aligns with Next.js on Vercel. Avoids managing a separate auth service. Upgrade path to self-hosted is clear.\"\n    },\n    {\n      \"topic\": \"CMS\",\n      \"choice\": \"MDX files in GitHub + Conductor artifact manager\",\n      \"reason\": \"Content is already in Markdown. Conductor manages the editorial workflow internally. Public site reads from MDX files version-controlled in the SIHRE repo \u2014 no third-party CMS dependency, no vendor lock-in.\"\n    },\n    {\n      \"topic\": \"Public/private boundary enforcement\",\n      \"choice\": \"Classification field on every artifact, enforced at API and route level\",\n      \"reason\": \"PUBLIC_PRIVATE_MAP.md defines 11 private-sensitive files whose disclosure would compromise NeuroFusion-13 IP and provisional patent strategy. This boundary is non-negotiable and must be structural, not procedural.\"\n    },\n    {\n      \"topic\": \"Naming\",\n      \"choice\": \"SIHRE throughout \u2014 no abbreviation to SIRE\",\n      \"reason\": \"SIRE is an error. The canonical acronym is SIHRE (Self-Improving Heterogeneous Reasoning Ensemble). Branding consistency required from P0 forward.\"\n    },\n    {\n      \"topic\": \"Monetization sequencing\",\n      \"choice\": \"Consulting and research packs before SaaS (P6 before P8)\",\n      \"reason\": \"Per Monetization_Roadmap.md, Architecture Audits ($7.5k\u2013$15k) and research packs are immediate revenue with no SaaS build required. Consulting funds the Control Plane build. Never build P8 before validating demand through P6.\"\n    },\n    {\n      \"topic\": \"Analytics\",\n      \"choice\": \"Plausible Analytics\",\n      \"reason\": \"Privacy-first, GDPR-compliant, no cookie banner required. Consistent with SIHRE's governance and trust positioning. Avoids Google Analytics' credibility risk for a research-oriented brand.\"\n    }\n  ]\n}\n```\n\n---\n\n## Developer-Ready Implementation Prompt\n\n```\n# SIHRE Platform \u2014 Developer Implementation Brief\n\n## Project Overview\n\nBuild the SIHRE (Self-Improving Heterogeneous Reasoning Ensemble) public platform.\nSIHRE is an AI reasoning framework designed for enterprise heterogeneous AI systems.\nThis platform has two surfaces:\n\n1. PUBLIC SITE (sihre.ai) \u2014 Marketing website, research docs, whitepaper, blog, waitlist,\n   pricing, and knowledge base. Deployed to Vercel.\n2. ADMIN PORTAL (via Conductor internal tool) \u2014 Artifact manager, roadmap tracker, GTM\n   workspace, content pipeline. Admin-only. Runs on existing Conductor Python/FastAPI backend.\n\nThe public site and admin portal are connected only at the auth layer (Supabase Auth).\n\n---\n\n## Tech Stack\n\n| Layer | Choice |\n|---|---|\n| Frontend | Next.js 14 (App Router) + Tailwind CSS |\n| Backend | FastAPI (Python) \u2014 existing Conductor engine |\n| Database | Supabase (PostgreSQL + Auth + Storage) |\n| CMS | MDX files in git repo, managed via Conductor artifact editor |\n| Hosting | Vercel (public site), existing server (Conductor admin) |\n| Analytics | Plausible Analytics |\n| Payments | Stripe |\n| Email | Resend |\n| Search | Supabase full-text search (MVP), Algolia (post-launch) |\n| AI assistant | Claude API + RAG over public MDX files (Phase 7 stretch) |\n\n---\n\n## User Roles\n\n| Role | Access |\n|---|---|\n| admin | All content, all portal features, user management, Conductor access |\n| beta-client | Protected /portal, purchased content, client dashboard |\n| subscriber | Protected /portal, purchased research packs, no client dashboard |\n| anonymous | Public site only \u2014 no portal access |\n\n---\n\n## Public Site Pages (MVP)\n\nAll page content already drafted in SIHRE_Wiki/02_Public_Website/:\n\n1. `/` \u2014 Homepage (Homepage_Draft.md)\n2. `/about` \u2014 About SIHRE (About_SIHRE.md)\n3. `/architecture` \u2014 8-layer architecture overview (Architecture_Page.md)\n4. `/applications` \u2014 Domain use cases: robotics, cyber, healthcare, logistics (Applications_Page.md)\n5. `/meta-orchestrator` \u2014 Signal 13 explainer (Meta_Orchestrator_Page.md)\n6. `/whitepaper` \u2014 Whitepaper download page with DOI citation block (Whitepaper_Page.md)\n7. `/faq` \u2014 FAQ (FAQ.md)\n8. `/blog` \u2014 Blog index + launch post (Blog_Post_Announcement.md)\n9. `/press` \u2014 Press kit (Press_Kit.md)\n10. `/pricing` \u2014 Pricing tiers (sourced from Offer_Ladder.md)\n11. `/contact` \u2014 Waitlist capture + consulting inquiry form\n\nPost-MVP (Phase 7):\n- `/docs` \u2014 Searchable knowledge base from public artifact library\n\n---\n\n## Public Site Components\n\n- **Nav:** Logo, Architecture, Applications, Whitepaper, Blog, Docs (P7), Pricing, Login CTA\n- **Footer:** About, GitHub (if open-source), Press, Contact, Privacy Policy, Terms\n- **Waitlist form:** Email input \u2192 Supabase insert \u2192 Resend confirmation email\n- **Evidence labels:** Badge system on all research claims \u2014 \"Framework\" / \"Proposed\" / \"Research-backed\"\n- **Non-goals section:** Surfaces Non_Goals.md content as a trust signal on About page\n- **Citation block:** Whitepaper page shows formatted academic citation + DOI + copy button\n- **Consulting CTA:** Architecture Audit offer with intake form on /pricing and /contact\n\n---\n\n## Data Models (Supabase PostgreSQL)\n\n### artifacts\n```sql\nid uuid PRIMARY KEY,\nname text NOT NULL,\nslug text UNIQUE NOT NULL,\ntype text NOT NULL,              -- doc | research | gtm | social | roadmap | tracker | template\nstatus text NOT NULL,            -- draft | review | final | published\nclassification text NOT NULL,    -- public-safe | public-after-review | internal-only | private-sensitive\ncontent text,                    -- Markdown body\ntags text[],\nsource text,                     -- original | deep-research | external | ingested\ncreated_at timestamptz,\nupdated_at timestamptz,\npublished_at timestamptz,\noriginal_path text               -- source file path if ingested\n```\n\n### action_items\n```sql\nid uuid PRIMARY KEY,\ntitle text NOT NULL,\ndescription text,\nstatus text NOT NULL,            -- backlog | in-progress | blocked | done\npriority text NOT NULL,          -- high | medium | low\nsequence int,\nowner text,\ndue_date date,\nphase_id text,                   -- P0-P8\ndepends_on uuid[],               -- references other action_items.id\nartifact_id uuid REFERENCES artifacts(id)\n```\n\n### waitlist_signups\n```sql\nid uuid PRIMARY KEY,\nemail text UNIQUE NOT NULL,\nsource text,                     -- page slug where they signed up\ncreated_at timestamptz,\nconfirmed_at timestamptz\n```\n\n### consulting_inquiries\n```sql\nid uuid PRIMARY KEY,\nname text NOT NULL,\nemail text NOT NULL,\ncompany text,\noffer_type text,                 -- architecture-audit | research-pack | retainer | other\nmessage text,\nstatus text NOT NULL,            -- new | contacted | qualified | closed\ncreated_at timestamptz\n```\n\n### users (via Supabase Auth + profiles table)\n```sql\nid uuid PRIMARY KEY REFERENCES auth.users(id),\nemail text,\nrole text NOT NULL DEFAULT 'subscriber',  -- admin | beta-client | subscriber\ncreated_at timestamptz\n```\n\n---\n\n## Admin Portal Features (Conductor Extension)\n\n### Artifact Manager (/artifacts)\n- List all artifacts with filter: type, status, classification\n- Open artifact \u2192 Markdown editor with live preview\n- YAML frontmatter fields as form inputs: tags, status, classification, source\n- Export artifact to Markdown or PDF\n- Mermaid diagram rendering in preview\n\n### Roadmap & Action Items (/roadmap)\n- Phase cards: P0\u2013P8 with status, complexity, risk\n- Action items table: sequence, title, priority, owner, status, phase\n- Dependency graph (simple parent/child tree)\n- Completion percentage per phase\n\n### Content Pipeline (/content)\n- Content status board: draft \u2192 review \u2192 final \u2192 queued \u2192 published\n- Social content calendar (weekly grid)\n- Newsletter draft editor + Resend test send\n- Export queue for website content\n\n---\n\n## Monetization Features (Phase 6)\n\n### Pricing Page\nTiers sourced from Offer_Ladder.md:\n- Free: whitepaper download, newsletter, public knowledge base\n- Research Pack: $X one-time \u2014 PDF research report + Stripe payment\n- Architecture Audit: $7,500\u2013$15,000 \u2014 inquiry form \u2192 email to admin \u2192 Conductor action item\n- Retainer/Consulting: custom pricing \u2014 contact form\n\n### Stripe Integration\n- Product: Research Pack (one-time payment)\n- On success: Supabase user record updated with purchase, protected download URL delivered via Resend\n- Protected downloads: authenticated /portal/downloads route, row-level security in Supabase\n\n---\n\n## Security & Privacy Requirements\n\n1. Row-level security on all Supabase tables: users can only access their own records\n2. Classification enforcement: any API route serving public content MUST filter\n   WHERE classification IN ('public-safe', 'public-after-review')\n3. Admin routes require role = 'admin' check server-side\n4. Stripe webhooks verified with STRIPE_WEBHOOK_SECRET\n5. No private-sensitive artifact content (NeuroFusion-13, IP strategy, patent docs)\n   reachable from any public or subscriber route \u2014 ever\n6. Plausible Analytics: no cookies, no PII collection\n7. Content Security Policy headers on all public pages\n8. Resend: transactional emails only from verified domain\n\n---\n\n## Acceptance Criteria (MVP = P0 through P4)\n\n- [ ] SIHRE project created in Conductor with all 94 artifacts ingested and classified\n- [ ] Artifact manager allows editing any artifact with live Markdown preview\n- [ ] Action items tracker supports create/edit/complete with phase and priority\n- [ ] All 11 public website pages live on Vercel at sihre.ai\n- [ ] Whitepaper PDF downloadable with DOI citation block\n- [ ] Waitlist form submits and user receives Resend confirmation email\n- [ ] Plausible Analytics recording pageviews on all public pages\n- [ ] Evidence-level labels visible on Architecture and Meta-Orchestrator pages\n- [ ] Zero private-sensitive content accessible from any public route\n- [ ] Lighthouse: performance \u2265 85, accessibility \u2265 90 on homepage\n\n---\n\n## What NOT to Build\n\n- Do not expose any content from these files on any public route:\n  Deep_Research_Signal_Optimization_Technical_Design.md,\n  Deep_Research_DSLM_Quant_Hybrid.md, Deep_Research_Knowledge_Graph_Trading.md,\n  Deep_Research_Novel_Quant_Trading_Technology.md, NeuroFusion_Architecture_Research_Overview.md,\n  IP_Strategy_Memo.md, Provisional_Patent_Preparation.md, Trademark_Checklist.md,\n  Author_Attribution_Plan.md, Disclosure_Log_Template.md, SIHRE_Deep_Research_Prompts_All_Seven.md\n- Do not use \"SIRE\" anywhere \u2014 canonical name is SIHRE\n- Do not build the Control Plane (P8) until P5 and P6 are validated\n\n---\n\n## Deployment\n\n- Public site: `git push` to main \u2192 Vercel auto-deploy\n- Environment vars: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY,\n  SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, STRIPE_SECRET_KEY,\n  STRIPE_WEBHOOK_SECRET, NEXT_PUBLIC_PLAUSIBLE_DOMAIN\n- Conductor admin: existing Python/FastAPI server, no new deployment infra needed\n```\n\n---\n\nThat's the complete finalized blueprint and developer prompt. The next concrete step is **P0** \u2014 creating the SIHRE project in Conductor and ingesting the 94 artifacts. Want to start that now?",
+        "timestamp": "2026-05-25T04:54:31.085107+00:00",
+        "structured": [
+          {
+            "type": "blueprint",
+            "name": "SIHRE Platform",
+            "slug": "sihre",
+            "description": "Public research platform, marketing website, and internal management workspace for the SIHRE (Self-Improving Heterogeneous Reasoning Ensemble) framework. Covers artifact management, content production, public website deployment, auth portal, monetization, and the SIHRE Control Plane SaaS product.",
+            "stack": {
+              "frontend": "Next.js 14 (App Router) + Tailwind CSS",
+              "backend": "FastAPI (Python) \u2014 reuses Conductor engine patterns",
+              "database": "Supabase (PostgreSQL + Auth + Storage)",
+              "cms": "MDX files in GitHub + Conductor artifact manager",
+              "hosting": "Vercel (public site) + existing Conductor runtime (admin portal)",
+              "analytics": "Plausible Analytics (privacy-first)",
+              "payments": "Stripe (research packs, consulting intake, memberships)",
+              "search": "Supabase full-text (MVP) \u2192 Algolia (post-launch)",
+              "email": "Resend (transactional + newsletter)",
+              "ai_assistant": "Claude API with RAG over public-safe SIHRE docs (P7+)"
+            },
+            "phases": [
+              {
+                "id": "P0",
+                "name": "SIHRE Project Bootstrap",
+                "description": "Create SIHRE project in Conductor. Migrate all 94 SIHRE_Wiki artifacts into structured Conductor artifacts with correct classification taxonomy (public-safe / public-after-review / internal-only / private-sensitive). Establish artifact types, status tags, and hard public/private boundary rules derived from PUBLIC_PRIVATE_MAP.md. Fix all SIRE naming errors in existing Conductor assets.",
+                "status": "planned",
+                "complexity": "S",
+                "risk": "low",
+                "dependencies": [],
+                "deliverables": [
+                  "SIHRE project registered in Conductor with correct name",
+                  "Artifact taxonomy: 4-tier classification matching PUBLIC_PRIVATE_MAP.md",
+                  "All 94 SIHRE_Wiki files mapped to Conductor artifact records",
+                  "Public/private boundary rules enforced in data model",
+                  "SIHRE phase roadmap (P0\u2013P8) defined in Conductor"
+                ],
+                "acceptance_criteria": [
+                  "No artifact classified 'private-sensitive' is reachable from a public route",
+                  "NeuroFusion-13 references appear zero times in any public-safe artifact",
+                  "All existing 'SIRE' references in Conductor renamed to 'SIHRE'",
+                  "Conductor project page shows SIHRE with correct phase count"
+                ]
+              },
+              {
+                "id": "P1",
+                "name": "Artifact Manager",
+                "description": "New Conductor dashboard capability: create, edit, organize, and classify all SIHRE artifacts. Markdown editor with live preview. Filter and sort by type (doc / research / GTM / social / roadmap / tracker / template), status (draft / review / final / published), and classification (public-safe / public-after-review / internal-only / private-sensitive). Replaces the Obsidian vault as the primary working surface.",
+                "status": "planned",
+                "complexity": "M",
+                "risk": "low",
+                "dependencies": [
+                  "P0"
+                ],
+                "deliverables": [
+                  "Artifacts page in Conductor dashboard (/artifacts)",
+                  "Markdown editor with live preview panel",
+                  "Classification badge: public-safe / public-after-review / internal-only / private-sensitive",
+                  "Filter/sort: type, status, classification, updated date",
+                  "All 94 SIHRE artifacts accessible, editable, and tagged",
+                  "YAML frontmatter fields surfaced as form fields (tags, status, classification, source)"
+                ],
+                "acceptance_criteria": [
+                  "Can open any of the 94 SIHRE_Wiki files, edit, and save from Conductor",
+                  "Classification filter correctly narrows the artifact list",
+                  "Markdown editor renders Mermaid diagrams (used in Diagram_Pack_Mermaid.md)",
+                  "Artifact count per classification matches PUBLIC_PRIVATE_MAP.md (9 / 16 / 58 / 11)"
+                ]
+              },
+              {
+                "id": "P2",
+                "name": "Roadmap & Action Items",
+                "description": "Visual SIHRE roadmap and sequenced action item tracker inside Conductor. Maps to the 7-phase monetization roadmap (Monetization_Roadmap.md) and the tiered artifact backlog (Artifact_Roadmap.md, Comprehensive_Artifact_Backlog.md). Tracks what needs to happen, in what order, with dependencies and owners.",
+                "status": "planned",
+                "complexity": "S",
+                "risk": "low",
+                "dependencies": [
+                  "P1"
+                ],
+                "deliverables": [
+                  "SIHRE roadmap view: phase cards with status, complexity, risk",
+                  "Action items with sequence number, priority, owner, status, due date",
+                  "Dependency graph visualization between action items",
+                  "Pre-publication checklist (from Publication_Checklist.md and Whitepaper_Release_Checklist.md) as live tracker",
+                  "Artifact completion tracker: 94 total, status per item",
+                  "Research backlog view sourced from Research_Backlog.md"
+                ],
+                "acceptance_criteria": [
+                  "Can create, edit, reorder, and complete action items",
+                  "Roadmap phases link to artifact tracker filtered by phase",
+                  "Pre-publication checklist items each have a status and owner",
+                  "Artifact completion percentage visible on project overview"
+                ]
+              },
+              {
+                "id": "P3",
+                "name": "Content & GTM Workspace",
+                "description": "Structured workspace for executing the SIHRE GTM plan. The 11 public website drafts (02_Public_Website), newsletter, press kit, social calendar, and outreach templates all live here as editable artifacts. Export to Markdown/PDF for distribution. This is where public content moves from 'draft' to 'final' before P4 deployment.",
+                "status": "planned",
+                "complexity": "M",
+                "risk": "low",
+                "dependencies": [
+                  "P1"
+                ],
+                "deliverables": [
+                  "All 11 Public_Website artifacts editable and export-ready",
+                  "Social content calendar (sourced from Public_Content_Calendar.md)",
+                  "Newsletter_Issue_1.md editable and exportable as HTML/Markdown",
+                  "Press_Kit.md accessible with export to PDF",
+                  "GTM outreach templates (email, pitch) from Offer_Ladder.md and Consulting_Audit_Template.md",
+                  "Content status pipeline: draft \u2192 review \u2192 final \u2192 queued for publish",
+                  "Export artifacts to Markdown and PDF"
+                ],
+                "acceptance_criteria": [
+                  "Each of the 11 public website drafts has a status of 'final' or 'review' before P4 starts",
+                  "Newsletter Issue 1 exports cleanly as HTML for Resend delivery",
+                  "Press kit PDF export includes SIHRE one-liner, taglines, and key facts",
+                  "Social calendar shows at least 4 weeks of scheduled content at P4 launch"
+                ]
+              },
+              {
+                "id": "P4",
+                "name": "Public Website \u2014 SIHRE.ai",
+                "description": "Deploy the SIHRE public marketing site using the 11 already-drafted pages from 02_Public_Website. Next.js 14 + Vercel. Pages: Homepage, About, Architecture, Applications, Meta-Orchestrator, Whitepaper (PDF download + DOI citation block), FAQ, Blog/Announcements, Press Kit, Contact. Waitlist capture with email confirmation via Resend. SEO baseline. Evidence-level labels on all claims. NeuroFusion-13 boundary enforced \u2014 zero private-sensitive content reachable from public routes.",
+                "status": "planned",
+                "complexity": "M",
+                "risk": "medium",
+                "dependencies": [
+                  "P3"
+                ],
+                "deliverables": [
+                  "sihre.ai live on Vercel (domain registration: sihre.ai, sihre.org, sihre.dev per Trademark_Checklist.md)",
+                  "Homepage (Homepage_Draft.md), About (About_SIHRE.md), Architecture (Architecture_Page.md)",
+                  "Applications (Applications_Page.md), Meta-Orchestrator (Meta_Orchestrator_Page.md)",
+                  "Whitepaper page (Whitepaper_Page.md) with PDF download + DOI citation block",
+                  "FAQ (FAQ.md), Blog with launch post (Blog_Post_Announcement.md)",
+                  "Press Kit page (Press_Kit.md), Contact/waitlist page",
+                  "Waitlist email capture \u2192 Resend confirmation email",
+                  "SEO metadata + Open Graph per page",
+                  "Plausible Analytics installed",
+                  "Evidence-level label system: Framework / Proposed / Research-backed",
+                  "Non_Goals.md content surfaced as 'What SIHRE is not' section (credibility)",
+                  "Public/private boundary enforced: zero private-sensitive artifact content on any public page"
+                ],
+                "acceptance_criteria": [
+                  "All 11 public website pages live and rendering correctly",
+                  "Whitepaper PDF downloadable with correct DOI citation block",
+                  "Waitlist form submits, user receives confirmation email via Resend",
+                  "Plausible analytics recording pageviews",
+                  "Lighthouse score \u2265 85 on performance, \u2265 90 on accessibility",
+                  "Zero references to NeuroFusion-13, NeuroSpect, or private trading details on any public page",
+                  "Evidence-level labels visible on Architecture and Meta-Orchestrator pages"
+                ]
+              },
+              {
+                "id": "P5",
+                "name": "Portal & Auth",
+                "description": "Login layer accessible from sihre.ai nav and footer. Supabase Auth (signup, login, password reset). Protected /portal route. Role model: admin (Paul), beta-client, subscriber. Foundation for consulting client dashboards and paid research pack delivery. Admin manages users and content from Conductor.",
+                "status": "planned",
+                "complexity": "M",
+                "risk": "medium",
+                "dependencies": [
+                  "P4"
+                ],
+                "deliverables": [
+                  "Supabase Auth integrated with sihre.ai",
+                  "Login CTA in public site nav and footer",
+                  "Protected /portal route (redirects to login if unauthenticated)",
+                  "Role-based access: admin / beta-client / subscriber",
+                  "Session persistence across page reloads",
+                  "Admin can view user list and assign roles from Conductor",
+                  "Password reset flow via Resend email"
+                ],
+                "acceptance_criteria": [
+                  "Unauthenticated user hitting /portal is redirected to /login",
+                  "Admin role has access to all portal content",
+                  "Subscriber and beta-client roles have correctly scoped access",
+                  "Session survives browser refresh",
+                  "Password reset email delivered within 60 seconds"
+                ]
+              },
+              {
+                "id": "P6",
+                "name": "Monetization Layer",
+                "description": "Revenue-enabling features mapped to Phase 2 of Monetization_Roadmap.md. Architecture Audit offer live as a bookable service (Consulting_Audit_Template.md). Research packs purchasable via Stripe (Paid_Research_Assets from Offer_Ladder.md). Consulting inquiry intake with email notification. Pricing page live. First paid offer bookable at launch.",
+                "status": "planned",
+                "complexity": "M",
+                "risk": "medium",
+                "dependencies": [
+                  "P5"
+                ],
+                "deliverables": [
+                  "Pricing page on sihre.ai (Offer_Ladder.md tiers: free \u2192 research pack \u2192 audit \u2192 retainer)",
+                  "Architecture Audit offer page with inquiry/booking form \u2192 email to Paul via Resend",
+                  "Paid research pack delivery: Stripe payment \u2192 protected download link in /portal",
+                  "Consulting inquiry intake form \u2192 email notification + Conductor action item created",
+                  "Client onboarding artifact template in Conductor (from Consulting_Audit_Template.md)",
+                  "First paid offer live, tested, and bookable"
+                ],
+                "acceptance_criteria": [
+                  "Pricing page live with at least 3 offer tiers per Offer_Ladder.md",
+                  "Architecture Audit inquiry form submits and triggers email to paul.russell@aldc.io",
+                  "Stripe test payment for research pack succeeds, download link delivered",
+                  "Paid download links require authenticated /portal session",
+                  "Conductor creates an action item when a consulting inquiry is submitted"
+                ]
+              },
+              {
+                "id": "P7",
+                "name": "Knowledge Base & Research Hub",
+                "description": "Searchable public knowledge base built from SIHRE's public-safe and public-after-review artifact library (25 files per PUBLIC_PRIVATE_MAP.md). Article pages for Architecture, Meta-Orchestrator, Evaluation, Governance, Glossary. Evidence-level labels on all claims. Internal search. Related article linking. AI documentation assistant (Claude RAG over public docs) as stretch goal.",
+                "status": "planned",
+                "complexity": "M",
+                "risk": "low",
+                "dependencies": [
+                  "P4"
+                ],
+                "deliverables": [
+                  "/docs or /research section on sihre.ai",
+                  "Architecture, Meta-Orchestrator, Evaluation_Framework, Reliability_and_Governance article pages",
+                  "Glossary page sourced from Glossary.md (public-safe)",
+                  "Public_Safe_Examples.md as interactive examples section",
+                  "Evidence-level labels on all article claims: Framework / Proposed / Research-backed",
+                  "Internal search: Supabase full-text over public docs",
+                  "Related article linking between docs pages",
+                  "AI docs assistant: Claude API + RAG over public-safe artifact set (stretch goal)"
+                ],
+                "acceptance_criteria": [
+                  "All 25 public-safe + public-after-review artifacts accessible as /docs pages",
+                  "Evidence labels visible and explained to users",
+                  "Search returns relevant results for terms from Glossary.md",
+                  "No private-sensitive content reachable from /docs",
+                  "Related articles surfaced on each docs page"
+                ]
+              },
+              {
+                "id": "P8",
+                "name": "SIHRE Control Plane MVP",
+                "description": "The first production-grade SIHRE product: a reasoning governance dashboard for enterprise AI teams. Spec sourced from SIHRE_Control_Plane_PRD.md. Expert registry, task routing log, uncertainty summaries, disagreement detection, drift indicators, verification escalation log, expert reliability history, audit-ready decision trace export. Deployed as gated SaaS behind P5 auth at pilot pricing ($1k\u2013$10k/mo per Pricing_Experiments.md).",
+                "status": "planned",
+                "complexity": "XL",
+                "risk": "high",
+                "dependencies": [
+                  "P5",
+                  "P6"
+                ],
+                "deliverables": [
+                  "Expert/modality registry: register and manage reasoning components",
+                  "Task routing log with full decision trace",
+                  "Uncertainty and disagreement summary dashboards",
+                  "Drift indicator panel",
+                  "Verification and simulation escalation log",
+                  "Expert reliability history charts",
+                  "Audit-ready decision trace export (PDF + JSON)",
+                  "Pilot pricing gate: $1k\u2013$10k/mo per Pricing_Experiments.md",
+                  "First pilot client onboarded and active"
+                ],
+                "acceptance_criteria": [
+                  "Expert registry CRUD functional",
+                  "Task routing log records and displays full decision trace",
+                  "Uncertainty and disagreement dashboards display with synthetic data",
+                  "Audit export generates valid PDF and JSON",
+                  "At least one pilot client onboarded and paying",
+                  "No SIHRE internal IP (NeuroFusion-13) exposed in client-facing views"
+                ]
+              }
+            ],
+            "decisions": [
+              {
+                "topic": "Database",
+                "choice": "Supabase (PostgreSQL + Auth + Storage)",
+                "reason": "Fastest path to auth, storage, and full-text search with a single hosted service. Aligns with Next.js on Vercel. Avoids managing a separate auth service. Upgrade path to self-hosted is clear."
+              },
+              {
+                "topic": "CMS",
+                "choice": "MDX files in GitHub + Conductor artifact manager",
+                "reason": "Content is already in Markdown. Conductor manages the editorial workflow internally. Public site reads from MDX files version-controlled in the SIHRE repo \u2014 no third-party CMS dependency, no vendor lock-in."
+              },
+              {
+                "topic": "Public/private boundary enforcement",
+                "choice": "Classification field on every artifact, enforced at API and route level",
+                "reason": "PUBLIC_PRIVATE_MAP.md defines 11 private-sensitive files whose disclosure would compromise NeuroFusion-13 IP and provisional patent strategy. This boundary is non-negotiable and must be structural, not procedural."
+              },
+              {
+                "topic": "Naming",
+                "choice": "SIHRE throughout \u2014 no abbreviation to SIRE",
+                "reason": "SIRE is an error. The canonical acronym is SIHRE (Self-Improving Heterogeneous Reasoning Ensemble). Branding consistency required from P0 forward."
+              },
+              {
+                "topic": "Monetization sequencing",
+                "choice": "Consulting and research packs before SaaS (P6 before P8)",
+                "reason": "Per Monetization_Roadmap.md, Architecture Audits ($7.5k\u2013$15k) and research packs are immediate revenue with no SaaS build required. Consulting funds the Control Plane build. Never build P8 before validating demand through P6."
+              },
+              {
+                "topic": "Analytics",
+                "choice": "Plausible Analytics",
+                "reason": "Privacy-first, GDPR-compliant, no cookie banner required. Consistent with SIHRE's governance and trust positioning. Avoids Google Analytics' credibility risk for a research-oriented brand."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "will running the deep research prompts in chatgpt be an example of action items for me on the platform?",
+        "timestamp": "2026-05-25T04:57:07.554416+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Yes, exactly. That's a perfect example of what the action items tracker is for.\n\nThe tracker handles two categories of work:\n\n**Platform build tasks** \u2014 \"Build artifact manager\", \"Register sihre.ai domain\", \"Set up Resend\"\n\n**Research workflow tasks** \u2014 \"Run Deep Research Prompt 1 (Signal Optimization) in ChatGPT\", \"Review output, classify result\", \"Extract public-safe findings into Architecture article\"\n\nThe deep research prompts file (`SIHRE_Deep_Research_Prompts_All_Seven.md`) stays `private-sensitive` and never touches a public route. But the *outputs* from running those prompts get classified as you produce them \u2014 some findings may be safe to surface in the knowledge base or whitepaper, others stay internal.\n\nSo a realistic sequence in the tracker would look like:\n\n| # | Action Item | Status | Classification impact |\n|---|---|---|---|\n| 1 | Run Prompt 1 \u2014 Signal Optimization in ChatGPT | backlog | Output \u2192 internal-only |\n| 2 | Review output, extract public-safe findings | backlog | Promote excerpts \u2192 public-after-review |\n| 3 | Incorporate into Architecture_Page.md | backlog | Artifact \u2192 public-safe |\n\nThe tracker gives you the sequenced view of that pipeline. The artifact manager is where the output lands once it's been reviewed and classified.\n\nWorth noting: this also means P2 (Roadmap & Action Items) should support **artifact links** on action items \u2014 so \"Run Prompt 1\" links to the resulting research artifact when you create it. I'll make sure that relationship is in the data model.\n\nReady to start P0 \u2014 creating the SIHRE project in Conductor and ingesting the artifacts?",
+        "timestamp": "2026-05-25T04:57:29.082098+00:00",
+        "structured": []
+      },
+      {
+        "role": "user",
+        "content": "and do i upload the research prompt reports to the platform?",
+        "timestamp": "2026-05-25T04:58:22.584867+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Yes \u2014 and that's exactly what the artifact manager is designed for.\n\nThe workflow is:\n\n1. **Upload the raw report** \u2014 classified `internal-only` or `private-sensitive` depending on how much NeuroFusion-13 context it contains. It lives in Conductor, never touches a public route.\n\n2. **Create a derived artifact** \u2014 a curated, public-safe excerpt or synthesis from that report, classified `public-after-review`. This is what gets edited, reviewed, and eventually promoted to `public-safe` for the website or knowledge base.\n\n3. **Link them** \u2014 the derived artifact references its source report. You always know where a published claim came from.\n\nSo you end up with two artifacts per research run:\n\n| Artifact | Classification | Where it lives |\n|---|---|---|\n| `Deep_Research_Signal_Optimization_Raw.md` | private-sensitive | Conductor only |\n| `Architecture_Signal_Design_Public.md` | public-safe (after review) | Conductor \u2192 sihre.ai/docs |\n\nThe raw report never leaves the platform. The derived artifact is what you publish. This also gives you a clean audit trail \u2014 if anyone ever asks \"what's the evidence behind this claim on the architecture page\", you can trace it back to the source report in Conductor.\n\nIt also means the deep research prompts don't need to be run all at once. Each one is an action item that produces an artifact, and you work through them at whatever pace makes sense.\n\nReady to kick off P0?",
+        "timestamp": "2026-05-25T04:58:42.846668+00:00",
+        "structured": []
+      },
+      {
+        "role": "user",
+        "content": "did you create the project already? so it will be on the projects tab now ?",
+        "timestamp": "2026-05-25T05:00:19.888622+00:00"
+      },
+      {
+        "role": "assistant",
+        "content": "Error: Reached max turns (5)",
+        "timestamp": "2026-05-25T05:01:00.821120+00:00",
+        "structured": []
+      }
+    ],
+    "blueprint": {
+      "type": "blueprint",
+      "name": "SIHRE Platform",
+      "slug": "sihre",
+      "description": "Public research platform, marketing website, and internal management workspace for the SIHRE (Self-Improving Heterogeneous Reasoning Ensemble) framework. Covers artifact management, content production, public website deployment, auth portal, monetization, and the SIHRE Control Plane SaaS product.",
+      "stack": {
+        "frontend": "Next.js 14 (App Router) + Tailwind CSS",
+        "backend": "FastAPI (Python) \u2014 reuses Conductor engine patterns",
+        "database": "Supabase (PostgreSQL + Auth + Storage)",
+        "cms": "MDX files in GitHub + Conductor artifact manager",
+        "hosting": "Vercel (public site) + existing Conductor runtime (admin portal)",
+        "analytics": "Plausible Analytics (privacy-first)",
+        "payments": "Stripe (research packs, consulting intake, memberships)",
+        "search": "Supabase full-text (MVP) \u2192 Algolia (post-launch)",
+        "email": "Resend (transactional + newsletter)",
+        "ai_assistant": "Claude API with RAG over public-safe SIHRE docs (P7+)"
+      },
+      "phases": [
+        {
+          "id": "P0",
+          "name": "SIHRE Project Bootstrap",
+          "description": "Create SIHRE project in Conductor. Migrate all 94 SIHRE_Wiki artifacts into structured Conductor artifacts with correct classification taxonomy (public-safe / public-after-review / internal-only / private-sensitive). Establish artifact types, status tags, and hard public/private boundary rules derived from PUBLIC_PRIVATE_MAP.md. Fix all SIRE naming errors in existing Conductor assets.",
+          "status": "planned",
+          "complexity": "S",
+          "risk": "low",
+          "dependencies": [],
+          "deliverables": [
+            "SIHRE project registered in Conductor with correct name",
+            "Artifact taxonomy: 4-tier classification matching PUBLIC_PRIVATE_MAP.md",
+            "All 94 SIHRE_Wiki files mapped to Conductor artifact records",
+            "Public/private boundary rules enforced in data model",
+            "SIHRE phase roadmap (P0\u2013P8) defined in Conductor"
+          ],
+          "acceptance_criteria": [
+            "No artifact classified 'private-sensitive' is reachable from a public route",
+            "NeuroFusion-13 references appear zero times in any public-safe artifact",
+            "All existing 'SIRE' references in Conductor renamed to 'SIHRE'",
+            "Conductor project page shows SIHRE with correct phase count"
+          ]
+        },
+        {
+          "id": "P1",
+          "name": "Artifact Manager",
+          "description": "New Conductor dashboard capability: create, edit, organize, and classify all SIHRE artifacts. Markdown editor with live preview. Filter and sort by type (doc / research / GTM / social / roadmap / tracker / template), status (draft / review / final / published), and classification (public-safe / public-after-review / internal-only / private-sensitive). Replaces the Obsidian vault as the primary working surface.",
+          "status": "planned",
+          "complexity": "M",
+          "risk": "low",
+          "dependencies": [
+            "P0"
+          ],
+          "deliverables": [
+            "Artifacts page in Conductor dashboard (/artifacts)",
+            "Markdown editor with live preview panel",
+            "Classification badge: public-safe / public-after-review / internal-only / private-sensitive",
+            "Filter/sort: type, status, classification, updated date",
+            "All 94 SIHRE artifacts accessible, editable, and tagged",
+            "YAML frontmatter fields surfaced as form fields (tags, status, classification, source)"
+          ],
+          "acceptance_criteria": [
+            "Can open any of the 94 SIHRE_Wiki files, edit, and save from Conductor",
+            "Classification filter correctly narrows the artifact list",
+            "Markdown editor renders Mermaid diagrams (used in Diagram_Pack_Mermaid.md)",
+            "Artifact count per classification matches PUBLIC_PRIVATE_MAP.md (9 / 16 / 58 / 11)"
+          ]
+        },
+        {
+          "id": "P2",
+          "name": "Roadmap & Action Items",
+          "description": "Visual SIHRE roadmap and sequenced action item tracker inside Conductor. Maps to the 7-phase monetization roadmap (Monetization_Roadmap.md) and the tiered artifact backlog (Artifact_Roadmap.md, Comprehensive_Artifact_Backlog.md). Tracks what needs to happen, in what order, with dependencies and owners.",
+          "status": "planned",
+          "complexity": "S",
+          "risk": "low",
+          "dependencies": [
+            "P1"
+          ],
+          "deliverables": [
+            "SIHRE roadmap view: phase cards with status, complexity, risk",
+            "Action items with sequence number, priority, owner, status, due date",
+            "Dependency graph visualization between action items",
+            "Pre-publication checklist (from Publication_Checklist.md and Whitepaper_Release_Checklist.md) as live tracker",
+            "Artifact completion tracker: 94 total, status per item",
+            "Research backlog view sourced from Research_Backlog.md"
+          ],
+          "acceptance_criteria": [
+            "Can create, edit, reorder, and complete action items",
+            "Roadmap phases link to artifact tracker filtered by phase",
+            "Pre-publication checklist items each have a status and owner",
+            "Artifact completion percentage visible on project overview"
+          ]
+        },
+        {
+          "id": "P3",
+          "name": "Content & GTM Workspace",
+          "description": "Structured workspace for executing the SIHRE GTM plan. The 11 public website drafts (02_Public_Website), newsletter, press kit, social calendar, and outreach templates all live here as editable artifacts. Export to Markdown/PDF for distribution. This is where public content moves from 'draft' to 'final' before P4 deployment.",
+          "status": "planned",
+          "complexity": "M",
+          "risk": "low",
+          "dependencies": [
+            "P1"
+          ],
+          "deliverables": [
+            "All 11 Public_Website artifacts editable and export-ready",
+            "Social content calendar (sourced from Public_Content_Calendar.md)",
+            "Newsletter_Issue_1.md editable and exportable as HTML/Markdown",
+            "Press_Kit.md accessible with export to PDF",
+            "GTM outreach templates (email, pitch) from Offer_Ladder.md and Consulting_Audit_Template.md",
+            "Content status pipeline: draft \u2192 review \u2192 final \u2192 queued for publish",
+            "Export artifacts to Markdown and PDF"
+          ],
+          "acceptance_criteria": [
+            "Each of the 11 public website drafts has a status of 'final' or 'review' before P4 starts",
+            "Newsletter Issue 1 exports cleanly as HTML for Resend delivery",
+            "Press kit PDF export includes SIHRE one-liner, taglines, and key facts",
+            "Social calendar shows at least 4 weeks of scheduled content at P4 launch"
+          ]
+        },
+        {
+          "id": "P4",
+          "name": "Public Website \u2014 SIHRE.ai",
+          "description": "Deploy the SIHRE public marketing site using the 11 already-drafted pages from 02_Public_Website. Next.js 14 + Vercel. Pages: Homepage, About, Architecture, Applications, Meta-Orchestrator, Whitepaper (PDF download + DOI citation block), FAQ, Blog/Announcements, Press Kit, Contact. Waitlist capture with email confirmation via Resend. SEO baseline. Evidence-level labels on all claims. NeuroFusion-13 boundary enforced \u2014 zero private-sensitive content reachable from public routes.",
+          "status": "planned",
+          "complexity": "M",
+          "risk": "medium",
+          "dependencies": [
+            "P3"
+          ],
+          "deliverables": [
+            "sihre.ai live on Vercel (domain registration: sihre.ai, sihre.org, sihre.dev per Trademark_Checklist.md)",
+            "Homepage (Homepage_Draft.md), About (About_SIHRE.md), Architecture (Architecture_Page.md)",
+            "Applications (Applications_Page.md), Meta-Orchestrator (Meta_Orchestrator_Page.md)",
+            "Whitepaper page (Whitepaper_Page.md) with PDF download + DOI citation block",
+            "FAQ (FAQ.md), Blog with launch post (Blog_Post_Announcement.md)",
+            "Press Kit page (Press_Kit.md), Contact/waitlist page",
+            "Waitlist email capture \u2192 Resend confirmation email",
+            "SEO metadata + Open Graph per page",
+            "Plausible Analytics installed",
+            "Evidence-level label system: Framework / Proposed / Research-backed",
+            "Non_Goals.md content surfaced as 'What SIHRE is not' section (credibility)",
+            "Public/private boundary enforced: zero private-sensitive artifact content on any public page"
+          ],
+          "acceptance_criteria": [
+            "All 11 public website pages live and rendering correctly",
+            "Whitepaper PDF downloadable with correct DOI citation block",
+            "Waitlist form submits, user receives confirmation email via Resend",
+            "Plausible analytics recording pageviews",
+            "Lighthouse score \u2265 85 on performance, \u2265 90 on accessibility",
+            "Zero references to NeuroFusion-13, NeuroSpect, or private trading details on any public page",
+            "Evidence-level labels visible on Architecture and Meta-Orchestrator pages"
+          ]
+        },
+        {
+          "id": "P5",
+          "name": "Portal & Auth",
+          "description": "Login layer accessible from sihre.ai nav and footer. Supabase Auth (signup, login, password reset). Protected /portal route. Role model: admin (Paul), beta-client, subscriber. Foundation for consulting client dashboards and paid research pack delivery. Admin manages users and content from Conductor.",
+          "status": "planned",
+          "complexity": "M",
+          "risk": "medium",
+          "dependencies": [
+            "P4"
+          ],
+          "deliverables": [
+            "Supabase Auth integrated with sihre.ai",
+            "Login CTA in public site nav and footer",
+            "Protected /portal route (redirects to login if unauthenticated)",
+            "Role-based access: admin / beta-client / subscriber",
+            "Session persistence across page reloads",
+            "Admin can view user list and assign roles from Conductor",
+            "Password reset flow via Resend email"
+          ],
+          "acceptance_criteria": [
+            "Unauthenticated user hitting /portal is redirected to /login",
+            "Admin role has access to all portal content",
+            "Subscriber and beta-client roles have correctly scoped access",
+            "Session survives browser refresh",
+            "Password reset email delivered within 60 seconds"
+          ]
+        },
+        {
+          "id": "P6",
+          "name": "Monetization Layer",
+          "description": "Revenue-enabling features mapped to Phase 2 of Monetization_Roadmap.md. Architecture Audit offer live as a bookable service (Consulting_Audit_Template.md). Research packs purchasable via Stripe (Paid_Research_Assets from Offer_Ladder.md). Consulting inquiry intake with email notification. Pricing page live. First paid offer bookable at launch.",
+          "status": "planned",
+          "complexity": "M",
+          "risk": "medium",
+          "dependencies": [
+            "P5"
+          ],
+          "deliverables": [
+            "Pricing page on sihre.ai (Offer_Ladder.md tiers: free \u2192 research pack \u2192 audit \u2192 retainer)",
+            "Architecture Audit offer page with inquiry/booking form \u2192 email to Paul via Resend",
+            "Paid research pack delivery: Stripe payment \u2192 protected download link in /portal",
+            "Consulting inquiry intake form \u2192 email notification + Conductor action item created",
+            "Client onboarding artifact template in Conductor (from Consulting_Audit_Template.md)",
+            "First paid offer live, tested, and bookable"
+          ],
+          "acceptance_criteria": [
+            "Pricing page live with at least 3 offer tiers per Offer_Ladder.md",
+            "Architecture Audit inquiry form submits and triggers email to paul.russell@aldc.io",
+            "Stripe test payment for research pack succeeds, download link delivered",
+            "Paid download links require authenticated /portal session",
+            "Conductor creates an action item when a consulting inquiry is submitted"
+          ]
+        },
+        {
+          "id": "P7",
+          "name": "Knowledge Base & Research Hub",
+          "description": "Searchable public knowledge base built from SIHRE's public-safe and public-after-review artifact library (25 files per PUBLIC_PRIVATE_MAP.md). Article pages for Architecture, Meta-Orchestrator, Evaluation, Governance, Glossary. Evidence-level labels on all claims. Internal search. Related article linking. AI documentation assistant (Claude RAG over public docs) as stretch goal.",
+          "status": "planned",
+          "complexity": "M",
+          "risk": "low",
+          "dependencies": [
+            "P4"
+          ],
+          "deliverables": [
+            "/docs or /research section on sihre.ai",
+            "Architecture, Meta-Orchestrator, Evaluation_Framework, Reliability_and_Governance article pages",
+            "Glossary page sourced from Glossary.md (public-safe)",
+            "Public_Safe_Examples.md as interactive examples section",
+            "Evidence-level labels on all article claims: Framework / Proposed / Research-backed",
+            "Internal search: Supabase full-text over public docs",
+            "Related article linking between docs pages",
+            "AI docs assistant: Claude API + RAG over public-safe artifact set (stretch goal)"
+          ],
+          "acceptance_criteria": [
+            "All 25 public-safe + public-after-review artifacts accessible as /docs pages",
+            "Evidence labels visible and explained to users",
+            "Search returns relevant results for terms from Glossary.md",
+            "No private-sensitive content reachable from /docs",
+            "Related articles surfaced on each docs page"
+          ]
+        },
+        {
+          "id": "P8",
+          "name": "SIHRE Control Plane MVP",
+          "description": "The first production-grade SIHRE product: a reasoning governance dashboard for enterprise AI teams. Spec sourced from SIHRE_Control_Plane_PRD.md. Expert registry, task routing log, uncertainty summaries, disagreement detection, drift indicators, verification escalation log, expert reliability history, audit-ready decision trace export. Deployed as gated SaaS behind P5 auth at pilot pricing ($1k\u2013$10k/mo per Pricing_Experiments.md).",
+          "status": "planned",
+          "complexity": "XL",
+          "risk": "high",
+          "dependencies": [
+            "P5",
+            "P6"
+          ],
+          "deliverables": [
+            "Expert/modality registry: register and manage reasoning components",
+            "Task routing log with full decision trace",
+            "Uncertainty and disagreement summary dashboards",
+            "Drift indicator panel",
+            "Verification and simulation escalation log",
+            "Expert reliability history charts",
+            "Audit-ready decision trace export (PDF + JSON)",
+            "Pilot pricing gate: $1k\u2013$10k/mo per Pricing_Experiments.md",
+            "First pilot client onboarded and active"
+          ],
+          "acceptance_criteria": [
+            "Expert registry CRUD functional",
+            "Task routing log records and displays full decision trace",
+            "Uncertainty and disagreement dashboards display with synthetic data",
+            "Audit export generates valid PDF and JSON",
+            "At least one pilot client onboarded and paying",
+            "No SIHRE internal IP (NeuroFusion-13) exposed in client-facing views"
+          ]
+        }
+      ],
+      "decisions": [
+        {
+          "topic": "Database",
+          "choice": "Supabase (PostgreSQL + Auth + Storage)",
+          "reason": "Fastest path to auth, storage, and full-text search with a single hosted service. Aligns with Next.js on Vercel. Avoids managing a separate auth service. Upgrade path to self-hosted is clear."
+        },
+        {
+          "topic": "CMS",
+          "choice": "MDX files in GitHub + Conductor artifact manager",
+          "reason": "Content is already in Markdown. Conductor manages the editorial workflow internally. Public site reads from MDX files version-controlled in the SIHRE repo \u2014 no third-party CMS dependency, no vendor lock-in."
+        },
+        {
+          "topic": "Public/private boundary enforcement",
+          "choice": "Classification field on every artifact, enforced at API and route level",
+          "reason": "PUBLIC_PRIVATE_MAP.md defines 11 private-sensitive files whose disclosure would compromise NeuroFusion-13 IP and provisional patent strategy. This boundary is non-negotiable and must be structural, not procedural."
+        },
+        {
+          "topic": "Naming",
+          "choice": "SIHRE throughout \u2014 no abbreviation to SIRE",
+          "reason": "SIRE is an error. The canonical acronym is SIHRE (Self-Improving Heterogeneous Reasoning Ensemble). Branding consistency required from P0 forward."
+        },
+        {
+          "topic": "Monetization sequencing",
+          "choice": "Consulting and research packs before SaaS (P6 before P8)",
+          "reason": "Per Monetization_Roadmap.md, Architecture Audits ($7.5k\u2013$15k) and research packs are immediate revenue with no SaaS build required. Consulting funds the Control Plane build. Never build P8 before validating demand through P6."
+        },
+        {
+          "topic": "Analytics",
+          "choice": "Plausible Analytics",
+          "reason": "Privacy-first, GDPR-compliant, no cookie banner required. Consistent with SIHRE's governance and trust positioning. Avoids Google Analytics' credibility risk for a research-oriented brand."
+        }
+      ]
+    },
+    "status": "completed"
+  }
+}

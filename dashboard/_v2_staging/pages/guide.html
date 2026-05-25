@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<div style="padding:0;font-family:'Helvetica Neue',Arial,sans-serif;color:inherit;min-height:100vh">
+
+    <!-- Hero -->
+    <div style="text-align:center;padding:60px 40px 30px">
+        <div style="font-size:1.2rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;opacity:.15;margin-bottom:4px">LABS</div>
+        <div style="font-size:1.4rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Prototype Guide</div>
+        <div style="width:40px;height:2px;background:currentColor;opacity:.15;margin:0 auto 14px"></div>
+        <div style="font-size:.78rem;opacity:.45;max-width:520px;margin:0 auto;line-height:1.8">Follow the sections below to explore every feature. Each card links directly to the referenced tab.</div>
+    </div>
+
+    <!-- Summary KPIs -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:700px;margin:0 auto 30px;padding:0 30px">
+        <div class="neon-card" style="text-align:center;padding:18px 12px;border:1px solid rgba(128,128,128,.15);border-radius:8px;background:rgba(255,255,255,.02)">
+            <div style="font-size:1.8rem;font-weight:200;font-family:Consolas,monospace">9</div>
+            <div style="font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.35;margin-top:4px">Tabs</div>
+        </div>
+        <div class="neon-card" style="text-align:center;padding:18px 12px;border:1px solid rgba(128,128,128,.15);border-radius:8px;background:rgba(255,255,255,.02)">
+            <div style="font-size:1.8rem;font-weight:200;font-family:Consolas,monospace">200</div>
+            <div style="font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.35;margin-top:4px">Design Combos</div>
+        </div>
+        <div class="neon-card" style="text-align:center;padding:18px 12px;border:1px solid rgba(128,128,128,.15);border-radius:8px;background:rgba(255,255,255,.02)">
+            <div style="font-size:1.8rem;font-weight:200;font-family:Consolas,monospace">10</div>
+            <div style="font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.35;margin-top:4px">Workflows</div>
+        </div>
+        <div class="neon-card" style="text-align:center;padding:18px 12px;border:1px solid rgba(128,128,128,.15);border-radius:8px;background:rgba(255,255,255,.02)">
+            <div style="font-size:1.8rem;font-weight:200;font-family:Consolas,monospace">31</div>
+            <div style="font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.35;margin-top:4px">Roadmap Items</div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div style="max-width:750px;margin:0 auto;padding:10px 30px 40px">
+
+        <!-- S1: Getting Started -->
+        <div style="display:flex;align-items:center;gap:10px;margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid rgba(128,128,128,.12)">
+            <span style="font-size:.52rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.25">01</span>
+            <span style="font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase">Getting Started</span>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02);overflow:hidden">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">1</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Browse the Marketing Site</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">See the public-facing site — hero animation, Luciid's artist profile, services, new releases, and calls-to-action.</div></div>
+                <button onclick="goToTab('site')" style="padding:8px 18px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(128,128,128,.15);background:transparent;color:inherit;font-family:inherit">Open &rarr;</button>
+            </div>
+            <div style="padding:0 20px 14px 64px;display:flex;gap:6px;flex-wrap:wrap">
+                <span style="font-size:.55rem;padding:3px 10px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.4">Scrolling Marquee</span>
+                <span style="font-size:.55rem;padding:3px 10px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.4">KPI Bar</span>
+                <span style="font-size:.55rem;padding:3px 10px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.4">Artist Profile</span>
+                <span style="font-size:.55rem;padding:3px 10px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.4">Releases</span>
+                <span style="font-size:.55rem;padding:3px 10px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.4">Activity Feed</span>
+            </div>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02)">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">2</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Change Theme &amp; Layout</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">Use the top-right dropdowns. 20 themes &times; 10 layouts = 200 combinations. Applies across all tabs.</div></div>
+            </div>
+            <div style="padding:0 20px 14px 64px;font-size:.7rem;opacity:.5;line-height:1.7;background:rgba(128,128,128,.03);margin:0 12px 12px;padding:10px 14px;border-radius:6px"><strong style="opacity:1">Try:</strong> Set theme to <code style="font-family:Consolas,monospace;background:rgba(128,128,128,.08);padding:1px 6px;border-radius:3px">Dark Pulse</code> + layout <code style="font-family:Consolas,monospace;background:rgba(128,128,128,.08);padding:1px 6px;border-radius:3px">C Card Grid</code></div>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02)">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">3</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Edit the Content</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">Change brand name, KPIs, artists, services in Admin. Edits sync to Site Preview in real-time.</div></div>
+                <button onclick="goToTab('admin')" style="padding:8px 18px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(128,128,128,.15);background:transparent;color:inherit;font-family:inherit">Open &rarr;</button>
+            </div>
+        </div>
+
+        <!-- S2: Design -->
+        <div style="display:flex;align-items:center;gap:10px;margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid rgba(128,128,128,.12)">
+            <span style="font-size:.52rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.25">02</span>
+            <span style="font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase">Design Exploration</span>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02)">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">4</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Explore 200 Design Combinations</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">Full interactive previews with live counters, career scrubber, AI simulation, 3D globe, and AI chat.</div></div>
+                <button onclick="goToTab('designs')" style="padding:8px 18px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(128,128,128,.15);background:transparent;color:inherit;font-family:inherit">Open &rarr;</button>
+            </div>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02)">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">5</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Try the AI Chat</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">Designs tab, Layout A — scroll to the chat. Type a question, get a response using real Luciid data.</div></div>
+                <button onclick="goToTab('designs')" style="padding:8px 18px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(128,128,128,.15);background:transparent;color:inherit;font-family:inherit">Open &rarr;</button>
+            </div>
+            <div style="margin:0 12px 12px;padding:10px 14px;border-radius:6px;background:rgba(128,128,128,.03);font-size:.7rem;opacity:.5;line-height:1.7"><strong style="opacity:1">Ask:</strong> <code style="font-family:Consolas,monospace;background:rgba(128,128,128,.08);padding:1px 6px;border-radius:3px">What should we quote for Printworks?</code> &middot; <code style="font-family:Consolas,monospace;background:rgba(128,128,128,.08);padding:1px 6px;border-radius:3px">growth roadmap</code> &middot; <code style="font-family:Consolas,monospace;background:rgba(128,128,128,.08);padding:1px 6px;border-radius:3px">booking pipeline</code></div>
+        </div>
+
+        <!-- S3: Vision -->
+        <div style="display:flex;align-items:center;gap:10px;margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid rgba(128,128,128,.12)">
+            <span style="font-size:.52rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.25">03</span>
+            <span style="font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase">Platform Vision</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;padding:18px;background:rgba(255,255,255,.02);cursor:pointer" onclick="goToTab('roadmap')">
+                <div style="font-size:.72rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Roadmap</div>
+                <div style="font-size:.65rem;opacity:.4;line-height:1.6">31 items across product, integrations, intelligence, self-improvement.</div>
+                <div style="font-size:.55rem;opacity:.3;margin-top:8px">Open &rarr;</div>
+            </div>
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;padding:18px;background:rgba(255,255,255,.02);cursor:pointer" onclick="goToTab('apps')">
+                <div style="font-size:.72rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Apps</div>
+                <div style="font-size:.65rem;opacity:.4;line-height:1.6">Founder Portal (32 features) + DJ Portal (21 features) with Talent Scout.</div>
+                <div style="font-size:.55rem;opacity:.3;margin-top:8px">Open &rarr;</div>
+            </div>
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;padding:18px;background:rgba(255,255,255,.02);cursor:pointer" onclick="goToTab('tech')">
+                <div style="font-size:.72rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Components</div>
+                <div style="font-size:.65rem;opacity:.4;line-height:1.6">Lab-Intelligence, Lab-Wiki, Chat, Analytics, Social, Booking.</div>
+                <div style="font-size:.55rem;opacity:.3;margin-top:8px">Open &rarr;</div>
+            </div>
+        </div>
+
+        <!-- S4: Workflows -->
+        <div style="display:flex;align-items:center;gap:10px;margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid rgba(128,128,128,.12)">
+            <span style="font-size:.52rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.25">04</span>
+            <span style="font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase">Interactive Workflows</span>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02)">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">6</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Run a Workflow Simulation</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">4 founder workflows + 6 DJ workflows. AI guides each decision. Optimizer compares approaches.</div></div>
+                <button onclick="goToTab('workflows')" style="padding:8px 18px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(128,128,128,.15);background:transparent;color:inherit;font-family:inherit">Open &rarr;</button>
+            </div>
+            <div style="margin:0 12px 12px;padding:10px 14px;border-radius:6px;background:rgba(128,128,128,.03);font-size:.7rem;opacity:.5;line-height:1.7"><strong style="opacity:1">Start with:</strong> Founder &rarr; Book a DJ for an Event &rarr; Run Workflow &rarr; step through all 7 steps</div>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02)">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">7</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Gig Logistics Planner</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">12-step workflow with colour-coded timeline bar. Manchester &rarr; Berlin &rarr; gig &rarr; home.</div></div>
+                <button onclick="goToTab('workflows')" style="padding:8px 18px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(128,128,128,.15);background:transparent;color:inherit;font-family:inherit">Open &rarr;</button>
+            </div>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02)">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">8</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">AI Workflow Builder</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">Click AI Builder in Workflows. Describe any goal &mdash; Lab-Intelligence generates a custom workflow you can edit and run.</div></div>
+                <button onclick="goToTab('workflows')" style="padding:8px 18px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(128,128,128,.15);background:transparent;color:inherit;font-family:inherit">Open &rarr;</button>
+            </div>
+        </div>
+
+        <!-- S5: Feedback -->
+        <div style="display:flex;align-items:center;gap:10px;margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid rgba(128,128,128,.12)">
+            <span style="font-size:.52rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.25">05</span>
+            <span style="font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase">Feedback</span>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,.02)">
+            <div style="display:flex;align-items:center;gap:14px;padding:16px 20px">
+                <div style="width:30px;height:30px;border-radius:50%;background:rgba(128,128,128,.06);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0">9</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">Submit Change Requests</div>
+                <div style="font-size:.7rem;opacity:.45;margin-top:3px;line-height:1.6">Site changes, feature ideas, bug reports. Tracked with status, priority, and discussion threads.</div></div>
+                <button onclick="goToTab('requests')" style="padding:8px 18px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(128,128,128,.15);background:transparent;color:inherit;font-family:inherit">Open &rarr;</button>
+            </div>
+        </div>
+
+        <!-- S6: Design Combos -->
+        <div style="display:flex;align-items:center;gap:10px;margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid rgba(128,128,128,.12)">
+            <span style="font-size:.52rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.25">06</span>
+            <span style="font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase">Recommended Combos</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div class="neon-card" style="padding:12px 16px;border:1px solid rgba(128,128,128,.1);border-radius:8px;background:rgba(255,255,255,.02);font-size:.72rem"><strong>Mercury + Mosaic</strong> <span style="opacity:.4">&mdash; chrome metallic bento</span></div>
+            <div class="neon-card" style="padding:12px 16px;border:1px solid rgba(128,128,128,.1);border-radius:8px;background:rgba(255,255,255,.02);font-size:.72rem"><strong>Neon Wire + Terminal</strong> <span style="opacity:.4">&mdash; wireframe CLI</span></div>
+            <div class="neon-card" style="padding:12px 16px;border:1px solid rgba(128,128,128,.1);border-radius:8px;background:rgba(255,255,255,.02);font-size:.72rem"><strong>Film Reel + Film Strip</strong> <span style="opacity:.4">&mdash; nostalgic cinema</span></div>
+            <div class="neon-card" style="padding:12px 16px;border:1px solid rgba(128,128,128,.1);border-radius:8px;background:rgba(255,255,255,.02);font-size:.72rem"><strong>Dark Pulse + Radar</strong> <span style="opacity:.4">&mdash; neon orbital</span></div>
+            <div class="neon-card" style="padding:12px 16px;border:1px solid rgba(128,128,128,.1);border-radius:8px;background:rgba(255,255,255,.02);font-size:.72rem"><strong>Gradient + Magazine</strong> <span style="opacity:.4">&mdash; purple editorial</span></div>
+            <div class="neon-card" style="padding:12px 16px;border:1px solid rgba(128,128,128,.1);border-radius:8px;background:rgba(255,255,255,.02);font-size:.72rem"><strong>Glass + Cinematic</strong> <span style="opacity:.4">&mdash; frosted full-bleed</span></div>
+        </div>
+
+        <!-- S7: Data -->
+        <div style="display:flex;align-items:center;gap:10px;margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid rgba(128,128,128,.12)">
+            <span style="font-size:.52rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.25">07</span>
+            <span style="font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase">Artist Data</span>
+        </div>
+
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.12);border-radius:10px;padding:20px;background:rgba(255,255,255,.02)">
+            <div style="font-size:.75rem;opacity:.5;line-height:1.8;margin-bottom:14px">All data is real, sourced from RA, Spotify, Beatport, Instagram, and Four/Four Magazine for <strong style="opacity:1">Luciid (Luke Pollock)</strong>.</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <span style="font-size:.55rem;padding:4px 12px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.5">54K Instagram</span>
+                <span style="font-size:.55rem;padding:4px 12px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.5">7.1K RA</span>
+                <span style="font-size:.55rem;padding:4px 12px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.5">2.1M Streams</span>
+                <span style="font-size:.55rem;padding:4px 12px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.5">10+ Countries</span>
+                <span style="font-size:.55rem;padding:4px 12px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.5">6 Labels</span>
+                <span style="font-size:.55rem;padding:4px 12px;border-radius:14px;border:1px solid rgba(128,128,128,.1);opacity:.5">#15 Beatport</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center;padding:30px;font-size:.48rem;opacity:.15;letter-spacing:.12em;text-transform:uppercase;border-top:1px solid rgba(128,128,128,.08)">Labs Institute &middot; Founded For The Future &middot; Prototype v1.0</div>
+</div>
+
+<script>
+window.goToTab=function(tab){
+    // Find all mode tabs and views in the parent document
+    var modes=document.querySelectorAll('.L-mode');
+    var views=document.querySelectorAll('.L-view');
+    if(!modes.length){
+        // Try parent frames
+        modes=(window.parent||window).document.querySelectorAll('.L-mode');
+        views=(window.parent||window).document.querySelectorAll('.L-view');
+    }
+    modes.forEach(function(m){
+        m.classList.remove('on');
+        if(m.getAttribute('data-v')===tab) m.classList.add('on');
+    });
+    views.forEach(function(v){v.classList.remove('on')});
+    var target=document.getElementById('v-'+tab);
+    if(!target) target=(window.parent||window).document.getElementById('v-'+tab);
+    if(target) target.classList.add('on');
+};
+</script>
+</body>
+</html>

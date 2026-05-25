@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Overview — Conductor Cortex</title>
+    <link rel="stylesheet" href="../styles/base.css">
+    <style>
+    .ov { padding: 0; }
+
+    /* --- Hero --- */
+    .ov-hero {
+        padding: 28px 28px 20px; position: relative; overflow: hidden;
+        background: linear-gradient(135deg, rgba(94,231,255,0.03) 0%, rgba(155,92,255,0.02) 50%, rgba(82,255,184,0.02) 100%);
+        border-bottom: 1px solid var(--border-light);
+    }
+    .ov-hero::before {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at 30% 50%, rgba(94,231,255,0.06) 0%, transparent 60%);
+        pointer-events: none;
+    }
+    .ov-hero-top {
+        display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        flex-wrap: wrap; margin-bottom: 20px; position: relative;
+    }
+    .ov-hero-title {
+        font-size: 1.3rem; font-weight: 800; letter-spacing: 0.2em;
+        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet), var(--accent-green));
+        background-size: 200% 100%;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        animation: heroShimmer 6s linear infinite;
+    }
+    @keyframes heroShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    .ov-hero-subtitle { font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.14em; }
+
+    .ov-controls {
+        display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .ov-control-select {
+        font-size: 0.7rem; font-weight: 600; padding: 6px 14px; border-radius: 8px;
+        border: 1px solid var(--border-medium); background: rgba(255,255,255,0.03);
+        color: var(--text-secondary); cursor: pointer; font-family: var(--font-family);
+        transition: border-color var(--transition-fast);
+    }
+    .ov-control-select:focus { outline: none; border-color: var(--accent-cyan); }
+    .ov-control-select option { background: #0a0f1a; color: var(--text-primary); }
+
+    .ov-live-dot {
+        width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green);
+        box-shadow: 0 0 8px rgba(82,255,184,0.5); animation: pulse 2s infinite;
+        display: inline-block; margin-right: 4px;
+    }
+
+    /* Hero gauges row */
+    .ov-hero-gauges {
+        display: flex; align-items: flex-start; gap: 24px; flex-wrap: wrap; position: relative;
+    }
+    .ov-hero-gauge-item { display: flex; flex-direction: column; align-items: center; }
+    .ov-hero-summary {
+        flex: 1; min-width: 260px; padding: 14px 18px;
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md); font-size: 0.75rem; color: var(--text-body);
+        line-height: 1.7; position: relative;
+    }
+    .ov-hero-summary::before {
+        content: 'AI INSIGHT'; position: absolute; top: -8px; left: 14px;
+        font-size: 0.52rem; font-weight: 700; color: var(--accent-violet);
+        background: var(--bg-primary); padding: 0 8px; letter-spacing: 0.1em;
+    }
+    .ov-status-chips {
+        display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;
+    }
+    .ov-status-chip {
+        font-size: 0.58rem; font-weight: 700; padding: 3px 10px; border-radius: 10px;
+        text-transform: uppercase; letter-spacing: 0.04em; display: flex; align-items: center; gap: 4px;
+    }
+
+    /* --- KPI Grid --- */
+    .ov-kpi-section { padding: 20px 28px; }
+    .ov-kpi-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+        gap: 10px;
+    }
+    .ov-kpi {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md); padding: 14px 16px;
+        backdrop-filter: blur(8px); position: relative; overflow: hidden;
+        transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        cursor: default;
+    }
+    .ov-kpi:hover { border-color: var(--panel-border-hover); box-shadow: var(--shadow-card); }
+    .ov-kpi-label {
+        font-size: 0.58rem; font-weight: 700; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
+    }
+    .ov-kpi-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; }
+    .ov-kpi-val { font-size: 1.5rem; font-weight: 800; font-family: var(--font-mono); line-height: 1; color: #fff; }
+    .ov-kpi-spark { flex-shrink: 0; }
+    .ov-kpi-delta {
+        font-size: 0.58rem; font-weight: 700; margin-top: 4px;
+        display: flex; align-items: center; gap: 3px;
+    }
+    .ov-kpi-delta.up { color: var(--accent-green); }
+    .ov-kpi-delta.down { color: var(--accent-red); }
+    .ov-kpi-mini-bar { margin-top: 8px; }
+
+    /* --- Viz Panels --- */
+    .ov-viz-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+        padding: 0 28px 20px;
+    }
+    .ov-panel {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md); padding: 18px 20px;
+        backdrop-filter: blur(8px); position: relative;
+    }
+    .ov-panel-title {
+        font-size: 0.68rem; font-weight: 700; color: var(--text-label);
+        text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .ov-panel-full { grid-column: 1 / -1; }
+
+    /* --- Project Cards --- */
+    .ov-projects-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;
+    }
+    .ov-project-card {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: var(--radius-md); padding: 16px; cursor: pointer;
+        transition: all var(--transition-fast);
+    }
+    .ov-project-card:hover { border-color: var(--panel-border-hot); transform: translateY(-2px); box-shadow: var(--shadow-glow-cyan); }
+    .ov-project-name { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 6px; text-transform: capitalize; }
+    .ov-project-stats {
+        display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.62rem; color: var(--text-dim); margin-top: 8px;
+    }
+    .ov-project-stat { display: flex; align-items: center; gap: 3px; }
+    .ov-project-stat-val { font-family: var(--font-mono); font-weight: 700; color: var(--text-secondary); }
+
+    /* --- Activity Feed --- */
+    .ov-feed { max-height: 300px; overflow-y: auto; }
+    .ov-feed-item {
+        display: flex; align-items: flex-start; gap: 10px; padding: 8px 0;
+        border-bottom: 1px solid var(--border-subtle); font-size: 0.72rem;
+    }
+    .ov-feed-item:last-child { border-bottom: none; }
+    .ov-feed-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+    .ov-feed-text { color: var(--text-secondary); flex: 1; }
+    .ov-feed-time { font-size: 0.6rem; color: var(--text-faint); font-family: var(--font-mono); white-space: nowrap; }
+
+    /* --- Constellation --- */
+    .ov-constellation { min-height: 220px; position: relative; }
+    .ov-const-node {
+        position: absolute; display: flex; flex-direction: column; align-items: center;
+        cursor: pointer; transition: transform var(--transition-fast);
+    }
+    .ov-const-node:hover { transform: scale(1.1); }
+    .ov-const-orb {
+        width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center;
+        justify-content: center; font-size: 0.65rem; font-weight: 800; color: #fff;
+        position: relative;
+    }
+    .ov-const-orb::after {
+        content: ''; position: absolute; inset: -4px; border-radius: 50%;
+        border: 1px solid rgba(94,231,255,0.15); animation: constPulse 3s ease-in-out infinite;
+    }
+    @keyframes constPulse { 0%,100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.15); opacity: 0.2; } }
+    .ov-const-label { font-size: 0.58rem; color: var(--text-muted); margin-top: 6px; font-weight: 600; text-transform: capitalize; }
+
+    @media (max-width: 900px) { .ov-viz-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) {
+        .ov-hero { padding: 20px 16px; }
+        .ov-kpi-section { padding: 16px; }
+        .ov-viz-grid { padding: 0 16px 16px; }
+        .ov-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    </style>
+</head>
+<body>
+    <div class="ov">
+        <!-- Hero -->
+        <div class="ov-hero">
+            <div class="ov-hero-top">
+                <div>
+                    <div class="ov-hero-title">CONDUCTOR CORTEX</div>
+                    <div class="ov-hero-subtitle">AI Operations Intelligence</div>
+                </div>
+                <div class="ov-controls">
+                    <select class="ov-control-select" id="ov-project-select" onchange="ovRefresh()">
+                        <option value="all">All Projects</option>
+                    </select>
+                    <select class="ov-control-select" id="ov-range-select" onchange="ovRefresh()">
+                        <option value="all">All Time</option>
+                        <option value="24h">Last 24h</option>
+                        <option value="7d">Last 7 Days</option>
+                    </select>
+                    <span style="font-size:0.65rem;color:var(--text-dim);display:flex;align-items:center;">
+                        <span class="ov-live-dot"></span> Live
+                    </span>
+                </div>
+            </div>
+            <div class="ov-hero-gauges">
+                <div class="ov-hero-gauge-item"><div id="ov-health-gauge"></div></div>
+                <div class="ov-hero-gauge-item"><div id="ov-success-gauge"></div></div>
+                <div class="ov-hero-gauge-item"><div id="ov-pipeline-gauge"></div></div>
+                <div class="ov-hero-summary" id="ov-summary"></div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="ov-kpi-section" data-panel="kpiCards">
+            <div class="ov-kpi-grid" id="ov-kpi-grid"></div>
+        </div>
+
+        <!-- Viz Panels -->
+        <div class="ov-viz-grid">
+            <!-- Session Status Ring -->
+            <div class="ov-panel" data-panel="sessionRing">
+                <div class="ov-panel-title">Session Status</div>
+                <div id="ov-session-ring" style="display:flex;justify-content:center;"></div>
+            </div>
+
+            <!-- Pipeline Status Ring -->
+            <div class="ov-panel" data-panel="pipelineRing">
+                <div class="ov-panel-title">Pipeline Status</div>
+                <div id="ov-pipeline-ring" style="display:flex;justify-content:center;"></div>
+            </div>
+
+            <!-- Activity Heatmap -->
+            <div class="ov-panel ov-panel-full" data-panel="heatmap">
+                <div class="ov-panel-title">
+                    Activity Matrix
+                    <select class="ov-control-select" id="ov-heatmap-mode" onchange="ovRenderHeatmap()" style="font-size:0.6rem;padding:3px 8px;">
+                        <option value="sessions">Sessions</option>
+                        <option value="failures">Failures</option>
+                        <option value="cost">Cost</option>
+                        <option value="tokens">Tokens</option>
+                    </select>
+                </div>
+                <div id="ov-heatmap"></div>
+            </div>
+
+            <!-- Progress Bars -->
+            <div class="ov-panel ov-panel-full" data-panel="progress">
+                <div class="ov-panel-title">Operations Progress</div>
+                <div id="ov-progress-bars"></div>
+            </div>
+
+            <!-- Project Constellation -->
+            <div class="ov-panel" data-panel="constellation">
+                <div class="ov-panel-title">Project Constellation</div>
+                <div class="ov-constellation" id="ov-constellation"></div>
+            </div>
+
+            <!-- Pipeline Orbit -->
+            <div class="ov-panel" data-panel="pipelineOrbit">
+                <div class="ov-panel-title">Pipeline Orbit</div>
+                <div id="ov-pipeline-orbit" style="min-height:220px;display:flex;justify-content:center;align-items:center;"></div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="ov-panel" data-panel="activityFeed">
+                <div class="ov-panel-title">Recent Activity</div>
+                <div class="ov-feed" id="ov-feed"></div>
+            </div>
+
+            <!-- Per-Project Cards -->
+            <div class="ov-panel ov-panel-full" data-panel="projectCards">
+                <div class="ov-panel-title">Project Health</div>
+                <div class="ov-projects-grid" id="ov-project-cards"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+    'use strict';
+
+    var currentProject = 'all';
+
+    // --- Read dashboard builder config ---
+    function getConfig() {
+        try { var s = localStorage.getItem('db-config'); return s ? JSON.parse(s) : null; }
+        catch(e) { return null; }
+    }
+
+    function getPanelViz(panelKey, fallback) {
+        var cfg = getConfig();
+        if (cfg && cfg.panels && cfg.panels[panelKey]) return cfg.panels[panelKey].viz || fallback;
+        return fallback;
+    }
+
+    function getPanelData(panelKey, fallback) {
+        var cfg = getConfig();
+        if (cfg && cfg.panels && cfg.panels[panelKey]) return cfg.panels[panelKey].data || fallback;
+        return fallback;
+    }
+
+    function applyPanelVisibility() {
+        var cfg = getConfig();
+        if (!cfg || !cfg.panels) return;
+        document.querySelectorAll('[data-panel]').forEach(function(el) {
+            var key = el.getAttribute('data-panel');
+            if (cfg.panels[key]) {
+                el.style.display = cfg.panels[key].enabled ? '' : 'none';
+            }
+        });
+        // Also apply config project as default
+        if (cfg.project && cfg.project !== 'all') {
+            var sel = document.getElementById('ov-project-select');
+            if (sel && sel.querySelector('option[value="' + cfg.project + '"]')) {
+                sel.value = cfg.project;
+                currentProject = cfg.project;
+            }
+        }
+        // Hero gauges panel
+        var heroEl = document.querySelector('.ov-hero-gauges');
+        if (heroEl && cfg.panels.healthGauges) {
+            heroEl.style.display = cfg.panels.healthGauges.enabled ? '' : 'none';
+        }
+    }
+
+    // --- Populate project dropdown ---
+    function populateProjects() {
+        var sel = document.getElementById('ov-project-select');
+        var projects = CortexData.getProjectList();
+        projects.forEach(function(p) {
+            var opt = document.createElement('option');
+            opt.value = p.slug; opt.textContent = p.name;
+            sel.appendChild(opt);
+        });
+    }
+
+    // --- Main refresh ---
+    window.ovRefresh = function() {
+        var projSelect = document.getElementById('ov-project-select');
+        if (!projSelect) return; // Not on overview page
+        currentProject = projSelect.value;
+        var m = CortexData.computeMetrics(currentProject === 'all' ? null : currentProject);
+
+        // Apply panel visibility from builder config
+        applyPanelVisibility();
+
+        renderHeroGauges(m);
+        renderSummary(m);
+        renderKPIs(m);
+        renderSessionRing(m);
+        renderPipelineRing(m);
+        ovRenderHeatmap();
+        renderProgress(m);
+        renderConstellation();
+        renderPipelineOrbit();
+        renderFeed();
+        renderProjectCards();
+    };
+
+    // --- Hero Gauges (config-aware) ---
+    function renderHeroGauges(m) {
+        var vizType = getPanelViz('healthGauges', 'gauge');
+        if (vizType === 'number') {
+            CortexUI.renderNumber(document.getElementById('ov-health-gauge'), m.healthScore, { label: 'Health' });
+            CortexUI.renderNumber(document.getElementById('ov-success-gauge'), m.successRate, { label: 'Success', fmt: 'pct' });
+            CortexUI.renderNumber(document.getElementById('ov-pipeline-gauge'), m.pipelineCompletion, { label: 'Pipelines', fmt: 'pct' });
+        } else if (vizType === 'ring') {
+            CortexUI.renderRingChart(document.getElementById('ov-health-gauge'), [
+                { status: 'health', count: m.healthScore, color: 'var(--accent-green)' },
+                { status: 'remaining', count: 100 - m.healthScore, color: 'var(--border-subtle)' }
+            ], { size: 100 });
+            CortexUI.renderRingChart(document.getElementById('ov-success-gauge'), [
+                { status: 'success', count: Math.round(m.successRate), color: 'var(--accent-cyan)' },
+                { status: 'other', count: 100 - Math.round(m.successRate), color: 'var(--border-subtle)' }
+            ], { size: 80 });
+            CortexUI.renderRingChart(document.getElementById('ov-pipeline-gauge'), [
+                { status: 'complete', count: Math.round(m.pipelineCompletion), color: 'var(--accent-green)' },
+                { status: 'other', count: 100 - Math.round(m.pipelineCompletion), color: 'var(--border-subtle)' }
+            ], { size: 80 });
+        } else {
+            CortexUI.renderGauge(document.getElementById('ov-health-gauge'), m.healthScore,
+                { size: 110, stroke: 7, label: 'Health', animate: true });
+            CortexUI.renderGauge(document.getElementById('ov-success-gauge'), m.successRate,
+                { size: 90, stroke: 6, label: 'Success', animate: true });
+            CortexUI.renderGauge(document.getElementById('ov-pipeline-gauge'), m.pipelineCompletion,
+                { size: 90, stroke: 6, label: 'Pipelines', animate: true });
+        }
+    }
+
+    // --- Summary ---
+    function renderSummary(m) {
+        var text = CortexData.generateSummary(currentProject === 'all' ? null : currentProject);
+        var el = document.getElementById('ov-summary');
+        el.innerHTML = text +
+            '<div class="ov-status-chips">' +
+            '<span class="ov-status-chip" style="background:rgba(82,255,184,0.1);color:var(--accent-green);">' + m.succeededSessions + ' succeeded</span>' +
+            '<span class="ov-status-chip" style="background:rgba(94,231,255,0.1);color:var(--accent-cyan);">' + m.runningSessions + ' running</span>' +
+            (m.failedSessions ? '<span class="ov-status-chip" style="background:rgba(255,92,138,0.1);color:var(--accent-red);">' + m.failedSessions + ' failed</span>' : '') +
+            '</div>';
+    }
+
+    // --- KPI Cards (config-aware) ---
+    function renderKPIs(m) {
+        var proj = currentProject === 'all' ? null : currentProject;
+        var vizType = getPanelViz('kpiCards', 'cards');
+        var kpis = [
+            { label: 'Total Sessions', val: m.totalSessions, fmt: 'int', color: 'var(--accent-cyan)', metric: 'sessions' },
+            { label: 'Running', val: m.runningSessions, fmt: 'int', color: 'var(--accent-cyan)', metric: 'sessions' },
+            { label: 'Success Rate', val: m.successRate, fmt: 'pct', color: 'var(--accent-green)', metric: 'success' },
+            { label: 'Failure Rate', val: m.failureRate, fmt: 'pct', color: 'var(--accent-red)', metric: 'sessions' },
+            { label: 'Total Cost', val: m.totalCost, fmt: 'usd', color: 'var(--accent-gold)', metric: 'cost' },
+            { label: 'Avg Cost', val: m.avgCost, fmt: 'usd', color: 'var(--accent-amber)', metric: 'cost' },
+            { label: 'Cost / Success', val: m.costPerSuccess, fmt: 'usd', color: 'var(--accent-gold)', metric: 'cost' },
+            { label: 'Tokens In', val: m.totalTokensIn, fmt: 'int', color: 'var(--accent-blue)', metric: 'tokens' },
+            { label: 'Tokens Out', val: m.totalTokensOut, fmt: 'int', color: 'var(--accent-violet)', metric: 'tokens' },
+            { label: 'Out/In Ratio', val: m.tokenRatio, fmt: 'ratio', color: 'var(--accent-violet)', metric: 'tokens' },
+            { label: 'Pipeline Completion', val: m.pipelineCompletion, fmt: 'pct', color: 'var(--accent-green)', metric: 'sessions' },
+            { label: 'Active Stages', val: m.runningStages, fmt: 'int', color: 'var(--accent-cyan)', metric: 'sessions' },
+            { label: 'Health Score', val: m.healthScore, fmt: 'int', color: 'var(--accent-green)', metric: 'success' },
+            { label: 'Stage Completion', val: m.stageCompletion, fmt: 'pct', color: 'var(--accent-green)', metric: 'sessions' }
+        ];
+
+        var container = document.getElementById('ov-kpi-grid');
+
+        // Compact mode
+        if (vizType === 'compact') {
+            CortexUI.renderCompactKPIs(container, kpis);
+            return;
+        }
+
+        // Table mode
+        if (vizType === 'table') {
+            CortexUI.renderKPITable(container, kpis);
+            return;
+        }
+
+        // Default: full cards with sparklines
+        var html = '';
+        kpis.forEach(function(k, i) {
+            var fmtVal = k.fmt === 'usd' ? '$' + k.val.toFixed(2)
+                : k.fmt === 'pct' ? k.val.toFixed(1) + '%'
+                : k.fmt === 'ratio' ? k.val.toFixed(2)
+                : k.val.toLocaleString();
+
+            html += '<div class="ov-kpi" style="animation:fadeInStagger 0.3s ' + (i * 40) + 'ms var(--ease-out-expo) both;cursor:pointer;" onclick="openKPIDrawer(\'' + k.label + '\',' + k.val + ',\'' + k.fmt + '\',\'' + k.color + '\',\'' + k.metric + '\')">';
+            html += '<div class="ov-kpi-label">' + k.label + '</div>';
+            html += '<div class="ov-kpi-row">';
+            html += '<div class="ov-kpi-val" style="color:' + k.color + ';" data-target="' + k.val + '" data-fmt="' + k.fmt + '">' + fmtVal + '</div>';
+            html += '<div class="ov-kpi-spark" id="ov-spark-' + i + '"></div>';
+            html += '</div>';
+            // Mini progress for rates
+            if (k.fmt === 'pct') {
+                html += '<div class="ov-kpi-mini-bar"><div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.04);overflow:hidden;">';
+                html += '<div style="height:100%;width:' + Math.min(100, k.val) + '%;background:' + k.color + ';border-radius:2px;transition:width 0.8s var(--ease-out-expo);"></div>';
+                html += '</div></div>';
+            }
+            html += '</div>';
+        });
+        document.getElementById('ov-kpi-grid').innerHTML = html;
+
+        // Render sparklines
+        kpis.forEach(function(k, i) {
+            var sparkEl = document.getElementById('ov-spark-' + i);
+            if (sparkEl) {
+                var points = CortexData.computeSparkline(proj, k.metric, 10);
+                CortexUI.renderSparkline(sparkEl, points, { width: 60, height: 24, color: k.color });
+            }
+        });
+    }
+
+    // --- Ring Charts (config-aware) ---
+    function renderSessionRing(m) {
+        var vizType = getPanelViz('sessionRing', 'ring');
+        var dataSource = getPanelData('sessionRing', 'sessions');
+        var segments = getSegmentsForData(dataSource, m);
+        var el = document.getElementById('ov-session-ring');
+        CortexUI.renderByType(el, vizType, segments, { size: 150, animate: true });
+    }
+
+    function renderPipelineRing(m) {
+        var vizType = getPanelViz('pipelineRing', 'ring');
+        var dataSource = getPanelData('pipelineRing', 'pipelines');
+        var segments = getSegmentsForData(dataSource, m);
+        var el = document.getElementById('ov-pipeline-ring');
+        CortexUI.renderByType(el, vizType, segments, { size: 150, animate: true });
+    }
+
+    // Helper: get segments based on data source
+    function getSegmentsForData(source, m) {
+        if (source === 'pipelines') {
+            return [
+                { status: 'completed', count: m.completedPipelines, color: 'var(--accent-green)' },
+                { status: 'running', count: m.runningPipelines, color: 'var(--accent-cyan)' },
+                { status: 'failed', count: m.failedPipelines, color: 'var(--accent-red)' },
+                { status: 'pending', count: m.pendingPipelines, color: 'var(--accent-slate)' },
+                { status: 'cancelled', count: m.pipelinesByStatus.cancelled, color: 'var(--text-faint)' }
+            ];
+        }
+        return [
+            { status: 'succeeded', count: m.succeededSessions, color: 'var(--accent-green)' },
+            { status: 'running', count: m.runningSessions, color: 'var(--accent-cyan)' },
+            { status: 'failed', count: m.failedSessions, color: 'var(--accent-red)' },
+            { status: 'queued', count: m.sessionsByStatus.queued, color: 'var(--accent-slate)' }
+        ];
+    }
+
+    // --- Heatmap (config-aware) ---
+    window.ovRenderHeatmap = function() {
+        var vizType = getPanelViz('heatmap', 'heatmap');
+        var hmModeEl = document.getElementById('ov-heatmap-mode');
+        var mode = hmModeEl ? hmModeEl.value : 'sessions';
+        var proj = currentProject === 'all' ? null : currentProject;
+        var data = CortexData.computeHeatmap(proj, mode);
+
+        var container = document.getElementById('ov-heatmap');
+        if (vizType === 'bar') {
+            // Convert heatmap data to bar-chart segments
+            var segments = data.slice(-14).map(function(d) {
+                return { status: d.date.substring(5), count: d.value, color: 'var(--accent-cyan)' };
+            });
+            CortexUI.renderBarChart(container, segments, { barHeight: 18 });
+        } else if (vizType === 'sparkline') {
+            var points = data.map(function(d) { return d.value; });
+            CortexUI.renderSparkline(container, points, { width: 500, height: 60, color: 'var(--accent-cyan)' });
+        } else {
+            CortexUI.renderHeatmap(container, data, { cellSize: 18 });
+        }
+    };
+
+    // --- Progress Bars (config-aware) ---
+    function renderProgress(m) {
+        var container = document.getElementById('ov-progress-bars');
+        var vizType = getPanelViz('progress', 'segmented');
+        var dataSource = getPanelData('progress', 'sessions');
+        var sections = [
+            { label: 'Overall Sessions', segments: CortexData.computeProgressSegments(currentProject === 'all' ? null : currentProject, 'session') },
+            { label: 'Pipeline Progress', segments: CortexData.computeProgressSegments(currentProject === 'all' ? null : currentProject, 'pipeline') }
+        ];
+
+        if (vizType === 'gauge') {
+            // Render as gauges instead
+            var html = '<div style="display:flex;gap:20px;flex-wrap:wrap;">';
+            sections.forEach(function(sec) {
+                var total = 0, done = 0;
+                sec.segments.forEach(function(s) { total += s.count; if (s.status === 'succeeded' || s.status === 'completed') done += s.count; });
+                var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+                html += '<div style="text-align:center;"><div id="prog-gauge-' + sec.label.replace(/\s/g, '') + '"></div>';
+                html += '<div style="font-size:0.62rem;color:var(--text-dim);margin-top:4px;">' + sec.label + '</div></div>';
+            });
+            html += '</div>';
+            container.innerHTML = html;
+            sections.forEach(function(sec) {
+                var total = 0, done = 0;
+                sec.segments.forEach(function(s) { total += s.count; if (s.status === 'succeeded' || s.status === 'completed') done += s.count; });
+                var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+                var el = document.getElementById('prog-gauge-' + sec.label.replace(/\s/g, ''));
+                if (el) CortexUI.renderGauge(el, pct, { size: 80, stroke: 5, label: '' });
+            });
+            return;
+        }
+
+        if (vizType === 'bar') {
+            var html = '';
+            sections.forEach(function(sec) {
+                html += '<div style="margin-bottom:14px;"><div style="font-size:0.68rem;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">' + sec.label + '</div>';
+                html += '<div id="prog-bar-' + sec.label.replace(/\s/g, '') + '"></div></div>';
+            });
+            container.innerHTML = html;
+            sections.forEach(function(sec) {
+                var el = document.getElementById('prog-bar-' + sec.label.replace(/\s/g, ''));
+                if (el) CortexUI.renderBarChart(el, sec.segments, { barHeight: 16 });
+            });
+            return;
+        }
+
+        // Default: segmented progress bars
+        var html = '';
+        sections.forEach(function(sec) {
+            var total = 0; sec.segments.forEach(function(s) { total += s.count; });
+            html += '<div style="margin-bottom:14px;">';
+            html += '<div style="display:flex;justify-content:space-between;margin-bottom:6px;">';
+            html += '<span style="font-size:0.68rem;font-weight:600;color:var(--text-secondary);">' + sec.label + '</span>';
+            html += '<span style="font-size:0.62rem;color:var(--text-dim);font-family:var(--font-mono);">' + total + ' total</span>';
+            html += '</div>';
+            html += '<div id="seg-' + sec.label.replace(/\s/g, '') + '"></div>';
+            // Legend
+            html += '<div style="display:flex;gap:12px;margin-top:6px;">';
+            sec.segments.forEach(function(s) {
+                if (s.count === 0) return;
+                html += '<span style="font-size:0.58rem;color:var(--text-dim);display:flex;align-items:center;gap:3px;">';
+                html += '<span style="width:6px;height:6px;border-radius:2px;background:' + s.color + ';"></span>';
+                html += s.status + ': ' + s.count;
+                html += '</span>';
+            });
+            html += '</div></div>';
+        });
+        container.innerHTML = html;
+
+        // Render segments
+        sections.forEach(function(sec) {
+            var el = document.getElementById('seg-' + sec.label.replace(/\s/g, ''));
+            if (el) CortexUI.renderSegmentedProgress(el, sec.segments, { height: 10 });
+        });
+    }
+
+    // --- Project Constellation ---
+    function renderConstellation() {
+        var projects = CortexData.getProjectList();
+        var container = document.getElementById('ov-constellation');
+        if (!projects.length) { container.innerHTML = '<div style="text-align:center;color:var(--text-faint);padding:40px;font-size:0.72rem;">No projects</div>'; return; }
+
+        var colors = ['rgba(94,231,255,0.15)', 'rgba(155,92,255,0.15)', 'rgba(82,255,184,0.15)', 'rgba(255,209,102,0.15)'];
+        var borderColors = ['var(--accent-cyan)', 'var(--accent-violet)', 'var(--accent-green)', 'var(--accent-amber)'];
+        var cx = 50, cy = 50; // center percentages
+        var radius = 35;
+        var html = '';
+
+        // Center node
+        html += '<div class="ov-const-node" style="left:calc(' + cx + '% - 24px);top:calc(' + cy + '% - 24px);">';
+        html += '<div class="ov-const-orb" style="background:radial-gradient(circle,rgba(94,231,255,0.2),rgba(94,231,255,0.05));border:1.5px solid var(--accent-cyan);width:40px;height:40px;font-size:0.55rem;">ALL</div>';
+        html += '</div>';
+
+        projects.forEach(function(p, i) {
+            var angle = (i / projects.length) * 2 * Math.PI - Math.PI / 2;
+            var x = cx + radius * Math.cos(angle);
+            var y = cy + radius * Math.sin(angle);
+            var m = CortexData.computeMetrics(p.slug);
+            var ci = i % colors.length;
+
+            // Connection line (SVG overlay)
+            html += '<svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">';
+            html += '<line x1="' + cx + '%" y1="' + cy + '%" x2="' + x + '%" y2="' + y + '%" stroke="rgba(94,231,255,0.08)" stroke-width="1" stroke-dasharray="4 4"/>';
+            html += '</svg>';
+
+            html += '<div class="ov-const-node" style="left:calc(' + x + '% - 24px);top:calc(' + y + '% - 24px);"';
+            html += ' onclick="document.getElementById(\'ov-project-select\').value=\'' + p.slug + '\';ovRefresh();">';
+            html += '<div class="ov-const-orb" style="background:radial-gradient(circle,' + colors[ci] + ',' + colors[ci].replace('0.15', '0.04') + ');border:1.5px solid ' + borderColors[ci] + ';">';
+            html += m.healthScore;
+            html += '</div>';
+            html += '<div class="ov-const-label">' + p.name + '</div>';
+            html += '</div>';
+        });
+
+        container.innerHTML = html;
+    }
+
+    // --- Activity Feed ---
+    function renderFeed() {
+        var sessions = CortexData.filterSessions(currentProject === 'all' ? null : currentProject);
+        // Apply time range filter
+        sessions = applyTimeRange(sessions);
+        var sorted = sessions.slice().sort(function(a, b) {
+            return (b.ended_at || b.started_at || b.created_at || '').localeCompare(a.ended_at || a.started_at || a.created_at || '');
+        }).slice(0, 15);
+
+        var html = '';
+        sorted.forEach(function(s) {
+            var statusColor = s.status === 'succeeded' ? 'var(--accent-green)'
+                : s.status === 'running' ? 'var(--accent-cyan)'
+                : s.status === 'failed' ? 'var(--accent-red)' : 'var(--accent-slate)';
+            var time = (s.ended_at || s.started_at || s.created_at || '').substring(11, 16);
+            var desc = (s.task_title || s.template || 'Session') + ' — ' + (s.project_slug || '');
+            html += '<div class="ov-feed-item">';
+            html += '<span class="ov-feed-dot" style="background:' + statusColor + ';"></span>';
+            html += '<span class="ov-feed-text"><strong style="color:' + statusColor + ';">' + s.status + '</strong> ' + desc;
+            if (s.cost_usd) html += ' <span style="color:var(--accent-gold);font-family:var(--font-mono);">$' + s.cost_usd.toFixed(2) + '</span>';
+            html += '</span>';
+            html += '<span class="ov-feed-time">' + time + '</span>';
+            html += '</div>';
+        });
+        document.getElementById('ov-feed').innerHTML = html || '<div style="color:var(--text-faint);font-size:0.72rem;padding:20px;text-align:center;">No recent activity</div>';
+    }
+
+    // --- Project Cards ---
+    function renderProjectCards() {
+        var cards = CortexData.computeProjectCards();
+        var html = '';
+        cards.forEach(function(c) {
+            var m = c.metrics;
+            html += '<div class="ov-project-card" onclick="document.getElementById(\'ov-project-select\').value=\'' + c.slug + '\';ovRefresh();">';
+            html += '<div style="display:flex;align-items:center;justify-content:space-between;">';
+            html += '<div class="ov-project-name">' + c.name + '</div>';
+            html += '<div id="ov-pcard-gauge-' + c.slug + '" style="flex-shrink:0;"></div>';
+            html += '</div>';
+            html += '<div id="ov-pcard-bar-' + c.slug + '" style="margin:8px 0;"></div>';
+            html += '<div class="ov-project-stats">';
+            html += '<div class="ov-project-stat">Sessions <span class="ov-project-stat-val">' + m.totalSessions + '</span></div>';
+            html += '<div class="ov-project-stat">Pipelines <span class="ov-project-stat-val">' + m.totalPipelines + '</span></div>';
+            html += '<div class="ov-project-stat">Success <span class="ov-project-stat-val" style="color:var(--accent-green);">' + m.successRate + '%</span></div>';
+            html += '<div class="ov-project-stat">Cost <span class="ov-project-stat-val" style="color:var(--accent-gold);">$' + m.totalCost.toFixed(2) + '</span></div>';
+            html += '</div>';
+            html += '</div>';
+        });
+        document.getElementById('ov-project-cards').innerHTML = html;
+
+        // Render mini gauges and progress bars
+        cards.forEach(function(c) {
+            var gaugeEl = document.getElementById('ov-pcard-gauge-' + c.slug);
+            if (gaugeEl) CortexUI.renderGauge(gaugeEl, c.metrics.healthScore, { size: 44, stroke: 3, label: '', animate: true });
+            var barEl = document.getElementById('ov-pcard-bar-' + c.slug);
+            if (barEl) CortexUI.renderSegmentedProgress(barEl, CortexData.computeProgressSegments(c.slug, 'session'), { height: 5 });
+        });
+    }
+
+    // --- Pipeline Orbit ---
+    function renderPipelineOrbit() {
+        var container = document.getElementById('ov-pipeline-orbit');
+        if (!container) return;
+        var pipelines = CortexData.filterPipelines(currentProject === 'all' ? null : currentProject);
+        if (!pipelines.length) {
+            container.innerHTML = '<div style="color:var(--text-faint);font-size:0.72rem;">No pipelines</div>';
+            return;
+        }
+
+        // Take up to 6 most recent pipelines
+        var sorted = pipelines.slice().sort(function(a, b) {
+            return (b.updated_at || b.created_at || '').localeCompare(a.updated_at || a.created_at || '');
+        }).slice(0, 6);
+
+        var size = 220;
+        var cx = size / 2, cy = size / 2;
+        var svg = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">';
+
+        // Draw orbital rings
+        sorted.forEach(function(p, pi) {
+            var r = 30 + pi * 18;
+            svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4 6"/>';
+
+            // Place stage nodes on the ring
+            var stages = p.stages || [];
+            stages.forEach(function(s, si) {
+                var angle = (si / Math.max(1, stages.length)) * 2 * Math.PI - Math.PI / 2;
+                var x = cx + r * Math.cos(angle);
+                var y = cy + r * Math.sin(angle);
+                var color = s.status === 'completed' ? 'var(--accent-green)'
+                    : s.status === 'running' ? 'var(--accent-cyan)'
+                    : s.status === 'failed' ? 'var(--accent-red)'
+                    : 'rgba(255,255,255,0.15)';
+                var nodeR = s.status === 'running' ? 5 : 4;
+
+                svg += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + nodeR + '" fill="' + color + '"';
+                if (s.status === 'running') {
+                    svg += ' opacity="0.9" style="animation:pulse 2s infinite;"';
+                }
+                svg += '><title>' + (s.name || s.label || 'Stage ' + si) + ' — ' + (s.status || 'pending') + '</title></circle>';
+
+                // Glow for running/failed
+                if (s.status === 'running' || s.status === 'failed') {
+                    var glowColor = s.status === 'running' ? 'rgba(94,231,255,0.3)' : 'rgba(255,92,138,0.3)';
+                    svg += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="8" fill="' + glowColor + '" opacity="0.4"/>';
+                }
+            });
+        });
+
+        // Center node
+        svg += '<circle cx="' + cx + '" cy="' + cy + '" r="14" fill="rgba(94,231,255,0.08)" stroke="var(--accent-cyan)" stroke-width="1.5"/>';
+        svg += '<text x="' + cx + '" y="' + (cy + 1) + '" text-anchor="middle" dominant-baseline="middle" font-size="8" fill="var(--accent-cyan)" font-weight="700" font-family="var(--font-mono)">' + sorted.length + '</text>';
+
+        // Labels for pipelines
+        sorted.forEach(function(p, pi) {
+            var r = 30 + pi * 18;
+            var statusColor = p.status === 'completed' ? 'var(--accent-green)'
+                : p.status === 'running' ? 'var(--accent-cyan)'
+                : p.status === 'failed' ? 'var(--accent-red)' : 'var(--text-faint)';
+            svg += '<text x="' + (cx + r + 4) + '" y="' + (cy - 2) + '" font-size="6" fill="' + statusColor + '" font-family="var(--font-mono)" opacity="0.7">' + (p.name || '').substring(0, 12) + '</text>';
+        });
+
+        svg += '</svg>';
+
+        // Legend
+        var legend = '<div style="display:flex;gap:10px;justify-content:center;margin-top:6px;flex-wrap:wrap;">';
+        ['completed','running','failed','pending'].forEach(function(s) {
+            var c = s === 'completed' ? 'var(--accent-green)' : s === 'running' ? 'var(--accent-cyan)' : s === 'failed' ? 'var(--accent-red)' : 'var(--text-faint)';
+            legend += '<span style="font-size:0.55rem;color:var(--text-dim);display:flex;align-items:center;gap:3px;">';
+            legend += '<span style="width:6px;height:6px;border-radius:50%;background:' + c + ';"></span>' + s + '</span>';
+        });
+        legend += '</div>';
+
+        container.innerHTML = svg + legend;
+    }
+
+    // --- Time Range Filter ---
+    function applyTimeRange(items) {
+        var rangeEl = document.getElementById('ov-range-select');
+        var range = rangeEl ? rangeEl.value : 'all';
+        if (range === 'all') return items;
+        var now = Date.now();
+        var cutoff = range === '24h' ? now - 86400000 : now - 604800000; // 24h or 7d
+        return items.filter(function(s) {
+            var t = new Date(s.ended_at || s.started_at || s.created_at || 0).getTime();
+            return t >= cutoff;
+        });
+    }
+
+    // --- Init ---
+    function init() {
+        if (window.ConductorData && window.ConductorData.sessions) {
+            populateProjects();
+            ovRefresh();
+        }
+    }
+
+    window.addEventListener('conductor-data-ready', function() {
+        populateProjects();
+        ovRefresh();
+    });
+
+    // Listen for config changes from Dashboard Builder
+    window.addEventListener('dashboard-config-changed', function(e) {
+        var cfg = e.detail;
+        if (cfg && cfg.project) {
+            var sel = document.getElementById('ov-project-select');
+            if (sel && cfg.project !== 'all' && sel.querySelector('option[value="' + cfg.project + '"]')) {
+                sel.value = cfg.project;
+            } else if (sel && cfg.project === 'all') {
+                sel.value = 'all';
+            }
+        }
+        ovRefresh();
+    });
+
+    init();
+    })();
+    </script>
+</body>
+</html>

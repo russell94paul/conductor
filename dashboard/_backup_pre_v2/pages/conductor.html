@@ -32,7 +32,7 @@
     .cd-title-block { display: flex; flex-direction: column; gap: 1px; }
     .cd-wordmark {
         font-size: 1.1rem; font-weight: 800; letter-spacing: 0.18em;
-        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet), var(--accent-green), var(--accent-cyan));
+        background: linear-gradient(90deg, #38bdf8, #a78bfa, #4ade80, #38bdf8);
         background-size: 300% 100%;
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -173,7 +173,7 @@
         font-size: 0.62rem; position: relative; overflow: hidden;
     }
     .cd-tcard:hover {
-        transform: translateY(-1px); border-color: rgba(94,231,255,0.25);
+        transform: translateY(-1px); border-color: rgba(56,189,248,0.3);
         box-shadow: 0 2px 12px rgba(0,0,0,0.25);
     }
     .cd-tcard-title {
@@ -436,7 +436,7 @@
         margin-top: 4px;
     }
     .cd-dep-env.active-env {
-        border-color: rgba(94,231,255,0.25);
+        border-color: rgba(56,189,248,0.3);
         box-shadow: 0 0 16px rgba(56,189,248,0.1);
     }
     .cd-dep-env.active-env::after {
@@ -466,7 +466,7 @@
         background: rgba(74,222,128,0.04);
     }
     .cd-dep-stage.active-stage {
-        border-color: rgba(94,231,255,0.25);
+        border-color: rgba(56,189,248,0.3);
         background: rgba(56,189,248,0.04);
         animation: sessionRunPulse 3s ease-in-out infinite;
     }
@@ -631,6 +631,10 @@
             <div class="cd-header-right">
                 <select id="cd-project-filter" onchange="loadLiveData()" style="font-size:0.72rem;font-weight:600;padding:5px 10px;border-radius:8px;border:1px solid var(--border-light);background:rgba(255,255,255,0.04);color:var(--text-secondary);cursor:pointer;">
                     <option value="">All Projects</option>
+                    <option value="neurospect">NeuroSpect</option>
+                    <option value="labs-institute">Labs Institute</option>
+                    <option value="groovenet">GrooveNet</option>
+                    <option value="conductor">Conductor</option>
                 </select>
                 <div class="cd-agent-indicator">
                     <span class="cd-agent-dot"></span>
@@ -754,18 +758,6 @@
         plan: 'planning', 'plan-review': 'approvals', implement: 'backend',
         test: 'qa', review: 'code_review', deploy: 'deployment'
     };
-
-    (function() {
-        fetch('/api/projects').then(function(r) { return r.json(); }).then(function(projects) {
-            var sel = document.getElementById('cd-project-filter');
-            projects.forEach(function(p) {
-                var opt = document.createElement('option');
-                opt.value = p.slug;
-                opt.textContent = p.name;
-                sel.appendChild(opt);
-            });
-        }).catch(function() {});
-    })();
 
     function loadLiveData() {
         var project = document.getElementById('cd-project-filter').value;

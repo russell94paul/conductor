@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+    .W{--bg:inherit;--fg:inherit;--gy:#999;--lt:rgba(128,128,128,.08);--bd:var(--glow,rgba(128,128,128,.15));--ac:#2563eb;--gn:#16a34a;--am:#f59e0b;--rd:#dc2626;--pr:#7c3aed;--ff:'Helvetica Neue',Arial,sans-serif;--mn:'Consolas',monospace}
+    .W *{margin:0;padding:0;box-sizing:border-box}
+    .W{font-family:var(--ff);color:inherit;background:inherit;min-height:100vh}
+
+    .W-bar{display:flex;align-items:center;gap:14px;padding:14px 32px;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+    .W-bar label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gy)}
+    .W-sel{padding:9px 14px;border:1px solid var(--bd);border-radius:6px;font-size:.78rem;font-family:var(--ff);font-weight:600;cursor:pointer;min-width:200px;background:rgba(255,255,255,.03);color:inherit;box-shadow:0 0 4px var(--bd)}
+    .W-btn{padding:8px 20px;border:none;border-radius:4px;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;font-family:var(--ff);transition:all .15s}
+    .W-btn-primary{background:var(--ac);color:#fff}.W-btn-primary:hover{opacity:.9}
+    .W-btn-green{background:var(--gn);color:#fff}
+    .W-btn-amber{background:var(--am);color:#fff}
+    .W-btn-ghost{background:none;color:var(--fg);border:1px solid var(--bd)}.W-btn-ghost:hover{border-color:var(--fg)}
+    .W-btn-sm{padding:5px 12px;font-size:.58rem}
+
+    .W-main{padding:24px 32px;max-width:1200px;margin:0 auto}
+    .W-title{font-size:1.1rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+    .W-sub{font-size:.78rem;color:var(--gy);margin-bottom:20px;line-height:1.7}
+
+    /* DAG */
+    .W-dag{position:relative;padding:20px 0}
+    .W-step{display:grid;grid-template-columns:60px 1fr;gap:0;margin-bottom:0;position:relative}
+    .W-step-line{display:flex;flex-direction:column;align-items:center}
+    .W-step-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--bd);background:transparent;z-index:2;transition:all .3s}
+    .W-step-dot.active{border-color:var(--ac);background:var(--ac);box-shadow:0 0 0 4px rgba(37,99,235,.15)}
+    .W-step-dot.done{border-color:var(--gn);background:var(--gn)}
+    .W-step-dot.waiting{border-color:var(--bd);background:transparent}
+    .W-step-connector{width:2px;flex:1;background:var(--bd);min-height:20px;transition:background .3s}
+    .W-step-connector.done{background:var(--gn)}
+    .W-step-connector.active{background:linear-gradient(180deg,var(--ac),var(--bd));animation:flowPulse 2s ease-in-out infinite}
+    @keyframes flowPulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+    .W-step-card{border:1px solid var(--bd);border-radius:10px;padding:20px 24px;margin-bottom:14px;transition:all .2s;position:relative;overflow:hidden;background:rgba(255,255,255,.02);box-shadow:0 0 6px var(--bd)}
+    .W-step-card.active{border-color:var(--ac);box-shadow:0 4px 20px rgba(37,99,235,.08)}
+    .W-step-card.done{border-color:var(--gn);background:rgba(22,163,74,.02)}
+    .W-step-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--bd);transition:background .3s}
+    .W-step-card.active::before{background:var(--ac)}
+    .W-step-card.done::before{background:var(--gn)}
+
+    .W-step-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .W-step-name{font-size:.85rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+    .W-step-num{font-size:.62rem;font-family:var(--mn);color:var(--gy)}
+    .W-step-desc{font-size:.75rem;color:var(--gy);line-height:1.7;margin-bottom:12px}
+
+    /* AI suggestion */
+    .W-ai{background:rgba(37,99,235,.04);border:1px solid var(--bd);border-radius:8px;padding:14px 18px;margin-bottom:12px;font-size:.75rem;line-height:1.7;position:relative;animation:fadeSlide .4s ease;box-shadow:0 0 6px var(--bd)}
+    .W-ai-tag{font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+    .W-ai-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--ac);animation:pulseGlow 1.5s ease-in-out infinite}
+    .W-ai-text{color:inherit;opacity:.7}
+    .W-ai-options{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+    .W-ai-opt{padding:4px 12px;border:1px solid rgba(37,99,235,.2);border-radius:20px;font-size:.6rem;font-weight:600;color:var(--ac);cursor:pointer;transition:all .15s}
+    .W-ai-opt:hover{background:rgba(37,99,235,.08);border-color:var(--ac)}
+    .W-ai-opt.selected{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+    @keyframes fadeSlide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulseGlow{0%,100%{opacity:1}50%{opacity:.4}}
+
+    /* User input */
+    .W-input-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+    .W-input{padding:10px 14px;border:1px solid var(--bd);border-radius:6px;font-size:.82rem;font-family:var(--ff);background:rgba(255,255,255,.03);color:inherit;box-shadow:0 0 4px var(--bd)}
+    .W-input:focus{outline:none;border-color:var(--ac)}
+    .W-input-label{font-size:.55rem;font-weight:700;color:var(--gy);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;display:block}
+
+    /* Results */
+    .W-results{border:1px solid var(--bd);border-radius:10px;padding:24px;margin-top:20px}
+    .W-results-title{font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+    .W-kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+    .W-kpi{text-align:center;padding:14px;background:rgba(128,128,128,.06);border-radius:8px}
+    .W-kpi-val{font-size:1.4rem;font-weight:200;font-family:var(--mn)}
+    .W-kpi-label{font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gy);margin-top:4px}
+
+    /* Comparison table */
+    .W-compare{width:100%;border-collapse:collapse;font-size:.72rem;margin:14px 0}
+    .W-compare th{text-align:left;padding:10px;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gy);border-bottom:2px solid var(--fg)}
+    .W-compare td{padding:10px;border-bottom:1px solid var(--bd)}
+    .W-compare tr:hover td{background:rgba(128,128,128,.06)}
+    .W-compare .best{font-weight:700;color:var(--gn)}
+    .W-compare .worst{color:var(--rd)}
+
+    /* Chart bars */
+    .W-chart{display:flex;align-items:flex-end;gap:4px;height:100px;margin:10px 0}
+    .W-chart-bar{flex:1;border-radius:4px 4px 0 0;transition:height .5s;position:relative;min-width:20px}
+    .W-chart-bar-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:.5rem;color:var(--gy);white-space:nowrap}
+    .W-chart-bar-val{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:.55rem;font-weight:700;font-family:var(--mn);white-space:nowrap}
+
+    /* Library */
+    .W-lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:14px}
+    .W-lib-card{border:1px solid var(--bd);border-radius:8px;padding:16px;cursor:pointer;transition:border-color .15s}
+    .W-lib-card:hover{border-color:var(--ac)}
+    .W-lib-card-name{font-size:.75rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+    .W-lib-card-meta{font-size:.6rem;color:var(--gy)}
+    .W-lib-card-kpis{display:flex;gap:10px;margin-top:8px;font-size:.6rem;color:var(--gy)}
+    .W-lib-card-kpis span{font-weight:700;color:var(--fg)}
+
+    /* Optimizer */
+    .W-opt{background:rgba(128,128,128,.06);border:1px solid var(--bd);border-radius:10px;padding:20px;margin-top:16px}
+    .W-opt-title{font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+    .W-opt-progress{height:6px;background:var(--bd);border-radius:3px;overflow:hidden;margin:10px 0}
+    .W-opt-fill{height:100%;background:var(--ac);border-radius:3px;transition:width .3s;width:0}
+
+    .W-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--bd)}
+    .W-action-item{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--bd);border-radius:6px;font-size:.68rem;width:100%;margin-bottom:4px}
+    .W-action-pri{font-size:.5rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:10px;flex-shrink:0}
+    .W-action-pri.p1{background:rgba(220,38,38,.08);color:var(--rd)}
+    .W-action-pri.p2{background:rgba(245,158,11,.08);color:var(--am)}
+    .W-action-pri.p3{background:rgba(37,99,235,.08);color:var(--ac)}
+
+    /* Timeline progress bar */
+    .W-timeline{margin:16px 0;padding:14px 18px;background:rgba(128,128,128,.06);border-radius:8px;border:1px solid var(--bd)}
+    .W-timeline-title{font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gy);margin-bottom:8px;display:flex;justify-content:space-between}
+    .W-timeline-bar{display:flex;height:28px;border-radius:6px;overflow:hidden;background:var(--bd)}
+    .W-timeline-seg{display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;transition:all .5s;position:relative;overflow:hidden}
+    .W-timeline-seg.done{opacity:1}
+    .W-timeline-seg.active{animation:segPulse 2s ease-in-out infinite}
+    .W-timeline-seg.future{opacity:.3}
+    @keyframes segPulse{0%,100%{opacity:1}50%{opacity:.7}}
+    .W-timeline-info{display:flex;justify-content:space-between;margin-top:6px;font-size:.6rem}
+    .W-timeline-status{font-weight:700;display:flex;align-items:center;gap:6px}
+    .W-timeline-status .dot{width:8px;height:8px;border-radius:50%}
+    .W-timeline-eta{color:var(--gy);font-family:var(--mn)}
+
+    @media(max-width:768px){
+        .W-bar{padding:10px 16px}.W-main{padding:16px}
+        .W-input-row{grid-template-columns:1fr}
+        .W-kpi-row{grid-template-columns:1fr 1fr}
+    }
+</style>
+</head>
+<body>
+<div class="W">
+    <div class="W-bar">
+        <div><label>User</label><br>
+            <select class="W-sel" id="wf-user" onchange="loadWorkflows()">
+                <option value="founder">Founder</option>
+                <option value="dj">DJ</option>
+            </select></div>
+        <div><label>Workflow</label><br>
+            <select class="W-sel" id="wf-select" onchange="loadWorkflow()"></select></div>
+        <div><label>Optimize For</label><br>
+            <select class="W-sel" id="wf-optimize">
+                <option value="revenue">Revenue</option>
+                <option value="growth">Social Growth</option>
+                <option value="bookings">Bookings</option>
+                <option value="time">Time Efficiency</option>
+                <option value="brand">Brand Impact</option>
+            </select></div>
+        <div><label>Simulations</label><br>
+            <select class="W-sel" id="wf-sims" style="min-width:80px">
+                <option value="3">3</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select></div>
+        <div style="display:flex;gap:6px;margin-top:14px">
+            <button class="W-btn W-btn-primary" onclick="runWorkflow()">Run Workflow</button>
+            <button class="W-btn W-btn-green" onclick="runOptimizer()">Optimize</button>
+            <button class="W-btn W-btn-ghost" onclick="showLibrary()">Library</button>
+            <button class="W-btn W-btn-amber" onclick="toggleBuilder()">AI Builder</button>
+        </div>
+    </div>
+
+    <div class="W-main" id="wf-main">
+        <!-- AI Workflow Builder -->
+        <div id="wf-builder" style="display:none;margin-bottom:24px">
+            <div class="W-title">AI Workflow Builder</div>
+            <div class="W-sub">Describe what you want to accomplish — Lab-Intelligence will generate a custom workflow you can edit and run.</div>
+            <div style="border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-top:12px;box-shadow:0 0 8px var(--bd);background:rgba(255,255,255,.02)">
+                <div style="padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px">
+                    <div style="width:8px;height:8px;border-radius:50%;background:var(--gn);animation:flowPulse 2s ease-in-out infinite"></div>
+                    <span style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gy)">Lab-Intelligence — Workflow Builder</span>
+                </div>
+                <div id="builder-msgs" style="padding:16px 18px;min-height:160px;max-height:300px;overflow-y:auto">
+                    <div style="padding:12px 16px;background:rgba(128,128,128,.06);border:1px solid var(--bd);border-radius:8px;font-size:.78rem;color:inherit;opacity:.85;line-height:1.8">What would you like to accomplish?<br><br>Examples:<br>• "Plan a tour across Berlin, Amsterdam and Paris"<br>• "Grow from 1K to 10K Instagram followers"<br>• "Onboard a new DJ to the roster"<br>• "Plan a label showcase event"</div>
+                </div>
+                <div style="padding:12px 16px;border-top:1px solid var(--bd);display:flex;gap:8px">
+                    <input id="builder-input" class="W-input" style="flex:1" placeholder="Describe your goal..." onkeydown="if(event.key==='Enter')buildWorkflow()">
+                    <button class="W-btn W-btn-primary" onclick="buildWorkflow()">Build</button>
+                </div>
+            </div>
+            <div id="builder-result" style="margin-top:12px"></div>
+        </div>
+
+        <!-- Roster context — loaded from API -->
+        <div id="wf-roster-context" style="margin-bottom:16px"></div>
+
+        <div class="W-title" id="wf-title">Select a workflow to begin</div>
+        <div class="W-sub" id="wf-sub">Choose a user role and workflow from the dropdowns above, then click Run Workflow. Or click AI Builder to create a custom workflow.</div>
+        <div id="wf-dag"></div>
+        <div id="wf-results"></div>
+        <div id="wf-compare"></div>
+        <div id="wf-library" style="display:none"></div>
+    </div>
+</div>
+
+<script>
+(function(){
+    var WORKFLOWS={
+        founder:[
+            {id:'book-dj',name:'Book a DJ for an Event',desc:'End-to-end booking workflow from inquiry to post-event review.',
+                steps:[
+                    {name:'Receive Inquiry',desc:'Promoter contacts Labs about booking a DJ for their event.',inputs:[{id:'venue',label:'Venue',ph:'e.g. Printworks London',ai:'Printworks London (3,000 cap, techno Fridays)'},{id:'date',label:'Event Date',ph:'2026-07-15',ai:'2026-07-15'},{id:'budget',label:'Promoter Budget (£)',ph:'1500',ai:'£1,200-1,800 range for this venue'}],aiSuggest:'Based on Lab-Wiki: Printworks books headliners at £1-3K, support at £400-800. Luciid\'s tier qualifies for headline support or co-headline.',aiOptions:['Quote £1,200','Quote £1,500','Quote £1,800','Custom']},
+                    {name:'Match DJ to Event',desc:'Select the best DJ based on genre, availability, and venue fit.',inputs:[{id:'dj',label:'DJ',ph:'Luciid',ai:'Luciid (best match: genre fit 92%, venue history: played similar 3x)'},{id:'slot',label:'Set Slot',ph:'Support',ai:'Co-headline (11pm-1am) — optimal for his energy level'}],aiSuggest:'Lab-Intelligence match score: Luciid 92% fit. Genre alignment: Hard Techno maps to Printworks Friday crowd. He\'s played 3 similar-size venues this year. Available on date.',aiOptions:['Luciid (92% match)','Per Pleks (78% match)','Custom']},
+                    {name:'Generate Quote',desc:'Create a pricing quote based on market data and DJ tier.',inputs:[{id:'fee',label:'Quoted Fee (£)',ph:'1500',ai:'£1,500 (market rate for tier + venue)'},{id:'commission',label:'Commission %',ph:'10',ai:'10% standard'}],aiSuggest:'Pricing analysis: Similar acts at Printworks quoted £1,200-1,800 in Q1 2026. Luciid\'s Beatport #15 charting and 54K IG justify upper range. Recommend: £1,500. Commission: £150.',aiOptions:['£1,200 (conservative)','£1,500 (recommended)','£1,800 (premium)']},
+                    {name:'Send Contract',desc:'Generate and send the booking contract.',inputs:[{id:'terms',label:'Special Terms',ph:'Travel + hotel included',ai:'Travel + hotel covered by promoter (standard for London venues)'},{id:'deposit',label:'Deposit %',ph:'50',ai:'50% upfront, 50% on event day'}],aiSuggest:'Contract template: Standard DJ Booking Agreement. Auto-filled with venue, date, fee, and DJ details. Digital signature via email link.',aiOptions:['Standard terms','Add rider clause','Custom']},
+                    {name:'Confirm Booking',desc:'Contract signed, deposit received, booking confirmed.',inputs:[{id:'depositPaid',label:'Deposit Received',ph:'Yes',ai:'£750 deposit confirmed'},{id:'logistics',label:'Logistics Notes',ph:'',ai:'Sound check 6pm, doors 10pm, set: 11pm-1am'}],aiSuggest:'Checklist: Contract signed ✓, Deposit £750 received ✓, Travel booked ✓, Rider confirmed ✓. Add to event calendar.',aiOptions:['All confirmed','Chase deposit','Reschedule']},
+                    {name:'Event Day',desc:'Event happens — monitor and support.',inputs:[{id:'attendance',label:'Attendance',ph:'2800',ai:'~2,800 estimated (93% capacity)'},{id:'recording',label:'Set Recorded?',ph:'Yes',ai:'Yes — record for SoundCloud upload'}],aiSuggest:'Reminder sent to Luciid: bring USB backup, CDJs are Pioneer 3000s (from Lab-Wiki venue profile). Post BTS content during set for social engagement.',aiOptions:['Event smooth','Issue flagged']},
+                    {name:'Post-Event Review',desc:'Collect outcomes, payment, and learnings.',inputs:[{id:'finalPaid',label:'Final Payment (£)',ph:'750',ai:'£750 final payment received'},{id:'rating',label:'Event Rating (1-5)',ph:'4',ai:'4.5 — strong crowd response, 2 rebooking inquiries generated'}],aiSuggest:'Post-mortem: Attendance 93% capacity. 2 new booking inquiries from promoters at event. SoundCloud set uploaded within 48hrs → +3K plays in first week. Recommend: Follow up with rebooking inquiries within 72hrs.',aiOptions:['Great outcome','Average','Below expectations']}
+                ]},
+            {id:'onboard-dj',name:'Onboard a New DJ',desc:'From first contact to fully set up on the platform.',
+                steps:[
+                    {name:'Initial Contact',desc:'DJ reaches out or is scouted.',inputs:[{id:'djName',label:'DJ Name',ph:'',ai:'Check socials and streaming stats before responding'},{id:'source',label:'Source',ph:'Instagram DM',ai:'Instagram DM (most common)'}],aiSuggest:'Before responding, Lab-Intelligence will auto-scan their socials: follower count, engagement rate, SoundCloud plays, genre alignment with Labs roster.',aiOptions:['Review application','Scout proactively','Referral']},
+                    {name:'Evaluate Fit',desc:'Assess if the DJ aligns with Labs\' roster and values.',inputs:[{id:'genre',label:'Genre Fit',ph:'Hard Techno',ai:'Hard Techno — aligns with roster'},{id:'tier',label:'Assessed Tier',ph:'Emerging',ai:'Emerging — based on social metrics'}],aiSuggest:'Lab-Intelligence tier assessment: IG <1K, SC <500 plays/mo, 2 gigs total → Emerging tier. Genre fit: 85% alignment with current roster. Growth potential: HIGH based on content quality.',aiOptions:['Strong fit','Moderate fit','Not aligned']},
+                    {name:'Agreement & Terms',desc:'Agree on management terms and commission.',inputs:[{id:'commRate',label:'Commission %',ph:'10',ai:'10% (standard for emerging tier)'},{id:'exclusivity',label:'Exclusivity',ph:'Non-exclusive',ai:'Non-exclusive initially, review after 6 months'}],aiSuggest:'For emerging DJs: start non-exclusive at 10%. Include 6-month review clause. Lower commitment = easier sign, builds trust for future exclusive deal.',aiOptions:['10% non-exclusive','15% exclusive','Custom']},
+                    {name:'Profile Setup',desc:'Create DJ profile on the platform.',inputs:[{id:'bio',label:'Bio Written',ph:'Yes',ai:'AI-draft bio from their existing socials + interview'},{id:'photos',label:'Photos Received',ph:'3 photos',ai:'Need: 1 headshot, 1 action shot, 1 lifestyle'}],aiSuggest:'Auto-generate draft bio from Instagram bio + SoundCloud description + any press. Schedule a 15-min call to refine and capture their story.',aiOptions:['Auto-generate bio','Manual write','Schedule call']},
+                    {name:'Set Goals',desc:'Define 90-day growth targets.',inputs:[{id:'gigTarget',label:'Gig Target (90 days)',ph:'6',ai:'6 gigs (2/month for emerging tier)'},{id:'igTarget',label:'IG Growth Target',ph:'+500',ai:'+500 followers in 90 days (realistic for emerging)'}],aiSuggest:'Lab-Intelligence benchmarks for emerging tier: 2 gigs/month achievable, +500 IG followers with 3x/week posting. Set first milestone review at 30 days.',aiOptions:['Conservative targets','Ambitious targets','Custom']}
+                ]},
+            {id:'marketing-campaign',name:'Run a Marketing Campaign',desc:'Plan, execute, and measure a social media campaign.',
+                steps:[
+                    {name:'Define Campaign',desc:'Set the goal, audience, and timeline.',inputs:[{id:'goal',label:'Campaign Goal',ph:'Promote new release',ai:'Promote Luciid\'s new single — target 50K streams in 2 weeks'},{id:'duration',label:'Duration (days)',ph:'14',ai:'14 days (optimal for single release)'}],aiSuggest:'Best campaign types by ROI: release promo (highest), event promo (high), brand awareness (medium). For a single release, 14-day campaign with teaser → drop → sustain cadence.',aiOptions:['Release promo','Event promo','Brand awareness']},
+                    {name:'Create Content',desc:'Plan and produce content pieces.',inputs:[{id:'pieces',label:'Content Pieces',ph:'8',ai:'8 pieces: 2 teasers, 1 announcement, 3 clips, 1 BTS, 1 review'},{id:'platforms',label:'Platforms',ph:'IG, SC, Spotify',ai:'Instagram (primary), SoundCloud, Spotify'}],aiSuggest:'Content mix that performs best for releases: short video teasers get 3x reach vs static images. Post at 7pm weekdays, 2pm weekends for UK electronic music audience.',aiOptions:['Video-heavy','Mix of formats','Static + stories']},
+                    {name:'Schedule & Post',desc:'Schedule content across platforms.',inputs:[{id:'scheduled',label:'Posts Scheduled',ph:'8',ai:'All 8 scheduled across 14 days'},{id:'spend',label:'Paid Promotion (£)',ph:'50',ai:'£50 Instagram boost on announcement post'}],aiSuggest:'Optimal posting schedule: Day 1 teaser, Day 3 teaser 2, Day 5 announcement, Day 6-10 clips daily, Day 12 BTS, Day 14 recap. Boost the announcement post (£50 reaches ~15K).',aiOptions:['Organic only','£50 boost','£100 boost']},
+                    {name:'Monitor & Adjust',desc:'Track performance and adjust.',inputs:[{id:'reach',label:'Total Reach',ph:'45000',ai:'~45K reach across platforms'},{id:'engagement',label:'Engagement Rate',ph:'4.2%',ai:'4.2% (above 3% benchmark)'}],aiSuggest:'Day 7 check: reach is at 60% of target. Engagement 4.2% (above benchmark). SoundCloud plays at 28K. Recommend: boost the best-performing clip for remaining budget.',aiOptions:['On track','Underperforming — adjust','Overperforming — scale']},
+                    {name:'Results & Learnings',desc:'Measure outcomes and capture learnings.',inputs:[{id:'streams',label:'Total Streams',ph:'52000',ai:'52K streams (exceeded 50K target)'},{id:'igGrowth',label:'IG Followers Gained',ph:'800',ai:'+800 followers during campaign'}],aiSuggest:'Campaign ROI: 52K streams on £50 spend = £0.001/stream. IG growth +800 (2x organic rate). Top performing content: 15s studio clip (18K views). Save to Lab-Wiki: video teasers 3x more effective than static for this audience.',aiOptions:['Exceeded target','Met target','Below target']}
+                ]},
+            {id:'gig-logistics',name:'Gig Day Logistics Planner',desc:'End-to-end logistics from home to venue to gig to return — optimised for timing, transport, and costs.',
+                isTimeline:true,
+                steps:[
+                    {name:'Plan Journey',desc:'Calculate travel from DJ\'s current location to the venue city.',
+                        timeMin:0,durationMin:30,color:'var(--ac)',
+                        inputs:[{id:'origin',label:'Departing From',ph:'Manchester',ai:'Manchester (home base)'},{id:'destination',label:'Venue City',ph:'Berlin',ai:'Berlin, Germany'},{id:'travellers',label:'Number Travelling',ph:'2',ai:'2 (DJ + tour manager)'},{id:'gigDate',label:'Gig Date',ph:'2026-07-15',ai:'2026-07-15'},{id:'setTime',label:'Set Time',ph:'01:00',ai:'01:00 (1am)'}],
+                        aiSuggest:'Route options from Manchester to Berlin:\n1. Flight MAN→BER: 2hr flight + 1hr each side = 4hr total. ~£120pp return (Ryanair/easyJet). Book 3+ weeks out.\n2. Eurostar + train: 8-10hrs. ~£180pp return. More flexible luggage.\n3. Drive: 10hrs. ~£150 fuel + tolls + ferry/tunnel.\n\nRecommendation: Fly — cheapest and fastest for 2 people. Depart morning of gig day for same-day return possible, or arrive day before for comfort.',
+                        aiOptions:['Fly (recommended, £240 total)','Train (£360 total)','Drive (£150 + ferry)','Arrive day before']},
+                    {name:'Book Transport',desc:'Book flights/trains and transfers.',
+                        timeMin:30,durationMin:20,color:'var(--pr)',
+                        inputs:[{id:'transport',label:'Transport Type',ph:'Flight',ai:'Flight MAN→BER (easyJet 07:15→10:30)'},{id:'cost',label:'Transport Cost (£)',ph:'240',ai:'£240 (2x return @ £120pp)'},{id:'transferToVenue',label:'Airport → Venue Transfer',ph:'Taxi',ai:'S-Bahn + U-Bahn: £6pp (45min) or Taxi: £35 (25min)'}],
+                        aiSuggest:'Best flight: easyJet MAN 07:15 → BER 10:30 (local time). Return: BER 14:00 next day → MAN 15:15. Total transport: £240 flights + £12 public transport = £252. Alternative: taxi from airport £35 (saves 20min, worth it if tight on time).',
+                        aiOptions:['Public transport (£12)','Taxi (£35)','Private transfer (£60)']},
+                    {name:'Book Accommodation',desc:'Arrange overnight stay if needed.',
+                        timeMin:50,durationMin:15,color:'var(--am)',
+                        inputs:[{id:'hotel',label:'Accommodation',ph:'Hotel near venue',ai:'Generator Berlin Mitte — £45/room/night (1.2km from OST)'},{id:'accomCost',label:'Cost (£)',ph:'90',ai:'£90 (1 twin room, 1 night)'},{id:'checkin',label:'Check-in Time',ph:'14:00',ai:'14:00 (drop bags before exploring)'}],
+                        aiSuggest:'Options near OST Berlin:\n1. Generator Mitte: £45/night twin (1.2km, 15min walk) — budget, social vibe\n2. Motel One Alexanderplatz: £75/night (2km, good transport) — reliable mid-range\n3. Request promoter covers hotel (standard for international bookings)\n\nLab-Wiki note: Last Berlin trip, promoter covered accommodation. Check contract.',
+                        aiOptions:['Budget hostel (£45)','Mid-range hotel (£75)','Promoter covers','Airbnb']},
+                    {name:'Arrive & Check In',desc:'Land, transfer to accommodation, settle in.',
+                        timeMin:65,durationMin:60,color:'var(--gn)',
+                        inputs:[{id:'arrivalTime',label:'Arrival Time (local)',ph:'10:30',ai:'10:30 Berlin time'},{id:'checkedIn',label:'Checked In By',ph:'12:00',ai:'12:00 — bags dropped, freshened up'}],
+                        aiSuggest:'Timeline: Land 10:30 → baggage 10:50 → S-Bahn to Mitte 11:35 → check in 12:00. You have 6 hours free before needing to head to venue. Suggestions: explore record shops (Hard Wax is 20min away), eat at Markthalle Neun, rest before set.',
+                        aiOptions:['Explore city','Rest at hotel','Meet local contacts','Record shop visit']},
+                    {name:'Pre-Gig Prep',desc:'Final preparation before heading to venue.',
+                        timeMin:125,durationMin:90,color:'#14b8a6',
+                        inputs:[{id:'prepStart',label:'Start Prep Time',ph:'21:00',ai:'21:00 (4hrs before set)'},{id:'usbsChecked',label:'USBs Checked',ph:'Yes',ai:'Yes — 2 USBs prepared, backup tracks on phone'},{id:'outfitReady',label:'Outfit Ready',ph:'Yes',ai:'Yes'},{id:'recording',label:'Recording Equipment',ph:'USB recorder',ai:'Zoom H6 recorder + phone backup'}],
+                        aiSuggest:'Pre-gig checklist:\n✓ 2x USB sticks (different track selections)\n✓ Headphones + adapter\n✓ Recording device (dual record: dedicated + phone)\n✓ Phone charger / battery pack\n✓ Comfortable shoes (2hr set)\n✓ Earplugs\n✓ Water bottle\n✓ Cash for incidentals\n\nMental prep: review venue sound profile from Lab-Wiki. OST has Funktion-One — your tracks sound best with sub-bass emphasis.',
+                        aiOptions:['All prepared','Need to sort USBs','Equipment issue']},
+                    {name:'Travel to Venue',desc:'Get from accommodation to the venue.',
+                        timeMin:215,durationMin:30,color:'var(--ac)',
+                        inputs:[{id:'departHotel',label:'Leave Hotel',ph:'23:30',ai:'23:30 (90min before set for buffer)'},{id:'venueTransport',label:'Transport',ph:'Taxi',ai:'Taxi — £12, 15min (reliable, no waiting for trains)'},{id:'arriveVenue',label:'Arrive Venue',ph:'23:45',ai:'23:45'}],
+                        aiSuggest:'Leave hotel at 23:30 for 01:00 set. Taxi is £12 (15min). Public transport: U-Bahn runs until 00:30 on weekends, £3 but 25min with a change.\n\nRecommend taxi — guaranteed timing, no stress before set. Arrive 23:45, giving 75min buffer for sound check, networking, settling in.',
+                        aiOptions:['Taxi (£12, 15min)','U-Bahn (£3, 25min)','Walk (free, 20min)']},
+                    {name:'Sound Check & Setup',desc:'Arrive at venue, check equipment, meet promoter.',
+                        timeMin:245,durationMin:45,color:'#ec4899',
+                        inputs:[{id:'soundCheck',label:'Sound Check Done',ph:'Yes',ai:'Yes — levels checked, monitor adjusted'},{id:'metPromoter',label:'Met Promoter',ph:'Yes',ai:'Yes — introduced, confirmed set time and duration'},{id:'greenRoom',label:'Green Room Available',ph:'Yes',ai:'Yes — backstage with water and towels'}],
+                        aiSuggest:'Arrival protocol:\n1. Find promoter/stage manager — confirm set time, duration, any changes\n2. Check CDJs — model, firmware, USB compatibility\n3. Test your first track at low volume — check levels\n4. Set up recording device\n5. Get water for the booth\n6. Network — meet other DJs, photographer, venue staff\n\nLab-Wiki: OST uses Pioneer CDJ-3000s + DJM-900NXS2. Your USBs are compatible.',
+                        aiOptions:['All good','CDJ issue','Schedule change']},
+                    {name:'Perform Set',desc:'Play the set — this is what it\'s all about.',
+                        timeMin:290,durationMin:120,color:'var(--gn)',
+                        inputs:[{id:'setStart',label:'Actual Start Time',ph:'01:00',ai:'01:00 (on schedule)'},{id:'setEnd',label:'Set End Time',ph:'03:00',ai:'03:00'},{id:'crowdPeak',label:'Crowd Peak',ph:'02:00',ai:'02:00-02:30 (peak energy)'},{id:'recording2',label:'Recording Running',ph:'Yes',ai:'Yes — Zoom H6 recording clean audio'}],
+                        aiSuggest:'Set strategy for OST Berlin (from Lab-Intelligence):\n• Start 138 BPM, build to 148 by hour 2\n• Your top tracks for this venue type: "Charm", "Paro Hour VIP", "Dark Core"\n• Drop 2-3 unreleased tracks mid-set (crowd testing)\n• Peak energy window: 02:00-02:30 based on venue data\n• End with a memorable closer — leave them wanting more\n\nRemember: hit record on Zoom before first track!',
+                        aiOptions:['Followed plan','Went harder','Read the room']},
+                    {name:'Post-Set Wind Down',desc:'After the set — networking, pack up, head back.',
+                        timeMin:410,durationMin:60,color:'var(--pr)',
+                        inputs:[{id:'networking',label:'Networking Done',ph:'Yes',ai:'Met 3 promoters, exchanged contacts'},{id:'packedUp',label:'Equipment Packed',ph:'Yes',ai:'Yes — recording device secured'},{id:'departVenue',label:'Leave Venue',ph:'04:00',ai:'04:00'}],
+                        aiSuggest:'Post-set priorities:\n1. Stop recording, check file saved properly\n2. Thank the promoter — ask for feedback and photos\n3. Network: exchange details with other DJs and promoters\n4. Post a story/photo from the booth (real-time engagement)\n5. Pack equipment carefully (don\'t lose cables in the dark)\n6. Arrange transport back — pre-book a taxi or check night bus\n\nDon\'t stay too late — you have a flight tomorrow.',
+                        aiOptions:['Left by 4am','Stayed until close','Left early']},
+                    {name:'Return to Hotel',desc:'Transport back to accommodation for rest.',
+                        timeMin:470,durationMin:30,color:'var(--am)',
+                        inputs:[{id:'returnTransport',label:'Transport Back',ph:'Taxi',ai:'Taxi — £15 (surge pricing at 4am)'},{id:'arriveHotel',label:'Arrive Hotel',ph:'04:20',ai:'04:20'},{id:'sleepBy',label:'Sleep By',ph:'05:00',ai:'05:00 (aim for 6-7hrs before checkout)'}],
+                        aiSuggest:'At 4am in Berlin: taxi is the only reliable option (£15 with surge). U-Bahn night service runs but adds 30min. You need sleep before your 14:00 flight.\n\nTimeline: arrive hotel 04:20, wind down 30min, sleep 05:00-11:00 (6hrs). Checkout 12:00, airport by 13:00.',
+                        aiOptions:['Taxi (£15)','Night bus (£3)','Walk (free, 20min)']},
+                    {name:'Journey Home',desc:'Check out, travel to airport, fly home.',
+                        timeMin:500,durationMin:120,color:'var(--ac)',
+                        inputs:[{id:'checkout',label:'Hotel Checkout',ph:'12:00',ai:'12:00'},{id:'atAirport',label:'At Airport By',ph:'13:00',ai:'13:00 (1hr before flight)'},{id:'landHome',label:'Land Home',ph:'15:15',ai:'15:15 Manchester time'},{id:'homeBy',label:'Home By',ph:'16:30',ai:'16:30'}],
+                        aiSuggest:'Return timeline:\n12:00 checkout → 12:15 taxi to BER (£15) → 12:45 arrive airport → 14:00 flight → 15:15 land MAN → 15:45 baggage → 16:30 home\n\nTotal trip: ~31 hours door-to-door. Factor in recovery day tomorrow.',
+                        aiOptions:['Smooth journey','Delayed flight','Extended stay']},
+                    {name:'Post-Trip Summary',desc:'Log costs, outcomes, and learnings.',
+                        timeMin:620,durationMin:30,color:'var(--gn)',
+                        inputs:[{id:'totalCost',label:'Total Trip Cost (£)',ph:'432',ai:'£432 (flights £240 + hotel £90 + transport £57 + food £45)'},{id:'fee',label:'DJ Fee (£)',ph:'1500',ai:'£1,500'},{id:'profit',label:'Net Profit (£)',ph:'1068',ai:'£1,068 (fee minus costs)'},{id:'rating',label:'Gig Rating (1-5)',ph:'4.5',ai:'4.5'},{id:'contacts',label:'New Contacts Made',ph:'3',ai:'3 promoters'}],
+                        aiSuggest:'Trip summary:\n• Fee: £1,500 | Costs: £432 | Net profit: £1,068\n• Commission (10%): £150 | DJ net: £918 | Labs net: £150\n• ROI: 247% (profit/costs)\n• New contacts: 3 promoters (potential 2-3 future bookings)\n• Recording: upload to SoundCloud within 48hrs\n• Action: follow up with Berlin promoters within 72hrs\n\nSave venue profile update to Lab-Wiki: OST Berlin — confirmed Funktion-One, peak at 2am, crowd prefers 140+ BPM.',
+                        aiOptions:['Profitable trip','Break even','Loss (review pricing)']}
+                ]}
+        ],
+        dj:[
+            {id:'prep-gig',name:'Prepare for a Gig',desc:'Everything to do before, during, and after a performance.',
+                steps:[
+                    {name:'Review Gig Brief',desc:'Check venue details, set time, and crowd profile.',inputs:[{id:'venue',label:'Venue',ph:'OST Berlin',ai:'OST Berlin — 500 cap, Funktion-One, techno crowd'},{id:'setTime',label:'Set Time',ph:'1am-3am',ai:'1am-3am (peak slot)'}],aiSuggest:'Lab-Wiki venue profile: OST Berlin. 500 cap. Sound: Funktion-One. Crowd prefers 140+ BPM after midnight. Previous sets by similar artists averaged 145 BPM. Bring USB backup.',aiOptions:['Review venue profile','Request more info','Confirm details']},
+                    {name:'Prepare Set',desc:'Select tracks and plan the set.',inputs:[{id:'bpm',label:'BPM Range',ph:'142-150',ai:'142-150 BPM (optimal for this venue/timeslot)'},{id:'duration',label:'Set Duration (hrs)',ph:'2',ai:'2 hours'}],aiSuggest:'Based on Lab-Intelligence analysis of your top 10 sets: your highest-rated sets start at 138 BPM and build to 148 by the last 30 mins. Include 2-3 of your own tracks for brand reinforcement.',aiOptions:['Follow AI suggestion','Freestyle','Themed set']},
+                    {name:'Day of Event',desc:'Travel, sound check, and preparation.',inputs:[{id:'arrival',label:'Arrival Time',ph:'11pm',ai:'11pm (1hr before set for sound check)'},{id:'recording',label:'Recording Setup',ph:'USB recorder',ai:'USB recorder + phone backup (always dual record)'}],aiSuggest:'Checklist: USB sticks (2x, different tracks) ✓, Headphones ✓, Phone charger ✓, Recording device ✓, Comfortable shoes ✓. Post a "doors open" story for engagement.',aiOptions:['All prepared','Need to sort recording','Travel issues']},
+                    {name:'Post-Gig Log',desc:'Record what happened for Lab-Intelligence.',inputs:[{id:'crowdResponse',label:'Crowd Response (1-5)',ph:'4',ai:'4 — strong energy throughout'},{id:'recordingUploaded',label:'Recording Uploaded',ph:'Yes',ai:'Upload to SoundCloud within 48hrs for maximum engagement'}],aiSuggest:'Action items: 1) Upload recording to SoundCloud with tracklist. 2) Post 3 photos/clips from the night. 3) Thank the promoter publicly. 4) DM any new connections made. Lab-Intelligence will track the impact on your metrics.',aiOptions:['Great set','Average','Below par']}
+                ]},
+            {id:'grow-social',name:'Weekly Social Media Routine',desc:'Consistent content posting to grow your audience.',
+                steps:[
+                    {name:'Content Audit',desc:'Review what you have to post this week.',inputs:[{id:'content',label:'Content Available',ph:'2 videos, 3 photos',ai:'2 videos from last gig, 3 studio photos, 1 mix snippet'},{id:'releases',label:'Upcoming Releases',ph:'None this week',ai:'New remix dropping next Friday — tease it mid-week'}],aiSuggest:'Your top-performing content types: BTS studio clips (2.4x engagement), live set snippets (1.8x), personal/lifestyle (1.5x). Flyer reposts perform worst. This week: lead with studio clip, save gig footage for Thursday.',aiOptions:['Follow AI plan','Custom schedule','Skip this week']},
+                    {name:'Schedule Posts',desc:'Plan what goes out and when.',inputs:[{id:'posts',label:'Posts This Week',ph:'5',ai:'5 posts: Mon studio, Wed tease, Thu gig clip, Sat mix, Sun story'},{id:'times',label:'Best Post Times',ph:'7pm weekdays',ai:'7pm Mon-Fri, 2pm Sat-Sun (your audience peak times)'}],aiSuggest:'Optimal schedule based on your audience analytics: Mon 7pm (studio BTS), Wed 7pm (remix teaser), Thu 8pm (gig clip), Sat 2pm (mix upload), Sun 12pm (story recap). Use 3-5 hashtags max, include #hardtechno #techno.',aiOptions:['5 posts (recommended)','3 posts (minimum)','Daily posting']},
+                    {name:'Engage & Network',desc:'Respond to comments and connect.',inputs:[{id:'engagement',label:'Time Spent (min)',ph:'30',ai:'30 mins/day on engagement (reply to every comment)'},{id:'connections',label:'New Connections',ph:'3',ai:'3 new connections: 1 promoter, 1 DJ, 1 photographer'}],aiSuggest:'Engagement strategy: reply to every comment within 2 hours (algorithm boost). Like/comment on 10 related posts daily. DM 2-3 promoters in cities you want to play. Share other Labs artists\' posts (cross-promotion).',aiOptions:['30 min/day','15 min/day','Full engagement mode']},
+                    {name:'Review Metrics',desc:'Check weekly growth.',inputs:[{id:'igGrowth',label:'IG Followers Change',ph:'+120',ai:'+120 this week (above your 80/week average)'},{id:'scPlays',label:'SC Plays This Week',ph:'8500',ai:'8,500 plays (+15% vs last week)'}],aiSuggest:'Weekly summary: IG +120 (50% above your average), SC +15% plays. Best performing post: studio BTS clip (2,400 views, 8.2% engagement). Worst: flyer repost (340 views). Recommendation: double down on video content next week.',aiOptions:['Good week','Average week','Adjust strategy']}
+                ]},
+            {id:'release-track',name:'Release a Track / EP',desc:'From finished track to published release with maximum impact.',
+                steps:[
+                    {name:'Track Ready Check',desc:'Confirm the track is release-ready.',inputs:[{id:'trackName',label:'Track Title',ph:'',ai:'Check mastering levels and format compatibility'},{id:'mastered',label:'Mastered?',ph:'Yes',ai:'Yes — 16-bit WAV + MP3 320'},{id:'genre',label:'Genre/Subgenre',ph:'Hard Techno',ai:'Hard Techno / Neo Rave (155 BPM)'}],aiSuggest:'Mastering checklist: levels peaking at -1dB, no clipping, stereo width correct, tested on multiple systems (headphones, monitors, car, phone speaker). Export WAV 16-bit 44.1kHz + MP3 320kbps.',aiOptions:['Ready to go','Needs final master','Still mixing']},
+                    {name:'Choose Release Strategy',desc:'Self-release, label submission, or AGONY label.',inputs:[{id:'strategy',label:'Release Route',ph:'AGONY label',ai:'AGONY label (full control + 100% royalties)'},{id:'distro',label:'Distributor',ph:'DistroKid',ai:'DistroKid (£20/yr, keeps 100% royalties)'}],aiSuggest:'Lab-Intelligence analysis: your self-releases on AGONY average 45K streams. Label releases (Kneaded Pains, Suara) average 350K but you keep 15-30% royalties. For this track: if it\'s experimental → AGONY. If it\'s a banger → pitch to labels.',aiOptions:['AGONY self-release','Pitch to labels','Both (AGONY + remix on label)']},
+                    {name:'Prepare Assets',desc:'Artwork, press release, promo materials.',inputs:[{id:'artwork',label:'Artwork Ready',ph:'Yes',ai:'Cover art: 3000x3000px, RGB, JPG/PNG'},{id:'pressRelease',label:'Press Release Written',ph:'No',ai:'AI can draft from your bio + track description'}],aiSuggest:'Assets needed: cover artwork (3000x3000), press release (150 words), 30-second preview clip, Instagram announcement graphic, SoundCloud waveform teaser. Lab-Intelligence can auto-generate the press release from your existing bio.',aiOptions:['All assets ready','Need artwork','AI draft press release']},
+                    {name:'Schedule Release',desc:'Set release date and pre-save campaign.',inputs:[{id:'releaseDate',label:'Release Date',ph:'2026-08-01',ai:'Friday Aug 1 (Fridays get 20% more playlist adds)'},{id:'preSave',label:'Pre-save Link Created',ph:'Yes',ai:'Yes — use Hypeddit or ToneDen for free pre-save page'}],aiSuggest:'Best release day: Friday (Spotify editorial playlist consideration). Schedule 3-4 weeks out minimum. Set up pre-save link immediately — share across all socials. Pitch to Spotify editorial playlists via Spotify for Artists (4 weeks before release).',aiOptions:['Release this Friday','Schedule 3 weeks out','Rush release']},
+                    {name:'Promo Campaign',desc:'Promote the release across channels.',inputs:[{id:'teasers',label:'Teaser Posts Planned',ph:'4',ai:'4 teasers over 2 weeks: snippet → artwork reveal → pre-save push → release day'},{id:'promoSend',label:'Promo Sent to DJs',ph:'Yes',ai:'Send to 20-30 DJs via private SoundCloud link'}],aiSuggest:'Promo timeline: Day -14: 15s audio teaser. Day -10: artwork reveal. Day -5: pre-save push with countdown. Day 0: release day — post everywhere, tag collaborators, share streaming links. Day +1: thank fans, share play count milestone.',aiOptions:['Full promo campaign','Minimal (just announce)','Surprise drop']},
+                    {name:'Release Day',desc:'Track is live — maximise first-week impact.',inputs:[{id:'posted',label:'All Platforms Posted',ph:'Yes',ai:'Yes — Instagram, stories, SoundCloud, Twitter, Facebook'},{id:'playlists',label:'Playlist Pitches Sent',ph:'3',ai:'3 playlist submissions + 5 DJ promo sends'}],aiSuggest:'Release day actions: 1) Post announcement across all socials simultaneously. 2) Share streaming links in stories with swipe-up. 3) DM key supporters asking for reposts. 4) Monitor play count hourly for first 24hrs. 5) Engage with every comment/share.',aiOptions:['Strong launch','Quiet release','Staggered rollout']},
+                    {name:'Post-Release Review',desc:'Measure impact after 7 days.',inputs:[{id:'totalStreams',label:'7-Day Streams',ph:'25000',ai:'25K streams (above your 18K average)'},{id:'playlistAdds',label:'Playlist Adds',ph:'8',ai:'8 playlist additions'},{id:'feedback',label:'DJ Feedback',ph:'Positive',ai:'3 DJs playing it in sets'}],aiSuggest:'7-day report: 25K streams (39% above your average). 8 playlist adds. 3 DJs confirmed playing in sets. Best promo content: the 15s teaser got 2x more engagement than the artwork reveal. Save to Lab-Wiki: audio teasers outperform static for releases.',aiOptions:['Exceeded expectations','Met target','Underperformed']}
+                ]},
+            {id:'apply-gig',name:'Apply for a Gig',desc:'Find an opportunity and submit a strong application.',
+                steps:[
+                    {name:'Find Opportunity',desc:'Browse gig opportunities matched to your profile.',inputs:[{id:'event',label:'Event / Venue',ph:'',ai:'Lab-Intelligence found 3 matches this week based on your genre + tier'},{id:'source',label:'Source',ph:'Resident Advisor',ai:'RA event listing / promoter Instagram'}],aiSuggest:'Lab-Intelligence matches this week:\n1. Fabric London — techno Friday, seeking support (genre fit 88%)\n2. De School Berlin — open call for summer series (you\'ve played Berlin 3x)\n3. Warehouse Project Manchester — local advantage + genre fit 92%\n\nRecommend: Apply to all 3. Warehouse Project is highest probability.',aiOptions:['Apply to top match','Apply to all 3','Search for more']},
+                    {name:'Prepare Application',desc:'Put together your submission package.',inputs:[{id:'mix',label:'Demo Mix',ph:'Recent SoundCloud mix',ai:'Use your OST Berlin set (highest engagement, matches venue vibe)'},{id:'epk',label:'EPK / Press Kit',ph:'Auto-generated',ai:'Auto-generated from your Labs profile — bio, stats, releases, press'}],aiSuggest:'Strong application includes: 1) Recent mix matching the event\'s vibe (not your hardest set for a warm-up slot). 2) One-paragraph pitch explaining why you fit. 3) EPK link. 4) Key stats (54K IG, 2M streams, Beatport chart). Keep it concise — promoters review hundreds.',aiOptions:['Use AI-drafted pitch','Write custom pitch','Send EPK only']},
+                    {name:'Submit & Follow Up',desc:'Send the application and track status.',inputs:[{id:'submitted',label:'Submitted Via',ph:'Email',ai:'Email to bookings@... (found in Lab-Wiki venue profile)'},{id:'followUp',label:'Follow-up Date',ph:'7 days',ai:'Follow up in 7 days if no response'}],aiSuggest:'Submit via email (not Instagram DM — looks more professional). Subject line: "Luciid — Booking Inquiry for [Event Name]". Attach: mix link, EPK link, 2-sentence pitch. Set reminder to follow up in 7 days. Don\'t follow up more than twice.',aiOptions:['Email (professional)','Instagram DM (casual)','Both channels']},
+                    {name:'Outcome & Learning',desc:'Track the result and learn from it.',inputs:[{id:'result',label:'Result',ph:'Accepted',ai:'Awaiting response'},{id:'learning',label:'What to Improve',ph:'',ai:'Lab-Intelligence will compare successful vs unsuccessful applications'}],aiSuggest:'Track every application outcome in Lab-Intelligence. Over time, patterns emerge: which venues respond to which pitch style, what mix types get accepted, ideal follow-up timing. Even rejections are data.',aiOptions:['Accepted','Rejected','No response','Waitlisted']}
+                ]},
+            {id:'monthly-review',name:'Monthly Growth Review',desc:'Review your progress, adjust strategy, set new goals.',
+                steps:[
+                    {name:'Metrics Review',desc:'Pull all numbers from the past month.',inputs:[{id:'igGrowth',label:'IG Followers Gained',ph:'480',ai:'+480 this month (vs +320 last month)'},{id:'scPlays',label:'SC Plays (month)',ph:'35000',ai:'35K plays (+12% vs last month)'},{id:'gigsPlayed',label:'Gigs Played',ph:'4',ai:'4 gigs (2 paid, 1 guest slot, 1 open deck)'}],aiSuggest:'Monthly dashboard: IG +480 (50% increase vs last month — your studio BTS content strategy is working). SoundCloud +12%. 4 gigs played. Revenue: £650 total. You\'re tracking above benchmark for your tier (developing → established transition zone).',aiOptions:['Great month','Average','Below expectations']},
+                    {name:'Content Performance',desc:'What content worked best this month.',inputs:[{id:'bestPost',label:'Best Performing Post',ph:'Studio BTS clip',ai:'Studio BTS clip — 3,200 views, 9.1% engagement'},{id:'worstPost',label:'Worst Performing Post',ph:'Flyer repost',ai:'Flyer repost — 280 views, 1.2% engagement'}],aiSuggest:'Content analysis: video content averages 2.8x more reach than static images. Your best posting time shifted from 7pm to 8pm this month. Reels under 15 seconds outperform longer ones by 40%. Stop reposting flyers — they hurt your engagement rate.',aiOptions:['Double down on video','Mix of formats','Try new format']},
+                    {name:'Goal Check',desc:'How did you do against last month\'s goals?',inputs:[{id:'goalsHit',label:'Goals Hit (of 5)',ph:'3',ai:'3 of 5 goals hit'},{id:'missedGoal',label:'Biggest Miss',ph:'Release deadline',ai:'Track release delayed — mastering took longer than planned'}],aiSuggest:'Goal scorecard: IG growth ✓, gigs target ✓, content consistency ✓, release deadline ✗ (delayed 2 weeks), collaboration ✗ (didn\'t reach out to target DJs). The 60% hit rate is normal — adjust next month\'s goals to be slightly more conservative on timelines.',aiOptions:['Adjust goals down','Keep same targets','Push harder']},
+                    {name:'Set Next Month Goals',desc:'Define targets for the coming month.',inputs:[{id:'goal1',label:'Goal 1',ph:'+500 IG followers',ai:'+500 IG followers (10% stretch from this month)'},{id:'goal2',label:'Goal 2',ph:'Release the delayed track',ai:'Release delayed track by 15th'},{id:'goal3',label:'Goal 3',ph:'3 gig applications',ai:'Submit 3 gig applications (festivals opening lineups now)'}],aiSuggest:'Recommended goals (based on your trajectory + Lab-Intelligence benchmarks):\n1. +500 IG followers (achievable with current content strategy)\n2. Release delayed track by 15th (don\'t let it slip again)\n3. 3 festival applications (summer lineup announcements happening now)\n4. 1 B2B set with another Labs artist (cross-promotion)\n5. Upload 2 mixes to Mixcloud (untapped platform for you)',aiOptions:['Accept AI goals','Modify goals','Set ambitious targets']},
+                    {name:'Manager Sync',desc:'Share review with your Labs manager.',inputs:[{id:'sharedWithManager',label:'Shared with Manager',ph:'Yes',ai:'Yes — via Labs chat'},{id:'managerFeedback',label:'Manager Feedback',ph:'',ai:'Lab-Intelligence will summarize and send to your manager'}],aiSuggest:'Share this review with your Labs manager via chat. Lab-Intelligence auto-generates a summary: highlights, misses, and proposed goals. Your manager can adjust goals, suggest additional opportunities, or flag risks. Monthly sync keeps both sides aligned.',aiOptions:['Send summary now','Schedule call','Skip this month']}
+                ]},
+            {id:'studio-session',name:'Plan a Studio Session',desc:'Productive studio time — from idea to finished track.',
+                steps:[
+                    {name:'Session Planning',desc:'Set the goal for this studio session.',inputs:[{id:'goal',label:'Session Goal',ph:'Start new track',ai:'Start new track — you haven\'t released in 6 weeks'},{id:'duration',label:'Time Available (hrs)',ph:'4',ai:'4 hours (your most productive session length based on past data)'},{id:'vibe',label:'Target Vibe/BPM',ph:'145 BPM hard techno',ai:'145 BPM hard techno — your most successful BPM range'}],aiSuggest:'Lab-Intelligence studio analysis: your best tracks were produced in 4-6 hour sessions (vs 2hr = too rushed, 8hr = diminishing returns). Most successful BPM: 142-148. You haven\'t released in 6 weeks — audience engagement drops after 8 weeks without new music.',aiOptions:['New track from scratch','Finish WIP','Remix/edit existing']},
+                    {name:'Production',desc:'Create the track.',inputs:[{id:'progress',label:'Progress Made',ph:'Full arrangement',ai:'Arrangement complete — needs mixdown'},{id:'reference',label:'Reference Track Used',ph:'',ai:'Reference against your top tracks for consistency'}],aiSuggest:'Production tips from Lab-Intelligence (based on your successful tracks): 1) Start with the drop/main section, not the intro. 2) Your tracks with the clearest kick-bass relationship chart highest. 3) Include at least one "moment" — a breakdown or build that\'s memorable. 4) Test on phone speakers before finishing.',aiOptions:['On track','Struggling creatively','Changed direction']},
+                    {name:'Session Review',desc:'Log what was accomplished.',inputs:[{id:'output',label:'What Was Produced',ph:'1 full track arrangement',ai:'1 full arrangement (needs mixdown + mastering)'},{id:'nextStep',label:'Next Step',ph:'Mixdown next session',ai:'Schedule mixdown session within 5 days (momentum matters)'}],aiSuggest:'Session logged in Lab-Intelligence. Output: 1 full arrangement. Next: schedule mixdown within 5 days — tracks finished within a week of arrangement have 2x higher completion rate vs those left for weeks. Set a calendar reminder.',aiOptions:['Very productive','Average output','Scrapped — start over']}
+                ]}
+        ]
+    };
+
+    var runs=[];
+    var currentWorkflow=null;
+    var currentStepIdx=0;
+    var stepData=[];
+
+    window.loadWorkflows=function(){
+        var user=document.getElementById('wf-user').value;
+        var sel=document.getElementById('wf-select');
+        sel.innerHTML='';
+        WORKFLOWS[user].forEach(function(w){
+            sel.innerHTML+='<option value="'+w.id+'">'+w.name+'</option>';
+        });
+        loadWorkflow();
+    }
+
+    function getWorkflow(){
+        var user=document.getElementById('wf-user').value;
+        var wfId=document.getElementById('wf-select').value;
+        return WORKFLOWS[user].find(function(w){return w.id===wfId;});
+    }
+
+    window.loadWorkflow=function(){
+        var wf=getWorkflow();
+        if(!wf) return;
+        document.getElementById('wf-title').textContent=wf.name;
+        document.getElementById('wf-sub').textContent=wf.desc+' — Click "Run Workflow" to start the interactive simulation.';
+        document.getElementById('wf-dag').innerHTML='';
+        document.getElementById('wf-results').innerHTML='';
+        document.getElementById('wf-compare').innerHTML='';
+    }
+
+    window.runWorkflow=function(){
+        var wf=getWorkflow();
+        if(!wf) return;
+        currentWorkflow=wf;
+        currentStepIdx=0;
+        stepData=wf.steps.map(function(s){return {values:{},aiChoice:''}});
+        document.getElementById('wf-title').textContent=wf.name;
+        document.getElementById('wf-sub').textContent=wf.desc;
+        document.getElementById('wf-results').innerHTML='';
+        document.getElementById('wf-compare').innerHTML='';
+        renderDAG();
+    };
+
+    function renderDAG(){
+        var wf=currentWorkflow;
+        var h='';
+
+        // Timeline progress bar for logistics workflows
+        if(wf.isTimeline){
+            var totalDur=wf.steps.reduce(function(s,st){return s+(st.durationMin||30)},0);
+            var statusText='Not started';
+            var statusColor='var(--gy)';
+            var pctComplete=Math.round(currentStepIdx/wf.steps.length*100);
+            if(currentStepIdx>0&&currentStepIdx<wf.steps.length){
+                var timeSoFar=wf.steps.slice(0,currentStepIdx).reduce(function(s,st){return s+(st.durationMin||30)},0);
+                var expectedPct=Math.round(timeSoFar/totalDur*100);
+                if(pctComplete>expectedPct+10){statusText='Ahead of schedule';statusColor='var(--gn)';}
+                else if(pctComplete<expectedPct-10){statusText='Behind schedule';statusColor='var(--rd)';}
+                else{statusText='On track';statusColor='var(--ac)';}
+            } else if(currentStepIdx>=wf.steps.length){
+                statusText='Complete';statusColor='var(--gn)';pctComplete=100;
+            }
+
+            h+='<div class="W-timeline">';
+            h+='<div class="W-timeline-title"><span>Trip Timeline</span><span style="font-family:var(--mn)">'+pctComplete+'% complete</span></div>';
+            h+='<div class="W-timeline-bar">';
+            wf.steps.forEach(function(st,i){
+                var segPct=Math.max(3,Math.round((st.durationMin||30)/totalDur*100));
+                var state=i<currentStepIdx?'done':i===currentStepIdx?'active':'future';
+                var col=st.color||'var(--ac)';
+                h+='<div class="W-timeline-seg '+state+'" style="width:'+segPct+'%;background:'+col+'" title="'+st.name+' (~'+(st.durationMin||30)+'min)">';
+                if(segPct>6) h+=''+(i+1);
+                h+='</div>';
+            });
+            h+='</div>';
+            h+='<div class="W-timeline-info">';
+            h+='<div class="W-timeline-status"><div class="dot" style="background:'+statusColor+'"></div><span style="color:'+statusColor+'">'+statusText+'</span></div>';
+            h+='<div class="W-timeline-eta">Est. total: '+Math.round(totalDur/60)+'hr '+totalDur%60+'min</div>';
+            h+='</div></div>';
+        }
+
+        h+='<div class="W-dag">';
+        wf.steps.forEach(function(step,i){
+            var state=i<currentStepIdx?'done':i===currentStepIdx?'active':'waiting';
+            h+='<div class="W-step">';
+            h+='<div class="W-step-line"><div class="W-step-dot '+state+'"></div>';
+            if(i<wf.steps.length-1) h+='<div class="W-step-connector '+(i<currentStepIdx?'done':i===currentStepIdx?'active':'')+'"></div>';
+            h+='</div>';
+            h+='<div class="W-step-card '+state+'">';
+            h+='<div class="W-step-hdr"><div class="W-step-name">'+step.name+'</div><div class="W-step-num">Step '+(i+1)+'/'+wf.steps.length+'</div></div>';
+            h+='<div class="W-step-desc">'+step.desc+'</div>';
+
+            if(i===currentStepIdx){
+                // AI suggestion
+                h+='<div class="W-ai"><div class="W-ai-tag">Lab-Intelligence Suggestion</div>';
+                h+='<div class="W-ai-text">'+esc(step.aiSuggest)+'</div>';
+                if(step.aiOptions){
+                    h+='<div class="W-ai-options">';
+                    step.aiOptions.forEach(function(opt,oi){
+                        var sel=stepData[i].aiChoice===opt?' selected':'';
+                        h+='<div class="W-ai-opt'+sel+'" onclick="selectAIOpt('+i+',\''+esc(opt)+'\',this)">'+esc(opt)+'</div>';
+                    });
+                    h+='</div>';
+                }
+                h+='</div>';
+                // Input fields
+                if(step.inputs){
+                    h+='<div class="W-input-row">';
+                    step.inputs.forEach(function(inp){
+                        var val=stepData[i].values[inp.id]||inp.ai||'';
+                        h+='<div><label class="W-input-label">'+inp.label+'</label>';
+                        h+='<input class="W-input" id="wf-inp-'+inp.id+'" value="'+esc(val)+'" placeholder="'+esc(inp.ph)+'"></div>';
+                    });
+                    h+='</div>';
+                }
+                h+='<div style="display:flex;gap:6px;margin-top:8px">';
+                h+='<button class="W-btn W-btn-primary W-btn-sm" onclick="advanceStep()">Continue &rarr;</button>';
+                if(i>0) h+='<button class="W-btn W-btn-ghost W-btn-sm" onclick="goBackStep()">Back</button>';
+                h+='</div>';
+            } else if(i<currentStepIdx){
+                // Show saved values
+                var saved=stepData[i];
+                if(saved.aiChoice) h+='<div style="font-size:.62rem;color:var(--gn);margin-top:4px">Selected: '+esc(saved.aiChoice)+'</div>';
+                var vals=Object.entries(saved.values).filter(function(e){return e[1]});
+                if(vals.length){
+                    h+='<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;font-size:.62rem;color:var(--gy)">';
+                    vals.forEach(function(v){h+='<span>'+v[0]+': <strong style="color:var(--fg)">'+esc(v[1])+'</strong></span>';});
+                    h+='</div>';
+                }
+                h+='<button class="W-btn W-btn-ghost W-btn-sm" onclick="editStep('+i+')" style="margin-top:6px">Edit</button>';
+            }
+            h+='</div></div>';
+        });
+        h+='</div>';
+        document.getElementById('wf-dag').innerHTML=h;
+    }
+
+    window.selectAIOpt=function(stepIdx,opt,el){
+        stepData[stepIdx].aiChoice=opt;
+        el.parentNode.querySelectorAll('.W-ai-opt').forEach(function(o){o.classList.remove('selected')});
+        el.classList.add('selected');
+        // Auto-fill related inputs
+        var step=currentWorkflow.steps[stepIdx];
+        if(step.inputs&&step.inputs.length){
+            var inp=step.inputs[0];
+            var match=opt.match(/£([\d,]+)/);
+            if(match&&document.getElementById('wf-inp-'+inp.id)){
+                // If it's a price option, fill the fee field
+                step.inputs.forEach(function(field){
+                    if(field.id.match(/fee|budget|quote/i)){
+                        var el2=document.getElementById('wf-inp-'+field.id);
+                        if(el2) el2.value=match[1].replace(/,/g,'');
+                    }
+                });
+            }
+        }
+    };
+
+    window.advanceStep=function(){
+        // Save current inputs
+        var step=currentWorkflow.steps[currentStepIdx];
+        if(step.inputs){
+            step.inputs.forEach(function(inp){
+                var el=document.getElementById('wf-inp-'+inp.id);
+                if(el) stepData[currentStepIdx].values[inp.id]=el.value;
+            });
+        }
+        currentStepIdx++;
+        if(currentStepIdx>=currentWorkflow.steps.length){
+            renderDAG();
+            showResults();
+            return;
+        }
+        renderDAG();
+        // Scroll to active step
+        setTimeout(function(){
+            var active=document.querySelector('.W-step-card.active');
+            if(active) active.scrollIntoView({behavior:'smooth',block:'center'});
+        },100);
+    };
+
+    window.goBackStep=function(){if(currentStepIdx>0){currentStepIdx--;renderDAG();}};
+    window.editStep=function(i){currentStepIdx=i;renderDAG();};
+
+    function calcMetrics(data){
+        if(currentWorkflow&&currentWorkflow.isTimeline){
+            var totalCost=parseFloat(findVal(data,'totalCost'))||432;
+            var fee=parseFloat(findVal(data,'fee'))||1500;
+            var profit=fee-totalCost;
+            var commission=Math.round(fee*0.1);
+            var djNet=fee-totalCost-commission;
+            var rating=parseFloat(findVal(data,'rating'))||4;
+            var contacts=parseInt(findVal(data,'contacts'))||3;
+            var travellers=parseInt(findVal(data,'travellers'))||2;
+            var transportCost=parseFloat(findVal(data,'cost'))||240;
+            var accomCost=parseFloat(findVal(data,'accomCost'))||90;
+            return{revenue:fee,totalCost:totalCost,profit:profit,commission:commission,djNet:djNet,rating:rating,contacts:contacts,travellers:travellers,transportCost:transportCost,accomCost:accomCost,roi:Math.round(profit/totalCost*100),rebookingProb:Math.round(rating*18),isLogistics:true};
+        }
+        var fee=parseFloat((data[2]&&data[2].values.fee)||'1500')||1500;
+        var commission=parseFloat((data[2]&&data[2].values.commission)||'10')||10;
+        var attendance=parseInt((data[5]&&data[5].values.attendance)||'2800')||2800;
+        var rating=parseFloat((data[6]&&data[6].values.rating)||'4')||4;
+        var commEarned=fee*(commission/100);
+        var djEarned=fee-commEarned;
+        return{revenue:fee,commission:commEarned,djEarnings:djEarned,attendance:attendance,rating:rating,conversionRate:Math.round(attendance/3000*100),rebookingProb:Math.round(rating*18),socialImpact:Math.round(fee*0.3+attendance*0.01)};
+    }
+    function findVal(data,key){for(var i=0;i<data.length;i++){if(data[i]&&data[i].values&&data[i].values[key])return data[i].values[key];}return '';}
+
+    function showResults(){
+        var m=calcMetrics(stepData);
+        var run={id:'run-'+Date.now(),name:currentWorkflow.name,timestamp:new Date().toLocaleString(),metrics:m,steps:JSON.parse(JSON.stringify(stepData)),optimize:document.getElementById('wf-optimize').value};
+        runs.push(run);
+
+        var h='<div class="W-results">';
+        h+='<div class="W-results-title">Workflow Results</div>';
+        h+='<div class="W-kpi-row">';
+        var kpis=m.isLogistics?
+            [{v:'£'+m.revenue,l:'DJ Fee'},{v:'£'+m.totalCost,l:'Total Costs'},{v:'£'+m.profit,l:'Net Profit'},{v:'£'+m.commission,l:'Commission'},{v:'£'+m.djNet,l:'DJ Take-Home'},{v:m.roi+'%',l:'ROI'},{v:m.rating+'/5',l:'Gig Rating'},{v:m.contacts,l:'New Contacts'}]:
+            [{v:'£'+m.revenue,l:'Total Fee'},{v:'£'+m.commission,l:'Commission'},{v:'£'+m.djEarnings,l:'DJ Earnings'},{v:m.attendance.toLocaleString(),l:'Attendance'},{v:m.rating+'/5',l:'Rating'},{v:m.rebookingProb+'%',l:'Rebooking Prob'}];
+        kpis.forEach(function(k){
+            h+='<div class="W-kpi"><div class="W-kpi-val">'+k.v+'</div><div class="W-kpi-label">'+k.l+'</div></div>';
+        });
+        h+='</div>';
+
+        // Cost breakdown for logistics
+        if(m.isLogistics){
+            h+='<div class="W-results-title" style="margin-top:16px">Cost Breakdown</div>';
+            h+='<div class="W-chart" style="height:80px">';
+            var costs=[{v:m.transportCost,l:'Transport',c:'var(--ac)'},{v:m.accomCost,l:'Accommodation',c:'var(--pr)'},{v:Math.round(m.totalCost-m.transportCost-m.accomCost),l:'Other',c:'var(--am)'}];
+            var maxC=Math.max.apply(null,costs.map(function(c){return c.v}));
+            costs.forEach(function(c){
+                var pct=Math.max(10,Math.round(c.v/maxC*100));
+                h+='<div class="W-chart-bar" style="height:'+pct+'%;background:'+c.c+'"><div class="W-chart-bar-val">£'+c.v+'</div><div class="W-chart-bar-label">'+c.l+'</div></div>';
+            });
+            h+='</div>';
+        }
+
+        // Action items
+        h+='<div class="W-results-title" style="margin-top:16px">Action Items (Priority Order)</div>';
+        var actions=m.isLogistics?[
+            {pri:'p1',text:'Upload set recording to SoundCloud within 48 hours'},
+            {pri:'p1',text:'Follow up with '+m.contacts+' new contacts within 72 hours'},
+            {pri:'p1',text:'Send thank-you to promoter + request testimonial'},
+            {pri:'p2',text:'Post 3 photos/clips from the trip this week'},
+            {pri:'p2',text:'Update Lab-Wiki venue profile (OST Berlin) with new data'},
+            {pri:'p2',text:'Log all costs in financial tracker for tax records'},
+            {pri:'p3',text:'Review: profit margin '+m.roi+'% — adjust pricing if below 200%'},
+            {pri:'p3',text:'Save transport/accommodation preferences for next Berlin trip'}
+        ]:[
+            {pri:'p1',text:'Upload set recording to SoundCloud within 48 hours'},
+            {pri:'p1',text:'Send thank-you message to promoter + request testimonial'},
+            {pri:'p1',text:'Follow up on rebooking inquiries within 72 hours'},
+            {pri:'p2',text:'Post 3 event photos/clips across Instagram this week'},
+            {pri:'p2',text:'Update Lab-Wiki venue profile with new learnings'},
+            {pri:'p3',text:'Review pricing: if rating >4, consider 10% fee increase for similar venues'},
+            {pri:'p3',text:'Log event in Lab-Intelligence for pattern detection'}
+        ];
+        actions.forEach(function(a){
+            h+='<div class="W-action-item"><span class="W-action-pri '+a.pri+'">'+a.pri.toUpperCase()+'</span>'+esc(a.text)+'</div>';
+        });
+
+        h+='<div style="margin-top:14px;display:flex;gap:8px">';
+        h+='<button class="W-btn W-btn-primary W-btn-sm" onclick="runWorkflow()">Run Again (Edit Steps)</button>';
+        h+='<button class="W-btn W-btn-ghost W-btn-sm" onclick="saveToLibrary()">Save to Library</button>';
+        if(runs.length>1) h+='<button class="W-btn W-btn-amber W-btn-sm" onclick="showComparison()">Compare All Runs ('+runs.length+')</button>';
+        h+='</div></div>';
+
+        document.getElementById('wf-results').innerHTML=h;
+    }
+
+    window.showComparison=function(){
+        if(runs.length<2) return;
+        var h='<div class="W-results" style="margin-top:16px">';
+        h+='<div class="W-results-title">Workflow Comparison ('+runs.length+' runs)</div>';
+
+        // Table
+        h+='<table class="W-compare"><thead><tr><th>Run</th><th>Fee</th><th>Commission</th><th>DJ Earnings</th><th>Attendance</th><th>Rating</th><th>Rebook %</th></tr></thead><tbody>';
+        var bestRev=0,bestIdx=0;
+        runs.forEach(function(r,i){if(r.metrics.revenue>bestRev){bestRev=r.metrics.revenue;bestIdx=i;}});
+        runs.forEach(function(r,i){
+            var isBest=i===bestIdx;
+            h+='<tr><td style="font-weight:700">#'+(i+1)+(isBest?' ★':'')+'</td>';
+            h+='<td class="'+(isBest?'best':'')+'">£'+r.metrics.revenue+'</td>';
+            h+='<td>£'+r.metrics.commission+'</td>';
+            h+='<td>£'+r.metrics.djEarnings+'</td>';
+            h+='<td>'+r.metrics.attendance.toLocaleString()+'</td>';
+            h+='<td>'+r.metrics.rating+'/5</td>';
+            h+='<td>'+r.metrics.rebookingProb+'%</td></tr>';
+        });
+        h+='</tbody></table>';
+
+        // Chart
+        h+='<div class="W-results-title" style="margin-top:16px">Revenue Comparison</div>';
+        h+='<div class="W-chart">';
+        var maxRev=Math.max.apply(null,runs.map(function(r){return r.metrics.revenue}));
+        var colors=['var(--ac)','var(--gn)','var(--pr)','var(--am)','var(--rd)','#14b8a6','#ec4899','#8b5cf6','#f59e0b','#6366f1'];
+        runs.forEach(function(r,i){
+            var pct=Math.round(r.metrics.revenue/maxRev*100);
+            h+='<div class="W-chart-bar" style="height:'+pct+'%;background:'+colors[i%colors.length]+'">';
+            h+='<div class="W-chart-bar-val">£'+r.metrics.revenue+'</div>';
+            h+='<div class="W-chart-bar-label">Run #'+(i+1)+'</div></div>';
+        });
+        h+='</div>';
+
+        // Summary
+        h+='<div style="margin-top:28px;padding:16px;background:rgba(128,128,128,.06);border-radius:8px">';
+        h+='<div style="font-size:.68rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">Summary</div>';
+        h+='<div style="font-size:.72rem;line-height:1.8;color:inherit;opacity:.7">';
+        h+='Best revenue: <strong>Run #'+(bestIdx+1)+' (£'+bestRev+')</strong>. ';
+        var avgRev=Math.round(runs.reduce(function(s,r){return s+r.metrics.revenue},0)/runs.length);
+        h+='Average across runs: <strong>£'+avgRev+'</strong>. ';
+        var avgRating=(runs.reduce(function(s,r){return s+r.metrics.rating},0)/runs.length).toFixed(1);
+        h+='Average rating: <strong>'+avgRating+'/5</strong>.';
+        h+='</div></div>';
+
+        h+='</div>';
+        document.getElementById('wf-compare').innerHTML=h;
+        document.getElementById('wf-compare').scrollIntoView({behavior:'smooth'});
+    };
+
+    window.runOptimizer=function(){
+        var wf=getWorkflow();if(!wf) return;
+        var numSims=parseInt(document.getElementById('wf-sims').value)||5;
+        var optFor=document.getElementById('wf-optimize').value;
+
+        // Clear and show progress
+        var h='<div class="W-opt"><div class="W-opt-title">Optimizer — Running '+numSims+' simulations for "'+optFor+'"</div>';
+        h+='<div class="W-opt-progress"><div class="W-opt-fill" id="opt-fill"></div></div>';
+        h+='<div id="opt-status" style="font-size:.65rem;color:var(--gy);font-family:var(--mn)">Initializing...</div></div>';
+        document.getElementById('wf-results').innerHTML=h;
+        document.getElementById('wf-compare').innerHTML='';
+
+        var simRuns=[];
+        var simIdx=0;
+
+        function runSim(){
+            if(simIdx>=numSims){
+                finishOptimizer(simRuns,optFor);
+                return;
+            }
+            var fill=document.getElementById('opt-fill');
+            var status=document.getElementById('opt-status');
+            if(fill) fill.style.width=Math.round((simIdx+1)/numSims*100)+'%';
+            if(status) status.textContent='Simulation '+(simIdx+1)+'/'+numSims+' — varying parameters...';
+
+            // Generate varied metrics
+            var baseFee=1500;
+            var variance=0.3;
+            var feeVar=baseFee*(1+(Math.random()*2-1)*variance);
+            var fee=Math.round(feeVar/50)*50;
+            var commission=10;
+            var attendance=Math.round(2000+Math.random()*1000);
+            var rating=Math.round((3+Math.random()*2)*10)/10;
+
+            // Optimize bias
+            if(optFor==='revenue') fee=Math.round(fee*1.1/50)*50;
+            else if(optFor==='bookings') fee=Math.round(fee*0.85/50)*50;
+            else if(optFor==='growth') attendance=Math.round(attendance*1.15);
+            else if(optFor==='brand') rating=Math.min(5,rating+0.3);
+
+            var m={revenue:fee,commission:Math.round(fee*commission/100),djEarnings:Math.round(fee*(100-commission)/100),attendance:attendance,rating:rating,rebookingProb:Math.round(rating*18),socialImpact:Math.round(fee*0.3+attendance*0.01)};
+            simRuns.push({id:'sim-'+(simIdx+1),name:'Simulation #'+(simIdx+1),metrics:m});
+            simIdx++;
+            setTimeout(runSim,300);
+        }
+        setTimeout(runSim,500);
+    };
+
+    function finishOptimizer(simRuns,optFor){
+        // Rank by optimize metric
+        var key=optFor==='revenue'?'revenue':optFor==='growth'?'socialImpact':optFor==='bookings'?'rebookingProb':optFor==='time'?'revenue':'rating';
+        simRuns.sort(function(a,b){return b.metrics[key]-a.metrics[key]});
+
+        var h='<div class="W-results">';
+        h+='<div class="W-results-title">Optimizer Results — Ranked by '+optFor+'</div>';
+
+        // Ranked table
+        h+='<table class="W-compare"><thead><tr><th>Rank</th><th>Fee</th><th>DJ Earnings</th><th>Attendance</th><th>Rating</th><th>Rebook %</th><th>Social Impact</th></tr></thead><tbody>';
+        simRuns.forEach(function(r,i){
+            var cls=i===0?'best':i===simRuns.length-1?'worst':'';
+            h+='<tr><td style="font-weight:700">#'+(i+1)+(i===0?' ★':'')+'</td>';
+            h+='<td class="'+cls+'">£'+r.metrics.revenue+'</td>';
+            h+='<td>£'+r.metrics.djEarnings+'</td>';
+            h+='<td>'+r.metrics.attendance.toLocaleString()+'</td>';
+            h+='<td>'+r.metrics.rating+'/5</td>';
+            h+='<td>'+r.metrics.rebookingProb+'%</td>';
+            h+='<td>'+r.metrics.socialImpact+'</td></tr>';
+        });
+        h+='</tbody></table>';
+
+        // Chart comparison
+        h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">';
+        ['revenue','rebookingProb'].forEach(function(metric){
+            var label=metric==='revenue'?'Revenue (£)':'Rebooking Probability (%)';
+            var vals=simRuns.map(function(r){return r.metrics[metric]});
+            var max=Math.max.apply(null,vals);
+            h+='<div><div style="font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gy);margin-bottom:6px">'+label+'</div>';
+            h+='<div class="W-chart">';
+            var colors=['var(--ac)','var(--gn)','var(--pr)','var(--am)','var(--rd)','#14b8a6','#ec4899','#8b5cf6','#f59e0b','#6366f1','#10b981','#f43f5e','#0ea5e9','#a855f7','#eab308','#06b6d4','#d946ef','#84cc16','#e11d48','#7c3aed'];
+            simRuns.forEach(function(r,i){
+                var pct=Math.max(5,Math.round(r.metrics[metric]/max*100));
+                h+='<div class="W-chart-bar" style="height:'+pct+'%;background:'+colors[i%colors.length]+'">';
+                h+='<div class="W-chart-bar-val">'+(metric==='revenue'?'£':'')+r.metrics[metric]+(metric==='rebookingProb'?'%':'')+'</div>';
+                h+='<div class="W-chart-bar-label">#'+(i+1)+'</div></div>';
+            });
+            h+='</div></div>';
+        });
+        h+='</div>';
+
+        // Trade-offs
+        var best=simRuns[0].metrics,worst=simRuns[simRuns.length-1].metrics;
+        h+='<div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px">';
+        h+='<div style="padding:16px;background:rgba(22,163,74,.04);border:1px solid rgba(22,163,74,.15);border-radius:8px">';
+        h+='<div style="font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gn);margin-bottom:6px">Best Outcome (#1)</div>';
+        h+='<div style="font-size:.68rem;color:inherit;opacity:.7;line-height:1.8">Fee: £'+best.revenue+' | Rating: '+best.rating+'/5 | Rebook: '+best.rebookingProb+'%</div></div>';
+        h+='<div style="padding:16px;background:rgba(220,38,38,.04);border:1px solid rgba(220,38,38,.15);border-radius:8px">';
+        h+='<div style="font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rd);margin-bottom:6px">Trade-off (#'+simRuns.length+')</div>';
+        h+='<div style="font-size:.68rem;color:inherit;opacity:.7;line-height:1.8">Fee: £'+worst.revenue+' | Rating: '+worst.rating+'/5 | Rebook: '+worst.rebookingProb+'%</div></div>';
+        h+='</div>';
+
+        // Summary
+        h+='<div style="margin-top:16px;padding:16px;background:rgba(128,128,128,.06);border-radius:8px">';
+        h+='<div style="font-size:.68rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">Optimizer Summary</div>';
+        var avgRev=Math.round(simRuns.reduce(function(s,r){return s+r.metrics.revenue},0)/simRuns.length);
+        h+='<div style="font-size:.72rem;line-height:1.8;color:inherit;opacity:.7">';
+        h+='Optimized for: <strong>'+optFor+'</strong>. Best: <strong>£'+best.revenue+'</strong> ('+best.rating+'/5 rating). ';
+        h+='Average: <strong>£'+avgRev+'</strong>. Range: £'+worst.revenue+' — £'+best.revenue+'. ';
+        h+='Recommendation: <strong>Quote £'+best.revenue+'</strong> with flexibility to £'+Math.round(best.revenue*0.9/50)*50+' for high-value venues.';
+        h+='</div></div>';
+
+        h+='<div style="margin-top:12px"><button class="W-btn W-btn-ghost W-btn-sm" onclick="saveToLibrary()">Save Best to Library</button></div>';
+        h+='</div>';
+
+        document.getElementById('wf-results').innerHTML=h;
+    }
+
+    // Library
+    var library=[];
+    window.saveToLibrary=function(){
+        var latest=runs.length?runs[runs.length-1]:null;
+        if(!latest) return;
+        latest.savedAt=new Date().toISOString();
+        latest.feedback=null;
+        library.push(latest);
+
+        // Store to Lab-Intelligence (project memory) for self-improvement
+        var memoryEntry={
+            content:JSON.stringify({
+                workflow:latest.name,
+                metrics:latest.metrics,
+                steps:latest.steps.map(function(s){return{values:s.values,aiChoice:s.aiChoice}}),
+                optimize:latest.optimize,
+                timestamp:latest.timestamp
+            }),
+            type:'pattern',
+            tags:['workflow','simulation',latest.name.toLowerCase().replace(/\s+/g,'-')],
+            source:'workflow-simulator',
+            session_id:'workflow-'+Date.now()
+        };
+        fetch('/api/projects/labs-institute/memory/store',{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(memoryEntry)
+        }).then(function(){
+            toast('Saved to Library + Lab-Intelligence');
+        }).catch(function(){
+            toast('Saved to Library (API offline)');
+        });
+
+        // Also store to Lab-Wiki as a learning
+        fetch('/api/projects/labs-institute/memory/store',{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+                content:'Workflow "'+latest.name+'" completed. Revenue: £'+latest.metrics.revenue+'. Rating: '+latest.metrics.rating+'/5. Key choices: '+latest.steps.filter(function(s){return s.aiChoice}).map(function(s){return s.aiChoice}).join(', '),
+                type:'learning',
+                tags:['workflow-outcome','self-improve'],
+                source:'workflow-simulator'
+            })
+        }).catch(function(){});
+    };
+
+    window.addFeedback=function(libIdx,feedback){
+        if(!library[libIdx]) return;
+        library[libIdx].feedback=feedback;
+        // Store feedback in Lab-Intelligence for future improvement
+        fetch('/api/projects/labs-institute/memory/store',{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+                content:'Workflow feedback for "'+library[libIdx].name+'": '+feedback+'. Revenue was £'+library[libIdx].metrics.revenue+'. Rating: '+library[libIdx].metrics.rating+'/5.',
+                type:feedback==='positive'?'pattern':'anti-pattern',
+                tags:['workflow-feedback','self-improve',feedback],
+                source:'workflow-simulator'
+            })
+        }).catch(function(){});
+        toast('Feedback saved — Lab-Intelligence will learn from this');
+        showLibrary();
+    };
+
+    window.showLibrary=function(){
+        var lib=document.getElementById('wf-library');
+        lib.style.display=lib.style.display==='none'?'block':'none';
+        if(lib.style.display==='none') return;
+        var h='<div class="W-results"><div class="W-results-title">Workflow Library ('+library.length+' saved)</div>';
+        h+='<div style="font-size:.68rem;color:var(--gy);margin-bottom:14px;line-height:1.7">Each saved workflow feeds into Lab-Intelligence. Patterns from successful workflows improve future AI suggestions. Feedback on outcomes helps the system learn what works and what doesn\'t.</div>';
+        if(!library.length){h+='<div style="font-size:.72rem;color:var(--gy)">No workflows saved yet. Run a workflow and click "Save to Library".</div>';}
+        else{
+            // Summary stats
+            var totalRuns=library.length;
+            var avgRev=Math.round(library.reduce(function(s,r){return s+r.metrics.revenue},0)/totalRuns);
+            var avgRating=(library.reduce(function(s,r){return s+r.metrics.rating},0)/totalRuns).toFixed(1);
+            var positiveCount=library.filter(function(r){return r.feedback==='positive'}).length;
+            var negativeCount=library.filter(function(r){return r.feedback==='negative'}).length;
+
+            h+='<div class="W-kpi-row" style="margin-bottom:16px">';
+            h+='<div class="W-kpi"><div class="W-kpi-val">'+totalRuns+'</div><div class="W-kpi-label">Total Runs</div></div>';
+            h+='<div class="W-kpi"><div class="W-kpi-val">£'+avgRev+'</div><div class="W-kpi-label">Avg Revenue</div></div>';
+            h+='<div class="W-kpi"><div class="W-kpi-val">'+avgRating+'/5</div><div class="W-kpi-label">Avg Rating</div></div>';
+            h+='<div class="W-kpi"><div class="W-kpi-val">'+positiveCount+'</div><div class="W-kpi-label">Positive Outcomes</div></div>';
+            h+='</div>';
+
+            // Comparison chart
+            if(library.length>1){
+                h+='<div style="font-size:.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gy);margin-bottom:6px">Revenue Across All Saved Workflows</div>';
+                h+='<div class="W-chart">';
+                var maxRev=Math.max.apply(null,library.map(function(r){return r.metrics.revenue}));
+                var colors=['var(--ac)','var(--gn)','var(--pr)','var(--am)','var(--rd)','#14b8a6','#ec4899','#8b5cf6','#f59e0b','#6366f1'];
+                library.forEach(function(r,i){
+                    var pct=Math.max(5,Math.round(r.metrics.revenue/maxRev*100));
+                    var fbColor=r.feedback==='positive'?'var(--gn)':r.feedback==='negative'?'var(--rd)':colors[i%colors.length];
+                    h+='<div class="W-chart-bar" style="height:'+pct+'%;background:'+fbColor+'"><div class="W-chart-bar-val">£'+r.metrics.revenue+'</div><div class="W-chart-bar-label">#'+(i+1)+'</div></div>';
+                });
+                h+='</div>';
+            }
+
+            // Cards
+            h+='<div class="W-lib">';
+            library.forEach(function(r,i){
+                var fbBadge='';
+                if(r.feedback==='positive') fbBadge='<span style="font-size:.5rem;padding:2px 8px;border-radius:10px;background:rgba(22,163,74,.08);color:var(--gn);font-weight:700;margin-left:8px">POSITIVE</span>';
+                else if(r.feedback==='negative') fbBadge='<span style="font-size:.5rem;padding:2px 8px;border-radius:10px;background:rgba(220,38,38,.08);color:var(--rd);font-weight:700;margin-left:8px">NEEDS IMPROVEMENT</span>';
+
+                h+='<div class="W-lib-card">';
+                h+='<div class="W-lib-card-name">'+esc(r.name)+fbBadge+'</div>';
+                h+='<div class="W-lib-card-meta">'+r.timestamp+(r.optimize?' &middot; Optimized for: '+r.optimize:'')+'</div>';
+                h+='<div class="W-lib-card-kpis"><span>£'+r.metrics.revenue+'</span> fee &middot; <span>'+r.metrics.rating+'/5</span> rating &middot; <span>'+r.metrics.rebookingProb+'%</span> rebook</div>';
+
+                // Key choices made
+                var choices=r.steps?r.steps.filter(function(s){return s.aiChoice}).map(function(s){return s.aiChoice}):'';
+                if(choices.length){
+                    h+='<div style="font-size:.58rem;color:var(--gy);margin-top:6px">Choices: '+choices.join(' → ')+'</div>';
+                }
+
+                // Feedback buttons
+                if(!r.feedback){
+                    h+='<div style="display:flex;gap:6px;margin-top:8px">';
+                    h+='<button class="W-btn W-btn-sm" style="background:rgba(22,163,74,.08);color:var(--gn);border:1px solid rgba(22,163,74,.2)" onclick="addFeedback('+i+',\'positive\')">Worked Well</button>';
+                    h+='<button class="W-btn W-btn-sm" style="background:rgba(220,38,38,.08);color:var(--rd);border:1px solid rgba(220,38,38,.2)" onclick="addFeedback('+i+',\'negative\')">Needs Improvement</button>';
+                    h+='</div>';
+                }
+                h+='</div>';
+            });
+            h+='</div>';
+
+            // Self-improvement note
+            h+='<div style="margin-top:16px;padding:14px 18px;background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.1);border-radius:8px;font-size:.68rem;color:inherit;opacity:.7;line-height:1.7">';
+            h+='<strong style="color:var(--ac)">Self-Improvement Loop:</strong> Every saved workflow and feedback entry is stored in Lab-Intelligence. ';
+            h+='Positive outcomes become <em>patterns</em> — the AI will suggest similar approaches in future workflows. ';
+            h+='Negative outcomes become <em>anti-patterns</em> — the AI will steer away from those choices. ';
+            h+='After '+Math.max(5,10-totalRuns)+' more runs, suggestions will be noticeably more accurate for your specific context.';
+            h+='</div>';
+        }
+        h+='</div>';
+        lib.innerHTML=h;
+    };
+
+    function toast(m){var t=document.createElement('div');t.style.cssText='position:fixed;bottom:24px;right:24px;padding:12px 20px;background:rgba(128,128,128,.06);border:1px solid #ddd;border-radius:6px;font-size:.72rem;font-weight:600;z-index:600;letter-spacing:.04em;text-transform:uppercase;animation:fadeSlide .3s ease';t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s'},2500);setTimeout(function(){t.remove()},3000)}
+    function esc(s){if(!s)return'';var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+    // AI Builder
+    var builderSteps=[];
+    var BTPL={
+        tour:[{n:'Route Planning',d:'Map cities, dates, venue targets'},{n:'Venue Research',d:'Lab-Wiki: capacity, genre, contacts'},{n:'Budget',d:'Transport, accommodation per city'},{n:'Outreach',d:'Contact venues with EPK'},{n:'Confirm Dates',d:'Contracts, deposits'},{n:'Book Logistics',d:'Flights, hotels, transfers'},{n:'Promo Campaign',d:'Poster, teasers, city reveals'},{n:'Execute Tour',d:'Travel, perform, log, post'},{n:'Review',d:'Revenue, costs, contacts, learnings'}],
+        grow:[{n:'Audit',d:'Followers, engagement, content types'},{n:'Competitors',d:'Study 5 DJs at 10K+'},{n:'Strategy',d:'Content pillars: BTS, live, previews'},{n:'Schedule',d:'5x/week, optimal times'},{n:'Engage',d:'30min/day: comments, DMs'},{n:'Collab',d:'2 B2B sets/month'},{n:'Check-in',d:'Monthly: adjust mix'},{n:'Milestone',d:'Celebrate at 5K/10K'}],
+        onboard:[{n:'Assess',d:'Scan socials, streams, genre fit'},{n:'Call',d:'30min: goals, expectations'},{n:'Terms',d:'Commission, exclusivity'},{n:'Sign',d:'Contract, digital signature'},{n:'Profile',d:'Bio, photos, socials, rate card'},{n:'Baseline',d:'Record all KPIs'},{n:'Goals',d:'90-day targets'},{n:'Quick Wins',d:'2 gig apps, 1 social fix'}],
+        event:[{n:'Concept',d:'Theme, date, genre'},{n:'Venue',d:'Match capacity, sound, budget'},{n:'Lineup',d:'Roster DJs + guests'},{n:'Budget',d:'Costs, ticket price'},{n:'Marketing',d:'Artwork, event pages'},{n:'Sales',d:'Launch, track, adjust'},{n:'Week-Of',d:'Confirm all logistics'},{n:'Event Day',d:'Sound check, sets, recording'},{n:'Post-Event',d:'Payments, recordings, learnings'}]
+    };
+
+    window.toggleBuilder=function(){
+        var b=document.getElementById('wf-builder');
+        b.style.display=b.style.display==='none'?'block':'none';
+    };
+
+    window.buildWorkflow=function(){
+        var inp=document.getElementById('builder-input');
+        var msg=inp.value.trim();if(!msg)return;inp.value='';
+        var msgs=document.getElementById('builder-msgs');
+        msgs.innerHTML+='<div style="padding:8px 12px;background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.08);border-radius:6px;margin:6px 0;font-size:.68rem;margin-left:auto;max-width:80%">'+esc(msg)+'</div>';
+
+        var lower=msg.toLowerCase(),tpl=null,title='';
+        if(lower.match(/tour|cities|travel|europe/)){tpl=BTPL.tour;title='Multi-City Tour';}
+        else if(lower.match(/grow|instagram|follower|ig|10k/)){tpl=BTPL.grow;title='Instagram Growth';}
+        else if(lower.match(/onboard|new.*dj|roster|sign/)){tpl=BTPL.onboard;title='DJ Onboarding';}
+        else if(lower.match(/event|showcase|night|party/)){tpl=BTPL.event;title='Label Showcase';}
+
+        setTimeout(function(){
+            if(tpl){
+                builderSteps=tpl.map(function(s,i){return{id:i,n:s.n,d:s.d}});
+                msgs.innerHTML+='<div style="padding:8px 12px;background:rgba(128,128,128,.06);border-radius:6px;margin:6px 0;font-size:.68rem"><strong>'+title+'</strong> — '+builderSteps.length+' steps generated. Edit below.</div>';
+            } else {
+                builderSteps=[{id:0,n:'Define Goal',d:msg},{id:1,n:'Research',d:'Pull context from Lab-Intelligence'},{id:2,n:'Plan',d:'Break into steps'},{id:3,n:'Execute',d:'Do the work'},{id:4,n:'Review',d:'Check results'},{id:5,n:'Capture',d:'Store learnings'}];
+                msgs.innerHTML+='<div style="padding:8px 12px;background:rgba(128,128,128,.06);border-radius:6px;margin:6px 0;font-size:.68rem">Custom 6-step workflow generated. Be more specific for a detailed plan.</div>';
+                title='Custom';
+            }
+            msgs.scrollTop=msgs.scrollHeight;
+            renderBuilder(title);
+        },600);
+    };
+
+    function renderBuilder(title){
+        var h='<div style="font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">'+esc(title)+' — '+builderSteps.length+' Steps</div>';
+        builderSteps.forEach(function(s,i){
+            h+='<div style="display:flex;gap:8px;margin:4px 0;align-items:center">';
+            h+='<div style="width:20px;height:20px;border-radius:50%;background:rgba(128,128,128,.06);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:var(--gy);flex-shrink:0">'+(i+1)+'</div>';
+            h+='<div style="flex:1;font-size:.65rem"><strong>'+esc(s.n)+'</strong> — <span style="color:var(--gy)">'+esc(s.d)+'</span></div>';
+            h+='<button class="W-btn W-btn-sm" style="font-size:.5rem;padding:2px 6px" onclick="bEdit('+s.id+')">Edit</button>';
+            h+='<button class="W-btn W-btn-sm" style="font-size:.5rem;padding:2px 6px;color:var(--rd)" onclick="bRm('+s.id+')">X</button>';
+            h+='</div>';
+        });
+        h+='<div style="display:flex;gap:6px;margin-top:8px">';
+        h+='<button class="W-btn W-btn-ghost W-btn-sm" onclick="bAdd()">+ Add</button>';
+        h+='<button class="W-btn W-btn-primary W-btn-sm" onclick="bRun()">Run This Workflow</button>';
+        h+='</div>';
+        document.getElementById('builder-result').innerHTML=h;
+    }
+
+    window.bRm=function(id){builderSteps=builderSteps.filter(function(s){return s.id!==id});renderBuilder('Custom');};
+    window.bEdit=function(id){var s=builderSteps.find(function(x){return x.id===id});if(!s)return;var n=prompt('Name:',s.n);if(!n)return;var d=prompt('Description:',s.d);if(d===null)return;s.n=n;s.d=d;renderBuilder('Custom');};
+    window.bAdd=function(){var n=prompt('Step name:');if(!n)return;builderSteps.push({id:Date.now(),n:n,d:prompt('Description:','')||''});renderBuilder('Custom');};
+    window.bRun=function(){
+        // Convert builder steps into a runnable workflow format
+        currentWorkflow={id:'custom',name:'Custom Workflow',desc:'AI-generated workflow',steps:builderSteps.map(function(s){
+            return{name:s.n,desc:s.d,inputs:[{id:'input',label:'Your Input',ph:'',ai:'Follow Lab-Intelligence suggestion above'}],aiSuggest:'Lab-Intelligence: For "'+s.n+'" — '+s.d+'. Consider your current resources, timeline, and goals.',aiOptions:['Follow suggestion','Modify approach','Skip this step']};
+        })};
+        currentStepIdx=0;
+        stepData=currentWorkflow.steps.map(function(){return{values:{},aiChoice:''}});
+        document.getElementById('wf-builder').style.display='none';
+        document.getElementById('wf-title').textContent=currentWorkflow.name;
+        document.getElementById('wf-sub').textContent=currentWorkflow.desc;
+        document.getElementById('wf-results').innerHTML='';
+        document.getElementById('wf-compare').innerHTML='';
+        renderDAG();
+    };
+
+    // Load roster for DJ context
+    var wfRoster=[];
+    var activeDJIdx=0;
+    fetch('data/labs-roster.json').then(function(r){return r.ok?r.json():[]}).then(function(d){
+        wfRoster=d||[];
+        renderRosterContext();
+    }).catch(function(){
+        wfRoster=[{name:'Luciid',real_name:'Luke Pollock',genres:['Hard Techno'],tier:'established',kpis:{current:{ig_followers:54000,spotify_top_track_streams:2100000}},socials:{instagram:{url:'https://instagram.com/luciidmusic'},resident_advisor:{url:'https://ra.co/dj/luciid'},spotify:{url:'https://open.spotify.com/artist/luciid'}}}];
+        renderRosterContext();
+    });
+
+    function fmtNum(n){if(!n)return'0';if(n>=1000000)return(n/1000000).toFixed(1)+'M';if(n>=1000)return(n/1000).toFixed(1)+'K';return''+n;}
+
+    function renderRosterContext(){
+        var ctx=document.getElementById('wf-roster-context');
+        if(!ctx||!wfRoster.length) return;
+        var h='<div style="display:flex;gap:10px;flex-wrap:wrap">';
+        wfRoster.forEach(function(dj,i){
+            var k=dj.kpis&&dj.kpis.current?dj.kpis.current:{};
+            var isActive=i===activeDJIdx;
+            h+='<div onclick="selectWfDJ('+i+')" style="display:flex;align-items:center;gap:12px;padding:12px 18px;border:1px solid '+(isActive?'var(--bd)':'rgba(128,128,128,.08)')+';border-radius:10px;background:'+(isActive?'rgba(255,255,255,.03)':'transparent')+';box-shadow:'+(isActive?'0 0 6px var(--bd)':'none')+';cursor:pointer;transition:all .2s;flex:1;min-width:250px">';
+            h+='<div style="width:36px;height:36px;border-radius:50%;background:rgba(128,128,128,.08);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0">'+esc(dj.name.charAt(0))+'</div>';
+            h+='<div style="flex:1;min-width:0"><div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase">'+esc(dj.name)+'</div>';
+            h+='<div style="font-size:.62rem;opacity:.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(dj.real_name||'')+' &middot; '+esc((dj.genres||[]).slice(0,2).join(', '))+' &middot; '+esc(dj.tier||'')+' &middot; '+fmtNum(k.ig_followers)+' IG</div></div>';
+            // Social links
+            if(dj.socials){
+                h+='<div style="display:flex;gap:4px;flex-shrink:0">';
+                var plats={instagram:'IG',resident_advisor:'RA',spotify:'SP'};
+                Object.keys(plats).forEach(function(pk){
+                    if(dj.socials[pk]){
+                        var url=dj.socials[pk].url||dj.socials[pk];
+                        h+='<a href="'+esc(url)+'" target="_blank" style="font-size:.48rem;padding:3px 7px;border:1px solid rgba(128,128,128,.12);border-radius:8px;text-decoration:none;color:inherit;opacity:.4;font-weight:600" onclick="event.stopPropagation()">'+plats[pk]+'</a>';
+                    }
+                });
+                h+='</div>';
+            }
+            h+='</div>';
+        });
+        h+='</div>';
+        if(wfRoster.length===1) h+='<div style="font-size:.58rem;opacity:.3;margin-top:6px;text-align:center">More DJs will appear here as the roster grows</div>';
+        ctx.innerHTML=h;
+    }
+
+    window.selectWfDJ=function(idx){
+        activeDJIdx=idx;
+        renderRosterContext();
+    };
+
+    loadWorkflows();
+    loadWorkflow();
+})();
+</script>
+</body>
+</html>

@@ -59,33 +59,6 @@
     .db-tab:hover { color: var(--text-secondary); }
     .db-tab.active { color: var(--accent-cyan); border-bottom-color: var(--accent-cyan); }
 
-    /* --- Split layout --- */
-    .db-split {
-        display: flex; min-height: calc(100vh - 220px);
-    }
-    .db-controls {
-        flex: 1; min-width: 0; overflow-y: auto;
-        border-right: 1px solid var(--border-light);
-    }
-    .db-live-preview {
-        width: 380px; flex-shrink: 0; overflow-y: auto;
-        background: rgba(255,255,255,0.01);
-        display: flex; flex-direction: column;
-    }
-    .db-live-preview-header {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 10px 16px; border-bottom: 1px solid var(--border-subtle);
-        flex-shrink: 0;
-    }
-    .db-live-preview-body {
-        flex: 1; overflow-y: auto; padding: 16px;
-    }
-    @media (max-width: 1000px) {
-        .db-split { flex-direction: column; }
-        .db-live-preview { width: 100%; max-height: 50vh; border-right: none; border-top: 1px solid var(--border-light); }
-        .db-controls { border-right: none; }
-    }
-
     /* --- Panels --- */
     .db-panel { display: none; padding: 24px 28px; }
     .db-panel.active { display: block; animation: fadeIn 0.25s ease; }
@@ -127,20 +100,12 @@
     /* --- Toggle row --- */
     .db-toggle-row { display: flex; gap: 6px; flex-wrap: wrap; }
     .db-toggle {
-        font-size: 0.68rem; font-weight: 600; padding: 7px 16px; border-radius: 8px;
+        font-size: 0.62rem; font-weight: 600; padding: 6px 14px; border-radius: 8px;
         border: 1px solid var(--border-medium); background: rgba(255,255,255,0.02);
-        color: var(--text-muted); cursor: pointer; transition: all 0.2s ease;
-        font-family: var(--font-family); outline: none;
+        color: var(--text-muted); cursor: pointer; transition: all var(--transition-fast);
     }
-    .db-toggle:hover {
-        border-color: rgba(94,231,255,0.4); color: var(--text-secondary);
-        background: rgba(94,231,255,0.03);
-    }
-    .db-toggle:active { transform: scale(0.96); }
-    .db-toggle.active {
-        border-color: var(--accent-cyan); background: rgba(94,231,255,0.1);
-        color: var(--accent-cyan); box-shadow: 0 0 12px rgba(94,231,255,0.12);
-    }
+    .db-toggle:hover { border-color: var(--panel-border-hover); }
+    .db-toggle.active { border-color: var(--accent-cyan); background: rgba(94,231,255,0.06); color: var(--accent-cyan); }
 
     /* --- Panel config --- */
     .db-modules-grid {
@@ -179,20 +144,15 @@
     .db-module-select:focus { outline: none; border-color: var(--accent-cyan); }
 
     /* --- Color editor --- */
-    .db-color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
-    .db-color-item {
-        display: flex; flex-direction: column; align-items: center; gap: 6px;
-        cursor: pointer; padding: 12px 10px; border-radius: 10px;
-        border: 1px solid var(--border-subtle); transition: all 0.2s;
-    }
-    .db-color-item:hover { border-color: rgba(94,231,255,0.3); background: rgba(255,255,255,0.02); }
+    .db-color-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .db-color-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
     .db-color-item:hover .db-color-box { transform: scale(1.1); }
     .db-color-box {
         width: 48px; height: 36px; border-radius: 8px; border: 1px solid var(--border-medium);
         transition: transform var(--transition-fast);
     }
-    .db-color-name { font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); }
-    .db-color-hex { font-size: 0.65rem; color: var(--text-muted); font-family: var(--font-mono); }
+    .db-color-name { font-size: 0.5rem; color: var(--text-dim); font-family: var(--font-mono); }
+    .db-color-hex { font-size: 0.48rem; color: var(--text-faint); font-family: var(--font-mono); }
 
     /* --- Preview strip --- */
     .db-preview-strip {
@@ -233,7 +193,6 @@
                     <div class="db-subtitle">Configure &amp; Deploy Dashboard Layouts</div>
                 </div>
                 <div class="db-actions">
-                    <button class="btn btn-ghost btn-sm" onclick="window.open('pages/design-preview.html','_blank','width=1200,height=800')">Open Preview Playground</button>
                     <button class="btn btn-ghost btn-sm" onclick="dbExport()">Export Config</button>
                     <button class="btn btn-danger btn-sm" onclick="dbReset()">Reset</button>
                     <button class="btn btn-primary btn-sm" onclick="dbApply()" style="background:var(--accent-green);color:#000;">
@@ -263,38 +222,18 @@
             <button class="db-tab" data-tab="colors">Colors</button>
             <button class="db-tab" data-tab="motion">Motion &amp; FX</button>
             <button class="db-tab" data-tab="presets">Saved Presets</button>
+            <button class="db-tab" data-tab="preview">Preview</button>
         </div>
 
-        <!-- Split: Controls left, Preview right -->
-        <div class="db-split">
-            <div class="db-controls">
-                <div class="db-panel active" id="tab-theme"></div>
-                <div class="db-panel" id="tab-layout"></div>
-                <div class="db-panel" id="tab-panels"></div>
-                <div class="db-panel" id="tab-viz"></div>
-                <div class="db-panel" id="tab-colors"></div>
-                <div class="db-panel" id="tab-motion"></div>
-                <div class="db-panel" id="tab-presets"></div>
-            </div>
-            <div class="db-live-preview" id="db-live-preview">
-                <div class="db-live-preview-header">
-                    <span style="font-size:0.62rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;">Live Preview</span>
-                    <button class="db-toggle" style="font-size:0.55rem;padding:3px 10px;" onclick="dbRefreshPreview()">Refresh</button>
-                </div>
-                <div style="padding:10px 16px;border-bottom:1px solid var(--border-subtle);">
-                    <div style="font-size:0.58rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Playground Page</div>
-                    <select class="db-select" id="db-preview-page" onchange="dbPreviewPage(this.value)" style="width:100%;font-size:0.68rem;margin-bottom:8px;">
-                        <option value="dashboard">Executive Dashboard</option>
-                        <option value="projects">Project Cards</option>
-                        <option value="sessions">Session Intelligence</option>
-                        <option value="settings">Settings / Form</option>
-                    </select>
-                    <div style="font-size:0.58rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Show Components</div>
-                    <div id="db-preview-comp-toggles" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
-                </div>
-                <div class="db-live-preview-body" id="tab-preview"></div>
-            </div>
-        </div>
+        <!-- Tab Panels -->
+        <div class="db-panel active" id="tab-theme"></div>
+        <div class="db-panel" id="tab-layout"></div>
+        <div class="db-panel" id="tab-panels"></div>
+        <div class="db-panel" id="tab-viz"></div>
+        <div class="db-panel" id="tab-colors"></div>
+        <div class="db-panel" id="tab-motion"></div>
+        <div class="db-panel" id="tab-presets"></div>
+        <div class="db-panel" id="tab-preview"></div>
     </div>
 
     <!-- Applied notification -->
@@ -339,14 +278,7 @@
         catch(e) { return defaultConfig(); }
     }
 
-    var _dbChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('db-config-sync') : null;
-
-    function saveConfig() {
-        localStorage.setItem('db-config', JSON.stringify(CONFIG));
-        if (_dbChannel) _dbChannel.postMessage({ type: 'config-update', config: CONFIG });
-        clearTimeout(saveConfig._debounce);
-        saveConfig._debounce = setTimeout(renderPreviewTab, 200);
-    }
+    function saveConfig() { localStorage.setItem('db-config', JSON.stringify(CONFIG)); }
 
     // ============================================================
     // Themes
@@ -360,11 +292,11 @@
     };
 
     var PRESETS = {
-        'executive':    { name: 'Executive Overview',   theme: 'cortex-dark',   density: 'comfortable', bgfx: 'balanced',  panels: ['healthGauges','kpiCards','sessionRing','pipelineRing','progress','projectCards'] },
-        'analyst':      { name: 'Analyst Workspace',    theme: 'aurora-ops',    density: 'compact',     bgfx: 'minimal',   panels: ['kpiCards','heatmap','sessionRing','pipelineRing','progress','activityFeed','projectCards'] },
-        'pipeline':     { name: 'Pipeline Monitor',     theme: 'neon-exec',     density: 'compact',     bgfx: 'balanced',  panels: ['healthGauges','pipelineRing','progress','constellation','activityFeed'] },
-        'session':      { name: 'Session Control',      theme: 'labs-spectrum', density: 'comfortable', bgfx: 'minimal',   panels: ['kpiCards','sessionRing','heatmap','activityFeed'] },
-        'presentation': { name: 'Presentation Mode',    theme: 'cortex-dark',   density: 'spacious',    bgfx: 'full',      panels: ['healthGauges','kpiCards','progress','projectCards'] }
+        'executive':  { name: 'Executive Overview',   panels: ['healthGauges','kpiCards','sessionRing','pipelineRing','progress','projectCards'] },
+        'analyst':    { name: 'Analyst Workspace',     panels: ['kpiCards','heatmap','sessionRing','pipelineRing','progress','activityFeed','projectCards'] },
+        'pipeline':   { name: 'Pipeline Monitor',      panels: ['healthGauges','pipelineRing','progress','constellation','activityFeed'] },
+        'session':    { name: 'Session Control',        panels: ['kpiCards','sessionRing','heatmap','activityFeed'] },
+        'presentation': { name: 'Presentation Mode',   panels: ['healthGauges','kpiCards','progress','projectCards'] }
     };
 
     var PANEL_DEFS = {
@@ -422,21 +354,13 @@
     window.dbSelectPreset = function(id) {
         CONFIG.preset = id;
         var p = PRESETS[id];
-        if (p.theme) CONFIG.theme = p.theme;
-        if (p.density) CONFIG.density = p.density;
-        if (p.bgfx) CONFIG.bgfx = p.bgfx;
+        // Enable/disable panels according to preset
         Object.keys(CONFIG.panels).forEach(function(k) {
             CONFIG.panels[k].enabled = p.panels.indexOf(k) >= 0;
         });
-        // Apply theme vars to live page
-        var t = THEMES[CONFIG.theme];
-        if (t) Object.keys(t.vars).forEach(function(k) { document.documentElement.style.setProperty(k, t.vars[k]); });
         saveConfig();
         renderPresets();
-        renderLayoutTab();
         renderPanelsTab();
-        renderThemeTab();
-        renderMotionTab();
     };
 
     // ============================================================
@@ -534,30 +458,22 @@
     // ============================================================
     // Viz Tab
     // ============================================================
-    var VIZ_CATEGORIES = [
-        { key: 'statusBreakdowns', cat: 'Status Breakdowns', options: ['Ring Chart', 'Donut', 'Stacked Bar', 'Table'], def: 'Ring Chart' },
-        { key: 'metricsKpis', cat: 'Metrics / KPIs', options: ['Cards with Sparklines', 'Compact Numbers', 'Table', 'Gauge Row'], def: 'Cards with Sparklines' },
-        { key: 'activityTimeline', cat: 'Activity / Timeline', options: ['Heatmap Grid', 'Bar Chart', 'Sparkline Row', 'Timeline'], def: 'Heatmap Grid' },
-        { key: 'progress', cat: 'Progress', options: ['Segmented Bar', 'Gauge', 'Radial', 'Percentage'], def: 'Segmented Bar' },
-        { key: 'projectOverview', cat: 'Project Overview', options: ['Constellation', 'Card Grid', 'Table', 'Orbit'], def: 'Constellation' }
-    ];
-
     function renderVizTab() {
-        if (!CONFIG.vizDefaults) CONFIG.vizDefaults = {};
-        VIZ_CATEGORIES.forEach(function(v) {
-            if (!CONFIG.vizDefaults[v.key]) CONFIG.vizDefaults[v.key] = v.def;
-        });
-
         var html = '<div class="db-section"><div class="db-section-title">Default Visualization Types</div>';
         html += '<p style="font-size:0.72rem;color:var(--text-body);margin-bottom:14px;">Set the default chart type for each data category across all panels.</p>';
-        VIZ_CATEGORIES.forEach(function(v) {
-            var current = CONFIG.vizDefaults[v.key] || v.def;
+        var vizTypes = [
+            { cat: 'Status Breakdowns', options: ['Ring Chart', 'Donut', 'Stacked Bar', 'Table'], current: 'Ring Chart' },
+            { cat: 'Metrics / KPIs', options: ['Cards with Sparklines', 'Compact Numbers', 'Table', 'Gauge Row'], current: 'Cards with Sparklines' },
+            { cat: 'Activity / Timeline', options: ['Heatmap Grid', 'Bar Chart', 'Sparkline Row', 'Timeline'], current: 'Heatmap Grid' },
+            { cat: 'Progress', options: ['Segmented Bar', 'Gauge', 'Radial', 'Percentage'], current: 'Segmented Bar' },
+            { cat: 'Project Overview', options: ['Constellation', 'Card Grid', 'Table', 'Orbit'], current: 'Constellation' }
+        ];
+        vizTypes.forEach(function(v) {
             html += '<div style="margin-bottom:14px;">';
             html += '<div style="font-size:0.72rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">' + v.cat + '</div>';
             html += '<div class="db-toggle-row">';
             v.options.forEach(function(opt) {
-                var active = opt === current ? ' active' : '';
-                html += '<button class="db-toggle' + active + '" onclick="dbSetViz(\'' + v.key + '\',\'' + opt + '\')">' + opt + '</button>';
+                html += '<button class="db-toggle' + (opt === v.current ? ' active' : '') + '">' + opt + '</button>';
             });
             html += '</div></div>';
         });
@@ -565,28 +481,16 @@
         document.getElementById('tab-viz').innerHTML = html;
     }
 
-    window.dbSetViz = function(key, val) {
-        if (!CONFIG.vizDefaults) CONFIG.vizDefaults = {};
-        CONFIG.vizDefaults[key] = val;
-        saveConfig();
-        renderVizTab();
-    };
-
     // ============================================================
     // Colors Tab
     // ============================================================
     function renderColorsTab() {
         var colorTokens = [
-            { name: 'Cyan', var: '--accent-cyan', usage: 'Primary accent, active states, links, running status' },
-            { name: 'Blue', var: '--accent-blue', usage: 'Secondary accent, nav highlights, info badges' },
-            { name: 'Violet', var: '--accent-violet', usage: 'Tertiary accent, review status, complexity badges' },
-            { name: 'Green', var: '--accent-green', usage: 'Success states, completed status, positive deltas' },
-            { name: 'Red', var: '--accent-red', usage: 'Error states, failed status, negative deltas, danger actions' },
-            { name: 'Amber', var: '--accent-amber', usage: 'Warning states, queued status, cost indicators' },
-            { name: 'Gold', var: '--accent-gold', usage: 'Cost values, pricing, premium indicators' },
-            { name: 'Magenta', var: '--accent-magenta', usage: 'Special highlights, experimental features' },
-            { name: 'Background', var: '--bg-void', usage: 'Deepest background layer, page backdrop' },
-            { name: 'Surface', var: '--bg-primary', usage: 'Card backgrounds, panel surfaces, content areas' }
+            { name: 'cyan', var: '--accent-cyan' }, { name: 'blue', var: '--accent-blue' },
+            { name: 'violet', var: '--accent-violet' }, { name: 'green', var: '--accent-green' },
+            { name: 'red', var: '--accent-red' }, { name: 'amber', var: '--accent-amber' },
+            { name: 'gold', var: '--accent-gold' }, { name: 'magenta', var: '--accent-magenta' },
+            { name: 'bg-void', var: '--bg-void' }, { name: 'bg-primary', var: '--bg-primary' }
         ];
         var computed = getComputedStyle(document.documentElement);
         var html = '<div class="db-section"><div class="db-section-title">Accent Colors</div>';
@@ -597,7 +501,6 @@
             html += '<div class="db-color-item" onclick="dbPickColor(\'' + t.var + '\')">';
             html += '<div class="db-color-box" style="background:var(' + t.var + ');"></div>';
             html += '<div class="db-color-name">' + t.name + '</div>';
-            html += '<div style="font-size:0.62rem;color:var(--text-muted);line-height:1.4;margin-top:2px;text-align:center;">' + t.usage + '</div>';
             html += '<div class="db-color-hex">' + val + '</div>';
             html += '</div>';
         });
@@ -810,201 +713,52 @@
     // Preview Tab
     // ============================================================
     function renderPreviewTab() {
-        var html = '';
-
-        // Config Summary Bar
-        html += '<div class="db-section">';
-        html += '<div style="display:flex;gap:12px;flex-wrap:wrap;padding:14px 18px;background:rgba(94,231,255,0.03);border:1px solid rgba(94,231,255,0.12);border-radius:var(--radius-md);margin-bottom:16px;">';
-        html += '<span style="font-size:0.68rem;color:var(--text-dim);">Theme: <strong style="color:var(--accent-cyan);">' + CONFIG.theme + '</strong></span>';
-        html += '<span style="font-size:0.68rem;color:var(--text-dim);">Preset: <strong style="color:var(--accent-cyan);">' + CONFIG.preset + '</strong></span>';
-        html += '<span style="font-size:0.68rem;color:var(--text-dim);">Density: <strong style="color:var(--accent-cyan);">' + CONFIG.density + '</strong></span>';
-        html += '<span style="font-size:0.68rem;color:var(--text-dim);">BG FX: <strong style="color:var(--accent-cyan);">' + CONFIG.bgfx + '</strong></span>';
-        var enabledPanels = Object.keys(CONFIG.panels).filter(function(k) { return CONFIG.panels[k].enabled; });
-        html += '<span style="font-size:0.68rem;color:var(--text-dim);">Panels: <strong style="color:var(--accent-cyan);">' + enabledPanels.length + ' active</strong></span>';
-        html += '</div></div>';
-
-        // Data Visualizations
-        html += '<div class="db-section"><div class="db-section-title">Data Visualizations</div>';
-        html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;">';
-
-        html += '<div class="db-preview-strip" style="margin:0;flex-direction:column;align-items:center;padding:20px;">';
-        html += '<div class="db-preview-label">Health Gauge</div><div id="db-prev-gauge"></div></div>';
-
-        html += '<div class="db-preview-strip" style="margin:0;flex-direction:column;align-items:center;padding:20px;">';
-        html += '<div class="db-preview-label">Status Ring</div><div id="db-prev-ring"></div></div>';
-
-        html += '<div class="db-preview-strip" style="margin:0;flex-direction:column;align-items:center;padding:20px;">';
-        html += '<div class="db-preview-label">Success Gauge</div><div id="db-prev-gauge2"></div></div>';
-
-        html += '<div class="db-preview-strip" style="margin:0;flex-direction:column;align-items:center;padding:20px;">';
-        html += '<div class="db-preview-label">Pipeline Ring</div><div id="db-prev-ring2"></div></div>';
-
+        var html = '<div class="db-section"><div class="db-section-title">Live Preview</div>';
+        html += '<p style="font-size:0.72rem;color:var(--text-body);margin-bottom:14px;">Preview of component styles with current configuration.</p>';
+        html += '<div class="db-preview-strip">';
+        html += '<div class="db-preview-item"><div class="db-preview-label">Gauge</div><div id="db-prev-gauge"></div></div>';
+        html += '<div class="db-preview-item"><div class="db-preview-label">Ring</div><div id="db-prev-ring"></div></div>';
+        html += '<div class="db-preview-item"><div class="db-preview-label">Sparkline</div><div id="db-prev-spark"></div></div>';
+        html += '<div class="db-preview-item"><div class="db-preview-label">Progress</div><div id="db-prev-prog"></div></div>';
         html += '</div>';
 
-        html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">';
-        html += '<div class="db-preview-strip" style="margin:0;padding:20px;">';
-        html += '<div class="db-preview-label">Sparkline — Sessions</div><div id="db-prev-spark" style="margin-top:8px;"></div></div>';
-        html += '<div class="db-preview-strip" style="margin:0;padding:20px;">';
-        html += '<div class="db-preview-label">Sparkline — Cost</div><div id="db-prev-spark2" style="margin-top:8px;"></div></div>';
-        html += '</div>';
-
-        html += '<div class="db-preview-strip" style="margin-top:14px;padding:20px;">';
-        html += '<div class="db-preview-label">Segmented Progress — Overall</div><div id="db-prev-prog" style="margin-top:8px;"></div></div>';
-        html += '<div class="db-preview-strip" style="margin-top:10px;padding:20px;">';
-        html += '<div class="db-preview-label">Segmented Progress — Pipeline</div><div id="db-prev-prog2" style="margin-top:8px;"></div></div>';
-        html += '</div>';
-
-        // Metric Cards
-        html += '<div class="db-section"><div class="db-section-title">Metric Cards</div>';
-        html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">';
-
-        var sampleMetrics = [
-            { label: 'Total Sessions', value: '47', delta: '+12%', deltaUp: true, status: 'live' },
-            { label: 'Success Rate', value: '87%', delta: '+3%', deltaUp: true, status: '' },
-            { label: 'Total Cost', value: '$18.42', delta: '-$2.10', deltaUp: false, status: '' },
-            { label: 'Active Pipelines', value: '3', delta: '', deltaUp: true, status: 'live' },
-            { label: 'Failed Sessions', value: '6', delta: '+2', deltaUp: false, status: 'warning' },
-            { label: 'Avg Cost/Session', value: '$0.39', delta: '-8%', deltaUp: true, status: '' },
-        ];
-        sampleMetrics.forEach(function(m, i) {
-            var statusClass = m.status === 'live' ? ' is-live' : m.status === 'warning' ? ' is-warning' : '';
-            html += '<div class="metric-card' + statusClass + '" style="background:var(--card-gradient);border:1px solid var(--border-medium);border-radius:var(--radius-md);padding:16px;">';
-            html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
-            html += '<span style="font-size:0.62rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;">' + m.label + '</span>';
-            if (m.status === 'live') html += '<span style="width:6px;height:6px;border-radius:50%;background:var(--accent-cyan);box-shadow:0 0 8px var(--accent-cyan);"></span>';
-            html += '</div>';
-            html += '<div style="font-size:1.6rem;font-weight:800;color:#fff;font-family:var(--font-mono);">' + m.value + '</div>';
-            if (m.delta) {
-                var dColor = m.deltaUp ? 'var(--accent-green)' : 'var(--accent-red)';
-                html += '<span style="font-size:0.65rem;font-weight:700;color:' + dColor + ';">' + m.delta + '</span>';
-            }
-            html += '<div id="db-prev-mspark-' + i + '" style="margin-top:8px;"></div>';
-            html += '</div>';
-        });
-        html += '</div></div>';
-
-        // Buttons
-        html += '<div class="db-section"><div class="db-section-title">Buttons</div>';
-        html += '<div class="db-comp-row" style="gap:10px;">';
+        html += '<div style="margin-top:16px;">';
+        html += '<div class="db-preview-label">Components</div>';
+        html += '<div class="db-comp-row" style="margin-top:8px;">';
         html += '<button class="btn btn-primary btn-sm">Primary</button>';
-        html += '<button class="btn btn-success btn-sm">Success</button>';
-        html += '<button class="btn btn-danger btn-sm">Danger</button>';
         html += '<button class="btn btn-ghost btn-sm">Ghost</button>';
-        html += '<button class="btn btn-back btn-sm">Back</button>';
-        html += '<button class="btn btn-primary btn-sm" disabled>Disabled</button>';
+        html += '<span class="badge cyan">Running</span><span class="badge green">Success</span><span class="badge red">Failed</span>';
         html += '</div></div>';
 
-        // Badges
-        html += '<div class="db-section"><div class="db-section-title">Status Badges</div>';
-        html += '<div class="db-comp-row" style="gap:8px;">';
-        html += '<span class="badge running">Running</span>';
-        html += '<span class="badge succeeded">Succeeded</span>';
-        html += '<span class="badge failed">Failed</span>';
-        html += '<span class="badge queued">Queued</span>';
-        html += '<span class="badge review">Review</span>';
-        html += '<span class="badge gold">Premium</span>';
-        html += '<span class="badge blue">Info</span>';
-        html += '<span class="badge purple">Planned</span>';
+        html += '<div style="margin-top:16px;">';
+        html += '<div class="db-preview-label">Active Config Summary</div>';
+        html += '<div style="font-size:0.72rem;color:var(--text-body);line-height:1.8;margin-top:6px;">';
+        html += 'Project: <strong style="color:var(--accent-cyan);">' + CONFIG.project + '</strong> · ';
+        html += 'Theme: <strong style="color:var(--accent-cyan);">' + CONFIG.theme + '</strong> · ';
+        html += 'Preset: <strong style="color:var(--accent-cyan);">' + CONFIG.preset + '</strong> · ';
+        html += 'Density: <strong style="color:var(--accent-cyan);">' + CONFIG.density + '</strong><br>';
+        var enabledPanels = Object.keys(CONFIG.panels).filter(function(k) { return CONFIG.panels[k].enabled; });
+        html += 'Panels (' + enabledPanels.length + '): ' + enabledPanels.map(function(k) { return PANEL_DEFS[k] ? PANEL_DEFS[k].name : k; }).join(', ');
         html += '</div></div>';
-
-        // Status Dots
-        html += '<div class="db-section"><div class="db-section-title">Status Indicators</div>';
-        html += '<div class="db-comp-row" style="gap:16px;">';
-        html += '<span style="display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--text-secondary);"><span class="status-dot running"></span> Running</span>';
-        html += '<span style="display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--text-secondary);"><span class="status-dot succeeded"></span> Succeeded</span>';
-        html += '<span style="display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--text-secondary);"><span class="status-dot failed"></span> Failed</span>';
-        html += '<span style="display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--text-secondary);"><span class="status-dot queued"></span> Queued</span>';
-        html += '<span style="display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--text-secondary);"><span class="status-dot reviewing"></span> Reviewing</span>';
-        html += '</div></div>';
-
-        // Form Controls
-        html += '<div class="db-section"><div class="db-section-title">Form Controls</div>';
-        html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">';
-        html += '<div class="form-group"><label class="form-label">Text Input</label><input class="form-input" placeholder="Sample input..." value=""></div>';
-        html += '<div class="form-group"><label class="form-label">Select</label><select class="form-select"><option>Option A</option><option>Option B</option><option>Option C</option></select></div>';
         html += '</div>';
-        html += '<div class="form-group" style="margin-top:10px;"><label class="form-label">Textarea</label><textarea class="form-textarea" rows="2" placeholder="Sample textarea..."></textarea></div>';
-        html += '</div>';
-
-        // Callouts
-        html += '<div class="db-section"><div class="db-section-title">Callouts / Alerts</div>';
-        html += '<div class="callout info">Info callout — informational message with context and guidance.</div>';
-        html += '<div class="callout warn">Warning callout — something needs attention but is not critical.</div>';
-        html += '<div class="callout success">Success callout — operation completed successfully.</div>';
-        html += '</div>';
-
-        // Cards
-        html += '<div class="db-section"><div class="db-section-title">Cards</div>';
-        html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
-        html += '<div class="card"><div class="card-title">Standard Card</div><div class="card-desc">Default card with gradient background, border, and rounded corners. Used for content sections.</div></div>';
-        html += '<div class="card card-hover"><div class="card-title">Hover Card</div><div class="card-desc">Interactive card with hover lift effect and border glow. Used for clickable items.</div></div>';
-        html += '</div></div>';
-
-        // Typography
-        html += '<div class="db-section"><div class="db-section-title">Typography</div>';
-        html += '<div style="padding:16px;background:var(--card-gradient);border:1px solid var(--border-medium);border-radius:var(--radius-md);">';
-        html += '<h2 style="margin-bottom:4px;">Heading 2</h2>';
-        html += '<h3 style="margin-bottom:4px;">Heading 3</h3>';
-        html += '<p class="body">Body text with <strong>bold emphasis</strong> and <code>inline code</code> styling. Uses the system font stack at 0.88rem with 1.8 line height for comfortable reading.</p>';
-        html += '<p style="font-size:0.72rem;color:var(--text-dim);">Dim caption text — used for timestamps, hints, and secondary information.</p>';
-        html += '<p style="font-family:var(--font-mono);font-size:0.78rem;color:var(--accent-cyan);">Monospace text — used for IDs, code references, and technical values.</p>';
-        html += '</div></div>';
-
-        // Color Swatches (live from current theme)
-        html += '<div class="db-section"><div class="db-section-title">Active Color Palette</div>';
-        html += '<div style="display:flex;gap:6px;flex-wrap:wrap;">';
-        var swatches = [
-            { name: 'Cyan', var: '--accent-cyan' }, { name: 'Blue', var: '--accent-blue' },
-            { name: 'Violet', var: '--accent-violet' }, { name: 'Green', var: '--accent-green' },
-            { name: 'Red', var: '--accent-red' }, { name: 'Amber', var: '--accent-amber' },
-            { name: 'Gold', var: '--accent-gold' },
-        ];
-        swatches.forEach(function(s) {
-            html += '<div style="text-align:center;">';
-            html += '<div style="width:48px;height:48px;border-radius:10px;background:var(' + s.var + ');box-shadow:0 0 16px color-mix(in srgb, var(' + s.var + ') 30%, transparent);"></div>';
-            html += '<div style="font-size:0.58rem;color:var(--text-dim);margin-top:4px;">' + s.name + '</div>';
-            html += '</div>';
-        });
-        html += '</div></div>';
-
         document.getElementById('tab-preview').innerHTML = html;
 
-        // Render visualizations
+        // Render vizzes
         setTimeout(function() {
             if (typeof CortexUI === 'undefined') return;
-            CortexUI.renderGauge(document.getElementById('db-prev-gauge'), 82, { size: 90, stroke: 6, label: 'Health' });
-            CortexUI.renderGauge(document.getElementById('db-prev-gauge2'), 94, { size: 90, stroke: 6, label: 'Success' });
+            CortexUI.renderGauge(document.getElementById('db-prev-gauge'), 82, { size: 72, stroke: 5, label: 'Health' });
             CortexUI.renderRingChart(document.getElementById('db-prev-ring'), [
                 { status: 'ok', count: 18, color: 'var(--accent-green)' },
                 { status: 'run', count: 3, color: 'var(--accent-cyan)' },
                 { status: 'fail', count: 5, color: 'var(--accent-red)' }
-            ], { size: 90 });
-            CortexUI.renderRingChart(document.getElementById('db-prev-ring2'), [
-                { status: 'complete', count: 8, color: 'var(--accent-green)' },
-                { status: 'running', count: 2, color: 'var(--accent-cyan)' },
-                { status: 'queued', count: 4, color: 'var(--accent-amber)' }
-            ], { size: 90 });
-            CortexUI.renderSparkline(document.getElementById('db-prev-spark'), [2,5,3,8,4,10,6,12,9,14], { width: '100%', height: 36, color: 'var(--accent-cyan)' });
-            CortexUI.renderSparkline(document.getElementById('db-prev-spark2'), [1.2,0.8,1.5,0.6,2.1,1.8,0.9,1.4,2.3,1.1], { width: '100%', height: 36, color: 'var(--accent-gold)' });
+            ], { size: 72 });
+            CortexUI.renderSparkline(document.getElementById('db-prev-spark'), [2,5,3,8,4,10,6,12], { width: 100, height: 30, color: 'var(--accent-cyan)' });
             CortexUI.renderSegmentedProgress(document.getElementById('db-prev-prog'), [
-                { status: 'complete', count: 28, color: 'var(--accent-green)' },
-                { status: 'running', count: 5, color: 'var(--accent-cyan)' },
-                { status: 'planned', count: 12, color: 'var(--text-dim)' },
-                { status: 'failed', count: 3, color: 'var(--accent-red)' }
-            ], { height: 10 });
-            CortexUI.renderSegmentedProgress(document.getElementById('db-prev-prog2'), [
-                { status: 'done', count: 4, color: 'var(--accent-green)' },
-                { status: 'active', count: 1, color: 'var(--accent-cyan)' },
-                { status: 'pending', count: 3, color: 'var(--text-dim)' }
-            ], { height: 10 });
-            // Mini sparklines in metric cards
-            var sparkData = [[3,5,2,8,6,10,7],[12,9,14,11,15,13,16],[2,1,3,1,2,4,1],[1,2,1,3,2,1,2],[0,1,0,2,1,3,2],[0.5,0.3,0.4,0.2,0.6,0.3,0.4]];
-            var sparkColors = ['var(--accent-cyan)','var(--accent-green)','var(--accent-gold)','var(--accent-cyan)','var(--accent-red)','var(--accent-amber)'];
-            for (var i = 0; i < 6; i++) {
-                var el = document.getElementById('db-prev-mspark-' + i);
-                if (el) CortexUI.renderSparkline(el, sparkData[i], { width: '100%', height: 24, color: sparkColors[i] });
-            }
-        }, 150);
+                { status: 'ok', count: 14, color: 'var(--accent-green)' },
+                { status: 'run', count: 3, color: 'var(--accent-cyan)' },
+                { status: 'fail', count: 4, color: 'var(--accent-red)' }
+            ], { height: 8 });
+        }, 100);
     }
 
     // ============================================================
@@ -1054,41 +808,6 @@
         URL.revokeObjectURL(url);
     };
 
-    window.dbRefreshPreview = function() { renderPreviewTab(); };
-
-    // Preview playground controls
-    var PREVIEW_COMPONENTS = [
-        { key: 'hero', label: 'Hero' }, { key: 'nav', label: 'Nav' },
-        { key: 'kpis', label: 'KPIs' }, { key: 'charts', label: 'Charts' },
-        { key: 'progress', label: 'Progress' }, { key: 'table', label: 'Table' },
-        { key: 'cards', label: 'Cards' }, { key: 'badges', label: 'Badges' },
-        { key: 'buttons', label: 'Buttons' }, { key: 'form', label: 'Form' },
-        { key: 'callouts', label: 'Callouts' }, { key: 'typography', label: 'Type' },
-    ];
-    var previewVisible = {};
-    PREVIEW_COMPONENTS.forEach(function(c) { previewVisible[c.key] = true; });
-
-    function renderPreviewCompToggles() {
-        var el = document.getElementById('db-preview-comp-toggles');
-        if (!el) return;
-        var html = '';
-        PREVIEW_COMPONENTS.forEach(function(c) {
-            var active = previewVisible[c.key] ? ' active' : '';
-            html += '<button class="db-toggle' + active + '" style="font-size:0.55rem;padding:3px 8px;" onclick="dbTogglePreviewComp(\'' + c.key + '\')">' + c.label + '</button>';
-        });
-        el.innerHTML = html;
-    }
-
-    window.dbTogglePreviewComp = function(key) {
-        previewVisible[key] = !previewVisible[key];
-        renderPreviewCompToggles();
-        if (_dbChannel) _dbChannel.postMessage({ type: 'preview-components', visible: previewVisible });
-    };
-
-    window.dbPreviewPage = function(page) {
-        if (_dbChannel) _dbChannel.postMessage({ type: 'preview-page', page: page });
-    };
-
     window.dbReset = function() {
         if (!confirm('Reset all dashboard configuration to defaults?')) return;
         localStorage.removeItem('db-config');
@@ -1117,7 +836,6 @@
     function init() {
         populateProjects();
         renderAll();
-        renderPreviewCompToggles();
     }
 
     if (window.ConductorData && window.ConductorData.sessions) init();

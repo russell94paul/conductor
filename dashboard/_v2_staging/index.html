@@ -363,33 +363,6 @@
     CortexBG.injectLayers();
     CortexBG.init();
 
-    // Apply saved design system config on shell load
-    (function() {
-        try {
-            var saved = localStorage.getItem('db-config');
-            if (!saved) return;
-            var cfg = JSON.parse(saved);
-            var root = document.documentElement;
-
-            var THEMES = {
-                'cortex-dark': { '--bg-void':'#03050a','--bg-primary':'#050816','--accent-cyan':'#5ee7ff','--accent-violet':'#9b5cff','--accent-green':'#52ffb8','--accent-red':'#ff5c8a','--accent-amber':'#ffd166' },
-                'aurora-ops': { '--bg-void':'#040812','--bg-primary':'#081018','--accent-cyan':'#67e8f9','--accent-violet':'#c084fc','--accent-green':'#86efac','--accent-red':'#fca5a5','--accent-amber':'#fde68a' },
-                'neon-exec': { '--bg-void':'#0a0014','--bg-primary':'#12001e','--accent-cyan':'#00f0ff','--accent-violet':'#bf5af2','--accent-green':'#30d158','--accent-red':'#ff453a','--accent-amber':'#ffd60a' },
-                'graphite': { '--bg-void':'#111111','--bg-primary':'#1a1a1a','--accent-cyan':'#8ecae6','--accent-violet':'#b5a3d4','--accent-green':'#a3d9a5','--accent-red':'#e5737373','--accent-amber':'#ddb892' },
-                'labs-spectrum': { '--bg-void':'#020210','--bg-primary':'#060620','--accent-cyan':'#38bdf8','--accent-violet':'#a78bfa','--accent-green':'#4ade80','--accent-red':'#f87171','--accent-amber':'#fb923c' },
-            };
-            if (cfg.theme && THEMES[cfg.theme]) {
-                var vars = THEMES[cfg.theme];
-                Object.keys(vars).forEach(function(k) { root.style.setProperty(k, vars[k]); });
-            }
-            if (cfg.colors) {
-                Object.keys(cfg.colors).forEach(function(k) { root.style.setProperty(k, cfg.colors[k]); });
-            }
-            if (cfg.density) root.dataset.density = cfg.density;
-            if (cfg.bgfx) root.dataset.bgfx = cfg.bgfx;
-        } catch(e) {}
-    })();
-
     // Data load
     CortexData.load();
     </script>

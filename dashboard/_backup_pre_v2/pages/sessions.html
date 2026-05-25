@@ -8,40 +8,43 @@
     <style>
         /* --- Page-specific styles --- */
         .board-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 20px 24px 14px; flex-wrap: wrap; gap: 12px;
-            background: linear-gradient(135deg, rgba(94,231,255,0.02), rgba(155,92,255,0.01));
-            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 24px 16px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
-        .board-header-left { display: flex; align-items: center; gap: 14px; }
-        .board-title {
-            font-size: 1.05rem; font-weight: 800; letter-spacing: 0.14em;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        .board-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
-        .board-subtitle { font-size: 0.58rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.12em; }
-        .board-header-stats { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .board-header-left h1 {
+            font-size: 1.4rem;
+            text-align: left;
+        }
+        .board-header-stats {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
         .board-stat {
-            display: flex; align-items: center; gap: 5px; font-size: 0.68rem; color: var(--text-dim);
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
-            border-radius: 8px; padding: 5px 12px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
-        .board-stat-val { font-family: var(--font-mono); font-weight: 700; color: var(--text-secondary); }
+        .board-stat-val {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
 
-        .board-filters {
-            display: flex; gap: 8px; padding: 10px 24px 12px; align-items: center;
-            border-bottom: 1px solid var(--border-subtle); flex-wrap: wrap;
+        .board-body {
+            padding: 0 24px 24px;
         }
-        .board-filter-select {
-            font-size: 0.68rem; font-weight: 600; padding: 5px 12px; border-radius: 8px;
-            border: 1px solid var(--border-medium); background: rgba(255,255,255,0.03);
-            color: var(--text-secondary); cursor: pointer; font-family: var(--font-family);
-        }
-        .board-filter-select:focus { outline: none; border-color: var(--accent-cyan); }
-        .board-filter-select option { background: #0a0f1a; color: var(--text-primary); }
-        .board-progress-strip { padding: 0 24px 10px; }
-
-        .board-body { padding: 0 24px 24px; }
 
         /* Session detail panel (slide-in) */
         .detail-overlay {
@@ -120,138 +123,12 @@
             padding: 14px;
             max-height: 300px;
             overflow-y: auto;
-            font-size: 0.82rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
             color: var(--text-secondary);
-            line-height: 1.7;
+            line-height: 1.6;
+            white-space: pre-wrap;
             word-break: break-word;
-        }
-        .detail-output p { margin: 0 0 8px; }
-        .detail-output p:last-child { margin-bottom: 0; }
-        .detail-output strong { color: #fff; }
-        .detail-output code {
-            background: rgba(255,255,255,0.06); padding: 1px 5px;
-            border-radius: 3px; font-family: var(--font-mono); font-size: 0.78rem;
-            color: var(--neon-cyan, var(--accent-blue));
-        }
-        .detail-output ul, .detail-output ol { margin: 6px 0; padding-left: 20px; }
-        .detail-output li { margin-bottom: 4px; }
-        .detail-output h3, .detail-output h4 {
-            font-size: 0.85rem; font-weight: 700; color: #fff; margin: 12px 0 6px;
-        }
-        .detail-output pre {
-            background: rgba(0,0,0,0.4); border: 1px solid var(--border-light);
-            border-radius: 6px; padding: 10px 12px; font-family: var(--font-mono);
-            font-size: 0.72rem; overflow-x: auto; margin: 8px 0; white-space: pre-wrap;
-        }
-
-        /* Interactive question cards */
-        .session-questions {
-            margin-top: 16px;
-        }
-        .session-questions-title {
-            font-size: 0.72rem; font-weight: 700; color: var(--neon-cyan, var(--accent-blue));
-            text-transform: uppercase; letter-spacing: 0.08em;
-            margin-bottom: 12px; padding-bottom: 6px;
-            border-bottom: 1px solid rgba(94,231,255,0.15);
-            display: flex; align-items: center; gap: 8px;
-        }
-        .session-question-card {
-            background: rgba(10,16,32,0.68);
-            border: 1px solid rgba(148,163,184,0.18);
-            border-radius: 12px; padding: 16px 18px;
-            margin-bottom: 10px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-        }
-        .session-question-card:hover {
-            border-color: rgba(94,231,255,0.35);
-            box-shadow: 0 0 20px rgba(94,231,255,0.06);
-        }
-        .session-question-card.selected {
-            border-color: rgba(94,231,255,0.6);
-            box-shadow: 0 0 24px rgba(94,231,255,0.1);
-            background: rgba(94,231,255,0.04);
-        }
-        .sq-header {
-            display: flex; align-items: flex-start; gap: 12px;
-        }
-        .sq-radio {
-            width: 18px; height: 18px; border-radius: 50%;
-            border: 2px solid rgba(148,163,184,0.3);
-            flex-shrink: 0; margin-top: 2px;
-            display: flex; align-items: center; justify-content: center;
-            transition: border-color 0.2s;
-        }
-        .session-question-card.selected .sq-radio {
-            border-color: var(--neon-cyan, var(--accent-blue));
-        }
-        .sq-radio-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--neon-cyan, var(--accent-blue));
-            opacity: 0; transform: scale(0);
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .session-question-card.selected .sq-radio-dot {
-            opacity: 1; transform: scale(1);
-        }
-        .sq-body { flex: 1; min-width: 0; }
-        .sq-number {
-            font-family: var(--font-mono); font-size: 0.6rem; font-weight: 800;
-            color: var(--neon-cyan, var(--accent-blue));
-            background: rgba(94,231,255,0.1);
-            padding: 2px 7px; border-radius: 5px;
-            margin-right: 8px;
-        }
-        .sq-title {
-            font-size: 0.82rem; font-weight: 600; color: var(--text-primary);
-            line-height: 1.5; margin-bottom: 4px;
-        }
-        .sq-desc {
-            font-size: 0.72rem; color: var(--text-muted); line-height: 1.5;
-        }
-        .sq-notes {
-            margin-top: 10px; display: none;
-        }
-        .session-question-card.selected .sq-notes { display: block; }
-        .sq-notes textarea {
-            width: 100%; padding: 10px 12px; border-radius: 8px;
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(148,163,184,0.15);
-            color: var(--text-primary); font-size: 0.78rem;
-            font-family: var(--font-family); resize: vertical;
-            min-height: 48px; line-height: 1.5;
-        }
-        .sq-notes textarea:focus {
-            outline: none; border-color: var(--neon-cyan, var(--accent-blue));
-            background: rgba(94,231,255,0.03);
-        }
-        .sq-notes textarea::placeholder { color: var(--text-faint); }
-        .sq-notes-label {
-            font-size: 0.6rem; color: var(--text-dim); text-transform: uppercase;
-            letter-spacing: 0.06em; margin-bottom: 4px; font-weight: 600;
-        }
-
-        /* Continue/respond section */
-        .session-respond {
-            margin-top: 16px; padding-top: 16px;
-            border-top: 1px solid rgba(148,163,184,0.12);
-        }
-        .session-respond-input {
-            width: 100%; padding: 12px 14px; border-radius: 10px;
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(148,163,184,0.18);
-            color: var(--text-primary); font-size: 0.85rem;
-            font-family: var(--font-family); resize: vertical;
-            min-height: 60px; line-height: 1.5;
-        }
-        .session-respond-input:focus {
-            outline: none; border-color: var(--neon-cyan, var(--accent-blue));
-            background: rgba(94,231,255,0.03);
-        }
-        .session-respond-input::placeholder { color: var(--text-faint); }
-        .session-respond-actions {
-            display: flex; gap: 8px; margin-top: 10px; align-items: center;
-        }
-        .session-respond-hint {
-            font-size: 0.6rem; color: var(--text-faint); margin-left: auto;
         }
 
         .quality-gates {
@@ -297,45 +174,21 @@
 <body>
     <div class="board-header">
         <div class="board-header-left">
-            <div>
-                <div class="board-title">SESSIONS</div>
-                <div class="board-subtitle">Session Intelligence Board</div>
-            </div>
+            <h1>Session Board</h1>
             <button class="btn btn-primary btn-sm" onclick="window.openNewSessionModal()">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 New Session
             </button>
         </div>
         <div class="board-header-stats">
-            <div class="board-stat">Total <span class="board-stat-val" id="bs-total">0</span></div>
-            <div class="board-stat"><span class="status-dot running" style="margin-right:2px;"></span> Running <span class="board-stat-val" id="bs-running">0</span></div>
-            <div class="board-stat">Success <span class="board-stat-val" style="color:var(--accent-green);" id="bs-success-rate">0%</span></div>
-            <div class="board-stat">Cost <span class="board-stat-val" style="color:var(--accent-gold);" id="bs-cost">$0.00</span></div>
-            <div class="board-stat">Tokens <span class="board-stat-val" id="bs-tokens">0</span></div>
+            <div class="board-stat">Total: <span class="board-stat-val" id="bs-total">0</span></div>
+            <div class="board-stat">
+                <span class="status-dot running"></span>
+                Running: <span class="board-stat-val" id="bs-running">0</span>
+            </div>
+            <div class="board-stat">Cost: <span class="board-stat-val text-gold" id="bs-cost">$0.00</span></div>
         </div>
     </div>
-
-    <div class="board-filters">
-        <select class="board-filter-select" id="bs-project-filter" onchange="filterBoard()">
-            <option value="all">All Projects</option>
-        </select>
-        <select class="board-filter-select" id="bs-status-filter" onchange="filterBoard()">
-            <option value="all">All Statuses</option>
-            <option value="running">Running</option>
-            <option value="succeeded">Succeeded</option>
-            <option value="failed">Failed</option>
-            <option value="queued">Queued</option>
-        </select>
-        <select class="board-filter-select" id="bs-model-filter" onchange="filterBoard()">
-            <option value="all">All Models</option>
-            <option value="sonnet">Sonnet</option>
-            <option value="opus">Opus</option>
-            <option value="haiku">Haiku</option>
-        </select>
-        <div style="margin-left:auto;" id="bs-sparkline"></div>
-    </div>
-
-    <div class="board-progress-strip" id="bs-progress"></div>
 
     <div class="board-body">
         <div class="kanban-board" id="kanban-board">
@@ -475,102 +328,6 @@
             return '$' + (c || 0).toFixed(2);
         }
 
-        function renderSessionMarkdown(text) {
-            var html = text
-                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/`([^`]+)`/g, '<code>$1</code>')
-                .replace(/^### (.*$)/gm, '<h4>$1</h4>')
-                .replace(/^## (.*$)/gm, '<h3>$1</h3>')
-                .replace(/^---$/gm, '<hr style="border:none;border-top:1px solid var(--border-light);margin:12px 0;">')
-                .replace(/^\d+\.\s+\*\*(.*?)\*\*\s*[-—]\s*(.*$)/gm, '<li><strong>$1</strong> — $2</li>')
-                .replace(/^[-*]\s+(.*$)/gm, '<li>$1</li>');
-            html = html.replace(/(<li>[\s\S]*?<\/li>)/g, function(match) {
-                if (match.indexOf('<ul>') === -1 && match.indexOf('<ol>') === -1) {
-                    return '<ul>' + match + '</ul>';
-                }
-                return match;
-            });
-            var lines = html.split('\n');
-            var result = [];
-            var inList = false;
-            for (var i = 0; i < lines.length; i++) {
-                var line = lines[i].trim();
-                if (!line) { if (!inList) result.push(''); continue; }
-                if (line.indexOf('<') === 0) { result.push(line); continue; }
-                result.push('<p>' + line + '</p>');
-            }
-            return result.join('\n');
-        }
-
-        var selectedQuestion = -1;
-
-        function parseAndRenderQuestions(text) {
-            var container = document.getElementById('session-questions-container');
-            if (!container) return;
-
-            var questions = [];
-            var questionPattern = /\d+\.\s+\*\*(.*?)\*\*\s*[-—]\s*([\s\S]*?)(?=\n\d+\.\s+\*\*|\n---|\n##|$)/g;
-            var match;
-            while ((match = questionPattern.exec(text)) !== null) {
-                questions.push({ title: match[1].trim(), desc: match[2].trim() });
-            }
-
-            if (!questions.length) {
-                var simplePattern = /\d+\.\s+(.*?)(?:\n|$)/g;
-                var lastSection = text.split(/(?:open questions|questions|decisions needed|respond)/i).pop();
-                if (lastSection) {
-                    while ((match = simplePattern.exec(lastSection)) !== null) {
-                        var line = match[1].trim();
-                        if (line.length > 15 && line.indexOf('---') === -1) {
-                            var parts = line.split(/[-—]/);
-                            questions.push({
-                                title: parts[0].replace(/\*\*/g, '').trim(),
-                                desc: parts.slice(1).join('—').trim()
-                            });
-                        }
-                    }
-                }
-            }
-
-            if (!questions.length) { container.innerHTML = ''; return; }
-
-            selectedQuestion = -1;
-            var html = '<div class="session-questions">';
-            html += '<div class="session-questions-title">Open Questions (' + questions.length + ')</div>';
-            questions.forEach(function(q, i) {
-                html += '<div class="session-question-card" data-qi="' + i + '" onclick="window.selectQuestion(' + i + ')">';
-                html += '<div class="sq-header">';
-                html += '<div class="sq-radio"><div class="sq-radio-dot"></div></div>';
-                html += '<div class="sq-body">';
-                html += '<div class="sq-title"><span class="sq-number">' + (i + 1) + '</span>' + escHtml(q.title) + '</div>';
-                if (q.desc) html += '<div class="sq-desc">' + escHtml(q.desc) + '</div>';
-                html += '<div class="sq-notes">';
-                html += '<div class="sq-notes-label">Your notes / direction</div>';
-                html += '<textarea id="sq-note-' + i + '" placeholder="Add context, preferences, or direction for this question..." onclick="event.stopPropagation()"></textarea>';
-                html += '</div>';
-                html += '</div></div></div>';
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        window.selectQuestion = function(idx) {
-            selectedQuestion = idx;
-            document.querySelectorAll('.session-question-card').forEach(function(card, i) {
-                card.classList.toggle('selected', i === idx);
-            });
-            var noteEl = document.getElementById('sq-note-' + idx);
-            if (noteEl) noteEl.focus();
-        };
-
-        function escHtml(s) {
-            var d = document.createElement('div');
-            d.textContent = s;
-            return d.innerHTML;
-        }
-
         function truncate(str, len) {
             if (!str) return '';
             return str.length > len ? str.substring(0, len) + '...' : str;
@@ -590,24 +347,9 @@
 
         // --- Kanban rendering ---
         function renderBoard() {
-            if (!document.getElementById('col-queued')) { if (pollTimer) clearInterval(pollTimer); return; }
-            var projectFilter = document.getElementById('bs-project-filter');
-            var statusFilter = document.getElementById('bs-status-filter');
-            var modelFilter = document.getElementById('bs-model-filter');
-            var pf = projectFilter ? projectFilter.value : 'all';
-            var sf = statusFilter ? statusFilter.value : 'all';
-            var mf = modelFilter ? modelFilter.value : 'all';
-
-            var filtered = sessions.filter(function(s) {
-                if (pf !== 'all' && s.project_slug !== pf) return false;
-                if (sf !== 'all' && s.status !== sf) return false;
-                if (mf !== 'all' && s.model !== mf) return false;
-                return true;
-            });
-
             var buckets = { queued: [], running: [], complete: [], reviewing: [] };
 
-            filtered.forEach(function(s) {
+            sessions.forEach(function(s) {
                 if (s.status === 'queued') buckets.queued.push(s);
                 else if (s.status === 'running') buckets.running.push(s);
                 else if (s.status === 'succeeded' || s.status === 'failed') buckets.complete.push(s);
@@ -651,37 +393,11 @@
             });
 
             // Update header stats
-            var running = filtered.filter(function(s) { return s.status === 'running'; }).length;
-            var succeeded = filtered.filter(function(s) { return s.status === 'succeeded'; }).length;
-            var cost = filtered.reduce(function(sum, s) { return sum + (s.cost_usd || 0); }, 0);
-            var tokens = filtered.reduce(function(sum, s) { return sum + (s.tokens_in || 0) + (s.tokens_out || 0); }, 0);
-            var successRate = filtered.length > 0 ? Math.round((succeeded / filtered.length) * 100) : 0;
-
-            $('bs-total').textContent = filtered.length;
+            var running = sessions.filter(function(s) { return s.status === 'running'; }).length;
+            var cost = sessions.reduce(function(sum, s) { return sum + (s.cost_usd || 0); }, 0);
+            $('bs-total').textContent = sessions.length;
             $('bs-running').textContent = running;
             $('bs-cost').textContent = formatCost(cost);
-            var srEl = $('bs-success-rate'); if (srEl) srEl.textContent = successRate + '%';
-            var tkEl = $('bs-tokens'); if (tkEl) tkEl.textContent = (tokens / 1000).toFixed(0) + 'k';
-
-            // Render sparkline + progress
-            if (typeof CortexUI !== 'undefined') {
-                var sparkEl = $('bs-sparkline');
-                if (sparkEl) {
-                    var proj = pf !== 'all' ? pf : null;
-                    var points = typeof CortexData !== 'undefined' ? CortexData.computeSparkline(proj, 'sessions', 12) : [];
-                    CortexUI.renderSparkline(sparkEl, points, { width: 100, height: 24, color: 'var(--accent-cyan)' });
-                }
-                var progEl = $('bs-progress');
-                if (progEl) {
-                    var segs = [
-                        { status: 'succeeded', count: succeeded, color: 'var(--accent-green)' },
-                        { status: 'running', count: running, color: 'var(--accent-cyan)' },
-                        { status: 'failed', count: filtered.filter(function(s) { return s.status === 'failed'; }).length, color: 'var(--accent-red)' },
-                        { status: 'queued', count: filtered.length - succeeded - running - filtered.filter(function(s) { return s.status === 'failed'; }).length, color: 'var(--accent-slate)' }
-                    ];
-                    CortexUI.renderSegmentedProgress(progEl, segs, { height: 4 });
-                }
-            }
 
             // Fire event for status bar in shell
             window.dispatchEvent(new CustomEvent('conductor-sessions-updated'));
@@ -896,15 +612,9 @@
             // Continue session (for terminal sessions)
             if (['succeeded', 'failed', 'timeout'].indexOf(s.status) >= 0) {
                 html += '<div class="detail-section">';
-                html += '<div class="detail-section-title">Respond / Continue</div>';
-                html += '<div id="session-questions-container"></div>';
-                html += '<div class="session-respond">';
-                html += '<textarea class="session-respond-input" id="continue-input" rows="3" placeholder="Type your response, direction, or additional context..."></textarea>';
-                html += '<div class="session-respond-actions">';
-                html += '<button class="btn btn-primary btn-sm" onclick="window.continueSession(\'' + sessionId + '\')">Send Response</button>';
-                html += '<button class="btn btn-ghost btn-sm" onclick="window.continueSession(\'' + sessionId + '\')">Run Pipeline</button>';
-                html += '<span class="session-respond-hint">Selected option + notes will be included</span>';
-                html += '</div></div>';
+                html += '<div class="detail-section-title">Continue Session</div>';
+                html += '<textarea class="form-textarea form-input" id="continue-input" rows="3" placeholder="Provide direction for the continuation..."></textarea>';
+                html += '<button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="window.continueSession(\'' + sessionId + '\')">Launch Continuation</button>';
                 html += '</div>';
             }
 
@@ -926,6 +636,7 @@
                     if (!outputEl) return;
                     if (!text) { outputEl.textContent = 'No output yet.'; return; }
 
+                    // Parse JSONL: extract assistant text and tool calls
                     var lines = text.trim().split('\n');
                     var parts = [];
                     lines.forEach(function(line) {
@@ -942,9 +653,7 @@
                             parts.push(line);
                         }
                     });
-                    var rawText = parts.join('\n') || 'No output yet.';
-                    outputEl.innerHTML = renderSessionMarkdown(rawText);
-                    parseAndRenderQuestions(rawText);
+                    outputEl.textContent = parts.join('\n') || 'No output yet.';
                 })
                 .catch(function() {
                     var outputEl = $('detail-output');
@@ -1022,32 +731,14 @@
 
         window.continueSession = function(sessionId) {
             var input = document.getElementById('continue-input');
-            var inputText = (input && input.value.trim()) || '';
-
-            // Build response from selected question + notes + free text
-            var responseParts = [];
-            if (selectedQuestion >= 0) {
-                var card = document.querySelector('.session-question-card[data-qi="' + selectedQuestion + '"]');
-                if (card) {
-                    var title = card.querySelector('.sq-title');
-                    if (title) responseParts.push('Re: ' + title.textContent.trim());
-                }
-                var noteEl = document.getElementById('sq-note-' + selectedQuestion);
-                if (noteEl && noteEl.value.trim()) {
-                    responseParts.push(noteEl.value.trim());
-                }
-            }
-            if (inputText) responseParts.push(inputText);
-
-            var finalInput = responseParts.join('\n\n');
-            if (!finalInput) {
-                showToast('Select a question or provide direction', true);
+            if (!input || !input.value.trim()) {
+                showToast('Please provide direction for the continuation', true);
                 return;
             }
             fetch('/api/sessions/' + sessionId + '/continue', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ input: finalInput })
+                body: JSON.stringify({ input: input.value.trim() })
             })
             .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
             .then(function(result) {
@@ -1083,28 +774,13 @@
 
         // --- Init ---
         function init() {
-            populateProjectFilter();
             loadSessions();
             startPolling();
         }
 
-        function populateProjectFilter() {
-            if (typeof CortexData === 'undefined') return;
-            var sel = document.getElementById('bs-project-filter');
-            if (!sel) return;
-            CortexData.getProjectList().forEach(function(p) {
-                var opt = document.createElement('option');
-                opt.value = p.slug; opt.textContent = p.name;
-                sel.appendChild(opt);
-            });
-        }
-
-        window.filterBoard = function() { renderBoard(); };
-
         // If ConductorData is already loaded, use it immediately
         if (window.ConductorData && window.ConductorData.sessions) {
-            var rawSess = window.ConductorData.sessions;
-            sessions = (rawSess && rawSess.sessions) ? rawSess.sessions : Array.isArray(rawSess) ? rawSess : [];
+            sessions = window.ConductorData.sessions;
             renderBoard();
         }
 

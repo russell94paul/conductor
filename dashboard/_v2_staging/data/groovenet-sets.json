@@ -1,0 +1,35 @@
+[
+  {
+    "id": "set-001",
+    "dj_name": "Paul R",
+    "event_id": "evt-005",
+    "event_title": "Decks & Drinks",
+    "venue": "Common Bar",
+    "date": "2026-05-15",
+    "set_type": "open-deck",
+    "duration_min": 45,
+    "recording_url": "",
+    "posted": false,
+    "genres": [
+      "house",
+      "disco"
+    ],
+    "notes": "Good crowd, nice vibe. Need to upload the recording."
+  },
+  {
+    "id": "set-002",
+    "dj_name": "Paul R",
+    "event_id": null,
+    "event_title": "Underground Sessions",
+    "venue": "The Vault",
+    "date": "2026-05-02",
+    "set_type": "open-deck",
+    "duration_min": 30,
+    "recording_url": "https://soundcloud.com/example/vault-may",
+    "posted": true,
+    "genres": [
+      "techno"
+    ],
+    "notes": "First time at The Vault. Crowd was into it."
+  }
+]

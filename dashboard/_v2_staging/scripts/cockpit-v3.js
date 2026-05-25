@@ -187,8 +187,22 @@ var _isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').match
     setTimeout(connectSSE, 2000);
 
     // Simulate periodic events from data for demo
-    // Real event toasts driven by SSE — no simulated events
-    window.addEventListener('conductor-data-ready', function() {});
+    function simulateEvents() {
+        if (!window.ConductorData || !window.ConductorData.sessions) return;
+        var sessions = window.ConductorData.sessions;
+        if (!sessions.length) return;
+        setInterval(function() {
+            var s = sessions[Math.floor(Math.random() * sessions.length)];
+            CortexToast.show({
+                title: s.status === 'succeeded' ? 'Session Completed' : s.status === 'failed' ? 'Session Failed' : 'Session Update',
+                desc: (s.id || '').substring(0, 12) + ' · ' + (s.project_slug || '') + (s.cost_usd ? ' · $' + s.cost_usd.toFixed(2) : ''),
+                type: s.status === 'failed' ? 'failure' : s.status === 'succeeded' ? 'success' : '',
+                duration: 4000
+            });
+            pulseHeartbeat();
+        }, 15000 + Math.random() * 10000);
+    }
+    window.addEventListener('conductor-data-ready', function() { setTimeout(simulateEvents, 5000); });
 })();
 
 

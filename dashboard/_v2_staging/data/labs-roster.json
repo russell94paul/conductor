@@ -1,0 +1,72 @@
+[
+  {
+    "id": "luciid",
+    "name": "Luciid",
+    "real_name": "Luke Pollock",
+    "origin": "Monaghan, Ireland",
+    "genres": ["Hard Techno", "Schranz", "Neo Rave", "Acid", "Ambient"],
+    "tier": "established",
+    "bio_short": "Rising star of the harder techno fraternity. Future-facing sound fusing elements of rave with power-driven big-room techno.",
+    "bio_full": "Luciid (Luke Pollock) began honing his skills in the quiet corners of Northern Ireland, launching the Luciid moniker in February 2018. Initially exploring ambient and acid styles, he transitioned to heavier techno, quickly establishing himself within the hard sphere. His productions embody colossal energy-packed buildups broken by blistering distorted kicks and synths, earning support from A-list artists including Amelie Lens, Kobosil, Nico Moreno, and 999999999. Founder of the AGONY label, Luciid's philosophy centres on falling in love with music as an art form — creating for listeners rather than algorithms.",
+    "quote": "We need to stop thinking of Spotify plays and start thinking about legacy.",
+    "socials": {
+      "instagram": { "handle": "@luciidmusic", "url": "https://instagram.com/luciidmusic", "followers": 54000 },
+      "soundcloud": { "url": "https://soundcloud.com/thisisluciid" },
+      "spotify": { "url": "https://open.spotify.com/artist/luciid" },
+      "resident_advisor": { "url": "https://ra.co/dj/luciid", "followers": 7100 },
+      "beatport": { "url": "https://www.beatport.com/artist/luciid/687182" },
+      "bandcamp": { "url": "https://bandcamp.com/discover/luciid" }
+    },
+    "labels": ["AGONY (founder)", "Kneaded Pains", "Suara", "NineTimesNine", "Sleepless Recordings", "Arkham XXX"],
+    "own_label": {
+      "name": "AGONY",
+      "founded": 2023,
+      "focus": "Bold, experimental hard techno pushing past mainstream conventions"
+    },
+    "career_timeline": [
+      { "year": 2012, "milestone": "Started DJing and producing music" },
+      { "year": 2018, "milestone": "Launched the Luciid moniker, initial ambient/acid releases" },
+      { "year": 2019, "milestone": "First RA-listed event" },
+      { "year": 2021, "milestone": "7-track EP on Sleepless Recordings, interest from Autektone & Kneaded Pains" },
+      { "year": 2022, "milestone": "Breakout release 'Paro Hour' on Kneaded Pains — 2M+ Spotify streams" },
+      { "year": 2023, "milestone": "Founded AGONY label. Released on Suara. 'Fxck' EP — 650K streams. Collaboration with Per Pleks." },
+      { "year": 2024, "milestone": "Electric Picnic festival. Sold-out All Night Long tour. Dubfire remix. Album 'Reeluv' released." },
+      { "year": 2025, "milestone": "European touring: Fabrik Madrid, BASIS, OST Berlin. Multiple Beatport chart entries." },
+      { "year": 2026, "milestone": "Terminal V Festival Edinburgh, VERKNIPT Festival Germany, Echelon Festival Bavaria, Cocoricò Italy. Four/Four Magazine feature." }
+    ],
+    "key_releases": [
+      { "title": "Paro Hour", "label": "Kneaded Pains", "year": 2022, "streams": "2M+", "note": "Breakout single" },
+      { "title": "Fxck EP", "label": "Suara", "year": 2023, "streams": "650K", "note": "" },
+      { "title": "Dark Core", "label": "NineTimesNine", "year": 2023, "note": "" },
+      { "title": "Feel The Darkness", "label": "AGONY", "year": 2023, "note": "Collab with Per Pleks, AGONY debut" },
+      { "title": "Reeluv (Album)", "label": "Self-released", "year": 2024, "note": "Full-length album" },
+      { "title": "Hellfire", "label": "Kneaded Pains", "year": 2024, "note": "" },
+      { "title": "Sound Bath (Remix)", "label": "", "year": 2024, "note": "Dubfire remix" }
+    ],
+    "supported_by": ["Amelie Lens", "Kobosil", "Nico Moreno", "999999999", "Dubfire", "Eats Everything"],
+    "venues_played": ["Fabrik (Madrid)", "BASIS", "The Telegraph Building", "OST (Berlin)", "Nexus", "Cocoricò (Italy)", "Turbinenhalle (Germany)", "Royal Highland Centre (Edinburgh)", "block (Dublin)", "Lehmann Club (Stuttgart)", "Ääniwalli (Helsinki)"],
+    "festivals": ["Terminal V 2026", "VERKNIPT Festival 2026", "Echelon Festival 2026", "Electric Picnic 2024", "Life Festival", "MAR NDMBL Festival 2026"],
+    "regions_played": ["Madrid", "Barcelona", "Paris", "Amsterdam", "Berlin", "Dublin", "Edinburgh", "Stuttgart", "Helsinki", "Budapest", "Italy"],
+    "kpis": {
+      "current": {
+        "ig_followers": 54000,
+        "ra_followers": 7100,
+        "spotify_top_track_streams": 2000000,
+        "beatport_chart_peak": 15,
+        "labels_released_on": 6,
+        "own_label": true,
+        "countries_played": 10,
+        "festivals_2026": 4
+      },
+      "at_join": {
+        "ig_followers": null,
+        "ra_followers": null,
+        "note": "Pre-Labs metrics to be filled in by founder"
+      }
+    },
+    "agency": {
+      "current": "Analog (Europe)",
+      "booking_email": "info@analog-a.com"
+    }
+  }
+]

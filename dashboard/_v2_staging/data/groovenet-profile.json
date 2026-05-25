@@ -1,0 +1,9 @@
+{
+  "dj_name": "Paul R",
+  "location": "Manchester",
+  "genres": ["house", "techno", "disco", "soul"],
+  "experience_level": "intermediate",
+  "available_days": ["friday", "saturday", "sunday"],
+  "bio": "",
+  "links": {}
+}

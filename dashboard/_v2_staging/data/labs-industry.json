@@ -1,0 +1,105 @@
+{
+  "genres": [
+    "House", "Deep House", "Tech House", "Minimal House",
+    "Techno", "Minimal Techno", "Industrial Techno", "Melodic Techno",
+    "Drum & Bass", "Jungle", "Breakbeat",
+    "Disco", "Nu-Disco", "Italo Disco",
+    "Soul", "Funk", "Boogie",
+    "Garage", "UK Garage", "Speed Garage",
+    "Dubstep", "Grime",
+    "Afrobeats", "Amapiano",
+    "Electro", "Acid",
+    "Ambient", "Downtempo", "Balearic",
+    "Trance", "Progressive",
+    "Hip-Hop", "R&B",
+    "Reggae", "Dub",
+    "Open Format", "Multi-Genre"
+  ],
+  "venues": {
+    "manchester": ["The Warehouse Project", "Hidden", "YES", "White Hotel", "Gorilla", "Band on the Wall", "The Deaf Institute", "Soup Kitchen", "Refuge", "Albert Hall", "Mayfield Depot", "Escape to Freight Island", "South", "Hatch", "Joshua Brooks", "Mint Lounge", "FAC251", "Texture", "Stage & Radio", "The Venue"],
+    "leeds": ["Wire", "Canal Mills", "Beaver Works", "HiFi Club", "Distrikt", "Wharf Chambers", "Headrow House", "Sheaf St", "Mint Warehouse"],
+    "london": ["Fabric", "Printworks", "Village Underground", "XOYO", "Corsica Studios", "Phonox", "E1", "Fold", "Venue MOT", "Brilliant Corners", "Dalston Superstore"],
+    "glasgow": ["Sub Club", "SWG3", "La Cheetah Club", "The Berkeley Suite", "The Art School"],
+    "liverpool": ["24 Kitchen Street", "District", "Invisible Wind Factory", "Meraki"],
+    "sheffield": ["Hope Works", "Yellow Arch", "Night Kitchen"],
+    "bristol": ["Motion", "The Island", "Lakota", "Cosies"],
+    "birmingham": ["Rainbow Venues", "The Mill", "Mama Roux's", "Lab11"],
+    "nottingham": ["Stealth", "The Irish Centre", "Rough Trade"]
+  },
+  "pricing_benchmarks": {
+    "open-deck": { "min": 0, "max": 0, "typical": 0, "note": "Unpaid — exposure/practice" },
+    "emerging-local": { "min": 50, "max": 150, "typical": 75, "note": "Local bars/small clubs, 1-2hr set" },
+    "developing-club": { "min": 100, "max": 300, "typical": 200, "note": "Established club nights, support slot" },
+    "established-headline": { "min": 250, "max": 750, "typical": 500, "note": "Headline slot at mid-size venue" },
+    "headliner-festival": { "min": 500, "max": 5000, "typical": 1500, "note": "Festival slot or large venue headline" },
+    "residency-weekly": { "min": 100, "max": 400, "typical": 200, "note": "Weekly/monthly residency per session" }
+  },
+  "kpi_benchmarks": {
+    "emerging": {
+      "ig_followers": "100-1K",
+      "sc_plays_monthly": "50-500",
+      "gigs_per_month": "1-2",
+      "paid_ratio": "10-30%",
+      "avg_fee": "£0-75"
+    },
+    "developing": {
+      "ig_followers": "1K-5K",
+      "sc_plays_monthly": "500-5K",
+      "gigs_per_month": "2-4",
+      "paid_ratio": "40-60%",
+      "avg_fee": "£75-200"
+    },
+    "established": {
+      "ig_followers": "5K-25K",
+      "sc_plays_monthly": "5K-50K",
+      "gigs_per_month": "4-8",
+      "paid_ratio": "70-90%",
+      "avg_fee": "£200-500"
+    },
+    "headliner": {
+      "ig_followers": "25K+",
+      "sc_plays_monthly": "50K+",
+      "gigs_per_month": "6-12",
+      "paid_ratio": "90-100%",
+      "avg_fee": "£500+"
+    }
+  },
+  "services_industry": [
+    { "name": "Artist Management", "desc": "Career strategy, brand development, day-to-day management" },
+    { "name": "Booking Agency", "desc": "Securing gigs, negotiating fees, managing the booking pipeline" },
+    { "name": "Event Promotion", "desc": "Planning, marketing, and running events/nights" },
+    { "name": "Social Media Management", "desc": "Content strategy, posting schedule, audience growth" },
+    { "name": "PR & Press", "desc": "Press releases, media outreach, interview placement" },
+    { "name": "Content Production", "desc": "Mix recording, photography, video, EPK creation" },
+    { "name": "A&R / Talent Scouting", "desc": "Finding and developing new talent" },
+    { "name": "Label Services", "desc": "Release distribution, playlist pitching, royalty management" },
+    { "name": "Brand Partnerships", "desc": "Sponsorship deals, brand collaborations, merchandise" },
+    { "name": "Tour Management", "desc": "Logistics for multi-date bookings and international gigs" },
+    { "name": "Music Licensing", "desc": "Sync licensing, rights management, publishing" },
+    { "name": "Financial Management", "desc": "Invoicing, tax, commission tracking, budgeting" }
+  ],
+  "social_platforms": [
+    { "id": "instagram", "name": "Instagram", "placeholder": "@handle", "importance": "critical" },
+    { "id": "soundcloud", "name": "SoundCloud", "placeholder": "soundcloud.com/...", "importance": "critical" },
+    { "id": "spotify", "name": "Spotify", "placeholder": "open.spotify.com/artist/...", "importance": "high" },
+    { "id": "mixcloud", "name": "Mixcloud", "placeholder": "mixcloud.com/...", "importance": "high" },
+    { "id": "youtube", "name": "YouTube", "placeholder": "youtube.com/@...", "importance": "medium" },
+    { "id": "tiktok", "name": "TikTok", "placeholder": "@handle", "importance": "medium" },
+    { "id": "facebook", "name": "Facebook", "placeholder": "facebook.com/...", "importance": "low" },
+    { "id": "ra", "name": "Resident Advisor", "placeholder": "ra.co/dj/...", "importance": "high" },
+    { "id": "bandcamp", "name": "Bandcamp", "placeholder": "bandcamp.com", "importance": "medium" },
+    { "id": "twitter", "name": "X / Twitter", "placeholder": "@handle", "importance": "low" }
+  ],
+  "event_types": [
+    "Club Night", "Warehouse Rave", "Festival", "Day Party", "Rooftop Session",
+    "Open Deck Night", "Residency", "Private Event", "Corporate", "Album Launch",
+    "Charity Event", "Radio Show", "Livestream", "B2B Set", "Takeover"
+  ],
+  "growth_metrics": [
+    "Instagram followers", "Instagram engagement rate", "SoundCloud plays",
+    "SoundCloud followers", "Spotify monthly listeners", "Mixcloud plays",
+    "YouTube subscribers", "Total gigs booked", "Paid gig ratio",
+    "Average fee per gig", "Revenue generated", "Releases published",
+    "Press/media mentions", "Email list size", "Repeat bookings"
+  ]
+}

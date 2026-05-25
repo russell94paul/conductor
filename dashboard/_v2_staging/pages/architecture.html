@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<div style="padding:0;font-family:'Helvetica Neue',Arial,sans-serif;color:inherit;min-height:100vh">
+
+    <!-- Hero -->
+    <div style="text-align:center;padding:50px 40px 30px">
+        <div style="font-size:1rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;opacity:.15">LABS</div>
+        <div style="font-size:1.4rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin:6px 0">System Architecture</div>
+        <div style="width:40px;height:2px;background:currentColor;opacity:.15;margin:12px auto"></div>
+        <div style="font-size:.78rem;opacity:.45;max-width:560px;margin:0 auto;line-height:1.8">How every component connects, learns, and compounds value over time.</div>
+    </div>
+
+    <div style="max-width:1000px;margin:0 auto;padding:0 30px 40px">
+
+        <!-- ========== ARCHITECTURE DIAGRAM ========== -->
+        <div style="margin-bottom:40px">
+            <div style="font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.3;margin-bottom:14px">System Diagram</div>
+
+            <!-- Three tiers -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);text-align:center;border-top:3px solid #2563eb">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2563eb;margin-bottom:6px">Tier 1 — Public</div>
+                    <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">Marketing Site</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.6">labs.institute — roster showcase, services, proof of value, apply/book CTAs</div>
+                    <div style="display:flex;gap:4px;justify-content:center;margin-top:10px;flex-wrap:wrap">
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(37,99,235,.2);color:#2563eb">Hero</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(37,99,235,.2);color:#2563eb">Roster</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(37,99,235,.2);color:#2563eb">Releases</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(37,99,235,.2);color:#2563eb">Globe</span>
+                    </div>
+                </div>
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);text-align:center;border-top:3px solid #f59e0b">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f59e0b;margin-bottom:6px">Tier 2 — Internal</div>
+                    <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">Owner Portal</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.6">Founder dashboard — roster, bookings, contracts, finances, marketing, talent scout</div>
+                    <div style="display:flex;gap:4px;justify-content:center;margin-top:10px;flex-wrap:wrap">
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(245,158,11,.2);color:#f59e0b">Pipeline</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(245,158,11,.2);color:#f59e0b">Contracts</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(245,158,11,.2);color:#f59e0b">Finance</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(245,158,11,.2);color:#f59e0b">Scout</span>
+                    </div>
+                </div>
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);text-align:center;border-top:3px solid #22c55e">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#22c55e;margin-bottom:6px">Tier 3 — Per-Artist</div>
+                    <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">DJ Portal</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.6">Per-artist dashboard — content, calendar, growth metrics, social tracking, chat</div>
+                    <div style="display:flex;gap:4px;justify-content:center;margin-top:10px;flex-wrap:wrap">
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(34,197,94,.2);color:#22c55e">Calendar</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(34,197,94,.2);color:#22c55e">Content</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(34,197,94,.2);color:#22c55e">Growth</span>
+                        <span style="font-size:.5rem;padding:2px 8px;border-radius:10px;border:1px solid rgba(34,197,94,.2);color:#22c55e">Chat</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data flow arrows -->
+            <div style="text-align:center;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.25;margin:8px 0">&#9660; Data flows down &middot; Intelligence flows up &#9650;</div>
+
+            <!-- Intelligence layer -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px">
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);text-align:center;border-top:3px solid #8b5cf6">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:6px">AI Engine</div>
+                    <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">Lab-Intelligence</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.6">Vector DB — pattern detection, growth roadmaps, pricing suggestions, gap alerts</div>
+                </div>
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);text-align:center;border-top:3px solid #ec4899">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ec4899;margin-bottom:6px">Knowledge Base</div>
+                    <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">Lab-Wiki</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.6">Venues, pricing data, marketing playbook, promoter directory, lessons learned</div>
+                </div>
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);text-align:center;border-top:3px solid #14b8a6">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#14b8a6;margin-bottom:6px">Communication</div>
+                    <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">AI Chat</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.6">Founder &harr; DJ messaging with AI assistant pulling from Intelligence + Wiki</div>
+                </div>
+            </div>
+
+            <!-- Data integrations -->
+            <div style="text-align:center;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.25;margin:16px 0">&#9660; Ingests from &#9660;</div>
+
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:16px 20px;background:rgba(255,255,255,.02);text-align:center;border-top:3px solid #06b6d4">
+                <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#06b6d4;margin-bottom:8px">Data Integrations</div>
+                <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+                    <span style="font-size:.6rem;padding:4px 12px;border-radius:20px;border:1px solid rgba(6,182,212,.15);color:#06b6d4">Instagram</span>
+                    <span style="font-size:.6rem;padding:4px 12px;border-radius:20px;border:1px solid rgba(6,182,212,.15);color:#06b6d4">SoundCloud</span>
+                    <span style="font-size:.6rem;padding:4px 12px;border-radius:20px;border:1px solid rgba(6,182,212,.15);color:#06b6d4">Spotify</span>
+                    <span style="font-size:.6rem;padding:4px 12px;border-radius:20px;border:1px solid rgba(6,182,212,.15);color:#06b6d4">Resident Advisor</span>
+                    <span style="font-size:.6rem;padding:4px 12px;border-radius:20px;border:1px solid rgba(6,182,212,.15);color:#06b6d4">Beatport</span>
+                    <span style="font-size:.6rem;padding:4px 12px;border-radius:20px;border:1px solid rgba(6,182,212,.15);color:#06b6d4">Mixcloud</span>
+                    <span style="font-size:.6rem;padding:4px 12px;border-radius:20px;border:1px solid rgba(6,182,212,.15);color:#06b6d4">YouTube</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== SELF-IMPROVEMENT LOOP ========== -->
+        <div style="margin-bottom:40px">
+            <div style="font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.3;margin-bottom:14px">Self-Improvement Loop</div>
+
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:24px;background:rgba(255,255,255,.02)">
+                <div style="display:flex;flex-wrap:wrap;gap:0;align-items:center;justify-content:center">
+                    <div style="text-align:center;padding:12px 16px;min-width:120px">
+                        <div style="font-size:1.2rem;margin-bottom:4px">&#127926;</div>
+                        <div style="font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase">Events Happen</div>
+                        <div style="font-size:.58rem;opacity:.4;margin-top:2px">Gigs, releases, campaigns</div>
+                    </div>
+                    <div style="font-size:1.2rem;opacity:.2;padding:0 6px">&rarr;</div>
+                    <div style="text-align:center;padding:12px 16px;min-width:120px">
+                        <div style="font-size:1.2rem;margin-bottom:4px">&#128196;</div>
+                        <div style="font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase">Outcomes Logged</div>
+                        <div style="font-size:.58rem;opacity:.4;margin-top:2px">Attendance, revenue, metrics</div>
+                    </div>
+                    <div style="font-size:1.2rem;opacity:.2;padding:0 6px">&rarr;</div>
+                    <div style="text-align:center;padding:12px 16px;min-width:120px">
+                        <div style="font-size:1.2rem;margin-bottom:4px">&#129504;</div>
+                        <div style="font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase">AI Analyses</div>
+                        <div style="font-size:.58rem;opacity:.4;margin-top:2px">Patterns, gaps, opportunities</div>
+                    </div>
+                    <div style="font-size:1.2rem;opacity:.2;padding:0 6px">&rarr;</div>
+                    <div style="text-align:center;padding:12px 16px;min-width:120px">
+                        <div style="font-size:1.2rem;margin-bottom:4px">&#128172;</div>
+                        <div style="font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase">Chat Surfaces</div>
+                        <div style="font-size:.58rem;opacity:.4;margin-top:2px">Suggestions to founder/DJ</div>
+                    </div>
+                    <div style="font-size:1.2rem;opacity:.2;padding:0 6px">&rarr;</div>
+                    <div style="text-align:center;padding:12px 16px;min-width:120px">
+                        <div style="font-size:1.2rem;margin-bottom:4px">&#9989;</div>
+                        <div style="font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase">Feedback</div>
+                        <div style="font-size:.58rem;opacity:.4;margin-top:2px">Accept / reject / modify</div>
+                    </div>
+                    <div style="font-size:1.2rem;opacity:.2;padding:0 6px">&rarr;</div>
+                    <div style="text-align:center;padding:12px 16px;min-width:120px">
+                        <div style="font-size:1.2rem;margin-bottom:4px">&#128200;</div>
+                        <div style="font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase">System Improves</div>
+                        <div style="font-size:.58rem;opacity:.4;margin-top:2px">Smarter next time</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;font-size:.65rem;opacity:.35">&#8634; Proven patterns saved to Lab-Wiki &mdash; cycle repeats with more context each time</div>
+            </div>
+        </div>
+
+        <!-- ========== COMPOUND VALUE ========== -->
+        <div style="margin-bottom:40px">
+            <div style="font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.3;margin-bottom:14px">How Value Compounds Over Time</div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+                <!-- Month 1 -->
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02)">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.3;margin-bottom:4px">Month 1-3</div>
+                    <div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px">Foundation</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.8">
+                        &bull; DJ profiles populated with baseline KPIs<br>
+                        &bull; First gigs logged with outcomes<br>
+                        &bull; Venue profiles started in Lab-Wiki<br>
+                        &bull; Social metrics begin daily snapshots<br>
+                        &bull; AI suggestions are generic (limited data)
+                    </div>
+                    <div style="margin-top:12px;height:4px;background:rgba(128,128,128,.1);border-radius:2px;overflow:hidden"><div style="height:100%;width:20%;background:currentColor;opacity:.3;border-radius:2px"></div></div>
+                    <div style="font-size:.55rem;opacity:.3;margin-top:4px">AI accuracy: ~40%</div>
+                </div>
+
+                <!-- Month 3-6 -->
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02)">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.3;margin-bottom:4px">Month 3-6</div>
+                    <div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px">Pattern Recognition</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.8">
+                        &bull; Lab-Intelligence spots trends (best content, venues, times)<br>
+                        &bull; Pricing suggestions calibrated from real outcomes<br>
+                        &bull; Lab-Wiki has 20+ venue profiles with notes<br>
+                        &bull; Workflow library has 50+ saved runs<br>
+                        &bull; AI suggestions becoming useful (~60% accepted)
+                    </div>
+                    <div style="margin-top:12px;height:4px;background:rgba(128,128,128,.1);border-radius:2px;overflow:hidden"><div style="height:100%;width:55%;background:currentColor;opacity:.5;border-radius:2px"></div></div>
+                    <div style="font-size:.55rem;opacity:.3;margin-top:4px">AI accuracy: ~65%</div>
+                </div>
+
+                <!-- Month 6-12 -->
+                <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02)">
+                    <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.3;margin-bottom:4px">Month 6-12</div>
+                    <div style="font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px">Compounding Intelligence</div>
+                    <div style="font-size:.65rem;opacity:.5;line-height:1.8">
+                        &bull; Cross-artist insights: what worked for DJ A helps DJ B<br>
+                        &bull; Pricing engine auto-adjusts from 100+ data points<br>
+                        &bull; Lab-Wiki is the definitive guide to the industry<br>
+                        &bull; Content strategy personalised per DJ<br>
+                        &bull; AI suggestions are trusted (~80% accepted)
+                    </div>
+                    <div style="margin-top:12px;height:4px;background:rgba(128,128,128,.1);border-radius:2px;overflow:hidden"><div style="height:100%;width:85%;background:currentColor;opacity:.8;border-radius:2px"></div></div>
+                    <div style="font-size:.55rem;opacity:.3;margin-top:4px">AI accuracy: ~80%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== COMPONENT VALUE BREAKDOWN ========== -->
+        <div style="margin-bottom:40px">
+            <div style="font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.3;margin-bottom:14px">Component Value Breakdown</div>
+
+            <!-- Lab-Intelligence -->
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);margin-bottom:12px;border-left:3px solid #8b5cf6">
+                <div style="display:flex;align-items:flex-start;gap:16px">
+                    <div style="min-width:200px">
+                        <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px">Vector DB</div>
+                        <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Lab-Intelligence</div>
+                        <div style="font-size:.65rem;opacity:.5;line-height:1.7">Stores every gig outcome, social metric, campaign result, and workflow as embedded vectors. Retrieves relevant context for any question.</div>
+                    </div>
+                    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Week 1</div><div style="font-size:.62rem;opacity:.4">Generic suggestions based on industry benchmarks</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Month 3</div><div style="font-size:.62rem;opacity:.4">Personalised: "your sets at F1 venues get 40% more rebookings"</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Month 6</div><div style="font-size:.62rem;opacity:.4">Predictive: "apply to this venue — 78% match based on 50 data points"</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Year 1</div><div style="font-size:.62rem;opacity:.4">Strategic: "DJ X should transition to headline tier — here's the 90-day plan"</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab-Wiki -->
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);margin-bottom:12px;border-left:3px solid #ec4899">
+                <div style="display:flex;align-items:flex-start;gap:16px">
+                    <div style="min-width:200px">
+                        <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#ec4899;margin-bottom:4px">Knowledge Base</div>
+                        <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Lab-Wiki</div>
+                        <div style="font-size:.65rem;opacity:.5;line-height:1.7">Structured, searchable knowledge. Every venue, promoter, pricing strategy, and lesson learned — captured once, reused forever.</div>
+                    </div>
+                    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Week 1</div><div style="font-size:.62rem;opacity:.4">Empty. You're starting from scratch.</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Month 3</div><div style="font-size:.62rem;opacity:.4">20 venue profiles with sound systems, crowd notes, booking contacts</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Month 6</div><div style="font-size:.62rem;opacity:.4">Complete marketing playbook. "What content works for which audience at which time"</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Year 1</div><div style="font-size:.62rem;opacity:.4">Institutional memory. New team members onboard in hours, not months.</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Chat -->
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);margin-bottom:12px;border-left:3px solid #14b8a6">
+                <div style="display:flex;align-items:flex-start;gap:16px">
+                    <div style="min-width:200px">
+                        <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#14b8a6;margin-bottom:4px">AI Assistant</div>
+                        <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Chat</div>
+                        <div style="font-size:.65rem;opacity:.5;line-height:1.7">Natural language interface to everything. Ask any question — the AI assembles context from Intelligence + Wiki to answer.</div>
+                    </div>
+                    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Week 1</div><div style="font-size:.62rem;opacity:.4">"What should I charge?" → generic industry benchmark answer</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Month 3</div><div style="font-size:.62rem;opacity:.4">"What should I charge for Printworks?" → £1,100 based on your tier + venue data</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Month 6</div><div style="font-size:.62rem;opacity:.4">"Plan my next quarter" → full roadmap with gigs, releases, content schedule</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Year 1</div><div style="font-size:.62rem;opacity:.4">"Should we sign this DJ?" → full analysis: fit score, growth potential, roster gaps filled</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Integrations -->
+            <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:20px;background:rgba(255,255,255,.02);border-left:3px solid #06b6d4">
+                <div style="display:flex;align-items:flex-start;gap:16px">
+                    <div style="min-width:200px">
+                        <div style="font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#06b6d4;margin-bottom:4px">Data Feeds</div>
+                        <div style="font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">Integrations</div>
+                        <div style="font-size:.65rem;opacity:.5;line-height:1.7">Automated data from 7 platforms. Every follower gained, stream played, and gig listed feeds into Lab-Intelligence automatically.</div>
+                    </div>
+                    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Week 1</div><div style="font-size:.62rem;opacity:.4">Manual entry. You type in follower counts.</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Month 3</div><div style="font-size:.62rem;opacity:.4">Auto-pull from Instagram + Spotify. Daily snapshots. Trend detection.</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Month 6</div><div style="font-size:.62rem;opacity:.4">All 7 platforms synced. Content performance correlated to growth.</div></div>
+                        <div style="padding:10px;border:1px solid rgba(128,128,128,.08);border-radius:6px"><div style="font-size:.6rem;font-weight:700;opacity:.5;margin-bottom:4px">Year 1</div><div style="font-size:.62rem;opacity:.4">12 months of data = predictive analytics. "Post this type of content on Thursdays for 3x reach"</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== KEY INSIGHT ========== -->
+        <div class="neon-card" style="border:1px solid rgba(128,128,128,.15);border-radius:10px;padding:24px;background:rgba(255,255,255,.02);text-align:center">
+            <div style="font-size:.82rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">The Flywheel Effect</div>
+            <div style="font-size:.75rem;opacity:.5;line-height:1.8;max-width:600px;margin:0 auto">
+                Every gig booked, every post published, every contract signed generates data.<br>
+                That data trains the AI. The AI makes better suggestions.<br>
+                Better suggestions lead to better outcomes.<br>
+                Better outcomes generate better data.<br><br>
+                <strong style="opacity:1">The more you use Labs, the smarter it gets. The smarter it gets, the more valuable it becomes.</strong><br><br>
+                A competitor starting from scratch on day 365 is 365 days behind — not in features, but in <em>intelligence</em>.
+            </div>
+        </div>
+
+    </div>
+
+    <div style="text-align:center;padding:30px;font-size:.48rem;opacity:.15;letter-spacing:.12em;text-transform:uppercase;border-top:1px solid rgba(128,128,128,.08)">Labs Institute &middot; Founded For The Future</div>
+</div>
+</body>
+</html>

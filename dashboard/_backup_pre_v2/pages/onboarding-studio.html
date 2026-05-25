@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Onboarding Studio</title>
+    <link rel="stylesheet" href="../styles/base.css">
+    <style>
+    .onb-shell { padding: 0; }
+
+    .onb-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 20px 24px 12px; flex-wrap: wrap; gap: 12px;
+    }
+    .onb-header-left { display: flex; align-items: center; gap: 14px; }
+    .onb-title {
+        font-size: 1.15rem; font-weight: 800; letter-spacing: 0.12em;
+        background: linear-gradient(90deg, #a78bfa, #38bdf8, #4ade80);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .onb-subtitle {
+        font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase;
+        letter-spacing: 0.14em; font-weight: 600;
+    }
+    .onb-header-right { display: flex; align-items: center; gap: 8px; }
+
+    /* Mode selector */
+    .onb-mode-bar {
+        display: flex; gap: 4px; padding: 0 24px 14px;
+    }
+    .onb-mode-btn {
+        padding: 8px 20px; font-size: 0.78rem; font-weight: 700;
+        border-radius: 8px; border: 1px solid var(--border-medium);
+        background: transparent; color: var(--text-dim);
+        cursor: pointer; transition: all 0.2s;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .onb-mode-btn:hover { border-color: rgba(56,189,248,0.3); color: var(--text-secondary); }
+    .onb-mode-btn.active {
+        background: rgba(56,189,248,0.1); border-color: var(--accent-blue);
+        color: var(--accent-blue);
+    }
+    .onb-mode-btn .mode-icon { font-size: 1rem; }
+    .onb-mode-content { display: none; }
+    .onb-mode-content.active { display: block; }
+
+    /* Chat UI */
+    .chat-container {
+        display: flex; height: calc(100vh - 140px); min-height: 500px;
+    }
+    .chat-main {
+        flex: 1; display: flex; flex-direction: column; min-width: 0;
+    }
+    .chat-messages {
+        flex: 1; overflow-y: auto; padding: 20px 24px;
+        display: flex; flex-direction: column; gap: 16px;
+    }
+    .chat-msg {
+        max-width: 80%; animation: fadeIn 0.25s ease;
+    }
+    .chat-msg.user {
+        align-self: flex-end;
+    }
+    .chat-msg.assistant {
+        align-self: flex-start;
+    }
+    .chat-msg-bubble {
+        padding: 12px 16px; border-radius: 14px;
+        font-size: 0.85rem; line-height: 1.7; color: var(--text-primary);
+        word-wrap: break-word;
+    }
+    .chat-msg.user .chat-msg-bubble {
+        background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.2);
+        border-bottom-right-radius: 4px;
+    }
+    .chat-msg.assistant .chat-msg-bubble {
+        background: rgba(255,255,255,0.04); border: 1px solid var(--border-light);
+        border-bottom-left-radius: 4px;
+    }
+    .chat-msg-time {
+        font-size: 0.58rem; color: var(--text-faint); margin-top: 4px;
+        padding: 0 4px;
+    }
+    .chat-msg.user .chat-msg-time { text-align: right; }
+
+    .chat-msg-bubble p { margin: 0 0 8px; }
+    .chat-msg-bubble p:last-child { margin-bottom: 0; }
+    .chat-msg-bubble strong { color: #fff; }
+    .chat-msg-bubble code {
+        background: rgba(255,255,255,0.06); padding: 1px 5px;
+        border-radius: 3px; font-family: var(--font-mono); font-size: 0.82rem;
+        color: var(--accent-blue);
+    }
+    .chat-msg-bubble ul, .chat-msg-bubble ol {
+        margin: 6px 0; padding-left: 20px;
+    }
+    .chat-msg-bubble li { margin-bottom: 4px; }
+
+    /* Structured cards in chat */
+    .chat-card {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: 12px; padding: 16px 18px; margin: 10px 0;
+    }
+    .chat-card-header {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .chat-card-title {
+        font-size: 0.82rem; font-weight: 700; color: #fff;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .chat-card-badge {
+        font-size: 0.55rem; font-weight: 800; padding: 2px 8px;
+        border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    /* Phase cards */
+    .chat-phase-list { display: flex; flex-direction: column; gap: 8px; }
+    .chat-phase-card {
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-light);
+        border-radius: 10px; padding: 12px 14px;
+        display: flex; align-items: flex-start; gap: 12px;
+        transition: border-color 0.15s;
+    }
+    .chat-phase-card:hover { border-color: rgba(56,189,248,0.2); }
+    .chat-phase-id {
+        font-family: var(--font-mono); font-size: 0.68rem; font-weight: 800;
+        color: var(--accent-blue); background: rgba(56,189,248,0.1);
+        padding: 2px 8px; border-radius: 6px; white-space: nowrap;
+    }
+    .chat-phase-body { flex: 1; min-width: 0; }
+    .chat-phase-name {
+        font-size: 0.82rem; font-weight: 700; color: var(--text-primary);
+        margin-bottom: 3px;
+    }
+    .chat-phase-desc {
+        font-size: 0.72rem; color: var(--text-muted); line-height: 1.5;
+    }
+    .chat-phase-meta {
+        display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;
+    }
+    .chat-phase-tag {
+        font-size: 0.55rem; font-weight: 700; padding: 2px 7px;
+        border-radius: 6px; text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .chat-phase-tag.complexity { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
+    .chat-phase-tag.risk-low { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+    .chat-phase-tag.risk-medium { background: rgba(251,191,36,0.15); color: var(--accent-gold); }
+    .chat-phase-tag.risk-high { background: rgba(248,113,113,0.15); color: var(--accent-red); }
+    .chat-phase-actions {
+        display: flex; gap: 4px; flex-shrink: 0; align-self: center;
+    }
+    .chat-phase-btn {
+        font-size: 0.6rem; padding: 3px 8px; border-radius: 6px;
+        border: 1px solid var(--border-light); background: transparent;
+        color: var(--text-dim); cursor: pointer; transition: all 0.15s;
+    }
+    .chat-phase-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .chat-phase-btn.remove:hover { border-color: var(--accent-red); color: var(--accent-red); }
+
+    /* Architecture card */
+    .chat-arch-stack {
+        display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0;
+    }
+    .chat-arch-chip {
+        font-size: 0.65rem; font-weight: 600; padding: 4px 10px;
+        border-radius: 8px; background: rgba(56,189,248,0.1);
+        border: 1px solid rgba(56,189,248,0.2); color: var(--accent-blue);
+    }
+    .chat-arch-chip .chip-label {
+        color: var(--text-dim); font-weight: 400; margin-right: 4px;
+    }
+    .chat-arch-components {
+        margin-top: 8px;
+    }
+    .chat-arch-component {
+        display: flex; gap: 8px; padding: 6px 0;
+        border-bottom: 1px solid var(--border-subtle);
+        font-size: 0.72rem;
+    }
+    .chat-arch-component:last-child { border-bottom: none; }
+    .chat-arch-comp-name { font-weight: 700; color: var(--text-secondary); white-space: nowrap; }
+    .chat-arch-comp-purpose { color: var(--text-muted); }
+
+    /* Blueprint card */
+    .chat-blueprint-card {
+        border-color: rgba(74,222,128,0.3);
+        box-shadow: 0 0 20px rgba(74,222,128,0.08);
+    }
+    .chat-blueprint-actions {
+        display: flex; gap: 8px; margin-top: 14px;
+    }
+
+    /* Typing indicator */
+    .chat-typing {
+        display: none; align-self: flex-start; padding: 12px 16px;
+        background: rgba(255,255,255,0.04); border: 1px solid var(--border-light);
+        border-radius: 14px; border-bottom-left-radius: 4px;
+    }
+    .chat-typing.visible { display: flex; }
+    .chat-typing-dots {
+        display: flex; gap: 4px; align-items: center;
+    }
+    .chat-typing-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: var(--text-dim);
+        animation: typingPulse 1.4s infinite;
+    }
+    .chat-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingPulse {
+        0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+        30% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Chat input */
+    .chat-input-bar {
+        padding: 12px 24px 16px; border-top: 1px solid var(--border-light);
+        display: flex; gap: 10px; align-items: flex-end;
+    }
+    .chat-input-wrapper {
+        flex: 1; position: relative;
+    }
+    .chat-input {
+        width: 100%; padding: 12px 16px; border-radius: 12px;
+        background: rgba(255,255,255,0.04); border: 1px solid var(--border-strong);
+        color: var(--text-primary); font-size: 0.88rem;
+        font-family: var(--font-family); resize: none;
+        min-height: 44px; max-height: 160px; line-height: 1.5;
+    }
+    .chat-input:focus {
+        outline: none; border-color: var(--accent-blue);
+        background: rgba(56,189,248,0.04);
+    }
+    .chat-input::placeholder { color: var(--text-faint); }
+    .chat-send-btn {
+        padding: 10px 18px; border-radius: 10px;
+        background: var(--accent-blue); color: #fff;
+        border: none; font-size: 0.82rem; font-weight: 700;
+        cursor: pointer; transition: background 0.15s;
+        white-space: nowrap; height: 44px;
+        font-family: var(--font-family);
+    }
+    .chat-send-btn:hover { background: var(--accent-blue-dark); }
+    .chat-send-btn:disabled {
+        opacity: 0.4; cursor: not-allowed;
+        background: var(--accent-blue);
+    }
+
+    /* Blueprint panel */
+    .blueprint-panel {
+        width: 320px; border-left: 1px solid var(--border-light);
+        background: rgba(255,255,255,0.015); display: flex;
+        flex-direction: column; overflow: hidden;
+        transition: width 0.3s ease;
+    }
+    .blueprint-panel.collapsed { width: 44px; }
+    .blueprint-panel-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 14px 16px; border-bottom: 1px solid var(--border-light);
+        flex-shrink: 0;
+    }
+    .blueprint-panel-title {
+        font-size: 0.72rem; font-weight: 700; color: var(--text-label);
+        text-transform: uppercase; letter-spacing: 0.06em;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .blueprint-panel.collapsed .blueprint-panel-title {
+        writing-mode: vertical-rl; transform: rotate(180deg);
+        padding: 12px 0; letter-spacing: 0.08em;
+    }
+    .blueprint-toggle {
+        width: 24px; height: 24px; border-radius: 6px;
+        background: rgba(255,255,255,0.04); border: 1px solid var(--border-light);
+        color: var(--text-dim); cursor: pointer; font-size: 0.7rem;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.15s; flex-shrink: 0;
+    }
+    .blueprint-toggle:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .blueprint-panel-body {
+        flex: 1; overflow-y: auto; padding: 14px 16px;
+    }
+    .blueprint-panel.collapsed .blueprint-panel-body { display: none; }
+    .bp-section {
+        margin-bottom: 16px;
+    }
+    .bp-label {
+        font-size: 0.6rem; font-weight: 700; color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;
+    }
+    .bp-value {
+        font-size: 0.78rem; color: var(--text-secondary); font-weight: 600;
+    }
+    .bp-chip-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+    .bp-chip {
+        font-size: 0.58rem; font-weight: 600; padding: 2px 7px;
+        border-radius: 6px; background: rgba(56,189,248,0.1);
+        color: var(--accent-blue);
+    }
+    .bp-phase-mini {
+        padding: 6px 0; border-bottom: 1px solid var(--border-subtle);
+        font-size: 0.68rem;
+    }
+    .bp-phase-mini:last-child { border-bottom: none; }
+    .bp-phase-mini-id {
+        font-family: var(--font-mono); font-size: 0.58rem; font-weight: 800;
+        color: var(--accent-blue); margin-right: 6px;
+    }
+    .bp-phase-mini-name { color: var(--text-secondary); font-weight: 600; }
+    .bp-decisions-list { margin-top: 4px; }
+    .bp-decision {
+        font-size: 0.68rem; color: var(--text-muted); padding: 4px 0;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .bp-decision:last-child { border-bottom: none; }
+    .bp-decision strong { color: var(--text-secondary); }
+    .bp-empty {
+        font-size: 0.72rem; color: var(--text-faint); font-style: italic;
+        padding: 20px 0; text-align: center;
+    }
+
+    /* Responsive chat */
+    @media (max-width: 900px) {
+        .chat-container { flex-direction: column; height: auto; min-height: auto; }
+        .blueprint-panel {
+            width: 100% !important; border-left: none;
+            border-top: 1px solid var(--border-light);
+            max-height: 300px;
+        }
+        .blueprint-panel.collapsed { width: 100% !important; max-height: 44px; }
+        .blueprint-panel.collapsed .blueprint-panel-title {
+            writing-mode: horizontal-tb; transform: none;
+        }
+        .chat-msg { max-width: 95%; }
+        .chat-messages { padding: 14px 16px; }
+        .chat-input-bar { padding: 10px 16px 14px; }
+    }
+
+    .onb-progress-bar {
+        display: flex; align-items: center; gap: 2px;
+        padding: 0 24px 14px;
+    }
+    .onb-progress-step {
+        flex: 1; height: 4px; border-radius: 2px;
+        background: rgba(255,255,255,0.06);
+        transition: background 0.3s;
+    }
+    .onb-progress-step.done { background: var(--accent-green); }
+    .onb-progress-step.active { background: var(--accent-blue); }
+
+    .onb-tabs {
+        display: flex; gap: 2px; padding: 0 24px;
+        border-bottom: 1px solid var(--border-light);
+        overflow-x: auto;
+    }
+    .onb-tab {
+        padding: 8px 16px; font-size: 0.72rem; font-weight: 600;
+        color: var(--text-dim); cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s, border-color 0.2s;
+        white-space: nowrap;
+    }
+    .onb-tab:hover { color: var(--text-secondary); }
+    .onb-tab.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
+    .onb-tab.disabled { opacity: 0.35; cursor: not-allowed; }
+    .onb-tab .tab-num {
+        font-family: var(--font-mono); font-size: 0.58rem;
+        background: rgba(255,255,255,0.06); padding: 1px 6px;
+        border-radius: 8px; margin-right: 4px;
+    }
+    .onb-tab.active .tab-num { background: rgba(56,189,248,0.15); color: var(--accent-blue); }
+
+    .onb-panel { display: none; padding: 20px 24px; min-height: 400px; }
+    .onb-panel.active { display: block; animation: fadeIn 0.2s ease; }
+
+    .onb-section-title {
+        font-size: 0.72rem; font-weight: 700; color: var(--text-label);
+        text-transform: uppercase; letter-spacing: 0.08em;
+        margin-bottom: 10px; margin-top: 20px;
+    }
+    .onb-section-title:first-child { margin-top: 0; }
+
+    /* Path selection cards */
+    .onb-paths { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+    .onb-path-card {
+        background: var(--card-gradient); border: 2px solid var(--border-medium);
+        border-radius: 14px; padding: 28px 24px; cursor: pointer;
+        transition: all 0.2s; text-align: center; position: relative;
+    }
+    .onb-path-card:hover {
+        transform: translateY(-4px); border-color: rgba(56,189,248,0.3);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .onb-path-card.selected {
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 24px rgba(56,189,248,0.2), 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .onb-path-card.selected::after {
+        content: ''; position: absolute; top: 12px; right: 12px;
+        width: 20px; height: 20px; border-radius: 50%;
+        background: var(--accent-blue);
+        display: flex; align-items: center; justify-content: center;
+    }
+    .onb-path-icon {
+        font-size: 2.2rem; margin-bottom: 12px; display: block;
+        filter: grayscale(0.2);
+    }
+    .onb-path-name {
+        font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 6px;
+    }
+    .onb-path-desc {
+        font-size: 0.75rem; color: var(--text-muted); line-height: 1.6;
+    }
+    .onb-path-tags {
+        display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-top: 12px;
+    }
+    .onb-path-tag {
+        font-size: 0.58rem; font-weight: 600; padding: 2px 8px; border-radius: 6px;
+        background: rgba(255,255,255,0.04); color: var(--text-dim);
+        text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    /* Intake form sections */
+    .onb-intake-section {
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
+    }
+    .onb-intake-section-title {
+        font-size: 0.78rem; font-weight: 700; color: var(--text-secondary);
+        margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .onb-intake-section-num {
+        font-family: var(--font-mono); font-size: 0.62rem; font-weight: 800;
+        background: rgba(56,189,248,0.12); color: var(--accent-blue);
+        padding: 2px 8px; border-radius: 6px;
+    }
+
+    /* Feature matrix */
+    .onb-feature-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 10px;
+    }
+    .onb-feature-item {
+        display: flex; align-items: flex-start; gap: 10px;
+        padding: 10px 14px; border-radius: 10px;
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        cursor: pointer; transition: all 0.15s;
+    }
+    .onb-feature-item:hover { border-color: rgba(56,189,248,0.2); }
+    .onb-feature-item.selected { border-color: var(--accent-blue); background: rgba(56,189,248,0.04); }
+    .onb-feature-item input[type="checkbox"] {
+        accent-color: var(--accent-blue); width: 16px; height: 16px; margin-top: 2px; flex-shrink: 0;
+    }
+    .onb-feature-info { flex: 1; }
+    .onb-feature-name { font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); }
+    .onb-feature-desc { font-size: 0.65rem; color: var(--text-dim); margin-top: 2px; }
+    .onb-feature-cost {
+        font-size: 0.58rem; font-family: var(--font-mono); font-weight: 700;
+        color: var(--accent-amber); margin-top: 4px;
+    }
+
+    /* Simulator sliders */
+    .onb-sliders {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .onb-slider-group {
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        border-radius: 10px; padding: 14px 16px;
+    }
+    .onb-slider-label {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 8px;
+    }
+    .onb-slider-name {
+        font-size: 0.72rem; font-weight: 600; color: var(--text-secondary);
+    }
+    .onb-slider-value {
+        font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800;
+        color: var(--accent-blue);
+    }
+    .onb-slider-input {
+        width: 100%; -webkit-appearance: none; appearance: none;
+        height: 6px; border-radius: 3px;
+        background: rgba(255,255,255,0.08); outline: none;
+        cursor: pointer;
+    }
+    .onb-slider-input::-webkit-slider-thumb {
+        -webkit-appearance: none; width: 18px; height: 18px;
+        border-radius: 50%; background: var(--accent-blue);
+        cursor: pointer; box-shadow: 0 0 8px rgba(56,189,248,0.4);
+    }
+    .onb-slider-input::-moz-range-thumb {
+        width: 18px; height: 18px; border-radius: 50%;
+        background: var(--accent-blue); cursor: pointer; border: none;
+    }
+    .onb-slider-range {
+        display: flex; justify-content: space-between;
+        font-size: 0.58rem; color: var(--text-faint); margin-top: 4px;
+    }
+
+    /* Recommendation cards */
+    .onb-rec-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 14px; margin-top: 14px;
+    }
+    .onb-rec-card {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: 12px; padding: 18px 20px; position: relative;
+        transition: all 0.2s;
+    }
+    .onb-rec-card.recommended {
+        border-color: var(--accent-green);
+        box-shadow: 0 0 16px rgba(74,222,128,0.12);
+    }
+    .onb-rec-badge {
+        position: absolute; top: 12px; right: 12px;
+        font-size: 0.55rem; font-weight: 800; padding: 3px 10px;
+        border-radius: 6px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .onb-rec-badge.best { background: rgba(74,222,128,0.15); color: var(--accent-green); }
+    .onb-rec-badge.alt { background: rgba(56,189,248,0.15); color: var(--accent-blue); }
+    .onb-rec-badge.budget { background: rgba(251,191,36,0.15); color: var(--accent-gold); }
+    .onb-rec-name {
+        font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 6px;
+        padding-right: 70px;
+    }
+    .onb-rec-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px; }
+    .onb-rec-metrics {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .onb-rec-metric {
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.65rem; padding: 4px 0;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .onb-rec-metric-label { color: var(--text-dim); }
+    .onb-rec-metric-val { font-family: var(--font-mono); font-weight: 700; }
+    .onb-rec-pros, .onb-rec-cons {
+        font-size: 0.65rem; margin-top: 10px;
+    }
+    .onb-rec-pros-title, .onb-rec-cons-title {
+        font-weight: 700; font-size: 0.62rem; text-transform: uppercase;
+        letter-spacing: 0.04em; margin-bottom: 4px;
+    }
+    .onb-rec-pros-title { color: var(--accent-green); }
+    .onb-rec-cons-title { color: var(--accent-red); }
+    .onb-rec-list {
+        list-style: none; padding: 0;
+    }
+    .onb-rec-list li {
+        color: var(--text-muted); padding: 1px 0; padding-left: 12px;
+        position: relative;
+    }
+    .onb-rec-list li::before {
+        content: ''; position: absolute; left: 0; top: 7px;
+        width: 4px; height: 4px; border-radius: 50%;
+    }
+    .onb-rec-pros .onb-rec-list li::before { background: var(--accent-green); }
+    .onb-rec-cons .onb-rec-list li::before { background: var(--accent-red); }
+
+    /* Impact meter */
+    .onb-impact-bar {
+        height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06);
+        overflow: hidden; margin-top: 4px;
+    }
+    .onb-impact-fill {
+        height: 100%; border-radius: 3px; transition: width 0.4s ease;
+    }
+
+    /* Scenario comparison */
+    .onb-scenarios-header {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 14px;
+    }
+    .onb-scenario-cards {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 14px;
+    }
+    .onb-scenario-card {
+        background: var(--card-gradient); border: 1px solid var(--border-medium);
+        border-radius: 12px; padding: 16px 18px;
+    }
+    .onb-scenario-card-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+    }
+    .onb-scenario-name { font-size: 0.82rem; font-weight: 700; color: #fff; }
+    .onb-scenario-actions { display: flex; gap: 4px; }
+    .onb-scenario-btn {
+        font-size: 0.62rem; padding: 3px 8px; border-radius: 6px;
+        border: 1px solid var(--border-light); background: transparent;
+        color: var(--text-dim); cursor: pointer; transition: all 0.15s;
+    }
+    .onb-scenario-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .onb-scenario-btn.delete:hover { border-color: var(--accent-red); color: var(--accent-red); }
+    .onb-scenario-metric-row {
+        display: flex; justify-content: space-between; font-size: 0.68rem;
+        padding: 3px 0; border-bottom: 1px solid var(--border-subtle);
+    }
+    .onb-scenario-metric-label { color: var(--text-dim); }
+    .onb-scenario-metric-value { font-family: var(--font-mono); font-weight: 700; color: var(--text-secondary); }
+
+    /* Radar chart */
+    .onb-radar-container {
+        display: flex; justify-content: center; padding: 20px 0;
+    }
+    .onb-radar-canvas {
+        max-width: 360px; max-height: 360px;
+    }
+
+    /* Summary */
+    .onb-summary-section {
+        background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle);
+        border-radius: 12px; padding: 18px 20px; margin-bottom: 14px;
+    }
+    .onb-summary-title {
+        font-size: 0.78rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px;
+    }
+    .onb-summary-row {
+        display: flex; justify-content: space-between; font-size: 0.75rem;
+        padding: 5px 0; border-bottom: 1px solid var(--border-subtle);
+    }
+    .onb-summary-label { color: var(--text-muted); }
+    .onb-summary-value { font-weight: 600; color: var(--text-secondary); }
+    .onb-summary-json {
+        background: rgba(0,0,0,0.3); border: 1px solid var(--border-light);
+        border-radius: 8px; padding: 16px; font-family: var(--font-mono);
+        font-size: 0.72rem; color: var(--text-muted); line-height: 1.6;
+        max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .onb-paths { grid-template-columns: 1fr; }
+        .onb-sliders { grid-template-columns: 1fr; }
+        .onb-rec-metrics { grid-template-columns: 1fr; }
+    }
+    </style>
+</head>
+<body>
+    <div class="onb-shell">
+        <div class="onb-header">
+            <div class="onb-header-left">
+                <div>
+                    <div class="onb-title">PRODUCT ONBOARDING STUDIO</div>
+                    <div class="onb-subtitle">Guided intake + decision simulator</div>
+                </div>
+            </div>
+            <div class="onb-header-right">
+                <button class="btn btn-ghost btn-sm" id="onb-reset-btn">Reset</button>
+                <button class="btn btn-primary btn-sm" id="onb-export-btn">Export JSON</button>
+            </div>
+        </div>
+
+        <div class="onb-mode-bar">
+            <button class="onb-mode-btn active" data-mode="form">
+                <span class="mode-icon">&#9776;</span> Guided Form
+            </button>
+            <button class="onb-mode-btn" data-mode="chat">
+                <span class="mode-icon">&#128172;</span> Chat Onboarding
+            </button>
+        </div>
+
+        <!-- Chat Mode -->
+        <div class="onb-mode-content" id="mode-chat">
+            <div class="chat-container">
+                <div class="chat-main">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-msg assistant">
+                            <div class="chat-msg-bubble">
+                                <p><strong>Welcome to Chat Onboarding.</strong></p>
+                                <p>I'm your technical architect. Tell me about what you're building — the problem you're solving, who it's for, and what you're imagining. We'll work through the details together and I'll help you shape a phased project plan.</p>
+                                <p>What are you building?</p>
+                            </div>
+                            <div class="chat-msg-time">Just now</div>
+                        </div>
+                    </div>
+                    <div class="chat-typing" id="chat-typing">
+                        <div class="chat-typing-dots">
+                            <div class="chat-typing-dot"></div>
+                            <div class="chat-typing-dot"></div>
+                            <div class="chat-typing-dot"></div>
+                        </div>
+                    </div>
+                    <div class="chat-input-bar">
+                        <div class="chat-input-wrapper">
+                            <textarea class="chat-input" id="chat-input" rows="1" placeholder="Describe your project..."></textarea>
+                        </div>
+                        <button class="chat-send-btn" id="chat-send-btn">Send</button>
+                    </div>
+                </div>
+                <div class="blueprint-panel" id="blueprint-panel">
+                    <div class="blueprint-panel-header">
+                        <span class="blueprint-panel-title">Blueprint</span>
+                        <button class="blueprint-toggle" id="blueprint-toggle" title="Toggle panel">&#9664;</button>
+                    </div>
+                    <div class="blueprint-panel-body" id="blueprint-body">
+                        <div class="bp-empty">Start a conversation to build your project blueprint.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guided Form Mode -->
+        <div class="onb-mode-content active" id="mode-form">
+        <div class="onb-progress-bar" id="onb-progress">
+            <div class="onb-progress-step" data-step="0"></div>
+            <div class="onb-progress-step" data-step="1"></div>
+            <div class="onb-progress-step" data-step="2"></div>
+            <div class="onb-progress-step" data-step="3"></div>
+            <div class="onb-progress-step" data-step="4"></div>
+            <div class="onb-progress-step" data-step="5"></div>
+        </div>
+
+        <div class="onb-tabs" id="onb-tabs">
+            <div class="onb-tab active" data-tab="start"><span class="tab-num">1</span> Start</div>
+            <div class="onb-tab" data-tab="intake"><span class="tab-num">2</span> Intake</div>
+            <div class="onb-tab" data-tab="features"><span class="tab-num">3</span> Features</div>
+            <div class="onb-tab" data-tab="simulator"><span class="tab-num">4</span> Simulator</div>
+            <div class="onb-tab" data-tab="scenarios"><span class="tab-num">5</span> Scenarios</div>
+            <div class="onb-tab" data-tab="summary"><span class="tab-num">6</span> Summary</div>
+        </div>
+
+        <!-- Tab 1: Start / Path Selection -->
+        <div class="onb-panel active" id="panel-start">
+            <div class="onb-section-title">Choose your path</div>
+            <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">
+                Select the type of product engagement. This determines which intake questions and recommendations are most relevant.
+            </p>
+            <div class="onb-paths" id="onb-paths">
+                <div class="onb-path-card" data-path="new-product">
+                    <span class="onb-path-icon">&#9889;</span>
+                    <div class="onb-path-name">New Product Build</div>
+                    <div class="onb-path-desc">Build a brand-new product from scratch. Full scope: discovery, architecture, implementation, launch.</div>
+                    <div class="onb-path-tags">
+                        <span class="onb-path-tag">Greenfield</span>
+                        <span class="onb-path-tag">Full stack</span>
+                        <span class="onb-path-tag">MVP &rarr; Scale</span>
+                    </div>
+                </div>
+                <div class="onb-path-card" data-path="improvement">
+                    <span class="onb-path-icon">&#128736;</span>
+                    <div class="onb-path-name">Existing Product Improvement</div>
+                    <div class="onb-path-desc">Improve, refactor, or extend an existing product. New features, performance, UX, or architecture changes.</div>
+                    <div class="onb-path-tags">
+                        <span class="onb-path-tag">Enhancement</span>
+                        <span class="onb-path-tag">Refactor</span>
+                        <span class="onb-path-tag">Scaling</span>
+                    </div>
+                </div>
+                <div class="onb-path-card" data-path="migration">
+                    <span class="onb-path-icon">&#128640;</span>
+                    <div class="onb-path-name">Migration / Service Modernization</div>
+                    <div class="onb-path-desc">Migrate legacy systems, modernize data platforms, re-architect services for cloud/scale.</div>
+                    <div class="onb-path-tags">
+                        <span class="onb-path-tag">Migration</span>
+                        <span class="onb-path-tag">Modernization</span>
+                        <span class="onb-path-tag">Cloud</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:right; margin-top:20px;">
+                <button class="btn btn-primary btn-sm" id="onb-start-next" disabled>Next: Intake &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Tab 2: Intake -->
+        <div class="onb-panel" id="panel-intake">
+            <div class="onb-section-title">Structured Intake</div>
+            <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">
+                Fill in what you know. Incomplete fields are fine &mdash; the simulator will work with whatever you provide.
+            </p>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">01</span> Company / Client Context</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Company Name</label>
+                        <input class="form-input" id="intake-company" placeholder="Acme Corp">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Industry</label>
+                        <select class="form-select" id="intake-industry">
+                            <option value="">Select...</option>
+                            <option>SaaS / Technology</option>
+                            <option>Healthcare</option>
+                            <option>Finance / Fintech</option>
+                            <option>E-commerce / Retail</option>
+                            <option>Education</option>
+                            <option>Manufacturing</option>
+                            <option>Government</option>
+                            <option>Media / Entertainment</option>
+                            <option>Professional Services</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="grid-column:1/-1;">
+                        <label class="form-label">Company Description</label>
+                        <textarea class="form-textarea" id="intake-company-desc" rows="2" placeholder="Brief description of the company and what they do..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">02</span> Product Idea</div>
+                <div class="form-group">
+                    <label class="form-label">Product Name</label>
+                    <input class="form-input" id="intake-product-name" placeholder="What is this product called?">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Product Description</label>
+                    <textarea class="form-textarea" id="intake-product-desc" rows="3" placeholder="Describe the product: what it does, the core value proposition, the problem it solves..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Key Differentiator</label>
+                    <input class="form-input" id="intake-differentiator" placeholder="What makes this different from competitors?">
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">03</span> Target Users / Personas</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Primary User Type</label>
+                        <input class="form-input" id="intake-primary-user" placeholder="e.g. Product managers, Data analysts">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Secondary Users</label>
+                        <input class="form-input" id="intake-secondary-users" placeholder="e.g. Executives, Developers">
+                    </div>
+                    <div class="form-group" style="grid-column:1/-1;">
+                        <label class="form-label">User Technical Level</label>
+                        <select class="form-select" id="intake-tech-level">
+                            <option value="">Select...</option>
+                            <option value="non-technical">Non-technical (business users)</option>
+                            <option value="semi-technical">Semi-technical (power users, analysts)</option>
+                            <option value="technical">Technical (developers, engineers)</option>
+                            <option value="mixed">Mixed audience</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">04</span> Current Systems</div>
+                <div class="form-group">
+                    <label class="form-label">Existing Systems / Tech Stack</label>
+                    <textarea class="form-textarea" id="intake-current-systems" rows="2" placeholder="What systems exist today? Databases, APIs, frameworks, cloud providers..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Pain Points with Current Systems</label>
+                    <textarea class="form-textarea" id="intake-pain-points" rows="2" placeholder="What doesn't work well? Performance, scalability, maintenance burden..."></textarea>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">05</span> Data / API / Infrastructure</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Data Sources</label>
+                        <textarea class="form-textarea" id="intake-data-sources" rows="2" placeholder="Databases, APIs, file feeds, third-party data..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Infrastructure Preferences</label>
+                        <select class="form-select" id="intake-infra">
+                            <option value="">Select...</option>
+                            <option value="cloud-aws">AWS</option>
+                            <option value="cloud-azure">Azure</option>
+                            <option value="cloud-gcp">GCP</option>
+                            <option value="multi-cloud">Multi-cloud</option>
+                            <option value="on-prem">On-premises</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="no-preference">No preference</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">06</span> Compliance / Privacy</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Compliance Requirements</label>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;">
+                            <label class="form-checkbox"><input type="checkbox" value="SOC2" class="intake-compliance"> SOC 2</label>
+                            <label class="form-checkbox"><input type="checkbox" value="HIPAA" class="intake-compliance"> HIPAA</label>
+                            <label class="form-checkbox"><input type="checkbox" value="GDPR" class="intake-compliance"> GDPR</label>
+                            <label class="form-checkbox"><input type="checkbox" value="PCI-DSS" class="intake-compliance"> PCI-DSS</label>
+                            <label class="form-checkbox"><input type="checkbox" value="FedRAMP" class="intake-compliance"> FedRAMP</label>
+                            <label class="form-checkbox"><input type="checkbox" value="none" class="intake-compliance"> None / Unknown</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Data Sensitivity Level</label>
+                        <select class="form-select" id="intake-data-sensitivity">
+                            <option value="">Select...</option>
+                            <option value="public">Public data only</option>
+                            <option value="internal">Internal / business data</option>
+                            <option value="confidential">Confidential / PII</option>
+                            <option value="regulated">Regulated / PHI / financial</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">07</span> Budget &amp; Timeline</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Budget Range</label>
+                        <select class="form-select" id="intake-budget">
+                            <option value="">Select...</option>
+                            <option value="10k">Under $10K</option>
+                            <option value="50k">$10K &ndash; $50K</option>
+                            <option value="100k">$50K &ndash; $100K</option>
+                            <option value="250k">$100K &ndash; $250K</option>
+                            <option value="500k">$250K &ndash; $500K</option>
+                            <option value="1m">$500K &ndash; $1M</option>
+                            <option value="1m+">$1M+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Desired Timeline</label>
+                        <select class="form-select" id="intake-timeline">
+                            <option value="">Select...</option>
+                            <option value="4w">Under 4 weeks</option>
+                            <option value="8w">4 &ndash; 8 weeks</option>
+                            <option value="12w">2 &ndash; 3 months</option>
+                            <option value="26w">3 &ndash; 6 months</option>
+                            <option value="52w">6 &ndash; 12 months</option>
+                            <option value="52w+">12+ months</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">08</span> Expected Users &amp; Scale</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Expected Users at Launch</label>
+                        <select class="form-select" id="intake-users-launch">
+                            <option value="">Select...</option>
+                            <option value="10">Under 10</option>
+                            <option value="100">10 &ndash; 100</option>
+                            <option value="1000">100 &ndash; 1,000</option>
+                            <option value="10000">1,000 &ndash; 10,000</option>
+                            <option value="100000">10,000 &ndash; 100,000</option>
+                            <option value="100000+">100,000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Target Scale (12 months)</label>
+                        <select class="form-select" id="intake-users-scale">
+                            <option value="">Select...</option>
+                            <option value="100">Under 100</option>
+                            <option value="1000">100 &ndash; 1,000</option>
+                            <option value="10000">1,000 &ndash; 10,000</option>
+                            <option value="100000">10,000 &ndash; 100,000</option>
+                            <option value="1000000">100,000 &ndash; 1M</option>
+                            <option value="1000000+">1M+</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">09</span> Desired Features</div>
+                <div class="form-group">
+                    <label class="form-label">Core Feature Wishlist</label>
+                    <textarea class="form-textarea" id="intake-features-wish" rows="3" placeholder="List the key features you want in priority order..."></textarea>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">10</span> Integrations</div>
+                <div class="form-group">
+                    <label class="form-label">Required Integrations</label>
+                    <textarea class="form-textarea" id="intake-integrations" rows="2" placeholder="APIs, services, databases, tools that must integrate..."></textarea>
+                </div>
+            </div>
+
+            <div class="onb-intake-section">
+                <div class="onb-intake-section-title"><span class="onb-intake-section-num">11</span> Operational Constraints</div>
+                <div class="form-group">
+                    <label class="form-label">Constraints</label>
+                    <textarea class="form-textarea" id="intake-constraints" rows="2" placeholder="Team size, existing vendor contracts, technology restrictions, regulatory deadlines..."></textarea>
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                <button class="btn btn-back btn-sm" onclick="ONB.goTab('start')">&larr; Back</button>
+                <button class="btn btn-primary btn-sm" onclick="ONB.goTab('features')">Next: Features &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Feature Selection -->
+        <div class="onb-panel" id="panel-features">
+            <div class="onb-section-title">Feature Selection Matrix</div>
+            <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">
+                Select desired capabilities. Cost and complexity estimates update in the simulator.
+            </p>
+
+            <div class="onb-section-title" style="margin-top:0;">Core Platform</div>
+            <div class="onb-feature-grid" id="features-core"></div>
+
+            <div class="onb-section-title">Data &amp; Analytics</div>
+            <div class="onb-feature-grid" id="features-data"></div>
+
+            <div class="onb-section-title">AI &amp; Automation</div>
+            <div class="onb-feature-grid" id="features-ai"></div>
+
+            <div class="onb-section-title">Security &amp; Compliance</div>
+            <div class="onb-feature-grid" id="features-security"></div>
+
+            <div class="onb-section-title">Operations &amp; Infrastructure</div>
+            <div class="onb-feature-grid" id="features-ops"></div>
+
+            <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                <button class="btn btn-back btn-sm" onclick="ONB.goTab('intake')">&larr; Back</button>
+                <button class="btn btn-primary btn-sm" onclick="ONB.goTab('simulator')">Next: Simulator &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Tab 4: Decision Simulator -->
+        <div class="onb-panel" id="panel-simulator">
+            <div class="onb-section-title">Decision Simulator</div>
+            <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">
+                Adjust parameters to see how they affect recommendations, cost, and risk. All estimates are directional &mdash; real numbers come from detailed scoping.
+            </p>
+
+            <div class="onb-sliders" id="onb-sliders"></div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:20px;">
+                <div class="onb-section-title" style="margin:0;">Recommendations</div>
+                <button class="btn btn-ghost btn-sm" id="onb-save-scenario-btn">Save as Scenario</button>
+            </div>
+
+            <div class="onb-rec-grid" id="onb-recommendations"></div>
+
+            <div class="onb-section-title" style="margin-top:24px;">Impact Summary</div>
+            <div id="onb-impact-summary" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;"></div>
+
+            <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                <button class="btn btn-back btn-sm" onclick="ONB.goTab('features')">&larr; Back</button>
+                <button class="btn btn-primary btn-sm" onclick="ONB.goTab('scenarios')">Next: Scenarios &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Tab 5: Scenarios -->
+        <div class="onb-panel" id="panel-scenarios">
+            <div class="onb-scenarios-header">
+                <div class="onb-section-title" style="margin:0;">Saved Scenarios</div>
+                <button class="btn btn-ghost btn-sm" onclick="ONB.goTab('simulator')">+ New from Simulator</button>
+            </div>
+            <div id="onb-no-scenarios" class="callout info" style="display:none;">
+                No scenarios saved yet. Use the Simulator tab to configure parameters and save a scenario.
+            </div>
+            <div class="onb-scenario-cards" id="onb-scenario-list"></div>
+
+            <div class="onb-section-title" style="margin-top:24px;">Comparison Radar</div>
+            <div class="onb-radar-container">
+                <canvas id="onb-radar-canvas" class="onb-radar-canvas" width="360" height="360"></canvas>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                <button class="btn btn-back btn-sm" onclick="ONB.goTab('simulator')">&larr; Back</button>
+                <button class="btn btn-primary btn-sm" onclick="ONB.goTab('summary')">Next: Summary &rarr;</button>
+            </div>
+        </div>
+
+        <!-- Tab 6: Summary -->
+        <div class="onb-panel" id="panel-summary">
+            <div class="onb-section-title">Onboarding Summary</div>
+            <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">
+                Review the full onboarding output. This feeds into downstream Conductor phases.
+            </p>
+
+            <div class="onb-summary-section" id="onb-summary-overview"></div>
+            <div class="onb-summary-section" id="onb-summary-intake"></div>
+            <div class="onb-summary-section" id="onb-summary-features"></div>
+            <div class="onb-summary-section" id="onb-summary-params"></div>
+            <div class="onb-summary-section" id="onb-summary-scenarios"></div>
+
+            <div class="onb-section-title" style="margin-top:24px;">Export (JSON)</div>
+            <div class="onb-summary-json" id="onb-summary-json"></div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+                <button class="btn btn-back btn-sm" onclick="ONB.goTab('scenarios')">&larr; Back</button>
+                <div style="display:flex; gap:8px;">
+                    <button class="btn btn-primary btn-sm" id="onb-copy-json-btn">Copy JSON to Clipboard</button>
+                    <button class="btn btn-sm" id="onb-create-project-btn" style="background:rgba(74,222,128,0.15);color:var(--accent-green);border-color:rgba(74,222,128,0.3);font-weight:700;">Create Project &rarr;</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- /mode-form -->
+    </div><!-- /onb-shell -->
+
+    <script>
+    (function() {
+        'use strict';
+
+        // --- Mode switching ---
+        document.querySelectorAll('.onb-mode-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var mode = this.dataset.mode;
+                document.querySelectorAll('.onb-mode-btn').forEach(function(b) { b.classList.remove('active'); });
+                this.classList.add('active');
+                document.querySelectorAll('.onb-mode-content').forEach(function(c) { c.classList.remove('active'); });
+                var target = document.getElementById('mode-' + mode);
+                if (target) target.classList.add('active');
+            });
+        });
+
+        // --- Chat Onboarding ---
+        var CHAT = {
+            sessionId: null,
+            blueprint: null,
+            sending: false,
+
+            init: function() {
+                var saved = localStorage.getItem('conductor_chat_onboarding');
+                if (saved) {
+                    try {
+                        var data = JSON.parse(saved);
+                        this.sessionId = data.sessionId;
+                        if (data.messages && data.messages.length) {
+                            this.restoreMessages(data.messages);
+                        }
+                        if (data.blueprint) {
+                            this.blueprint = data.blueprint;
+                            this.renderBlueprint();
+                        }
+                    } catch(e) {}
+                }
+
+                var self = this;
+                var input = document.getElementById('chat-input');
+                var sendBtn = document.getElementById('chat-send-btn');
+
+                sendBtn.addEventListener('click', function() { self.send(); });
+
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        self.send();
+                    }
+                });
+
+                input.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 160) + 'px';
+                });
+
+                document.getElementById('blueprint-toggle').addEventListener('click', function() {
+                    var panel = document.getElementById('blueprint-panel');
+                    panel.classList.toggle('collapsed');
+                    this.textContent = panel.classList.contains('collapsed') ? '▶' : '◄';
+                });
+            },
+
+            send: function() {
+                if (this.sending) return;
+                var input = document.getElementById('chat-input');
+                var msg = input.value.trim();
+                if (!msg) return;
+
+                input.value = '';
+                input.style.height = 'auto';
+                this.addMessage('user', msg);
+                this.sending = true;
+                this.setLoading(true);
+
+                var self = this;
+                var body = { message: msg };
+                if (this.sessionId) body.session_id = this.sessionId;
+
+                fetch('/api/onboarding/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                })
+                .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+                .then(function(result) {
+                    self.sending = false;
+                    self.setLoading(false);
+                    if (!result.ok) {
+                        self.addMessage('assistant', 'Error: ' + (result.data.error || 'Something went wrong'));
+                        return;
+                    }
+                    if (result.data.session_id) self.sessionId = result.data.session_id;
+                    if (result.data.blueprint) {
+                        self.blueprint = result.data.blueprint;
+                        self.renderBlueprint();
+                    }
+                    self.addMessage('assistant', result.data.message, result.data.structured);
+                    self.saveState();
+                })
+                .catch(function(err) {
+                    self.sending = false;
+                    self.setLoading(false);
+                    self.addMessage('assistant', 'Network error: ' + err.message);
+                });
+            },
+
+            addMessage: function(role, content, structured) {
+                var container = document.getElementById('chat-messages');
+                var div = document.createElement('div');
+                div.className = 'chat-msg ' + role;
+
+                var bubble = document.createElement('div');
+                bubble.className = 'chat-msg-bubble';
+
+                if (role === 'assistant') {
+                    bubble.innerHTML = this.renderMarkdown(content, structured);
+                } else {
+                    bubble.textContent = content;
+                }
+
+                var time = document.createElement('div');
+                time.className = 'chat-msg-time';
+                time.textContent = this.formatTime(new Date());
+
+                div.appendChild(bubble);
+                div.appendChild(time);
+                container.appendChild(div);
+                container.scrollTop = container.scrollHeight;
+            },
+
+            renderMarkdown: function(text, structured) {
+                var cleaned = text.replace(/```json\s*\n\{[\s\S]*?\}\n```/g, '');
+                cleaned = cleaned.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                cleaned = cleaned.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+                var lines = cleaned.split('\n');
+                var html = '';
+                var inList = false;
+                var listType = '';
+
+                for (var i = 0; i < lines.length; i++) {
+                    var line = lines[i];
+                    var ulMatch = line.match(/^[\s]*[-*]\s+(.*)/);
+                    var olMatch = line.match(/^[\s]*\d+\.\s+(.*)/);
+
+                    if (ulMatch) {
+                        if (!inList || listType !== 'ul') {
+                            if (inList) html += '</' + listType + '>';
+                            html += '<ul>';
+                            inList = true; listType = 'ul';
+                        }
+                        html += '<li>' + ulMatch[1] + '</li>';
+                    } else if (olMatch) {
+                        if (!inList || listType !== 'ol') {
+                            if (inList) html += '</' + listType + '>';
+                            html += '<ol>';
+                            inList = true; listType = 'ol';
+                        }
+                        html += '<li>' + olMatch[1] + '</li>';
+                    } else {
+                        if (inList) { html += '</' + listType + '>'; inList = false; }
+                        var trimmed = line.trim();
+                        if (trimmed === '') {
+                            if (html && !html.endsWith('</p>') && !html.endsWith('</ul>') && !html.endsWith('</ol>')) {
+                                html += '</p>';
+                            }
+                        } else if (line.match(/^###\s+(.*)/)) {
+                            html += '<p><strong>' + line.replace(/^###\s+/, '') + '</strong></p>';
+                        } else if (line.match(/^##\s+(.*)/)) {
+                            html += '<p><strong>' + line.replace(/^##\s+/, '') + '</strong></p>';
+                        } else {
+                            if (!html.endsWith('>') || html.endsWith('</p>') || html.endsWith('</ul>') || html.endsWith('</ol>')) {
+                                html += '<p>' + trimmed;
+                            } else {
+                                html += ' ' + trimmed;
+                            }
+                        }
+                    }
+                }
+                if (inList) html += '</' + listType + '>';
+                if (html && !html.endsWith('>')) html += '</p>';
+
+                if (structured && structured.length) {
+                    for (var j = 0; j < structured.length; j++) {
+                        html += this.renderStructuredCard(structured[j]);
+                    }
+                }
+
+                return html;
+            },
+
+            renderStructuredCard: function(block) {
+                var type = block.type;
+                if (type === 'phase_proposal') return this.renderPhaseProposal(block);
+                if (type === 'architecture') return this.renderArchitecture(block);
+                if (type === 'blueprint') return this.renderBlueprintCard(block);
+                return '';
+            },
+
+            renderPhaseProposal: function(block) {
+                var phases = block.phases || [];
+                var html = '<div class="chat-card">';
+                html += '<div class="chat-card-header">';
+                html += '<div class="chat-card-title"><span class="chat-card-badge" style="background:rgba(167,139,250,0.15);color:var(--accent-purple);">Proposal</span> Phase Plan</div>';
+                html += '<span style="font-size:0.62rem;color:var(--text-dim);">' + phases.length + ' phases</span>';
+                html += '</div>';
+                html += '<div class="chat-phase-list">';
+                for (var i = 0; i < phases.length; i++) {
+                    var ph = phases[i];
+                    var riskClass = 'risk-' + (ph.risk || 'low');
+                    html += '<div class="chat-phase-card" data-phase-idx="' + i + '">';
+                    html += '<span class="chat-phase-id">' + (ph.id || 'P' + i) + '</span>';
+                    html += '<div class="chat-phase-body">';
+                    html += '<div class="chat-phase-name">' + this.esc(ph.name || '') + '</div>';
+                    html += '<div class="chat-phase-desc">' + this.esc(ph.description || '') + '</div>';
+                    html += '<div class="chat-phase-meta">';
+                    html += '<span class="chat-phase-tag complexity">' + (ph.complexity || 'M') + '</span>';
+                    html += '<span class="chat-phase-tag ' + riskClass + '">' + (ph.risk || 'low') + '</span>';
+                    if (ph.dependencies && ph.dependencies.length) {
+                        html += '<span class="chat-phase-tag" style="background:rgba(255,255,255,0.04);color:var(--text-dim);">deps: ' + ph.dependencies.join(', ') + '</span>';
+                    }
+                    html += '</div>';
+                    if (ph.deliverables && ph.deliverables.length) {
+                        html += '<div style="margin-top:6px;font-size:0.65rem;color:var(--text-dim);">';
+                        for (var d = 0; d < ph.deliverables.length; d++) {
+                            html += '<span style="margin-right:8px;">' + this.esc(ph.deliverables[d]) + '</span>';
+                        }
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                    html += '</div>';
+                }
+                html += '</div></div>';
+                return html;
+            },
+
+            renderArchitecture: function(block) {
+                var html = '<div class="chat-card">';
+                html += '<div class="chat-card-header">';
+                html += '<div class="chat-card-title"><span class="chat-card-badge" style="background:rgba(56,189,248,0.15);color:var(--accent-blue);">Architecture</span> ' + this.esc(block.title || 'Proposed Architecture') + '</div>';
+                html += '</div>';
+
+                if (block.stack) {
+                    html += '<div class="chat-arch-stack">';
+                    var keys = Object.keys(block.stack);
+                    for (var i = 0; i < keys.length; i++) {
+                        html += '<span class="chat-arch-chip"><span class="chip-label">' + this.esc(keys[i]) + ':</span> ' + this.esc(block.stack[keys[i]]) + '</span>';
+                    }
+                    html += '</div>';
+                }
+
+                if (block.components && block.components.length) {
+                    html += '<div class="chat-arch-components">';
+                    for (var j = 0; j < block.components.length; j++) {
+                        var c = block.components[j];
+                        html += '<div class="chat-arch-component">';
+                        html += '<span class="chat-arch-comp-name">' + this.esc(c.name || '') + '</span>';
+                        html += '<span class="chat-arch-comp-purpose">' + this.esc(c.purpose || '') + '</span>';
+                        html += '</div>';
+                    }
+                    html += '</div>';
+                }
+
+                if (block.rationale) {
+                    html += '<p style="font-size:0.72rem;color:var(--text-muted);margin-top:10px;line-height:1.5;">' + this.esc(block.rationale) + '</p>';
+                }
+
+                html += '</div>';
+                return html;
+            },
+
+            renderBlueprintCard: function(block) {
+                var html = '<div class="chat-card chat-blueprint-card">';
+                html += '<div class="chat-card-header">';
+                html += '<div class="chat-card-title"><span class="chat-card-badge" style="background:rgba(74,222,128,0.15);color:var(--accent-green);">Final</span> Project Blueprint</div>';
+                html += '</div>';
+
+                html += '<div style="font-size:0.82rem;font-weight:700;color:#fff;margin-bottom:4px;">' + this.esc(block.name || '') + '</div>';
+                if (block.description) {
+                    html += '<p style="font-size:0.72rem;color:var(--text-muted);line-height:1.5;margin-bottom:10px;">' + this.esc(block.description) + '</p>';
+                }
+
+                if (block.stack) {
+                    html += '<div class="chat-arch-stack" style="margin-bottom:10px;">';
+                    var keys = Object.keys(block.stack);
+                    for (var i = 0; i < keys.length; i++) {
+                        html += '<span class="chat-arch-chip"><span class="chip-label">' + this.esc(keys[i]) + ':</span> ' + this.esc(block.stack[keys[i]]) + '</span>';
+                    }
+                    html += '</div>';
+                }
+
+                html += '<div style="font-size:0.68rem;color:var(--text-dim);margin-bottom:6px;">' + (block.phases || []).length + ' phases defined</div>';
+
+                html += '<div class="chat-blueprint-actions">';
+                html += '<button class="btn btn-sm" style="background:rgba(74,222,128,0.15);color:var(--accent-green);border:1px solid rgba(74,222,128,0.3);font-weight:700;" onclick="CHAT.createProject()">Create Project</button>';
+                html += '<button class="btn btn-ghost btn-sm" onclick="CHAT.copyBlueprint()">Copy JSON</button>';
+                html += '</div>';
+
+                html += '</div>';
+                return html;
+            },
+
+            renderBlueprint: function() {
+                var body = document.getElementById('blueprint-body');
+                var bp = this.blueprint;
+                if (!bp || (!bp.name && !bp.phases && !bp.stack)) {
+                    body.innerHTML = '<div class="bp-empty">Start a conversation to build your project blueprint.</div>';
+                    return;
+                }
+
+                var html = '';
+
+                if (bp.name) {
+                    html += '<div class="bp-section"><div class="bp-label">Project</div><div class="bp-value">' + this.esc(bp.name) + '</div></div>';
+                }
+                if (bp.description) {
+                    html += '<div class="bp-section"><div class="bp-label">Description</div><div style="font-size:0.72rem;color:var(--text-muted);line-height:1.5;">' + this.esc(bp.description) + '</div></div>';
+                }
+                if (bp.stack && Object.keys(bp.stack).length) {
+                    html += '<div class="bp-section"><div class="bp-label">Stack</div><div class="bp-chip-list">';
+                    var keys = Object.keys(bp.stack);
+                    for (var i = 0; i < keys.length; i++) {
+                        html += '<span class="bp-chip">' + this.esc(keys[i]) + ': ' + this.esc(bp.stack[keys[i]]) + '</span>';
+                    }
+                    html += '</div></div>';
+                }
+                if (bp.phases && bp.phases.length) {
+                    html += '<div class="bp-section"><div class="bp-label">Phases (' + bp.phases.length + ')</div>';
+                    for (var j = 0; j < bp.phases.length; j++) {
+                        var ph = bp.phases[j];
+                        html += '<div class="bp-phase-mini"><span class="bp-phase-mini-id">' + (ph.id || 'P' + j) + '</span>';
+                        html += '<span class="bp-phase-mini-name">' + this.esc(ph.name || '') + '</span></div>';
+                    }
+                    html += '</div>';
+                }
+                if (bp.decisions && bp.decisions.length) {
+                    html += '<div class="bp-section"><div class="bp-label">Decisions</div><div class="bp-decisions-list">';
+                    for (var k = 0; k < bp.decisions.length; k++) {
+                        var d = bp.decisions[k];
+                        html += '<div class="bp-decision"><strong>' + this.esc(d.topic || '') + ':</strong> ' + this.esc(d.choice || '') + '</div>';
+                    }
+                    html += '</div></div>';
+                }
+
+                body.innerHTML = html;
+                var title = document.querySelector('.blueprint-panel-title');
+                title.textContent = 'Blueprint' + (bp.phases ? ': ' + bp.phases.length + ' phases' : '');
+            },
+
+            createProject: function() {
+                if (!this.sessionId) return alert('No active session');
+                var btn = event.target;
+                btn.disabled = true;
+                btn.textContent = 'Creating...';
+
+                var self = this;
+                fetch('/api/onboarding/' + this.sessionId + '/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+                .then(function(result) {
+                    if (result.ok) {
+                        btn.textContent = 'Project Created!';
+                        btn.style.background = 'rgba(74,222,128,0.3)';
+                        self.addMessage('assistant', 'Project **' + result.data.slug + '** has been created successfully with ' + (result.data.project.phases || []).length + ' phases. You can now find it in the project list and start executing phases.');
+                        localStorage.removeItem('conductor_chat_onboarding');
+                        setTimeout(function() {
+                            if (window.navigateTo) window.navigateTo('projects');
+                        }, 2000);
+                    } else {
+                        btn.disabled = false;
+                        btn.textContent = 'Create Project';
+                        alert(result.data.error || 'Failed to create project');
+                    }
+                })
+                .catch(function(err) {
+                    btn.disabled = false;
+                    btn.textContent = 'Create Project';
+                    alert('Network error: ' + err.message);
+                });
+            },
+
+            copyBlueprint: function() {
+                if (!this.blueprint) return;
+                var json = JSON.stringify(this.blueprint, null, 2);
+                navigator.clipboard.writeText(json).then(function() {
+                    var btn = event.target;
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() { btn.textContent = 'Copy JSON'; }, 1500);
+                });
+            },
+
+            setLoading: function(on) {
+                var typing = document.getElementById('chat-typing');
+                typing.classList.toggle('visible', on);
+                document.getElementById('chat-send-btn').disabled = on;
+                if (on) {
+                    var container = document.getElementById('chat-messages');
+                    container.scrollTop = container.scrollHeight;
+                }
+            },
+
+            saveState: function() {
+                var msgs = [];
+                document.querySelectorAll('#chat-messages .chat-msg').forEach(function(el) {
+                    var role = el.classList.contains('user') ? 'user' : 'assistant';
+                    var bubble = el.querySelector('.chat-msg-bubble');
+                    msgs.push({ role: role, html: bubble.innerHTML, time: el.querySelector('.chat-msg-time').textContent });
+                });
+                localStorage.setItem('conductor_chat_onboarding', JSON.stringify({
+                    sessionId: this.sessionId,
+                    blueprint: this.blueprint,
+                    messages: msgs
+                }));
+            },
+
+            restoreMessages: function(msgs) {
+                var container = document.getElementById('chat-messages');
+                container.innerHTML = '';
+                for (var i = 0; i < msgs.length; i++) {
+                    var m = msgs[i];
+                    var div = document.createElement('div');
+                    div.className = 'chat-msg ' + m.role;
+                    var bubble = document.createElement('div');
+                    bubble.className = 'chat-msg-bubble';
+                    bubble.innerHTML = m.html;
+                    var time = document.createElement('div');
+                    time.className = 'chat-msg-time';
+                    time.textContent = m.time;
+                    div.appendChild(bubble);
+                    div.appendChild(time);
+                    container.appendChild(div);
+                }
+                container.scrollTop = container.scrollHeight;
+            },
+
+            formatTime: function(d) {
+                var h = d.getHours(); var m = d.getMinutes();
+                var ampm = h >= 12 ? 'PM' : 'AM';
+                h = h % 12 || 12;
+                return h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+            },
+
+            esc: function(s) {
+                var d = document.createElement('div');
+                d.textContent = s;
+                return d.innerHTML;
+            },
+
+            reset: function() {
+                if (!confirm('Clear conversation and start over?')) return;
+                this.sessionId = null;
+                this.blueprint = null;
+                localStorage.removeItem('conductor_chat_onboarding');
+                var container = document.getElementById('chat-messages');
+                container.innerHTML = '';
+                this.addMessage('assistant', '**Welcome to Chat Onboarding.**\n\nI\'m your technical architect. Tell me about what you\'re building — the problem you\'re solving, who it\'s for, and what you\'re imagining. We\'ll work through the details together and I\'ll help you shape a phased project plan.\n\nWhat are you building?');
+                this.renderBlueprint();
+            }
+        };
+
+        window.CHAT = CHAT;
+        CHAT.init();
+
+        var FEATURES = {
+            core: [
+                { id: 'auth', name: 'User Authentication', desc: 'Login, registration, password reset, SSO', cost: 'M', weeks: 2 },
+                { id: 'rbac', name: 'Role-Based Access', desc: 'Roles, permissions, team management', cost: 'M', weeks: 3 },
+                { id: 'multi-tenant', name: 'Multi-Tenancy', desc: 'Isolated client environments, data separation', cost: 'H', weeks: 4 },
+                { id: 'api', name: 'REST API', desc: 'Public API with documentation and versioning', cost: 'M', weeks: 3 },
+                { id: 'webhooks', name: 'Webhooks', desc: 'Event-driven notifications to external systems', cost: 'L', weeks: 1 },
+                { id: 'realtime', name: 'Real-Time Updates', desc: 'WebSockets or SSE for live data', cost: 'M', weeks: 2 },
+                { id: 'search', name: 'Full-Text Search', desc: 'Indexed search across content', cost: 'M', weeks: 2 },
+                { id: 'notifications', name: 'Notifications', desc: 'In-app, email, and push notifications', cost: 'M', weeks: 2 },
+            ],
+            data: [
+                { id: 'dashboard', name: 'Analytics Dashboard', desc: 'Interactive charts, KPIs, drill-downs', cost: 'M', weeks: 3 },
+                { id: 'reporting', name: 'Report Builder', desc: 'Custom reports, scheduled delivery, export', cost: 'H', weeks: 4 },
+                { id: 'etl', name: 'Data Pipeline / ETL', desc: 'Ingest, transform, and load data from sources', cost: 'H', weeks: 5 },
+                { id: 'data-warehouse', name: 'Data Warehouse', desc: 'Centralized analytical data store', cost: 'H', weeks: 4 },
+                { id: 'data-export', name: 'Data Export', desc: 'CSV, JSON, API bulk export', cost: 'L', weeks: 1 },
+                { id: 'audit-log', name: 'Audit Logging', desc: 'Track all data access and modifications', cost: 'M', weeks: 2 },
+            ],
+            ai: [
+                { id: 'ai-assist', name: 'AI Assistant', desc: 'Claude-powered Q&A and suggestions', cost: 'H', weeks: 4 },
+                { id: 'ai-classify', name: 'AI Classification', desc: 'Automated tagging, categorization, routing', cost: 'M', weeks: 3 },
+                { id: 'ai-generate', name: 'Content Generation', desc: 'AI-generated reports, summaries, drafts', cost: 'M', weeks: 3 },
+                { id: 'workflow-auto', name: 'Workflow Automation', desc: 'Rule-based and AI-driven task automation', cost: 'H', weeks: 4 },
+                { id: 'recommendations', name: 'Recommendations', desc: 'ML-powered suggestions and predictions', cost: 'H', weeks: 5 },
+            ],
+            security: [
+                { id: 'sso', name: 'SSO / SAML', desc: 'Enterprise single sign-on integration', cost: 'M', weeks: 2 },
+                { id: 'mfa', name: 'Multi-Factor Auth', desc: 'TOTP, SMS, or hardware key 2FA', cost: 'M', weeks: 2 },
+                { id: 'encryption', name: 'Encryption at Rest', desc: 'AES-256 encryption for stored data', cost: 'M', weeks: 2 },
+                { id: 'compliance-module', name: 'Compliance Module', desc: 'Audit trails, data retention, DSAR handling', cost: 'H', weeks: 4 },
+                { id: 'pen-test', name: 'Penetration Testing', desc: 'Third-party security assessment', cost: 'M', weeks: 2 },
+            ],
+            ops: [
+                { id: 'ci-cd', name: 'CI/CD Pipeline', desc: 'Automated build, test, deploy', cost: 'M', weeks: 2 },
+                { id: 'monitoring', name: 'Monitoring & Alerting', desc: 'APM, error tracking, uptime monitoring', cost: 'M', weeks: 2 },
+                { id: 'scaling', name: 'Auto-Scaling', desc: 'Horizontal scaling based on load', cost: 'H', weeks: 3 },
+                { id: 'backup', name: 'Backup & DR', desc: 'Automated backups, disaster recovery plan', cost: 'M', weeks: 2 },
+                { id: 'cdn', name: 'CDN / Edge Caching', desc: 'Global content delivery, edge caching', cost: 'L', weeks: 1 },
+                { id: 'containerization', name: 'Container Orchestration', desc: 'Docker + Kubernetes deployment', cost: 'H', weeks: 3 },
+            ]
+        };
+
+        var SLIDERS = [
+            { id: 'budget', name: 'Budget', min: 10, max: 1000, step: 10, value: 100, unit: '$K', format: function(v) { return '$' + v + 'K'; } },
+            { id: 'timeline', name: 'Timeline', min: 2, max: 52, step: 1, value: 12, unit: 'weeks', format: function(v) { return v + ' wks'; } },
+            { id: 'users', name: 'Expected Users', min: 1, max: 6, step: 1, value: 3, unit: 'log10', format: function(v) { var labels = ['','10','100','1K','10K','100K','1M']; return labels[v] || v; } },
+            { id: 'scalability', name: 'Scalability Target', min: 1, max: 5, step: 1, value: 3, unit: 'level', format: function(v) { var labels = ['','Minimal','Standard','High','Very High','Extreme']; return labels[v] || v; } },
+            { id: 'compliance', name: 'Compliance Sensitivity', min: 1, max: 4, step: 1, value: 2, unit: 'level', format: function(v) { var labels = ['','Low','Medium','High','Critical']; return labels[v] || v; } },
+            { id: 'automation', name: 'Automation Level', min: 1, max: 5, step: 1, value: 2, unit: 'level', format: function(v) { var labels = ['','Manual','Basic','Moderate','High','Full Auto']; return labels[v] || v; } },
+        ];
+
+        var state = {
+            path: null,
+            currentTab: 'start',
+            selectedFeatures: {},
+            sliderValues: {},
+            scenarios: [],
+            scenarioCounter: 0
+        };
+
+        SLIDERS.forEach(function(s) { state.sliderValues[s.id] = s.value; });
+
+        function $(id) { return document.getElementById(id); }
+        function $$(sel) { return document.querySelectorAll(sel); }
+
+        // --- Tab navigation ---
+        var tabOrder = ['start', 'intake', 'features', 'simulator', 'scenarios', 'summary'];
+
+        function goTab(name) {
+            state.currentTab = name;
+            $$('.onb-tab').forEach(function(t) { t.classList.toggle('active', t.dataset.tab === name); });
+            $$('.onb-panel').forEach(function(p) { p.classList.toggle('active', p.id === 'panel-' + name); });
+            var idx = tabOrder.indexOf(name);
+            $$('.onb-progress-step').forEach(function(s, i) {
+                s.classList.toggle('done', i < idx);
+                s.classList.toggle('active', i === idx);
+            });
+            if (name === 'simulator') updateRecommendations();
+            if (name === 'scenarios') renderScenarios();
+            if (name === 'summary') renderSummary();
+        }
+
+        $$('.onb-tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                if (!this.classList.contains('disabled')) goTab(this.dataset.tab);
+            });
+        });
+
+        // --- Path selection ---
+        $$('.onb-path-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                state.path = this.dataset.path;
+                $$('.onb-path-card').forEach(function(c) { c.classList.remove('selected'); });
+                this.classList.add('selected');
+                $('onb-start-next').disabled = false;
+            });
+        });
+
+        $('onb-start-next').addEventListener('click', function() { if (state.path) goTab('intake'); });
+
+        // --- Feature matrix ---
+        function renderFeatures() {
+            Object.keys(FEATURES).forEach(function(cat) {
+                var container = $('features-' + cat);
+                if (!container) return;
+                container.innerHTML = '';
+                FEATURES[cat].forEach(function(f) {
+                    var checked = state.selectedFeatures[f.id] ? 'checked' : '';
+                    var selClass = checked ? ' selected' : '';
+                    var costColor = f.cost === 'H' ? 'var(--accent-red)' : f.cost === 'M' ? 'var(--accent-amber)' : 'var(--accent-green)';
+                    var html = '<div class="onb-feature-item' + selClass + '" data-feature="' + f.id + '">' +
+                        '<input type="checkbox" ' + checked + '>' +
+                        '<div class="onb-feature-info">' +
+                        '<div class="onb-feature-name">' + f.name + '</div>' +
+                        '<div class="onb-feature-desc">' + f.desc + '</div>' +
+                        '<div class="onb-feature-cost" style="color:' + costColor + '">Complexity: ' + f.cost + ' &middot; ~' + f.weeks + ' wks</div>' +
+                        '</div></div>';
+                    container.insertAdjacentHTML('beforeend', html);
+                });
+                container.querySelectorAll('.onb-feature-item').forEach(function(item) {
+                    item.addEventListener('click', function(e) {
+                        var fid = this.dataset.feature;
+                        var cb = this.querySelector('input[type="checkbox"]');
+                        if (e.target !== cb) cb.checked = !cb.checked;
+                        state.selectedFeatures[fid] = cb.checked;
+                        this.classList.toggle('selected', cb.checked);
+                    });
+                });
+            });
+        }
+
+        // --- Sliders ---
+        function renderSliders() {
+            var container = $('onb-sliders');
+            container.innerHTML = '';
+            SLIDERS.forEach(function(s) {
+                var html = '<div class="onb-slider-group">' +
+                    '<div class="onb-slider-label">' +
+                    '<span class="onb-slider-name">' + s.name + '</span>' +
+                    '<span class="onb-slider-value" id="slider-val-' + s.id + '">' + s.format(s.value) + '</span>' +
+                    '</div>' +
+                    '<input type="range" class="onb-slider-input" id="slider-' + s.id + '" ' +
+                    'min="' + s.min + '" max="' + s.max + '" step="' + s.step + '" value="' + s.value + '">' +
+                    '<div class="onb-slider-range"><span>' + s.format(s.min) + '</span><span>' + s.format(s.max) + '</span></div>' +
+                    '</div>';
+                container.insertAdjacentHTML('beforeend', html);
+                $('slider-' + s.id).addEventListener('input', function() {
+                    var val = parseFloat(this.value);
+                    state.sliderValues[s.id] = val;
+                    $('slider-val-' + s.id).textContent = s.format(val);
+                    updateRecommendations();
+                });
+            });
+        }
+
+        // --- Recommendation engine ---
+        function getSelectedFeatureCount() {
+            return Object.keys(state.selectedFeatures).filter(function(k) { return state.selectedFeatures[k]; }).length;
+        }
+
+        function getFeatureWeeks() {
+            var total = 0;
+            Object.keys(state.selectedFeatures).forEach(function(k) {
+                if (!state.selectedFeatures[k]) return;
+                Object.keys(FEATURES).forEach(function(cat) {
+                    FEATURES[cat].forEach(function(f) {
+                        if (f.id === k) total += f.weeks;
+                    });
+                });
+            });
+            return total;
+        }
+
+        function computeRecommendations() {
+            var sv = state.sliderValues;
+            var featureWeeks = getFeatureWeeks();
+            var featureCount = getSelectedFeatureCount();
+
+            var budgetK = sv.budget;
+            var timelineWeeks = sv.timeline;
+            var usersLog = sv.users;
+            var scalability = sv.scalability;
+            var compliance = sv.compliance;
+            var automation = sv.automation;
+
+            var complianceMult = 1 + (compliance - 1) * 0.15;
+            var scaleMult = 1 + (scalability - 1) * 0.12;
+            var autoMult = 1 + (automation - 1) * 0.1;
+
+            var baseWeeks = Math.max(featureWeeks, 4);
+            var baseCostK = baseWeeks * 8;
+
+            var adjustedCostK = Math.round(baseCostK * complianceMult * scaleMult * autoMult);
+            var adjustedWeeks = Math.round(baseWeeks * complianceMult * (1 + (scalability - 3) * 0.05));
+
+            var monthlyOpsK = Math.round(2 + usersLog * 1.5 + (scalability - 1) * 2 + (compliance - 1) * 1.5);
+            var annualROI = Math.round((budgetK * 2.5 - adjustedCostK) / Math.max(adjustedCostK, 1) * 100);
+
+            var fitScore = 0;
+            if (budgetK >= adjustedCostK) fitScore += 30; else fitScore += Math.max(0, 30 - (adjustedCostK - budgetK) / 10);
+            if (timelineWeeks >= adjustedWeeks) fitScore += 25; else fitScore += Math.max(0, 25 - (adjustedWeeks - timelineWeeks));
+            fitScore += Math.min(25, featureCount * 3);
+            fitScore += Math.min(20, 20 - Math.abs(scalability - 3) * 4);
+            fitScore = Math.round(Math.min(100, Math.max(0, fitScore)));
+
+            var recs = [
+                {
+                    name: 'Full-Scope Build',
+                    badge: 'best',
+                    badgeLabel: 'Recommended',
+                    desc: 'Build all selected features with full infrastructure, compliance, and automation. Highest quality, longest timeline.',
+                    implCost: '$' + adjustedCostK + 'K',
+                    opsCost: '$' + monthlyOpsK + 'K/mo',
+                    timeline: adjustedWeeks + ' weeks',
+                    risk: compliance >= 3 ? 'Medium' : 'Low',
+                    riskColor: compliance >= 3 ? 'var(--accent-amber)' : 'var(--accent-green)',
+                    complexity: featureCount > 15 ? 'Very High' : featureCount > 8 ? 'High' : 'Medium',
+                    roi: annualROI + '%',
+                    confidence: fitScore + '%',
+                    value: featureCount > 5 ? 'High' : 'Medium',
+                    deps: featureCount > 10 ? 'Multiple parallel workstreams' : 'Sequential build',
+                    pros: ['All requirements met', 'Production-ready from day 1', 'Full compliance coverage', 'Scalable architecture'],
+                    cons: ['Highest upfront cost', 'Longest timeline', 'Requires full team commitment', 'Risk of over-engineering for MVP'],
+                },
+                {
+                    name: 'Phased MVP',
+                    badge: adjustedCostK > budgetK ? 'best' : 'alt',
+                    badgeLabel: adjustedCostK > budgetK ? 'Recommended' : 'Alternative',
+                    desc: 'Build core features first, iterate rapidly. Ship in half the time, add remaining features in phases.',
+                    implCost: '$' + Math.round(adjustedCostK * 0.5) + 'K',
+                    opsCost: '$' + Math.round(monthlyOpsK * 0.6) + 'K/mo',
+                    timeline: Math.round(adjustedWeeks * 0.5) + ' weeks',
+                    risk: 'Medium',
+                    riskColor: 'var(--accent-amber)',
+                    complexity: 'Medium',
+                    roi: Math.round(annualROI * 1.3) + '%',
+                    confidence: Math.min(95, fitScore + 10) + '%',
+                    value: 'Medium-High',
+                    deps: 'Core features first, then expansion',
+                    pros: ['Faster time to market', 'Lower upfront investment', 'Validate with real users early', 'Flexible scope adjustment'],
+                    cons: ['Partial feature set initially', 'May need rework in later phases', 'Users must wait for full feature set', 'Total cost may exceed full-scope'],
+                },
+                {
+                    name: 'Lean Prototype',
+                    badge: 'budget',
+                    badgeLabel: 'Budget',
+                    desc: 'Minimum viable prototype to validate the concept. Core functionality only, manual processes where possible.',
+                    implCost: '$' + Math.round(adjustedCostK * 0.25) + 'K',
+                    opsCost: '$' + Math.round(monthlyOpsK * 0.3) + 'K/mo',
+                    timeline: Math.max(2, Math.round(adjustedWeeks * 0.3)) + ' weeks',
+                    risk: compliance >= 3 ? 'High' : 'Medium',
+                    riskColor: compliance >= 3 ? 'var(--accent-red)' : 'var(--accent-amber)',
+                    complexity: 'Low',
+                    roi: Math.round(annualROI * 0.8) + '%',
+                    confidence: Math.max(30, fitScore - 15) + '%',
+                    value: 'Low-Medium',
+                    deps: 'Minimal dependencies',
+                    pros: ['Lowest cost', 'Fastest delivery', 'Quick validation', 'Easy to pivot'],
+                    cons: ['Not production-ready', 'Manual workarounds needed', 'No compliance coverage', 'Technical debt from day 1'],
+                }
+            ];
+
+            if (adjustedCostK > budgetK) {
+                recs[0].badge = 'alt';
+                recs[0].badgeLabel = 'Over Budget';
+            }
+
+            return { recs: recs, metrics: {
+                adjustedCostK: adjustedCostK, adjustedWeeks: adjustedWeeks,
+                monthlyOpsK: monthlyOpsK, annualROI: annualROI,
+                fitScore: fitScore, featureCount: featureCount, featureWeeks: featureWeeks
+            }};
+        }
+
+        function updateRecommendations() {
+            var result = computeRecommendations();
+            var container = $('onb-recommendations');
+            container.innerHTML = '';
+
+            result.recs.forEach(function(rec) {
+                var isRecommended = rec.badge === 'best';
+                var html = '<div class="onb-rec-card' + (isRecommended ? ' recommended' : '') + '">' +
+                    '<span class="onb-rec-badge ' + rec.badge + '">' + rec.badgeLabel + '</span>' +
+                    '<div class="onb-rec-name">' + rec.name + '</div>' +
+                    '<div class="onb-rec-desc">' + rec.desc + '</div>' +
+                    '<div class="onb-rec-metrics">' +
+                    metricRow('Impl. Cost', rec.implCost, 'var(--accent-gold)') +
+                    metricRow('Ops Cost', rec.opsCost, 'var(--accent-amber)') +
+                    metricRow('Timeline', rec.timeline, 'var(--accent-blue)') +
+                    metricRow('Risk', rec.risk, rec.riskColor) +
+                    metricRow('Complexity', rec.complexity, 'var(--accent-purple)') +
+                    metricRow('Est. ROI', rec.roi, 'var(--accent-green)') +
+                    metricRow('Value', rec.value, 'var(--text-secondary)') +
+                    metricRow('Confidence', rec.confidence, 'var(--accent-blue)') +
+                    '</div>' +
+                    '<div class="onb-rec-pros"><div class="onb-rec-pros-title">Pros</div><ul class="onb-rec-list">' +
+                    rec.pros.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
+                    '</ul></div>' +
+                    '<div class="onb-rec-cons"><div class="onb-rec-cons-title">Cons</div><ul class="onb-rec-list">' +
+                    rec.cons.map(function(c) { return '<li>' + c + '</li>'; }).join('') +
+                    '</ul></div>' +
+                    '<div style="margin-top:10px; font-size:0.62rem; color:var(--text-dim);">Dependencies: ' + rec.deps + '</div>' +
+                    '</div>';
+                container.insertAdjacentHTML('beforeend', html);
+            });
+
+            var impact = $('onb-impact-summary');
+            var m = result.metrics;
+            impact.innerHTML =
+                impactCard('Implementation', '$' + m.adjustedCostK + 'K', m.adjustedCostK, 1000, 'var(--accent-gold)') +
+                impactCard('Timeline', m.adjustedWeeks + ' wks', m.adjustedWeeks, 52, 'var(--accent-blue)') +
+                impactCard('Monthly Ops', '$' + m.monthlyOpsK + 'K', m.monthlyOpsK, 30, 'var(--accent-amber)') +
+                impactCard('Features', m.featureCount + ' selected', m.featureCount, 30, 'var(--accent-purple)') +
+                impactCard('Fit Score', m.fitScore + '%', m.fitScore, 100, m.fitScore > 70 ? 'var(--accent-green)' : 'var(--accent-amber)') +
+                impactCard('Est. ROI', m.annualROI + '%', Math.max(0, m.annualROI), 300, m.annualROI > 0 ? 'var(--accent-green)' : 'var(--accent-red)');
+        }
+
+        function metricRow(label, value, color) {
+            return '<div class="onb-rec-metric"><span class="onb-rec-metric-label">' + label +
+                '</span><span class="onb-rec-metric-val" style="color:' + color + '">' + value + '</span></div>';
+        }
+
+        function impactCard(label, display, val, max, color) {
+            var pct = Math.min(100, Math.round(val / max * 100));
+            return '<div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:10px; padding:12px 14px;">' +
+                '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">' +
+                '<span style="font-size:0.68rem; color:var(--text-dim); text-transform:uppercase; font-weight:600;">' + label + '</span>' +
+                '<span style="font-family:var(--font-mono); font-size:0.78rem; font-weight:800; color:' + color + '">' + display + '</span>' +
+                '</div>' +
+                '<div class="onb-impact-bar"><div class="onb-impact-fill" style="width:' + pct + '%; background:' + color + ';"></div></div>' +
+                '</div>';
+        }
+
+        // --- Scenarios ---
+        $('onb-save-scenario-btn').addEventListener('click', function() {
+            state.scenarioCounter++;
+            var result = computeRecommendations();
+            var scenario = {
+                id: 'scenario-' + state.scenarioCounter,
+                name: 'Scenario ' + state.scenarioCounter,
+                timestamp: new Date().toISOString(),
+                sliders: JSON.parse(JSON.stringify(state.sliderValues)),
+                features: Object.keys(state.selectedFeatures).filter(function(k) { return state.selectedFeatures[k]; }),
+                metrics: result.metrics,
+                recommended: result.recs[0].badge === 'best' ? result.recs[0].name : result.recs[1].name
+            };
+            state.scenarios.push(scenario);
+            goTab('scenarios');
+        });
+
+        function renderScenarios() {
+            var container = $('onb-scenario-list');
+            var noMsg = $('onb-no-scenarios');
+            if (state.scenarios.length === 0) {
+                container.innerHTML = '';
+                noMsg.style.display = 'block';
+                drawRadar([]);
+                return;
+            }
+            noMsg.style.display = 'none';
+            container.innerHTML = '';
+            state.scenarios.forEach(function(sc, idx) {
+                var m = sc.metrics;
+                var html = '<div class="onb-scenario-card" data-idx="' + idx + '">' +
+                    '<div class="onb-scenario-card-header">' +
+                    '<span class="onb-scenario-name">' + sc.name + '</span>' +
+                    '<div class="onb-scenario-actions">' +
+                    '<button class="onb-scenario-btn load" title="Load into simulator">Load</button>' +
+                    '<button class="onb-scenario-btn delete" title="Delete scenario">Del</button>' +
+                    '</div></div>' +
+                    metricRowSc('Implementation', '$' + m.adjustedCostK + 'K') +
+                    metricRowSc('Timeline', m.adjustedWeeks + ' weeks') +
+                    metricRowSc('Monthly Ops', '$' + m.monthlyOpsK + 'K/mo') +
+                    metricRowSc('Features', m.featureCount) +
+                    metricRowSc('Fit Score', m.fitScore + '%') +
+                    metricRowSc('ROI', m.annualROI + '%') +
+                    metricRowSc('Recommended', sc.recommended) +
+                    '<div style="font-size:0.58rem; color:var(--text-faint); margin-top:6px;">Budget: $' + sc.sliders.budget + 'K &middot; Timeline: ' + sc.sliders.timeline + 'wks</div>' +
+                    '</div>';
+                container.insertAdjacentHTML('beforeend', html);
+            });
+
+            container.querySelectorAll('.onb-scenario-btn.load').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var idx = parseInt(this.closest('.onb-scenario-card').dataset.idx);
+                    loadScenario(state.scenarios[idx]);
+                });
+            });
+            container.querySelectorAll('.onb-scenario-btn.delete').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var idx = parseInt(this.closest('.onb-scenario-card').dataset.idx);
+                    state.scenarios.splice(idx, 1);
+                    renderScenarios();
+                });
+            });
+
+            drawRadar(state.scenarios);
+        }
+
+        function metricRowSc(label, value) {
+            return '<div class="onb-scenario-metric-row"><span class="onb-scenario-metric-label">' + label +
+                '</span><span class="onb-scenario-metric-value">' + value + '</span></div>';
+        }
+
+        function loadScenario(sc) {
+            Object.keys(sc.sliders).forEach(function(k) { state.sliderValues[k] = sc.sliders[k]; });
+            state.selectedFeatures = {};
+            sc.features.forEach(function(f) { state.selectedFeatures[f] = true; });
+            renderFeatures();
+            renderSliders();
+            SLIDERS.forEach(function(s) {
+                var el = $('slider-' + s.id);
+                if (el) { el.value = state.sliderValues[s.id]; $('slider-val-' + s.id).textContent = s.format(state.sliderValues[s.id]); }
+            });
+            goTab('simulator');
+        }
+
+        // --- Radar chart (canvas) ---
+        function drawRadar(scenarios) {
+            var canvas = $('onb-radar-canvas');
+            if (!canvas) return;
+            var ctx = canvas.getContext('2d');
+            var w = canvas.width, h = canvas.height;
+            var cx = w / 2, cy = h / 2, r = Math.min(cx, cy) - 40;
+            ctx.clearRect(0, 0, w, h);
+
+            var axes = ['Cost', 'Timeline', 'Features', 'Scale', 'Compliance', 'Automation'];
+            var n = axes.length;
+            var angleStep = (2 * Math.PI) / n;
+
+            for (var ring = 1; ring <= 4; ring++) {
+                ctx.beginPath();
+                var rr = r * ring / 4;
+                for (var i = 0; i <= n; i++) {
+                    var a = -Math.PI / 2 + i * angleStep;
+                    var x = cx + rr * Math.cos(a), y = cy + rr * Math.sin(a);
+                    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                }
+                ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+                ctx.stroke();
+            }
+
+            for (var i = 0; i < n; i++) {
+                var a = -Math.PI / 2 + i * angleStep;
+                var x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+                ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x, y);
+                ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.stroke();
+                var lx = cx + (r + 20) * Math.cos(a), ly = cy + (r + 20) * Math.sin(a);
+                ctx.font = '10px Segoe UI, sans-serif';
+                ctx.fillStyle = '#5a6a7e';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(axes[i], lx, ly);
+            }
+
+            var colors = ['rgba(56,189,248,0.7)', 'rgba(74,222,128,0.7)', 'rgba(167,139,250,0.7)', 'rgba(251,191,36,0.7)'];
+            var fills = ['rgba(56,189,248,0.08)', 'rgba(74,222,128,0.08)', 'rgba(167,139,250,0.08)', 'rgba(251,191,36,0.08)'];
+
+            scenarios.slice(0, 4).forEach(function(sc, si) {
+                var m = sc.metrics;
+                var vals = [
+                    Math.min(1, m.adjustedCostK / 800),
+                    Math.min(1, m.adjustedWeeks / 52),
+                    Math.min(1, m.featureCount / 25),
+                    sc.sliders.scalability / 5,
+                    sc.sliders.compliance / 4,
+                    sc.sliders.automation / 5
+                ];
+                ctx.beginPath();
+                for (var i = 0; i <= n; i++) {
+                    var vi = i % n;
+                    var a = -Math.PI / 2 + vi * angleStep;
+                    var vr = r * vals[vi];
+                    var x = cx + vr * Math.cos(a), y = cy + vr * Math.sin(a);
+                    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                }
+                ctx.fillStyle = fills[si % fills.length];
+                ctx.fill();
+                ctx.strokeStyle = colors[si % colors.length];
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                for (var i = 0; i < n; i++) {
+                    var a = -Math.PI / 2 + i * angleStep;
+                    var vr = r * vals[i];
+                    var x = cx + vr * Math.cos(a), y = cy + vr * Math.sin(a);
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, 2 * Math.PI);
+                    ctx.fillStyle = colors[si % colors.length];
+                    ctx.fill();
+                }
+            });
+
+            if (scenarios.length > 0) {
+                var legendY = h - 10;
+                scenarios.slice(0, 4).forEach(function(sc, si) {
+                    ctx.fillStyle = colors[si % colors.length];
+                    ctx.fillRect(10 + si * 90, legendY - 8, 8, 8);
+                    ctx.fillStyle = '#7a8a9e';
+                    ctx.font = '9px Segoe UI, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(sc.name, 22 + si * 90, legendY);
+                });
+            }
+        }
+
+        // --- Summary ---
+        function renderSummary() {
+            var result = computeRecommendations();
+            var m = result.metrics;
+
+            $('onb-summary-overview').innerHTML = '<div class="onb-summary-title">Overview</div>' +
+                summaryRow('Onboarding Path', pathLabel(state.path)) +
+                summaryRow('Product Name', val('intake-product-name')) +
+                summaryRow('Company', val('intake-company')) +
+                summaryRow('Industry', val('intake-industry'));
+
+            $('onb-summary-intake').innerHTML = '<div class="onb-summary-title">Intake Highlights</div>' +
+                summaryRow('Budget Range', val('intake-budget')) +
+                summaryRow('Timeline', val('intake-timeline')) +
+                summaryRow('Users at Launch', val('intake-users-launch')) +
+                summaryRow('Target Scale (12mo)', val('intake-users-scale')) +
+                summaryRow('Infrastructure', val('intake-infra')) +
+                summaryRow('Data Sensitivity', val('intake-data-sensitivity')) +
+                summaryRow('User Tech Level', val('intake-tech-level'));
+
+            var selFeatures = Object.keys(state.selectedFeatures).filter(function(k) { return state.selectedFeatures[k]; });
+            $('onb-summary-features').innerHTML = '<div class="onb-summary-title">Selected Features (' + selFeatures.length + ')</div>' +
+                '<div style="display:flex; flex-wrap:wrap; gap:4px;">' +
+                selFeatures.map(function(f) { return '<span class="badge blue" style="font-size:0.6rem;">' + featureName(f) + '</span>'; }).join('') +
+                (selFeatures.length === 0 ? '<span style="font-size:0.72rem; color:var(--text-dim);">None selected</span>' : '') +
+                '</div>';
+
+            $('onb-summary-params').innerHTML = '<div class="onb-summary-title">Simulator Parameters</div>' +
+                SLIDERS.map(function(s) { return summaryRow(s.name, s.format(state.sliderValues[s.id])); }).join('') +
+                summaryRow('Est. Implementation', '$' + m.adjustedCostK + 'K') +
+                summaryRow('Est. Timeline', m.adjustedWeeks + ' weeks') +
+                summaryRow('Est. Monthly Ops', '$' + m.monthlyOpsK + 'K/mo') +
+                summaryRow('Fit Score', m.fitScore + '%');
+
+            $('onb-summary-scenarios').innerHTML = '<div class="onb-summary-title">Saved Scenarios (' + state.scenarios.length + ')</div>' +
+                (state.scenarios.length === 0 ? '<div style="font-size:0.72rem; color:var(--text-dim);">No scenarios saved</div>' :
+                state.scenarios.map(function(sc) {
+                    return '<div style="padding:6px 0; border-bottom:1px solid var(--border-subtle); font-size:0.72rem;">' +
+                        '<strong style="color:var(--text-secondary);">' + sc.name + '</strong> &mdash; ' +
+                        '$' + sc.metrics.adjustedCostK + 'K / ' + sc.metrics.adjustedWeeks + ' wks / ' +
+                        sc.metrics.featureCount + ' features / Fit: ' + sc.metrics.fitScore + '%' +
+                        '</div>';
+                }).join(''));
+
+            $('onb-summary-json').textContent = JSON.stringify(buildExportJSON(), null, 2);
+        }
+
+        function summaryRow(label, value) {
+            return '<div class="onb-summary-row"><span class="onb-summary-label">' + label +
+                '</span><span class="onb-summary-value">' + (value || '—') + '</span></div>';
+        }
+
+        function val(id) { var el = $(id); return el ? (el.value || '') : ''; }
+
+        function pathLabel(p) {
+            var map = { 'new-product': 'New Product Build', 'improvement': 'Existing Product Improvement', 'migration': 'Migration / Service Modernization' };
+            return map[p] || '—';
+        }
+
+        function featureName(fid) {
+            var name = fid;
+            Object.keys(FEATURES).forEach(function(cat) {
+                FEATURES[cat].forEach(function(f) { if (f.id === fid) name = f.name; });
+            });
+            return name;
+        }
+
+        function buildExportJSON() {
+            var complianceChecks = [];
+            $$('.intake-compliance:checked').forEach(function(cb) { complianceChecks.push(cb.value); });
+
+            return {
+                version: '1.0',
+                generatedAt: new Date().toISOString(),
+                path: state.path,
+                intake: {
+                    company: { name: val('intake-company'), industry: val('intake-industry'), description: val('intake-company-desc') },
+                    product: { name: val('intake-product-name'), description: val('intake-product-desc'), differentiator: val('intake-differentiator') },
+                    users: { primaryType: val('intake-primary-user'), secondaryTypes: val('intake-secondary-users'), techLevel: val('intake-tech-level') },
+                    currentSystems: { stack: val('intake-current-systems'), painPoints: val('intake-pain-points') },
+                    infrastructure: { dataSources: val('intake-data-sources'), preference: val('intake-infra') },
+                    compliance: { requirements: complianceChecks, dataSensitivity: val('intake-data-sensitivity') },
+                    budget: val('intake-budget'),
+                    timeline: val('intake-timeline'),
+                    scale: { usersAtLaunch: val('intake-users-launch'), target12mo: val('intake-users-scale') },
+                    features: val('intake-features-wish'),
+                    integrations: val('intake-integrations'),
+                    constraints: val('intake-constraints')
+                },
+                selectedFeatures: Object.keys(state.selectedFeatures).filter(function(k) { return state.selectedFeatures[k]; }),
+                simulatorParams: state.sliderValues,
+                scenarios: state.scenarios,
+                computedMetrics: computeRecommendations().metrics
+            };
+        }
+
+        // --- Export / Reset ---
+        $('onb-export-btn').addEventListener('click', function() {
+            var json = JSON.stringify(buildExportJSON(), null, 2);
+            var blob = new Blob([json], { type: 'application/json' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url; a.download = 'conductor-onboarding-' + (val('intake-product-name') || 'export').replace(/\s+/g, '-').toLowerCase() + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        $('onb-copy-json-btn').addEventListener('click', function() {
+            var json = JSON.stringify(buildExportJSON(), null, 2);
+            navigator.clipboard.writeText(json).then(function() {
+                var btn = $('onb-copy-json-btn');
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = 'Copy JSON to Clipboard'; }, 1500);
+            });
+        });
+
+        $('onb-reset-btn').addEventListener('click', function() {
+            if (!confirm('Reset all onboarding data? This cannot be undone.')) return;
+            state.path = null;
+            state.selectedFeatures = {};
+            state.scenarios = [];
+            state.scenarioCounter = 0;
+            SLIDERS.forEach(function(s) { state.sliderValues[s.id] = s.value; });
+            $$('.onb-path-card').forEach(function(c) { c.classList.remove('selected'); });
+            $('onb-start-next').disabled = true;
+            $$('.form-input, .form-textarea').forEach(function(el) { el.value = ''; });
+            $$('.form-select').forEach(function(el) { el.selectedIndex = 0; });
+            $$('.intake-compliance').forEach(function(cb) { cb.checked = false; });
+            renderFeatures();
+            renderSliders();
+            goTab('start');
+        });
+
+        // --- Create Project ---
+        $('onb-create-project-btn').addEventListener('click', function() {
+            var data = buildExportJSON();
+            var intake = data.intake || {};
+            var productName = (intake.product || {}).name || '';
+            if (!productName) {
+                alert('Please fill in the Product Name in the Intake tab first.');
+                return;
+            }
+            var slug = productName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+            var stack = {};
+            var infra = (intake.infrastructure || {}).preference || '';
+            if (infra) stack.infrastructure = infra;
+            if (intake.currentSystems && intake.currentSystems.stack) stack.current = intake.currentSystems.stack;
+
+            var projectBody = {
+                slug: slug,
+                name: productName,
+                description: (intake.product || {}).description || (intake.company || {}).description || '',
+                platform: 'web-responsive',
+                stack: stack,
+                onboarding: data,
+                phases: []
+            };
+
+            var btn = $('onb-create-project-btn');
+            btn.disabled = true;
+            btn.textContent = 'Creating...';
+
+            fetch('/api/projects', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(projectBody)
+            })
+            .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+            .then(function(result) {
+                btn.disabled = false;
+                if (result.ok) {
+                    btn.textContent = 'Project Created!';
+                    btn.style.background = 'rgba(74,222,128,0.3)';
+                    // Launch a Claude session to generate phases
+                    fetch('/api/sessions', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            prompt: 'You are setting up a new project called "' + productName + '" in Conductor.\n\n' +
+                                'Here is the onboarding data:\n```json\n' + JSON.stringify(data, null, 2) + '\n```\n\n' +
+                                'Based on this onboarding data, create a phased roadmap for this project:\n' +
+                                '1. Break the project into 6-12 sequential phases with clear deliverables\n' +
+                                '2. Each phase should have: id (P0, P1, ...), name, description, dependencies, estimated complexity (S/M/L/XL), risk level\n' +
+                                '3. Consider the selected features, budget, timeline, and compliance requirements\n' +
+                                '4. Write the phases to projects/' + slug + '/project.json (update the phases array)\n' +
+                                '5. Add the phases to config/phase-status.json with proper dependency graph\n\n' +
+                                'The project directory already exists at projects/' + slug + '/. Update the project.json file with the generated phases.',
+                            project_slug: slug,
+                            template: 'implement',
+                            model: 'sonnet',
+                            budget_usd: 3.0,
+                            timeout_min: 30
+                        })
+                    })
+                    .then(function(r) { return r.json(); })
+                    .then(function(sess) {
+                        btn.textContent = 'Generating phases... (' + sess.id + ')';
+                        setTimeout(function() {
+                            if (window.navigateTo) window.navigateTo('phases');
+                        }, 2000);
+                    })
+                    .catch(function() {
+                        btn.textContent = 'Project created (phase generation failed)';
+                    });
+                } else {
+                    btn.textContent = 'Create Project →';
+                    alert(result.data.error || 'Failed to create project');
+                }
+            })
+            .catch(function(err) {
+                btn.disabled = false;
+                btn.textContent = 'Create Project →';
+                alert('Network error: ' + err.message);
+            });
+        });
+
+        // --- Public API ---
+        window.ONB = { goTab: goTab, getState: function() { return state; }, getExport: buildExportJSON };
+
+        // --- Init ---
+        renderFeatures();
+        renderSliders();
+
+    })();
+    </script>
+</body>
+</html>
