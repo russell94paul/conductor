@@ -14,7 +14,11 @@
     "storage": "cloudflare-r2-boto3",
     "payments": "stripe",
     "monitoring": "sentry",
-    "future": ["pgvector", "bm25-tsvector", "graph-db"]
+    "future": [
+      "pgvector",
+      "bm25-tsvector",
+      "graph-db"
+    ]
   },
   "phases": [
     {
@@ -94,6 +98,12 @@
       "name": "NeuroGraph",
       "status": "in-progress",
       "description": "Persistent trading intelligence graph. Nodes = trades, events, features, setups, patterns, concepts. Plan-mode-first: data source mapping, schema design, seed strategy."
+    },
+    {
+      "id": "P12",
+      "name": "Live Futures Trading",
+      "status": "planned",
+      "description": "Live futures trading integration via Tradovate API. TradingView Lightweight Charts with ICT event overlay, real-time market data (WebSocket), order management (place/modify/cancel), position tracking with live P&L, and Prop Shield enforcement on live orders. Paper trading first, live trading gated behind verification. Targets CME futures (ES, NQ, CL, GC)."
     }
   ]
 }

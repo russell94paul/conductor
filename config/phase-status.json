@@ -1620,7 +1620,7 @@
     "phaseId": "si-P0",
     "name": "SIHRE Project Bootstrap",
     "project": "sihre",
-    "status": "planned",
+    "status": "running",
     "dependencies": [],
     "blockedBy": [],
     "blocks": [],
@@ -1629,7 +1629,9 @@
     "approvalRequired": false,
     "canRunInParallel": false,
     "description": "Create SIHRE project in Conductor. Migrate all 94 SIHRE_Wiki artifacts into structured Conductor artifacts with correct classification taxonomy (public-safe / public-after-review / internal-only / private-sensitive). Establish artifact types, status tags, and hard public/private boundary rules derived from PUBLIC_PRIVATE_MAP.md. Fix all SIRE naming errors in existing Conductor assets.",
-    "lastUpdated": "2026-05-25"
+    "lastUpdated": "2026-05-25",
+    "_pre_run_status": "planned",
+    "activeSessionId": "pipe_bc1e8e64"
   },
   {
     "phaseId": "si-P1",
@@ -1766,6 +1768,24 @@
     "approvalRequired": false,
     "canRunInParallel": false,
     "description": "The first production-grade SIHRE product: a reasoning governance dashboard for enterprise AI teams. Spec sourced from SIHRE_Control_Plane_PRD.md. Expert registry, task routing log, uncertainty summaries, disagreement detection, drift indicators, verification escalation log, expert reliability history, audit-ready decision trace export. Deployed as gated SaaS behind P5 auth at pilot pricing ($1k\u2013$10k/mo per Pricing_Experiments.md).",
+    "lastUpdated": "2026-05-25"
+  },
+  {
+    "phaseId": "ns-P12",
+    "name": "Live Futures Trading",
+    "project": "neurospect",
+    "status": "planned",
+    "dependencies": [
+      "P4",
+      "P3"
+    ],
+    "blockedBy": [],
+    "blocks": [],
+    "estimatedComplexity": "XL",
+    "riskLevel": "high",
+    "approvalRequired": true,
+    "canRunInParallel": false,
+    "description": "Live futures trading integration via Tradovate API. TradingView Lightweight Charts with ICT event overlay, real-time market data (WebSocket), order management, position tracking, live P&L, Prop Shield enforcement. Paper trading first, live gated behind verification. CME futures (ES, NQ, CL, GC).",
     "lastUpdated": "2026-05-25"
   }
 ]
