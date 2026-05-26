@@ -21,3 +21,4 @@ updated: 2026-05-25
 ## Sessions
 - [[2026-05-23-phase2-and-orchestration]] — Phase 2 backend + Conductor phase dashboard + validation/rollback/interactive
 - [[2026-05-24-chat-onboarding-and-sihre]] — AI chat onboarding feature + SIHRE project bootstrap (9 phases) + GitHub repo fix
+- [[2026-05-25-cortex-redesign-and-neurospect]] — Cortex V2 dashboard, design system builder, NeuroSpect 9-component architecture, walkthrough page, P12 Live Futures Trading

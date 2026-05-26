@@ -16,7 +16,7 @@ General-purpose app/product orchestrator that manages the full lifecycle: requir
 
 | Project | Description | Status |
 |---|---|---|
-| **NeuroSpect** | AI trading intelligence platform (ICT/Smart Money) | Active — 13 phases, 2 complete |
+| **NeuroSpect** | AI trading intelligence platform (ICT/Smart Money) | Active — 14 phases (incl. P12 Live Futures Trading), 3 complete |
 | **GrooveNet** | DJ collective cross-collaboration platform | Active |
 | **Labs Institute** | DJ artist management portal | Active |
 | **SIHRE** | Public research platform + website for SIHRE framework | Active — 9 phases, onboarded via AI chat 2026-05-24 |

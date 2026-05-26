@@ -104,6 +104,12 @@
       "name": "Live Futures Trading",
       "status": "planned",
       "description": "Live futures trading integration via Tradovate API. TradingView Lightweight Charts with ICT event overlay, real-time market data (WebSocket), order management (place/modify/cancel), position tracking with live P&L, and Prop Shield enforcement on live orders. Paper trading first, live trading gated behind verification. Targets CME futures (ES, NQ, CL, GC)."
+    },
+    {
+      "id": "P13",
+      "name": "NeuroSync \u2014 Multi-Account Sync",
+      "status": "planned",
+      "description": "Intelligent multi-account trade synchronization for prop firm traders. Links multiple funded accounts and executes as one with per-account Prop Shield enforcement, intelligent position sizing by drawdown room, pre-trade divergence prevention, ICT-aware execution timing, session lockouts, and full audit trail. Parameter-diversified execution: distribute parameter variants across account groups for live walk-forward optimization with regime-adaptive auto-convergence."
     }
   ]
 }
