@@ -66,8 +66,19 @@ function SvgIcon({ name, size }) {
 }
 window.SvgIcon = SvgIcon;
 
-/* ── Sidebar ── */
+/* ── Sidebar (Collapsible Groups) ── */
 function Sidebar({ route }) {
+  var expSt = React.useState({});
+  var expanded = expSt[0], setExpanded = expSt[1];
+  function toggleGroup(key) { var n = {}; n[key] = !expanded[key]; setExpanded(Object.assign({}, expanded, n)); }
+
+  React.useEffect(function() {
+    var groups = { walkthroughs: ['walkthrough', 'quant-walkthrough'], neurofusion: ['neurofusion', 'neurofusion-walkthrough'] };
+    var n = {};
+    Object.keys(groups).forEach(function(k) { if (groups[k].indexOf(route) > -1) n[k] = true; });
+    if (Object.keys(n).length) setExpanded(function(prev) { return Object.assign({}, prev, n); });
+  }, [route]);
+
   var nav = [
     { id: 'home', label: 'Home', icon: 'home' },
     { id: 'story', label: 'My Story', icon: 'users' },
@@ -75,13 +86,21 @@ function Sidebar({ route }) {
     { id: 'backtesting', label: 'Backtesting', icon: 'beaker' },
     { id: 'performance', label: 'Performance', icon: 'chart' },
     { section: 'Platform' },
-    { id: 'walkthrough', label: 'Walkthrough', icon: 'rocket' },
-    { id: 'neurofusion', label: 'NeuroFusion', icon: 'bolt', gold: true },
+    { group: 'walkthroughs', label: 'Walkthroughs', icon: 'rocket', children: [
+      { id: 'walkthrough', label: 'Alex (Trader)' },
+      { id: 'quant-walkthrough', label: 'Maya (Quant)' },
+    ]},
+    { group: 'neurofusion', label: 'NeuroFusion', icon: 'bolt', gold: true, children: [
+      { id: 'neurofusion', label: 'Overview' },
+      { id: 'neurofusion-walkthrough', label: 'NF-13 Deep Dive' },
+    ]},
     { id: 'architecture', label: 'Architecture', icon: 'cube' },
     { section: 'Business' },
     { id: 'compare', label: 'Compare', icon: 'users' },
     { id: 'pricing', label: 'Pricing', icon: 'tag' },
   ];
+
+  function isGA(item) { return item.children && item.children.some(function(c) { return c.id === route; }); }
 
   return (
     <aside className="side">
@@ -92,18 +111,32 @@ function Sidebar({ route }) {
       <nav className="side-nav">
         {nav.map(function(item, i) {
           if (item.section) return <div key={i} className="side-section">{item.section}</div>;
-          var goldStyle = item.gold ? { color: route === item.id ? 'var(--gold-300)' : 'var(--gold-400)', textShadow: route === item.id ? '0 0 8px rgba(251,191,36,0.3)' : 'none' } : {};
-          return (
-            <a key={item.id} href={'#' + item.id} className={'side-link ' + (route === item.id ? 'active' : '')} style={goldStyle}>
-              <SvgIcon name={item.icon} />
-              {item.label}
-            </a>
-          );
+          if (item.group) {
+            var isOpen = expanded[item.group];
+            var isAct = isGA(item);
+            var gs = item.gold ? { color: isAct ? 'var(--gold-300)' : 'var(--gold-400)', textShadow: isAct ? '0 0 8px rgba(251,191,36,0.3)' : 'none' } : {};
+            return (
+              <div key={item.group}>
+                <div className={'side-link ' + (isAct ? 'active' : '')} style={Object.assign({}, gs, { cursor: 'pointer', justifyContent: 'space-between' })} onClick={function() { toggleGroup(item.group); }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}><SvgIcon name={item.icon} />{item.label}</span>
+                  <span style={{ fontSize: '0.5rem', color: 'var(--text-d)', transition: 'transform 0.25s', transform: isOpen ? 'rotate(180deg)' : 'rotate(0)' }}>▼</span>
+                </div>
+                <div style={{ maxHeight: isOpen ? 200 : 0, overflow: 'hidden', transition: 'max-height 0.35s cubic-bezier(0.16,1,0.3,1)' }}>
+                  {item.children.map(function(ch) {
+                    var ca = route === ch.id;
+                    var cgs = item.gold ? { color: ca ? 'var(--gold-300)' : 'var(--gold-400)', textShadow: ca ? '0 0 6px rgba(251,191,36,0.2)' : 'none' } : {};
+                    return <a key={ch.id} href={'#' + ch.id} className={'side-link ' + (ca ? 'active' : '')} style={Object.assign({}, cgs, { paddingLeft: '2.5rem', fontSize: '0.78rem' })}>{ch.label}</a>;
+                  })}
+                </div>
+              </div>
+            );
+          }
+          var gs2 = item.gold ? { color: route === item.id ? 'var(--gold-300)' : 'var(--gold-400)', textShadow: route === item.id ? '0 0 8px rgba(251,191,36,0.3)' : 'none' } : {};
+          return <a key={item.id} href={'#' + item.id} className={'side-link ' + (route === item.id ? 'active' : '')} style={gs2}><SvgIcon name={item.icon} />{item.label}</a>;
         })}
       </nav>
       <div className="side-bottom">
         <a href="#pricing" className="side-cta">Join Waitlist</a>
-        <a href="http://localhost:5173" target="_blank" rel="noopener" className="side-cta" style={{ marginTop: 8, background: 'transparent', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--text-s)' }}>Launch App</a>
       </div>
     </aside>
   );

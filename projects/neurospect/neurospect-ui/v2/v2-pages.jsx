@@ -361,7 +361,7 @@ function ComparePage() {
               return <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4, fontSize: '0.78rem' }}><span style={{ color: '#10b981' }}>✓</span><span style={{ color: 'var(--text-b)' }}>{f}</span></div>;
             })}
             <div style={{ marginTop: 10, padding: '8px', borderRadius: 6, background: 'rgba(59,130,246,0.06)', textAlign: 'center' }}>
-              <span className="mono" style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--blue-400)' }}>$29–$349/mo</span>
+              <span className="mono" style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--blue-400)' }}>$0–$499/mo</span>
             </div>
           </div>
         </div>
@@ -370,37 +370,54 @@ function ComparePage() {
   );
 }
 
-/* ═══ PRICING ═══ */
+/* ═══ PRICING (Redesigned — 4 tiers with annual toggle) ═══ */
 function PricingPage() {
+  var billSt = React.useState('monthly');
+  var billing = billSt[0], setBilling = billSt[1];
+  var isAn = billing === 'annual';
+
   return (
     <div className="page">
       <Rv>
-        <div className="hero-grad" style={{ padding: 'clamp(2rem,4vw,3rem)', marginBottom: '1.5rem' }}>
-          <h1 style={{ marginBottom: 10 }}>Grow Into Your <span className="grad-text">Edge</span></h1>
-          <p style={{ fontSize: '0.92rem', color: 'var(--text-m)', maxWidth: 520, lineHeight: 1.65 }}>Start free. Upgrade as your trading evolves.</p>
+        <div style={{ textAlign: 'center', padding: 'clamp(2rem,5vw,3.5rem) 1rem', marginBottom: '1.5rem' }}>
+          <h1 style={{ marginBottom: 10, fontSize: 'clamp(1.6rem,3vw,2.4rem)' }}>Grow Into Your <span className="grad-text">Edge</span></h1>
+          <p style={{ fontSize: '0.92rem', color: 'var(--text-m)', maxWidth: 480, margin: '0 auto 20px', lineHeight: 1.65 }}>Start free. Upgrade as your trading evolves.</p>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 0, borderRadius: 10, background: 'var(--surface)', border: '1px solid var(--border)', padding: 3 }}>
+            <button onClick={function() { setBilling('monthly'); }} style={{ padding: '6px 16px', borderRadius: 8, fontSize: '0.78rem', fontWeight: 600, color: !isAn ? '#fff' : 'var(--text-m)', background: !isAn ? 'rgba(59,130,246,0.15)' : 'transparent', border: !isAn ? '1px solid rgba(59,130,246,0.3)' : '1px solid transparent', transition: 'all 0.2s' }}>Monthly</button>
+            <button onClick={function() { setBilling('annual'); }} style={{ padding: '6px 16px', borderRadius: 8, fontSize: '0.78rem', fontWeight: 600, color: isAn ? '#fff' : 'var(--text-m)', background: isAn ? 'rgba(16,185,129,0.15)' : 'transparent', border: isAn ? '1px solid rgba(16,185,129,0.3)' : '1px solid transparent', transition: 'all 0.2s' }}>Annual <span style={{ fontSize: '0.62rem', color: '#10b981', marginLeft: 4 }}>Save 30%</span></button>
+          </div>
         </div>
       </Rv>
+
       <Rv delay={60}>
-        <div className="bento bento-3">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12, marginBottom: '2rem' }}>
           {PRICING_TIERS.map(function(t, i) {
+            var p = isAn && t.annual ? t.annual : t.price;
+            var isG = t.gold;
+            var cc = isG ? 'card card-sihre' : t.highlight ? 'card card-active' : 'card';
             return (
-              <Rv key={t.name} delay={i * 40}>
-                <div className={'card ' + (t.highlight ? 'card-active' : '')} style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+              <Rv key={t.name} delay={i * 50}>
+                <div className={cc} style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'visible' }}>
                   {t.highlight && <div style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)' }}><span className="badge badge-blue" style={{ fontSize: '0.55rem', background: 'var(--blue-500)', color: '#fff', border: 'none', fontWeight: 700 }}>Most Popular</span></div>}
-                  <h3 style={{ fontSize: '1rem', marginBottom: 2 }}>{t.name}</h3>
-                  <p style={{ fontSize: '0.7rem', color: 'var(--text-d)', marginBottom: 12 }}>{t.target}</p>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 3, marginBottom: 14 }}>
-                    <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-h)', fontFamily: 'var(--font-h)' }}>${t.price}</span>
+                  {isG && <div style={{ position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)' }}><span className="badge badge-gold" style={{ fontSize: '0.55rem', background: 'var(--gold-500)', color: '#000', border: 'none', fontWeight: 700 }}>NeuroFusion</span></div>}
+                  <h3 style={{ fontSize: '1rem', marginBottom: 2, color: isG ? 'var(--gold-300)' : 'var(--text-h)' }}>{t.name}</h3>
+                  <p style={{ fontSize: '0.68rem', color: 'var(--text-d)', marginBottom: 14 }}>{t.target}</p>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 3, marginBottom: 4 }}>
+                    <span style={{ fontSize: '2.2rem', fontWeight: 800, color: isG ? 'var(--gold-300)' : 'var(--text-h)', fontFamily: 'var(--font-h)', textShadow: isG ? '0 0 12px rgba(251,191,36,0.3)' : 'none' }}>${p}</span>
                     <span style={{ fontSize: '0.78rem', color: 'var(--text-d)' }}>{t.period}</span>
                   </div>
-                  <button className={'btn btn-sm ' + (t.highlight ? 'btn-blue' : 'btn-ghost')} style={{ width: '100%', marginBottom: 14 }}>
-                    {t.price === '0' ? 'Get Started' : 'Join Waitlist'}
+                  {isAn && t.annual && t.annual !== '0' && <p style={{ fontSize: '0.62rem', color: '#10b981', marginBottom: 10 }}>Save ${(parseInt(t.price) - parseInt(t.annual)) * 12}/yr billed annually</p>}
+                  {(!isAn || !t.annual || t.annual === '0') && <div style={{ height: 18 }}></div>}
+                  <button className={"btn btn-sm " + (isG ? "btn-gold" : t.highlight ? "btn-blue" : "btn-ghost")} style={{ width: "100%", marginBottom: 16 }}>
+                    {t.price === "0" ? "Get Started Free" : "Join Waitlist"}
                   </button>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 5, flex: 1 }}>
                     {t.features.map(function(f) {
-                      return <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 6, fontSize: '0.75rem' }}>
-                        <span style={{ color: t.highlight ? 'var(--blue-400)' : 'var(--text-d)', flexShrink: 0, marginTop: 1 }}>✓</span>
-                        <span style={{ color: 'var(--text-m)' }}>{f}</span>
+                      var isNF = f.indexOf('NeuroFusion') > -1 || f.indexOf('13-signal') > -1;
+                      var isSy = f.indexOf('NeuroSync') > -1;
+                      return <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 6, fontSize: '0.74rem' }}>
+                        <span style={{ color: isG ? 'var(--gold-400)' : t.highlight ? 'var(--blue-400)' : 'var(--text-d)', flexShrink: 0, marginTop: 1, fontSize: '0.65rem' }}>✓</span>
+                        <span style={{ color: isNF ? 'var(--gold-300)' : isSy ? 'var(--blue-400)' : 'var(--text-m)', fontWeight: isNF || isSy ? 500 : 400 }}>{f}</span>
                       </div>;
                     })}
                   </div>
@@ -410,8 +427,43 @@ function PricingPage() {
           })}
         </div>
       </Rv>
-      <Rv delay={200}>
-        <div className="card card-gold" style={{ textAlign: 'center', padding: '1.5rem', marginTop: '1.5rem' }}>
+
+      <Rv delay={120}>
+        <div className="card" style={{ marginBottom: '1.5rem', padding: '1.25rem' }}>
+          <h3 style={{ fontSize: '0.95rem', marginBottom: 14 }}>What Makes Each Tier Different</h3>
+          <div style={{ overflowX: 'auto' }}>
+            <table className="tbl">
+              <thead><tr><th>Capability</th><th>Starter</th><th style={{ color: 'var(--blue-400)' }}>Pro</th><th style={{ color: 'var(--gold-400)' }}>Pro+NF-13</th><th>Institutional</th></tr></thead>
+              <tbody>
+                {[
+                  ['AI Coaching', '5/day', 'Unlimited', 'Unlimited', 'Unlimited'],
+                  ['Backtesting', '\u2014', '\u2713', '\u2713', 'Unlimited'],
+                  ['Monte Carlo + WF', '\u2014', '\u2713', '\u2713', '\u2713'],
+                  ['NeuroTrader', '\u2014', 'Shadow+Paper+Live', '\u2713', '\u2713'],
+                  ['NeuroSync Accounts', '\u2014', '3', '5', 'Unlimited'],
+                  ['NeuroFusion-13', '\u2014', '\u2014', '13-signal pipeline', '\u2713'],
+                  ['Param Diversification', '\u2014', '\u2014', '\u2713', '\u2713'],
+                  ['EdgeLab Research', '\u2014', '\u2014', '\u2014', 'Full access'],
+                  ['Custom Models + API', '\u2014', '\u2014', '\u2014', '\u2713'],
+                ].map(function(row) {
+                  return <tr key={row[0]}>
+                    <td style={{ fontWeight: 500, fontSize: '0.75rem' }}>{row[0]}</td>
+                    {row.slice(1).map(function(cell, ci) {
+                      var isC = cell === '\u2713';
+                      var isD = cell === '\u2014';
+                      var isGd = ci === 2 && !isD && !isC;
+                      return <td key={ci} className="mono" style={{ fontSize: '0.7rem', textAlign: 'center', color: isD ? 'var(--text-d)' : isC ? '#10b981' : isGd ? 'var(--gold-400)' : 'var(--text-b)' }}>{cell}</td>;
+                    })}
+                  </tr>;
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Rv>
+
+      <Rv delay={160}>
+        <div className="card card-gold" style={{ textAlign: 'center', padding: '1.25rem' }}>
           <p style={{ fontSize: '0.75rem', color: 'var(--text-d)' }}>NeuroSpect is an educational tool. Not financial advice. Past performance does not guarantee future results. Trading involves risk of loss.</p>
         </div>
       </Rv>

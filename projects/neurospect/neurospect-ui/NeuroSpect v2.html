@@ -17,13 +17,16 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-<!-- Data (plain JS — no Babel needed) -->
+<!-- Data (plain JS) -->
 <script src="ns-data.js"></script>
 <script src="ns-course-data.js"></script>
 <script src="ns-features-data.js"></script>
 <script src="ns-competitors-data.js"></script>
+<script src="v2/v2-wt-data.js"></script>
+<script src="v2/v2-qwt-data.js"></script>
+<script src="v2/v2-nf-wt-data.js"></script>
 
-<!-- Components (5 Babel files + 1 inline = 6 total) -->
+<!-- Components -->
 <script type="text/babel" src="v2/v2-shell.jsx"></script>
 <script type="text/babel" src="v2/v2-home-course.jsx"></script>
 <script type="text/babel" src="v2/v2-story.jsx"></script>
@@ -31,7 +34,12 @@
 <script type="text/babel" src="v2/v2-pages.jsx"></script>
 <script type="text/babel" src="v2/v2-compare-deep.jsx"></script>
 <script type="text/babel" src="v2/v2-neurofusion.jsx"></script>
+<script type="text/babel" src="v2/v2-wt-ui.jsx"></script>
 <script type="text/babel" src="v2/v2-walkthrough.jsx"></script>
+<script type="text/babel" src="v2/v2-qwt-ui.jsx"></script>
+<script type="text/babel" src="v2/v2-quant-walkthrough.jsx"></script>
+<script type="text/babel" src="v2/v2-nf-wt-ui.jsx"></script>
+<script type="text/babel" src="v2/v2-neurofusion-walkthrough.jsx"></script>
 
 <!-- App -->
 <script type="text/babel">
@@ -46,6 +54,8 @@
       performance: PerformancePage,
       architecture: ArchitecturePage,
       walkthrough: WalkthroughPage,
+      'quant-walkthrough': QuantWalkthroughPage,
+      'neurofusion-walkthrough': NeuroFusionWalkthroughPage,
       features: ArchitecturePage,
       compare: ComparePage,
       pricing: PricingPage,

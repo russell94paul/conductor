@@ -70,7 +70,7 @@ h3{font-size:1rem;letter-spacing:0.02em}
 .side-cta:hover{box-shadow:0 4px 24px rgba(59,130,246,0.4);transform:translateY(-1px)}
 
 /* Main content */
-.main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;position:relative}
+.main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;position:relative;overflow-x:hidden}
 .page{padding:2rem clamp(1.5rem,3vw,2.5rem) 4rem}
 .page-header{margin-bottom:2rem}
 
@@ -140,6 +140,9 @@ h3{font-size:1rem;letter-spacing:0.02em}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 @keyframes glow{0%,100%{box-shadow:0 0 8px rgba(59,130,246,0.2)}50%{box-shadow:0 0 20px rgba(59,130,246,0.4)}}
+@keyframes grid-drift{0%{transform:translate(0,0)}100%{transform:translate(-24px,-24px)}}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:0.25}100%{transform:scale(2.8);opacity:0}}
+@keyframes hero-glow{0%,100%{opacity:0.4}50%{opacity:0.7}}
 
 /* ── Responsive ── */
 @media(max-width:768px){
@@ -180,3 +183,8 @@ h3{font-size:1rem;letter-spacing:0.02em}
 /* ── Chart styling ── */
 .candle-g{fill:#10b981}.candle-r{fill:#ef4444}
 .fvg-zone{fill:rgba(59,130,246,0.1);stroke:rgba(59,130,246,0.25);stroke-width:1;stroke-dasharray:4 2}
+
+/* ── Animated hero backgrounds ── */
+.hero-canvas{position:relative;overflow:hidden}
+.hero-canvas .hero-grid{position:absolute;inset:0;opacity:0.4;pointer-events:none}
+.hero-canvas .hero-grid svg{width:100%;height:100%}

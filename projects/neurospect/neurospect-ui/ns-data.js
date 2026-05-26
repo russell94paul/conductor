@@ -64,32 +64,32 @@ const SETUP_PERF = {
 };
 
 const COMPONENTS = [
-  {id:"mentor",name:"NeuroSpect Mentor",sub:"AI Coaching",color:"#06b6d4",neon:"neon-card-cyan",
+  {id:"mentor",name:"NeuroSpect Mentor",sub:"AI Coaching",color:"#06b6d4",
    desc:"Consumer-facing AI coaching with RAG, ICT knowledge, trade journal integration, and source-grounded citations.",
    features:["Pre-trade checklists","Post-session review","Mistake pattern detection","Entry model validation"]},
-  {id:"neurocore",name:"NeuroCore",sub:"Knowledge Layer",color:"#8b5cf6",neon:"neon-card-purple",
+  {id:"neurocore",name:"NeuroCore",sub:"Knowledge Layer",color:"#8b5cf6",
    desc:"Hybrid 3-signal search: keyword + semantic + entity. Powers coaching RAG and cross-wiki intelligence.",
    features:["36K+ lines indexed","Semantic search","Entity resolution","Citation mapping"]},
-  {id:"nslm",name:"NSLM",sub:"Language Model",color:"#f59e0b",neon:"neon-card-amber",
+  {id:"nslm",name:"NSLM",sub:"Language Model",color:"#f59e0b",
    desc:"ICT-aware LLM family trained on private mentorship content, structured playbooks, and evaluation feedback.",
    features:["Setup grading","Strategy reasoning","Prompt comparison","A/B evaluation"]},
-  {id:"edgelab",name:"EdgeLab",sub:"Research Studio",color:"#10b981",neon:"neon-card-emerald",
+  {id:"edgelab",name:"EdgeLab",sub:"Research Studio",color:"#10b981",
    desc:"Full-spectrum research environment: event-driven backtesting, quant feature engineering, Monte Carlo simulation, walk-forward optimization, strategy compilation, and experiment registry.",
    features:["Monte Carlo simulation","Walk-forward validation","Feature engineering","Null hypothesis testing","Strategy compiler","Experiment registry"]},
-  {id:"neuroquant",name:"NeuroQuant",sub:"Production Models",color:"#ec4899",neon:"neon-card-rose",
+  {id:"neuroquant",name:"NeuroQuant",sub:"Production Models",color:"#ec4899",
    desc:"Validated features and models from EdgeLab. Regime-aware scoring, model ensembles, confluence decisions.",
    features:["Regime detection","Model ensemble","Confluence scoring","Dynamic sizing"]},
-  {id:"agent",name:"NeuroTrader",sub:"Trading Agent",color:"#ef4444",neon:"neon-card-red",
-   desc:"Automated trading agent with Shadow → Paper → Live progression and 5-layer safety architecture.",
+  {id:"agent",name:"NeuroTrader",sub:"Trading Agent",color:"#ef4444",
+   desc:"Automated trading agent with Shadow \u2192 Paper \u2192 Live progression and 5-layer safety architecture.",
    features:["5-layer safety","Kill switch","Shadow mode","Post-trade analysis"]},
-  {id:"livetrading",name:"Live Trading",sub:"Futures Execution",color:"#3b82f6",neon:"neon-card-blue",
-   desc:"Professional-grade futures trading terminal. Real-time market data via WebSocket, advanced charting with ICT event overlay, order management, position tracking, and live P&L. Targets CME futures (ES, NQ, CL, GC) via Tradovate API.",
+  {id:"livetrading",name:"Live Trading",sub:"Futures Execution",color:"#3b82f6",
+   desc:"Professional-grade futures trading terminal with ICT event overlay, order management, and live P&L.",
    features:["Real-time charting with ICT overlay","One-click order execution","DOM & depth of market","Position & P&L tracking","Multi-timeframe analysis","Prop Shield enforcement on live orders"]},
-  {id:"neurosync",name:"NeuroSync",sub:"Multi-Account Sync",color:"#14b8a6",neon:"neon-card-teal",
-   desc:"Intelligent multi-account trade synchronization for prop firm traders. Links multiple funded accounts and executes as one — with per-account risk awareness, proactive rule enforcement, and sub-5ms execution. Not a dumb copier — a compliance-aware execution engine.",
+  {id:"neurosync",name:"NeuroSync",sub:"Multi-Account Sync",color:"#14b8a6",
+   desc:"Intelligent multi-account trade synchronization for prop firm traders with per-account risk awareness and sub-5ms execution.",
    features:["Prop Shield per-account enforcement","Intelligent position sizing by drawdown room","Pre-trade divergence prevention","ICT-aware execution timing","Per-account P&L + drawdown dashboard","Session lockouts at profit/loss limits","Full audit trail with slippage tracking"]},
-  {id:"neurofusion",name:"NeuroFusion-13",sub:"Quant Architecture",color:"#a855f7",neon:"neon-card-violet",
-   desc:"13-signal Self-Improving Heterogeneous Reasoning Ensemble (SIHRE). Fuses statistical, semantic, causal, adversarial, generative, and meta-learned reasoning modalities at the reasoning level — not just an ensemble of outputs.",
+  {id:"neurofusion",name:"NeuroFusion-13",sub:"Quant Architecture",color:"#a855f7",
+   desc:"13-signal Self-Improving Heterogeneous Reasoning Ensemble (SIHRE). Fuses statistical, semantic, causal, adversarial, generative, and meta-learned reasoning modalities.",
    features:["13 heterogeneous reasoning signals","Meta-orchestrator (Signal 13)","Reasoning-level fusion","Self-improving feedback loops","Regime-aware adaptation","Audit-ready decision trace"]},
 ];
 
@@ -108,32 +108,27 @@ const ARCH_CONNECTIONS = [
 ];
 
 const PRICING_TIERS = [
-  {name:"Free",price:"0",period:"forever",target:"Curious learners",highlight:false,neon:"",
-   features:["5 AI coaching questions/day","Read-only ICT glossary","Basic trade journal","Community access"]},
-  {name:"Mentor",price:"29",period:"/mo",target:"Active ICT students",highlight:false,neon:"neon-card-cyan",
-   features:["Unlimited AI coaching","Full trade journal","Basic analytics","Voice journaling","Psychology profiler","Entry model checklists"]},
-  {name:"Trader",price:"99",period:"/mo",target:"Serious traders",highlight:true,neon:"neon-card-cyan",
-   features:["Everything in Mentor","Backtesting (3 runs/mo)","Monte Carlo simulation","Broker auto-fill","Risk limit engine","Prop firm presets"]},
-  {name:"Research",price:"199",period:"/mo",target:"Strategy researchers",highlight:false,neon:"neon-card-purple",
-   features:["Everything in Trader","Unlimited backtesting","Walk-forward optimization","EdgeLab experiments","NSLM prompt comparison"]},
-  {name:"Quant",price:"349",period:"/mo",target:"Quant-curious traders",highlight:false,neon:"neon-card-emerald",
-   features:["Everything in Research","Hybrid model building","Feature engineering","Regime detection","NeuroTrader shadow mode"]},
-  {name:"Team",price:"499",period:"/mo",target:"Educators & teams",highlight:false,neon:"neon-card-amber",
-   features:["Everything in Quant","Private knowledge bases","Custom NSLM variants","API access","Multi-user management"]},
+  {name:"Starter",price:"0",annual:"0",period:"forever",target:"Learning ICT",highlight:false,
+   features:["AI coaching (5 questions/day)","Basic trade journal","Read-only ICT glossary","Community access"]},
+  {name:"Pro",price:"149",annual:"99",period:"/mo",target:"Active prop firm traders",highlight:true,
+   features:["Unlimited AI coaching","Full 100+ field journal","Backtesting + Monte Carlo + Walk-forward","NeuroTrader (shadow + paper + live)","NeuroSync (3 accounts)","Prop Shield per-account enforcement","Risk limit engine","Prop firm presets"]},
+  {name:"Pro + NF-13",price:"249",annual:"179",period:"/mo",target:"AI-powered trading decisions",highlight:false,gold:true,
+   features:["Everything in Pro","NeuroFusion-13 signal pipeline","13-signal regime-aware decisions","Parameter-diversified execution","NeuroSync (5 accounts)","Self-improving signal weights","Full decision audit trail"]},
+  {name:"Institutional",price:"499",annual:"399",period:"/mo",target:"Quant researchers & teams",highlight:false,
+   features:["Everything in Pro + NF-13","EdgeLab full research suite","Custom feature engineering","Model training & deployment","NeuroSync (unlimited accounts)","API access","Custom NSLM variants"]},
 ];
 
 const BEFORE_TOOLS = [
   {name:"Notes app",cost:"$0"},
-  {name:"TradingView",cost:"$15–60/mo"},
-  {name:"Spreadsheet journal",cost:"$0–10/mo"},
-  {name:"ChatGPT / Claude",cost:"$20–200/mo"},
-  {name:"Backtesting platform",cost:"$30–80/mo"},
-  {name:"Broker dashboard",cost:"$0–60/mo"},
-  {name:"Prop firm tracker",cost:"$30–100/mo"},
-  {name:"Psychology tracker",cost:"$0–50/mo"},
+  {name:"TradingView",cost:"$15\u201360/mo"},
+  {name:"Spreadsheet journal",cost:"$0\u201310/mo"},
+  {name:"ChatGPT / Claude",cost:"$20\u2013200/mo"},
+  {name:"Backtesting platform",cost:"$30\u201380/mo"},
+  {name:"Broker dashboard",cost:"$0\u201360/mo"},
+  {name:"Prop firm tracker",cost:"$30\u2013100/mo"},
+  {name:"Psychology tracker",cost:"$0\u201350/mo"},
 ];
 
-// Candlestick data for hero/simulator (NQ 5-min candles, synthetic but realistic)
 const NQ_CANDLES = [
   {o:18320,h:18335,l:18310,c:18328},{o:18328,h:18345,l:18320,c:18340},{o:18340,h:18360,l:18335,c:18355},
   {o:18355,h:18370,l:18340,c:18345},{o:18345,h:18350,l:18310,c:18315},{o:18315,h:18325,l:18290,c:18295},
@@ -145,7 +140,6 @@ const NQ_CANDLES = [
   {o:18448,h:18455,l:18430,c:18435},{o:18435,h:18450,l:18432,c:18445},{o:18445,h:18465,l:18440,c:18460},
 ];
 
-// Make all data globally accessible
 Object.assign(window, {
   TRADING_DAYS, TIER_META, TIER_ORDER, EQUITY_RAW, EQUITY_CURVES, TIER_KPIS,
   TRADE_MARKERS, DAY_OF_WEEK, SESSION_DATA, SETUP_PERF, COMPONENTS, ARCH_CONNECTIONS,
