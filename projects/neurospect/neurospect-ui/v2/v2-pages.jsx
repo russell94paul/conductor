@@ -208,8 +208,8 @@ function ArchitecturePage() {
       <Rv delay={100}>
         <div className="card" style={{ padding: '1.25rem' }}>
           <h3 style={{ marginBottom: 14 }}>Data Flow</h3>
-          <div className="bento bento-4">
-            {[{n:'01',t:'Ingest',d:'ICT content + journal → NeuroCore index'},{n:'02',t:'Retrieve & Reason',d:'NeuroCore retrieves → NSLM generates with citations'},{n:'03',t:'Research & Validate',d:'EdgeLab backtests → promotes validated models'},{n:'04',t:'Execute',d:'NeuroTrader uses NeuroQuant with 5 safety layers'}].map(function(d) {
+          <div className="bento bento-3">
+            {[{n:'01',t:'Ingest',d:'ICT content + journal → NeuroCore index'},{n:'02',t:'Retrieve & Reason',d:'NeuroCore retrieves → NSLM generates with citations'},{n:'03',t:'Research & Validate',d:'EdgeLab backtests → promotes validated models'},{n:'04',t:'Fuse & Score',d:'NeuroFusion-13 fuses 13 signals → NeuroQuant scores'},{n:'05',t:'Execute',d:'Live Trading terminal + NeuroTrader with 5 safety layers'},{n:'06',t:'Sync & Protect',d:'NeuroSync mirrors across all prop accounts with Prop Shield'}].map(function(d) {
               return <div key={d.n}><span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'rgba(59,130,246,0.12)', fontFamily: 'var(--font-h)' }}>{d.n}</span><h3 style={{ fontSize: '0.85rem', marginBottom: 3 }}>{d.t}</h3><p style={{ fontSize: '0.72rem', color: 'var(--text-m)' }}>{d.d}</p></div>;
             })}
           </div>

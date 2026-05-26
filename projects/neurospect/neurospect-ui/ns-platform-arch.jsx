@@ -30,8 +30,8 @@ function PlatformSection() {
       <div className="container" style={{ position: 'relative' }}>
         <Reveal className="section-header">
           <p className="section-label">Platform</p>
-          <h2>Six Components. One Intelligence Layer.</h2>
-          <p className="section-sub">Every component is purpose-built for ICT trading. They connect, feed each other, and compound your edge over time.</p>
+          <h2>Nine Components. One Intelligence Layer.</h2>
+          <p className="section-sub">Every component is purpose-built for ICT trading. From AI coaching to live execution, multi-account sync, and 13-signal quant architecture — they connect, feed each other, and compound your edge over time.</p>
         </Reveal>
         <div className="grid-6" style={{ gap: '0.875rem' }}>
           {COMPONENTS.map((c, i) => (
@@ -204,12 +204,14 @@ function ArchitectureSection() {
         <Reveal delay={100}>
           <div className="neon-card" style={{ padding: '1.5rem', marginTop: '2rem' }}>
             <h3 style={{ fontSize: '1.0625rem', fontWeight: 700, color: '#fff', marginBottom: '1.25rem' }}>How Data Flows Through NeuroSpect</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }} className="grid-4">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }} className="grid-3">
               {[
                 { n: '01', t: 'Ingest', d: 'ICT mentorship content, transcripts, and your trade journal flow into NeuroCore\'s hybrid index.' },
                 { n: '02', t: 'Retrieve & Reason', d: 'NeuroCore retrieves context. NSLM generates ICT-aware responses with source citations.' },
-                { n: '03', t: 'Research & Validate', d: 'EdgeLab backtests strategies, evaluates NSLM versions, and promotes validated models.' },
-                { n: '04', t: 'Execute', d: 'NeuroTrader Agent uses NeuroQuant scoring with 5 safety layers and full human oversight.' },
+                { n: '03', t: 'Research & Validate', d: 'EdgeLab Research Studio backtests strategies, evaluates NSLM versions, and runs Monte Carlo simulations.' },
+                { n: '04', t: 'Fuse & Score', d: 'NeuroFusion-13 fuses 13 reasoning signals. NeuroQuant promotes validated models to production scoring.' },
+                { n: '05', t: 'Execute', d: 'Live Trading terminal executes on CME futures with ICT event overlay. NeuroTrader Agent provides automated execution with 5 safety layers.' },
+                { n: '06', t: 'Sync & Protect', d: 'NeuroSync mirrors trades across all prop firm accounts with per-account Prop Shield enforcement and intelligent position sizing.' },
               ].map(s => (
                 <div key={s.n}>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.75rem', fontWeight: 700, color: 'rgba(6,182,212,0.15)', marginBottom: '0.5rem' }}>{s.n}</div>

@@ -73,15 +73,24 @@ const COMPONENTS = [
   {id:"nslm",name:"NSLM",sub:"Language Model",color:"#f59e0b",neon:"neon-card-amber",
    desc:"ICT-aware LLM family trained on private mentorship content, structured playbooks, and evaluation feedback.",
    features:["Setup grading","Strategy reasoning","Prompt comparison","A/B evaluation"]},
-  {id:"edgelab",name:"EdgeLab",sub:"Research Engine",color:"#10b981",neon:"neon-card-emerald",
-   desc:"Event-driven backtesting, quant feature engineering, NSLM prompt experiments, and hybrid model evaluation.",
-   features:["Monte Carlo simulation","Walk-forward validation","Feature engineering","Null hypothesis testing"]},
+  {id:"edgelab",name:"EdgeLab",sub:"Research Studio",color:"#10b981",neon:"neon-card-emerald",
+   desc:"Full-spectrum research environment: event-driven backtesting, quant feature engineering, Monte Carlo simulation, walk-forward optimization, strategy compilation, and experiment registry.",
+   features:["Monte Carlo simulation","Walk-forward validation","Feature engineering","Null hypothesis testing","Strategy compiler","Experiment registry"]},
   {id:"neuroquant",name:"NeuroQuant",sub:"Production Models",color:"#ec4899",neon:"neon-card-rose",
    desc:"Validated features and models from EdgeLab. Regime-aware scoring, model ensembles, confluence decisions.",
    features:["Regime detection","Model ensemble","Confluence scoring","Dynamic sizing"]},
   {id:"agent",name:"NeuroTrader",sub:"Trading Agent",color:"#ef4444",neon:"neon-card-red",
    desc:"Automated trading agent with Shadow → Paper → Live progression and 5-layer safety architecture.",
    features:["5-layer safety","Kill switch","Shadow mode","Post-trade analysis"]},
+  {id:"livetrading",name:"Live Trading",sub:"Futures Execution",color:"#3b82f6",neon:"neon-card-blue",
+   desc:"Professional-grade futures trading terminal. Real-time market data via WebSocket, advanced charting with ICT event overlay, order management, position tracking, and live P&L. Targets CME futures (ES, NQ, CL, GC) via Tradovate API.",
+   features:["Real-time charting with ICT overlay","One-click order execution","DOM & depth of market","Position & P&L tracking","Multi-timeframe analysis","Prop Shield enforcement on live orders"]},
+  {id:"neurosync",name:"NeuroSync",sub:"Multi-Account Sync",color:"#14b8a6",neon:"neon-card-teal",
+   desc:"Intelligent multi-account trade synchronization for prop firm traders. Links multiple funded accounts and executes as one — with per-account risk awareness, proactive rule enforcement, and sub-5ms execution. Not a dumb copier — a compliance-aware execution engine.",
+   features:["Prop Shield per-account enforcement","Intelligent position sizing by drawdown room","Pre-trade divergence prevention","ICT-aware execution timing","Per-account P&L + drawdown dashboard","Session lockouts at profit/loss limits","Full audit trail with slippage tracking"]},
+  {id:"neurofusion",name:"NeuroFusion-13",sub:"Quant Architecture",color:"#a855f7",neon:"neon-card-violet",
+   desc:"13-signal Self-Improving Heterogeneous Reasoning Ensemble (SIHRE). Fuses statistical, semantic, causal, adversarial, generative, and meta-learned reasoning modalities at the reasoning level — not just an ensemble of outputs.",
+   features:["13 heterogeneous reasoning signals","Meta-orchestrator (Signal 13)","Reasoning-level fusion","Self-improving feedback loops","Regime-aware adaptation","Audit-ready decision trace"]},
 ];
 
 const ARCH_CONNECTIONS = [
@@ -91,6 +100,11 @@ const ARCH_CONNECTIONS = [
   {from:"edgelab",to:"nslm",label:"evaluation",color:"#10b981"},
   {from:"edgelab",to:"neuroquant",label:"promotion",color:"#ec4899"},
   {from:"neuroquant",to:"agent",label:"scoring",color:"#ef4444"},
+  {from:"neuroquant",to:"livetrading",label:"signals",color:"#3b82f6"},
+  {from:"livetrading",to:"neurosync",label:"execution",color:"#14b8a6"},
+  {from:"neurosync",to:"livetrading",label:"account state",color:"#14b8a6"},
+  {from:"neurofusion",to:"neuroquant",label:"13-signal fusion",color:"#a855f7"},
+  {from:"edgelab",to:"neurofusion",label:"signal research",color:"#a855f7"},
 ];
 
 const PRICING_TIERS = [
