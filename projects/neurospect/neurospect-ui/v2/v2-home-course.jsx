@@ -1,5 +1,89 @@
 /* NeuroSpect v2 — Home + Course Pages */
 
+/* ═══ SIHRE USE-CASE SCENARIOS ═══ */
+function SihreScenarios() {
+  var st = React.useState(null);
+  var open = st[0], setOpen = st[1];
+
+  var scenarios = [
+    { id: 'nfp',
+      title: 'High-Impact News (NFP Friday)',
+      icon: '\u{1F4F0}',
+      situation: 'Non-Farm Payrolls drops in 10 minutes. Volatility is about to spike. Most systems either freeze or get whipsawed by the noise.',
+      sihre: 'Multiple specialist signals activate simultaneously: one reads historical NFP reactions for this instrument, another detects the current regime shift in real time, another stress-tests whether the pre-news setup survives adverse scenarios. The orchestrator dynamically re-weights — suppressing signals that perform poorly in news volatility, amplifying those calibrated for it. If consensus is low, the system abstains entirely rather than gambling.',
+      edge: 'Adapts in real time to the specific type of volatility — doesn\'t treat all news events the same.'
+    },
+    { id: 'regime',
+      title: 'Silent Regime Change',
+      icon: '\u{1F30A}',
+      situation: 'The market gradually shifts from trending to range-bound over two weeks. No single day looks different. Your trend-following strategy starts bleeding slowly.',
+      sihre: 'Dedicated regime-detection intelligence continuously monitors market microstructure, volatility patterns, and behavioral shifts — detecting the transition before performance degrades. As confidence in the new regime grows, the orchestrator smoothly rotates trust toward specialists calibrated for mean-reversion conditions. The transition is gradual, governed, and logged.',
+      edge: 'Catches regime transitions that are invisible on any single day but obvious in aggregate — and adapts before the drawdown compounds.'
+    },
+    { id: 'drawdown',
+      title: 'Drawdown Spiral Prevention',
+      icon: '\u{1F6E1}',
+      situation: 'Three losses in a row. A traditional system keeps trading. A human trader tilts. Both make it worse.',
+      sihre: 'Behavioral and risk-governance layers detect the compounding drawdown. Uncertainty quantification widens — the system demands higher conviction before the next entry. Adversarial intelligence actively searches for reasons NOT to trade, raising the bar. If drawdown hits governance thresholds, the system enforces a cooldown period — not because a human set a rule, but because the ensemble\'s own confidence has degraded below its execution threshold.',
+      edge: 'Self-imposed discipline that tightens dynamically — the worse the streak, the higher the bar for the next trade.'
+    },
+    { id: 'discovery',
+      title: 'Edge Discovery From Failure',
+      icon: '\u{1F50D}',
+      situation: 'You\'ve been losing on London session entries for three weeks. You don\'t know why.',
+      sihre: 'Memory and forensics layers mine the loss pattern: same session, same instrument, same setup type. Causal intelligence proposes hypotheses — maybe the failure correlates with a specific volatility regime during Asia-to-London handoff. Backtesting intelligence validates the hypothesis against historical data. If confirmed, the orchestrator learns a new routing rule: suppress that setup type under those specific conditions. The failure becomes a permanent improvement.',
+      edge: 'Turns repeated losses into testable hypotheses and permanent system upgrades — no manual analysis required.'
+    },
+    { id: 'compound',
+      title: 'The 1,000-Trade Advantage',
+      icon: '\u{1F4C8}',
+      situation: 'Two traders start on the same day with the same capital. One uses a static model. One uses SIHRE.',
+      sihre: 'After 1,000 trades, SIHRE has accumulated a memory of every outcome, every regime encountered, every failure mode discovered, every causal relationship validated. Its routing intelligence has learned nuanced instrument-specific, session-specific, regime-specific trust weightings. Its adversarial layer has catalogued hundreds of "traps" to avoid. Its uncertainty calibration has been refined across diverse market conditions. The static model is exactly where it started.',
+      edge: 'The gap between SIHRE and any fixed system widens with every trade — compounding intelligence is the moat.'
+    },
+  ];
+
+  return (
+    <div style={{ marginBottom: 20 }}>
+      <h3 style={{ fontSize: '0.95rem', marginBottom: 12, color: 'var(--gold-300)' }}>See It In Action</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {scenarios.map(function(s) {
+          var isOpen = open === s.id;
+          return (
+            <div key={s.id} className={'card ' + (isOpen ? 'card-active' : '')}
+              style={{ cursor: 'pointer', borderLeftWidth: 3, borderLeftColor: isOpen ? 'var(--gold-400)' : 'rgba(251,191,36,0.15)', padding: '0.8rem 1rem', background: isOpen ? 'rgba(251,191,36,0.04)' : 'var(--surface)' }}
+              onClick={function() { setOpen(isOpen ? null : s.id); }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: '1rem' }}>{s.icon}</span>
+                  <strong style={{ fontSize: '0.85rem', color: isOpen ? 'var(--gold-300)' : 'var(--text-h)' }}>{s.title}</strong>
+                </div>
+                <span style={{ fontSize: '0.7rem', color: 'var(--text-d)', transition: 'transform 0.3s', transform: isOpen ? 'rotate(180deg)' : 'rotate(0)', fontFamily: 'var(--font-m)' }}>&#9660;</span>
+              </div>
+              <div style={{ maxHeight: isOpen ? 600 : 0, overflow: 'hidden', transition: 'max-height 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
+                <div style={{ paddingTop: 14 }}>
+                  <div style={{ marginBottom: 10 }}>
+                    <span className="label" style={{ color: 'var(--text-d)', marginBottom: 4, display: 'block' }}>The Situation</span>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-m)', lineHeight: 1.6 }}>{s.situation}</p>
+                  </div>
+                  <div style={{ marginBottom: 10 }}>
+                    <span className="label" style={{ color: 'var(--gold-400)', marginBottom: 4, display: 'block' }}>How SIHRE Responds</span>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-b)', lineHeight: 1.6 }}>{s.sihre}</p>
+                  </div>
+                  <div style={{ padding: '8px 12px', borderRadius: 8, background: 'rgba(251,191,36,0.06)', borderLeft: '2px solid rgba(251,191,36,0.3)' }}>
+                    <span className="label" style={{ color: 'var(--gold-400)', marginBottom: 2, display: 'block' }}>The Edge</span>
+                    <p style={{ fontSize: '0.78rem', color: 'var(--gold-300)', lineHeight: 1.5, fontStyle: 'italic' }}>{s.edge}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 /* ═══ HOME ═══ */
 function HomePage() {
   return (
@@ -67,8 +151,130 @@ function HomePage() {
         </div>
       </Rv>
 
+      {/* NeuroFusion (SIHRE) */}
+      <Rv delay={140}>
+        <div className="card card-sihre sihre-glow" style={{ marginBottom: '1.5rem', padding: 'clamp(1.5rem,3vw,2.5rem)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
+            <div className="sihre-ring">
+              <span style={{ fontFamily: 'var(--font-h)', fontWeight: 800, fontSize: '1.1rem', color: 'var(--gold-400)' }}>N</span>
+            </div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+                <h2 style={{ fontSize: '1.3rem', margin: 0 }}>
+                  <span className="grad-text-gold">NeuroFusion</span>
+                </h2>
+                <span className="badge badge-gold"><span className="badge-dot"></span>Patent Pending</span>
+              </div>
+              <p style={{ fontFamily: 'var(--font-m)', fontSize: '0.7rem', letterSpacing: '0.06em', color: 'var(--gold-400)' }}>
+                SELF-IMPROVING HETEROGENEOUS REASONING ENSEMBLE (SIHRE)
+              </p>
+            </div>
+          </div>
+
+          <p style={{ fontSize: '0.92rem', color: 'var(--text-b)', lineHeight: 1.7, marginBottom: 8, maxWidth: 640 }}>
+            A first-of-its-kind AI architecture that fuses <strong style={{ color: 'var(--gold-300)' }}>fundamentally different types of intelligence</strong> into a single reasoning system — not a bigger model, but a new <em>kind</em> of model. Whitepaper available. Patent pending.
+          </p>
+
+          {/* Creator bio */}
+          <div className="card" style={{ background: 'rgba(251,191,36,0.03)', borderColor: 'rgba(251,191,36,0.12)', marginBottom: 20, padding: '1.2rem' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, var(--gold-500), var(--gold-600))', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 16px rgba(251,191,36,0.2)' }}>
+                <span style={{ fontFamily: 'var(--font-h)', fontWeight: 800, fontSize: '1rem', color: '#000' }}>PR</span>
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+                  <strong style={{ fontSize: '0.95rem', color: 'var(--text-h)' }}>Paul Russell</strong>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--gold-400)', fontFamily: 'var(--font-m)' }}>chartShooter</span>
+                  <span className="badge badge-gold" style={{ fontSize: '0.55rem', padding: '2px 6px' }}>Creator</span>
+                </div>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-m)', lineHeight: 1.65, marginBottom: 8 }}>
+                  Data/AI engineer turned funded futures trader. Built NeuroSpect because I kept losing the same trades and got annoyed enough to build something about it. Every feature exists because I needed it first.
+                </p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
+                  <a href="#story" className="btn btn-ghost btn-sm" style={{ fontSize: '0.72rem', padding: '4px 12px' }}>Read My Story</a>
+                </div>
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                  {['Data/AI Engineering', 'Funded Trader', 'SIHRE Creator'].map(function(tag) {
+                    return <span key={tag} style={{ fontSize: '0.62rem', padding: '2px 8px', borderRadius: 100, background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.12)', color: 'var(--gold-400)', fontFamily: 'var(--font-m)', letterSpacing: '0.02em' }}>{tag}</span>;
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Soccer analogy */}
+          <div className="card" style={{ background: 'rgba(251,191,36,0.03)', borderColor: 'rgba(251,191,36,0.12)', marginBottom: 20, padding: '1.2rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+              <span style={{ fontSize: '1rem' }}>&#9917;</span>
+              <span className="label" style={{ color: 'var(--gold-400)' }}>How SIHRE works — a soccer analogy</span>
+            </div>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-b)', lineHeight: 1.7, marginBottom: 12 }}>
+              Most AI systems are like a soccer team where <strong style={{ color: 'var(--text-h)' }}>every player is a striker</strong>. You've got eleven athletes who all think the same way, all trained on the same drills, all attacking the same space. When conditions suit them, they dominate. When conditions shift — a red card, a change in formation, a wet pitch — they all fail the same way at once.
+            </p>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-b)', lineHeight: 1.7, marginBottom: 12 }}>
+              SIHRE fields a <strong style={{ color: 'var(--gold-300)' }}>complete squad</strong>. A goalkeeper who reads angles. A center-back who anticipates danger. A midfielder who controls tempo. A winger who exploits space. A striker who finishes. An analyst in the booth studying the opponent in real time. A physio monitoring fatigue. A set-piece specialist. Each thinks <em>differently</em>, sees the game from a different position, and fails in different ways.
+            </p>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-b)', lineHeight: 1.7, marginBottom: 12 }}>
+              And above them all sits a <strong style={{ color: 'var(--gold-300)' }}>manager</strong> who doesn't just pick the starting eleven — they learn match by match: <em>"Against a low block, trust the creative midfielder. In a counter-attack, trust the winger's pace. In injury time with a lead, trust the defensive structure."</em>
+            </p>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-b)', lineHeight: 1.7 }}>
+              The whole club <strong style={{ color: 'var(--gold-300)' }}>compounds across seasons</strong>. Every match is filmed, analyzed, learned from. Players improve individually. The manager's tactical knowledge deepens. New specialists are scouted and integrated. Bad fits are moved on. After a hundred matches, the intelligence gap between this club and a team of eleven strikers is <em>insurmountable</em>.
+            </p>
+          </div>
+
+          {/* Use-case scenarios dropdown */}
+          <SihreScenarios />
+
+          {/* How it's different */}
+          <h3 style={{ fontSize: '0.95rem', marginBottom: 12, color: 'var(--gold-300)' }}>Why This Changes Everything</h3>
+          <div className="bento bento-2" style={{ marginBottom: 20 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { t: 'Heterogeneous reasoning', d: 'Multiple fundamentally different types of intelligence — each sees the market from a unique vantage point, trained differently, failing differently. Not a bigger model. A new kind of model.' },
+                { t: 'Self-improving under governance', d: 'The system compounds intelligence over time through continuous feedback loops — but within strict safety boundaries. Every improvement is auditable and reversible.' },
+                { t: 'Intelligent orchestration', d: 'A meta-reasoning layer learns which specialists to trust under which market conditions — and when to sit out entirely. This routing intelligence is the core innovation.' },
+              ].map(function(item) {
+                return (
+                  <div key={item.t} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <span style={{ color: 'var(--gold-400)', fontSize: '0.85rem', marginTop: 2, flexShrink: 0 }}>&#9670;</span>
+                    <div>
+                      <strong style={{ fontSize: '0.82rem', color: 'var(--text-h)', display: 'block', marginBottom: 2 }}>{item.t}</strong>
+                      <span style={{ fontSize: '0.78rem', color: 'var(--text-m)', lineHeight: 1.55 }}>{item.d}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { t: 'Knows when to abstain', d: 'Unlike black-box models that always produce a score, SIHRE has built-in governors that prevent execution when edge is fragile, uncertain, or outside the system\'s competence.' },
+                { t: 'Compounding memory', d: 'Every outcome, every discovery, every failure is stored with full provenance. Future decisions draw on the entire history. The system becomes exponentially harder to replicate over time.' },
+                { t: 'Domain-native architecture', d: 'Purpose-built for financial markets — not a general-purpose LLM fine-tuned on trading data. Every layer is designed for the latency, regime shifts, and adversarial dynamics of live markets.' },
+              ].map(function(item) {
+                return (
+                  <div key={item.t} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <span style={{ color: 'var(--gold-400)', fontSize: '0.85rem', marginTop: 2, flexShrink: 0 }}>&#9670;</span>
+                    <div>
+                      <strong style={{ fontSize: '0.82rem', color: 'var(--text-h)', display: 'block', marginBottom: 2 }}>{item.t}</strong>
+                      <span style={{ fontSize: '0.78rem', color: 'var(--text-m)', lineHeight: 1.55 }}>{item.d}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <a href="#neurofusion" className="btn btn-gold btn-sm">Learn More &amp; Try the Simulator</a>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-d)', fontFamily: 'var(--font-m)' }}>
+              A proprietary multi-signal reasoning architecture. No existing system has assembled this.
+            </span>
+          </div>
+        </div>
+      </Rv>
+
       {/* Tier comparison */}
-      <Rv delay={160}>
+      <Rv delay={200}>
         <div style={{ marginBottom: '1.5rem' }}>
           <h2 style={{ fontSize: '1.2rem', marginBottom: 14 }}>Trader Workflows</h2>
           <div className="bento bento-4">

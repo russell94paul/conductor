@@ -178,14 +178,27 @@ function PerformancePage() {
 
 /* ═══ ARCHITECTURE ═══ */
 function ArchitecturePage() {
+  var engState = React.useState(null);
+  var engine = engState[0], setEngine = engState[1];
+  var wfState = React.useState({ running: false, idx: -1 });
+  var wfAnim = wfState[0], setWfAnim = wfState[1];
+
+  function runWf() {
+    setWfAnim({ running: true, idx: 0 });
+    var i = 0;
+    var iv = setInterval(function() { i++; if (i >= AEE_WORKFLOW_STEPS.length) { clearInterval(iv); setTimeout(function() { setWfAnim({ running: false, idx: -1 }); }, 1500); } else { setWfAnim({ running: true, idx: i }); } }, 700);
+  }
+
   return (
     <div className="page">
       <Rv>
         <div className="hero-grad" style={{ padding: 'clamp(2rem,4vw,3rem)', marginBottom: '1.5rem' }}>
-          <h1 style={{ marginBottom: 10 }}>Six Components. <span className="grad-text">One Platform.</span></h1>
-          <p style={{ fontSize: '0.92rem', color: 'var(--text-m)', maxWidth: 520, lineHeight: 1.65 }}>Every component is purpose-built for ICT trading. They connect, feed each other, and compound your edge.</p>
+          <h1 style={{ marginBottom: 10 }}>Nine Components. <span className="grad-text">One Intelligence Layer.</span></h1>
+          <p style={{ fontSize: '0.92rem', color: 'var(--text-m)', maxWidth: 580, lineHeight: 1.65 }}>From AI coaching to live futures execution, multi-account sync, and 13-signal quant architecture — every component is purpose-built for ICT trading. They connect, feed each other, and compound your edge.</p>
         </div>
       </Rv>
+
+      {/* Component Grid */}
       <Rv delay={60}>
         <div className="bento bento-3" style={{ marginBottom: '1.5rem' }}>
           {COMPONENTS.map(function(c, i) {
@@ -205,14 +218,110 @@ function ArchitecturePage() {
           })}
         </div>
       </Rv>
+
+      {/* Data Flow */}
       <Rv delay={100}>
-        <div className="card" style={{ padding: '1.25rem' }}>
+        <div className="card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
           <h3 style={{ marginBottom: 14 }}>Data Flow</h3>
           <div className="bento bento-3">
             {[{n:'01',t:'Ingest',d:'ICT content + journal → NeuroCore index'},{n:'02',t:'Retrieve & Reason',d:'NeuroCore retrieves → NSLM generates with citations'},{n:'03',t:'Research & Validate',d:'EdgeLab backtests → promotes validated models'},{n:'04',t:'Fuse & Score',d:'NeuroFusion-13 fuses 13 signals → NeuroQuant scores'},{n:'05',t:'Execute',d:'Live Trading terminal + NeuroTrader with 5 safety layers'},{n:'06',t:'Sync & Protect',d:'NeuroSync mirrors across all prop accounts with Prop Shield'}].map(function(d) {
               return <div key={d.n}><span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'rgba(59,130,246,0.12)', fontFamily: 'var(--font-h)' }}>{d.n}</span><h3 style={{ fontSize: '0.85rem', marginBottom: 3 }}>{d.t}</h3><p style={{ fontSize: '0.72rem', color: 'var(--text-m)' }}>{d.d}</p></div>;
             })}
           </div>
+        </div>
+      </Rv>
+
+      {/* EdgeLab Research Studio Deep Dive */}
+      <Rv delay={140}>
+        <div className="hero-grad" style={{ padding: 'clamp(1.5rem,3vw,2rem)', marginBottom: '1.5rem' }}>
+          <span className="badge badge-blue" style={{ marginBottom: 14 }}><span className="badge-dot" style={{ background: '#10b981' }}></span>Deep Dive</span>
+          <h2 style={{ marginBottom: 10 }}><span className="grad-text">EdgeLab Research Studio</span></h2>
+          <p style={{ fontSize: '0.88rem', color: 'var(--text-m)', maxWidth: 520, lineHeight: 1.65 }}>
+            Every win, loss, and regime shift converted into validated edge. Three engines powering one continuous improvement loop.
+          </p>
+        </div>
+      </Rv>
+
+      {/* Core Engines */}
+      <Rv delay={180}>
+        <h2 style={{ fontSize: '1.1rem', marginBottom: 14 }}>Core Engines</h2>
+        <div className="bento bento-3" style={{ marginBottom: '1.5rem' }}>
+          {AEE_CORE_ENGINES.map(function(eng, i) {
+            var isOpen = engine === eng.id;
+            return (
+              <Rv key={eng.id} delay={i * 50}>
+                <div className={'card ' + (isOpen ? 'card-active' : '')} style={{ cursor: 'pointer', height: '100%', display: 'flex', flexDirection: 'column', borderLeftWidth: 3, borderLeftColor: eng.color }}
+                  onClick={function() { setEngine(isOpen ? null : eng.id); }}>
+                  <h3 style={{ fontSize: '0.9rem', marginBottom: 4 }}>{eng.name}</h3>
+                  <p className="mono" style={{ fontSize: '0.72rem', color: eng.color, fontStyle: 'italic', marginBottom: 8 }}>"{eng.tagline}"</p>
+                  <p style={{ fontSize: '0.78rem', color: 'var(--text-m)', lineHeight: 1.5, flex: 1, marginBottom: 8 }}>{eng.desc}</p>
+                  <div style={{ maxHeight: isOpen ? 500 : 0, overflow: 'hidden', transition: 'max-height 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
+                    <div style={{ height: 1, background: eng.color + '33', marginBottom: 10 }}></div>
+                    {eng.capabilities.map(function(cap, ci) {
+                      return <div key={ci} style={{ marginBottom: 6, paddingLeft: 10, borderLeft: '2px solid ' + eng.color + '33' }}>
+                        <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-h)', marginBottom: 1 }}>{cap.name}</p>
+                        <p style={{ fontSize: '0.72rem', color: 'var(--text-m)' }}>{cap.desc}</p>
+                      </div>;
+                    })}
+                  </div>
+                  <span style={{ fontSize: '0.65rem', color: 'var(--text-d)', textAlign: 'center', marginTop: 4 }}>{isOpen ? '▲ Collapse' : '▼ View capabilities'}</span>
+                </div>
+              </Rv>
+            );
+          })}
+        </div>
+      </Rv>
+
+      {/* E2E Workflow */}
+      <Rv delay={220}>
+        <h2 style={{ fontSize: '1.1rem', marginBottom: 14 }}>End-to-End: Losing Trade → <span className="grad-text">Validated Edge</span></h2>
+        <div className="card card-active" style={{ marginBottom: '1.5rem', padding: 'clamp(1rem,2.5vw,1.5rem)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: 16 }}>
+            {AEE_WORKFLOW_STEPS.map(function(step, i) {
+              var isActive = wfAnim.idx === i, isPast = wfAnim.idx > i;
+              return (
+                <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', position: 'relative', opacity: wfAnim.running && wfAnim.idx < i ? 0.2 : 1, transition: 'opacity 0.4s' }}>
+                  {i < AEE_WORKFLOW_STEPS.length - 1 && <div style={{ position: 'absolute', left: 15, top: 34, width: 2, height: 'calc(100% - 12px)', background: isPast ? step.color + '44' : 'rgba(59,130,246,0.06)' }}></div>}
+                  <div style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0, border: '1.5px solid ' + (isActive ? step.color : 'rgba(59,130,246,0.08)'), background: isActive ? step.color + '18' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-m)', fontSize: '0.6rem', color: isActive ? step.color : 'var(--text-d)', zIndex: 2, boxShadow: isActive ? '0 0 14px ' + step.color + '25' : 'none', transition: 'all 0.3s' }}>{step.num}</div>
+                  <div style={{ flex: 1, paddingBottom: 12 }}>
+                    <p style={{ fontSize: '0.82rem', fontWeight: 600, color: isActive ? 'var(--text-h)' : 'var(--text-b)', marginBottom: 2 }}>{step.title}</p>
+                    <p style={{ fontSize: '0.72rem', color: 'var(--text-m)', lineHeight: 1.5 }}>{step.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{ textAlign: 'center' }}>
+            <button onClick={runWf} disabled={wfAnim.running} className="btn btn-blue btn-sm" style={{ opacity: wfAnim.running ? 0.5 : 1 }}>
+              {wfAnim.running ? 'Processing...' : '▶ Run Workflow'}
+            </button>
+          </div>
+        </div>
+      </Rv>
+
+      {/* Roadmap */}
+      <Rv delay={260}>
+        <h2 style={{ fontSize: '1.1rem', marginBottom: 14 }}>Roadmap</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {AEE_ROADMAP.map(function(phase, i) {
+            var isCurrent = phase.phase === 8;
+            return (
+              <Rv key={i} delay={i * 50}>
+                <div className={'card ' + (isCurrent ? 'card-active' : '')} style={{ borderLeftWidth: 3, borderLeftColor: isCurrent ? 'var(--blue-500)' : 'rgba(59,130,246,0.08)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                    <span className="mono" style={{ fontSize: '0.75rem', fontWeight: 700, color: isCurrent ? 'var(--blue-400)' : 'var(--text-d)' }}>Phase {phase.phase}</span>
+                    <h3 style={{ fontSize: '0.9rem' }}>{phase.title}</h3>
+                    {isCurrent && <span className="badge badge-blue" style={{ fontSize: '0.55rem' }}>Current</span>}
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                    {phase.items.map(function(item) {
+                      return <span key={item} style={{ fontSize: '0.7rem', padding: '3px 8px', borderRadius: 5, background: 'rgba(59,130,246,0.04)', border: '1px solid rgba(59,130,246,0.08)', color: 'var(--text-m)' }}>{item}</span>;
+                    })}
+                  </div>
+                </div>
+              </Rv>
+            );
+          })}
         </div>
       </Rv>
     </div>

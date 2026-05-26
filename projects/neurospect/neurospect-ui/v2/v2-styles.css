@@ -156,6 +156,27 @@ h3{font-size:1rem;letter-spacing:0.02em}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}.rv{opacity:1;transform:none}}
 
+/* ── NeuroFusion SIHRE golden glow ── */
+.card-sihre{
+  border-color:rgba(251,191,36,0.35);
+  background:linear-gradient(135deg,rgba(251,191,36,0.04),rgba(245,158,11,0.02),var(--surface));
+  box-shadow:0 0 30px rgba(251,191,36,0.08),0 0 60px rgba(251,191,36,0.04),inset 0 1px 0 rgba(251,191,36,0.1);
+}
+.card-sihre::before{background:linear-gradient(90deg,transparent,rgba(251,191,36,0.3),transparent)}
+.card-sihre:hover{border-color:rgba(251,191,36,0.5);box-shadow:0 0 40px rgba(251,191,36,0.15),0 0 80px rgba(251,191,36,0.06);transform:translateY(-2px)}
+.sihre-glow{animation:sihre-pulse 4s ease-in-out infinite}
+@keyframes sihre-pulse{0%,100%{box-shadow:0 0 30px rgba(251,191,36,0.08),0 0 60px rgba(251,191,36,0.04)}50%{box-shadow:0 0 40px rgba(251,191,36,0.15),0 0 80px rgba(251,191,36,0.08)}}
+.sihre-ring{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle,rgba(251,191,36,0.12),transparent 70%);
+  border:2px solid rgba(251,191,36,0.3);box-shadow:0 0 20px rgba(251,191,36,0.15);flex-shrink:0}
+.sihre-signal{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;
+  background:rgba(251,191,36,0.03);border:1px solid rgba(251,191,36,0.08);transition:all 0.2s}
+.sihre-signal:hover{background:rgba(251,191,36,0.06);border-color:rgba(251,191,36,0.15)}
+.sihre-num{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2);font-family:var(--font-m);font-size:0.6rem;
+  color:var(--gold-400);flex-shrink:0;font-weight:600}
+.grad-text-gold{background:linear-gradient(135deg,var(--gold-300),var(--gold-500));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
 /* ── Chart styling ── */
 .candle-g{fill:#10b981}.candle-r{fill:#ef4444}
 .fvg-zone{fill:rgba(59,130,246,0.1);stroke:rgba(59,130,246,0.25);stroke-width:1;stroke-dasharray:4 2}
